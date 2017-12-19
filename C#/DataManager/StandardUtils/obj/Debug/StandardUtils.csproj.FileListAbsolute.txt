@@ -1,0 +1,15 @@
+C:\Users\user\source\repos\DataManager\StandardUtils\bin\Debug\StandardUtils.dll
+C:\Users\user\source\repos\DataManager\StandardUtils\bin\Debug\StandardUtils.pdb
+C:\Users\user\source\repos\DataManager\StandardUtils\bin\Debug\DataManager.exe
+C:\Users\user\source\repos\DataManager\StandardUtils\bin\Debug\EntityFramework.dll
+C:\Users\user\source\repos\DataManager\StandardUtils\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\user\source\repos\DataManager\StandardUtils\bin\Debug\DataManager.pdb
+C:\Users\user\source\repos\DataManager\StandardUtils\bin\Debug\EntityFramework.xml
+C:\Users\user\source\repos\DataManager\StandardUtils\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\user\source\repos\DataManager\StandardUtils\obj\Debug\StandardUtils.csprojResolveAssemblyReference.cache
+C:\Users\user\source\repos\DataManager\StandardUtils\obj\Debug\StandardUtils.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\DataManager\StandardUtils\obj\Debug\StandardUtils.dll
+C:\Users\user\source\repos\DataManager\StandardUtils\obj\Debug\StandardUtils.pdb
+C:\Users\user\source\repos\DataManager\StandardUtils\bin\Debug\App.config
+C:\Users\user\source\repos\DataManager\StandardUtils\bin\Debug\StandardUtils.dll.config
+C:\Users\user\source\repos\DataManager\StandardUtils\bin\Debug\DataManager.exe.config
