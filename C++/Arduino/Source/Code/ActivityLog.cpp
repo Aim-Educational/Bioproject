@@ -26,7 +26,7 @@ void ActivityLog::writeEntry(ActivityLogEntry entry)
         Serial.println("[Error 1001] Unable to open activity log"); // eventually add fileName
     }
 
-    if((config.flags & BitFlags.LOGS_WRITE_TO_SERIAL) > 0 || entry.severity == ActivityLogSeverity.Severe)
+    if((int)(Globals::config.flags & BitFlags::LOGS_WRITE_TO_SERIAL) > 0 || entry.severity == ActivityLogSeverity::Severe)
         Serial.println(buffer);
 }
 

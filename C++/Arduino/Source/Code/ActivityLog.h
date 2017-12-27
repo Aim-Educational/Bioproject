@@ -1,9 +1,17 @@
+#ifndef _ACTIVITY_LOG_H
+#define _ACTIVITY_LOG_H
+
 #include <WString.h>
 #include <stdlib.h>
 #include <HardwareSerial.h>
-#include "Constants.h"
+#include <SD.h>
+#include <WString.h>
 
-enum ActivityLogSeverity : int
+#include "Constants.h"
+#include "IniFile.h"
+#include "Globals.h"
+
+enum class ActivityLogSeverity : int
 {
     Warning = 1,
     Severe = 10
@@ -29,3 +37,4 @@ private:
     String fileName;
     bool _isFileOpen;
 };
+#endif

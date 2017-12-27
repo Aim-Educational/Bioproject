@@ -11,4 +11,24 @@
                    ((x)>>24 & 0x000000FFUL) )
 #define ntohl(x) htonl(x)
 
+#define CREATE_ENUM_CLASS_OPERATOR_OVERLOADS(enumName)                          \
+  inline enumName operator | (enumName lhs, enumName rhs)                       \
+  {                                                                             \
+    return (enumName)(static_cast<enumName>(lhs) | static_cast<enumName>(rhs)); \
+  }                                                                             \
+  inline enumName operator & (enumName lhs, enumName rhs)                       \
+  {                                                                             \
+    return (enumName)(static_cast<enumName>(lhs) & static_cast<enumName>(rhs)); \
+  }                                                                             \
+  inline enumName& operator |= (enumName& lhs, enumName rhs)                    \
+  {                                                                             \
+    lhs = (enumName)(static_cast<enumName>(lhs) | static_cast<enumName>(rhs));  \
+    return lhs;                                                                 \
+  }                                                                             \
+  inline enumName& operator &= (enumName& lhs, enumName rhs)                    \
+  {                                                                             \
+    lhs = (enumName)(static_cast<enumName>(lhs) & static_cast<enumName>(rhs));  \
+    return lhs;                                                                 \                                                       
+  }      
+
 #endif

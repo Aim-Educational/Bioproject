@@ -1,0 +1,20 @@
+#ifndef _HTTP_H
+#define _HTTP_H
+
+#include <WiFiClient.h>
+#include <WiFi.h>
+
+#include "WString.h"
+#include "Constants.h"
+
+enum class HTTPRequestType
+{
+    GET,
+    POST
+};
+
+extern void setupWifi();
+
+extern String wifiSendRequest(WiFiClient client, String& url, String& path, HTTPRequestType requestType);
+
+#endif
