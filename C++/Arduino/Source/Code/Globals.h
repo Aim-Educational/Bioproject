@@ -13,6 +13,7 @@ public:
   // General objects
   static Configuration config;
   static WiFiClient wifiServer;
+  // NOTE: Possibly make ActivityLog a static variable.
   
   // Arrays
   static Device devices[MAX_DEVICES];

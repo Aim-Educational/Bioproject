@@ -1,0 +1,5 @@
+0-999     = Special
+1000-1999 = File/disk related
+2000-2999 = Internet related
+3000-3999 = Client-only
+4000-4999 = Server-only

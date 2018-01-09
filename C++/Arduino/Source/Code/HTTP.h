@@ -6,6 +6,7 @@
 
 #include "WString.h"
 #include "Constants.h"
+#include "ActivityLog.h"
 
 enum class HTTPRequestType
 {

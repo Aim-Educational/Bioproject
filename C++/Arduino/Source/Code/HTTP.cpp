@@ -30,7 +30,7 @@ String wifiSendRequest(WiFiClient client, String& url, String& path, HTTPRequest
     {
         Serial.print("ERROR: Unable to connect to URL (Port 80): ");
         Serial.println(url);
-        
+        return "";
     }
   
     char buffer[HTTP_BUFFER_SIZE];
@@ -51,14 +51,9 @@ String wifiSendRequest(WiFiClient client, String& url, String& path, HTTPRequest
           return "";
     }
 
-    // I'm not too sure how to form a HTTP request, so correct me if I make a mistake.
-    int length = sprintf(buffer, "%s %s HTTP/1.1\n", requestString.c_str(), path.c_str());
-
-    // TODO: Make some of this code into a function(s) (Going to be copy-pasting this for the mean time)
-    if(length >= HTTP_BUFFER_SIZE)
-    {
-        Serial.println("ERROR: Not enough buffer size to complete request");
-        // Error handling here.
-        return "";
-    }
+    // GET/SET /example HTTP/1.1
+    client.print(requestString);
+    client.print(" ");
+    client.print(path);
+    client.println(" HTTP/1.1");
 }

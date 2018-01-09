@@ -1,0 +1,38 @@
+1: XML/Ini
+	Advantages:
+		- Can possibly update error values on the fly, while it's running.
+		- Can share the same error information between applications (language independent)
+		- Something like LINQ makes it easy to access the data.
+	Disadvantages:
+		- Code complexities
+		- Possible version mismatch
+		- Depending on limitations, the size of the file might be an issue.
+		- Another extra file to move around when installing a new device.
+		- Format may not be human readable.
+		- XML is bloated
+		- What if the file is missing?
+		- Tied to the structure between all applications.
+		- Slower
+	Mitigations:
+		- Can mitigate file size by properly planning format.
+			~ e.g instead of <ErrorCode> you could use <Code> or just <eCode>/<ec> etc.
+		- Can mitigate version mismatch by keeping a 'version' element
+		- Can use existing tools/write our own tools to edit the data.
+		- Can optimise code to mitigate File I/O
+2: Static Dictionary
+	Advantages:
+		- Code is all in the same place.
+		- Easier to code
+	Disadvantages:
+		- Have to recompile to introduce changes.
+		- Language and device dependent.
+		- Error list can't apply to all applications (non-generic)
+
+[Other solutions]
+1: Have a master file of error codes, that contains the ability to categorise errors, then have seperate functions to generate specialised error files.
+	- Can have an option to choose whether to generate an XML file, or a code file containing the static dictionary, as well as an API for it that
+	  is standard between languages.
+	- This allows a choice between the two options.
+	- It should ask which option you want from 'XML' and 'Static Dictionary'.
+	- It should allow you to choose where the file will be output.
+	- 
