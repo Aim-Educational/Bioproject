@@ -40,6 +40,7 @@ namespace CodeGenerator
         public void updateStatus(string newStatus)
         {
             this.labelStatus.Content = $"Status: {newStatus}";
+            this.labelStatus.ToolTip = newStatus;
         }
 
         /// <summary>

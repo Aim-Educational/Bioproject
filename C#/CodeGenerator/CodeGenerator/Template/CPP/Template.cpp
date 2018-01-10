@@ -4,19 +4,7 @@ class ErrorList
 {
     static extern ErrorCode[] errorCodes = 
     {
-        <ErrorCodes>
-        /*{
-            code = "1",
-            mneumonic = "Unknown",
-            narrative = "An Unknown error has occurred.",
-            severity = Severity::Warning;
-        },
-        {
-            code = "1001",
-            mneumonic = "FileNotFound",
-            narrative = "File not found: %1",
-            severity = Severity::Severe;
-        }*/
+<ErrorCodes>
     };
 
     static ErrorCode getErrorByMneumonic(string& mneumonic)
