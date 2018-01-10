@@ -47,7 +47,6 @@ namespace CodeGenerator.Views
                 foreach(var language in db.languages.OrderBy(l => l.description))
                     this.dropDownLanguage.Items.Add(language.description);
             }
-            this._window.updateStatus("");
         }
 
         private void buttonGenerate_Click(object sender, RoutedEventArgs e)
@@ -64,16 +63,21 @@ namespace CodeGenerator.Views
             using (var db = new DatabaseCon())
             {
                 var errors = db.getFilteredErrors(application, device).ToList();
-
-                this.panelErrors.Children.Clear();
-                foreach(var error in errors.OrderBy(e => e.error_code1))
-                {
-                    var info = new ErrorInfoControl(db, error);
-                    info.Margin = new Thickness(0, 10, 0, 0);
-                    this.panelErrors.Children.Add(info);
-                }
+                this.showExportedErrors(db, errors);
             }
-            this._window.updateStatus("");
+        }
+
+        private void showExportedErrors(DatabaseCon db, List<error_code> errors)
+        {
+            this.panelErrors.Children.Clear();
+            foreach (var error in errors.OrderBy(e => e.error_code1))
+            {
+                var info = new ErrorInfoControl(db, error)
+                {
+                    Margin = new Thickness(0, 2, 0, 0)
+                };
+                this.panelErrors.Children.Add(info);
+            }
         }
     }
 }

@@ -39,7 +39,7 @@
             <Button x:Name="buttonGenerate" Content="Generate" Margin="0,0,0,0" Click="buttonGenerate_Click"/>
         </DockPanel>
         <GroupBox Grid.Column="3" Grid.Row="0" Grid.RowSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Header="Exported Errors">
-            <ScrollViewer x:Name="scrollViewer">
+            <ScrollViewer x:Name="scrollViewer" HorizontalScrollBarVisibility="Auto">
                 <StackPanel x:Name="panelErrors">
 
                 </StackPanel>
