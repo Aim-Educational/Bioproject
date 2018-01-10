@@ -36,10 +36,10 @@ namespace CodeGenerator
         /// <summary>
         /// Updates the status label.
         /// </summary>
-        /// <param name="newStatus">The new status to show. Will be prefixed with "Status: "</param>
+        /// <param name="newStatus">The new status to show. Will be prefixed with "Last Status: "</param>
         public void updateStatus(string newStatus)
         {
-            this.labelStatus.Content = $"Status: {newStatus}";
+            this.labelStatus.Content = $"Last Status: {newStatus}";
             this.labelStatus.ToolTip = newStatus;
         }
 
@@ -75,6 +75,11 @@ namespace CodeGenerator
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.changeView<GeneratorView>();
+        }
+
+        private void buttonDevices_Click(object sender, RoutedEventArgs e)
+        {
+            this.changeView<DeviceEditor>();
         }
     }
 }

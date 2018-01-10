@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="CodeGenerator.Views.DeviceEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CodeGenerator.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="266" d:DesignWidth="480">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="77*"/>
+            <ColumnDefinition Width="139*"/>
+            <ColumnDefinition Width="25"/>
+            <ColumnDefinition Width="239*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" Content="Device Type:" />
+        <ComboBox x:Name="dropDownApplications" Grid.Column="1" Grid.Row="0" SelectionChanged="dropDownApplications_SelectionChanged"/>
+
+        <Label Grid.Column="0" Grid.Row="1" Content="Name:"/>
+        <TextBox Grid.Column="1" Grid.Row="1" x:Name="textboxName" Text="" Margin="0,4,0,0"/>
+
+        <Label Grid.Column="0" Grid.Row="2" Content="Bit Index:"/>
+        <Slider Grid.Column="1" Grid.Row="2" x:Name="sliderBitIndex" Maximum="7" TickPlacement="BottomRight" AutoToolTipPlacement="BottomRight" ValueChanged="sliderBitIndex_ValueChanged" SmallChange="1"
+                IsSnapToTickEnabled="True"/>
+        <Label Grid.Column="2" Grid.Row="2" x:Name="labelBitIndex" Content="0"/>
+
+        <Button Grid.Column="1" Grid.Row="3" x:Name="buttonUpdateDatabase" Content="Apply" Click="buttonUpdateDatabase_Click"/>
+        <Button Grid.Column="0" Grid.Row="3" x:Name="buttonDeleteDevice" Content="Delete" Click="buttonDeleteDevice_Click" Width="50"/>
+
+        <GroupBox Grid.Column="4" Grid.Row="0" Grid.RowSpan="5" Header="All Devices">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                <StackPanel x:Name="panelDevices">
+                    
+                </StackPanel>
+            </ScrollViewer>
+        </GroupBox>
+    </Grid>
+</UserControl>

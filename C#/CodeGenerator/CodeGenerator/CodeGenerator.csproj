@@ -64,12 +64,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\DeviceInfoControl.xaml.cs">
+      <DependentUpon>DeviceInfoControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\ErrorInfoControl.xaml.cs">
       <DependentUpon>ErrorInfoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceEditor.xaml.cs">
+      <DependentUpon>DeviceEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Generator.xaml.cs">
       <DependentUpon>Generator.xaml</DependentUpon>
     </Compile>
+    <Page Include="Common\DeviceInfoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Common\ErrorInfoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -94,6 +104,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\DeviceEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Generator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

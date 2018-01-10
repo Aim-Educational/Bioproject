@@ -14,9 +14,18 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0" HorizontalAlignment="Stretch" Height="30" LastChildFill="False" VerticalAlignment="Top" Background="#FFCFCECE">
-            <Button Width="60" Content="Generator" Click="Button_Click"></Button>
+            <DockPanel.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="1,0,0,0"/>
+                </Style>
+            </DockPanel.Resources>
+
+            <Button Width="60" Content="Devices" Click="buttonDevices_Click"/>
+            <Button Width="60" Content="Generator" Click="Button_Click"/>            
         </DockPanel>
+        
         <ContentControl x:Name="currentView" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch"/>
+        
         <DockPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFC3BFBF">
             <Label x:Name="labelStatus" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Status: " FontSize="16" />
         </DockPanel>
