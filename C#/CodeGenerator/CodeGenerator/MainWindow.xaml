@@ -5,15 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CodeGenerator"
         mc:Ignorable="d"
-        Title="Code Generator" Height="196.052" Width="253.947">
+        Title="Code Generator" Height="360" Width="563">
     <Grid>
-        <ComboBox x:Name="languageDropDown" HorizontalAlignment="Left" Margin="88,67,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Language:" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label2" Content="DeviceType:" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="deviceTypeDropDown" HorizontalAlignment="Left" Margin="88,41,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="buttonGenerate" Content="Generate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="133,94,0,0" Click="buttonGenerate_Click"/>
-        <Label Content="Application:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
-        <ComboBox x:Name="applicationDropDown" HorizontalAlignment="Left" Margin="88,14,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="statusLabel" Content="Status:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,129,0,0"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="31"/>
+            <RowDefinition Height="266*"/>
+            <RowDefinition Height="32*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" HorizontalAlignment="Stretch" Height="30" LastChildFill="False" VerticalAlignment="Top" Background="#FFCFCECE">
+            <Button Width="60" Content="Generator" Click="Button_Click"></Button>
+        </DockPanel>
+        <ContentControl x:Name="currentView" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch"/>
+        <DockPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFC3BFBF">
+            <Label x:Name="labelStatus" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Status: " FontSize="16" />
+        </DockPanel>
     </Grid>
 </Window>
