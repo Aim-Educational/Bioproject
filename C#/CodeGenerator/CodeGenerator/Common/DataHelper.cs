@@ -81,6 +81,7 @@ namespace CodeGenerator.Common
         {
             var set = db._getSetFromT<T>();
 
+            // LINQ doesn't like using the _getBitIndex function during a query, so I go over it the old fashioned way.
             List<T> list = new List<T>();
             foreach(var value in set)
             {
@@ -98,6 +99,7 @@ namespace CodeGenerator.Common
             return value.bit_index;
         }
 
+        // Gets the right DbSet from the database, depending on what `T` is.
         private static DbSet<T> _getSetFromT<T>(this DatabaseCon db) where T : class
         {
             object set = null; // Contains the DbSet that we're gonna look use

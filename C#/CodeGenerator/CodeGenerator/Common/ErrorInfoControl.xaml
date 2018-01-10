@@ -8,8 +8,8 @@
              d:DesignHeight="175" d:DesignWidth="300">
     <Grid Background="LightGray">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="79*"/>
-            <ColumnDefinition Width="221*"/>
+            <ColumnDefinition Width="29*"/>
+            <ColumnDefinition Width="71*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -19,7 +19,6 @@
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
-            <RowDefinition Height="139*"/>
         </Grid.RowDefinitions>
 
         <Grid.Resources>
@@ -29,25 +28,25 @@
             </Style>
         </Grid.Resources>
 
-        <Label Grid.Column="0" Grid.Row="0" Content="ID:"/>
+        <Label Grid.Column="0" Grid.Row="0" Content="ID:" FontWeight="Bold"/>
         <Label Grid.Column="1" Grid.Row="0" x:Name="labelID" Content="666"/>
 
-        <Label Grid.Column="0" Grid.Row="1" Content="Code:"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="Code:" FontWeight="Bold"/>
         <Label Grid.Column="1" Grid.Row="1" x:Name="labelCode" Content="666"/>
 
-        <Label Grid.Column="0" Grid.Row="2" Content="Mneumonic:"/>
+        <Label Grid.Column="0" Grid.Row="2" Content="Mneumonic:" FontWeight="Bold"/>
         <Label Grid.Column="1" Grid.Row="2" x:Name="labelMneumonic" Content="ExampleError"/>
 
-        <Label Grid.Column="0" Grid.Row="3" Content="Narrative:"/>
+        <Label Grid.Column="0" Grid.Row="3" Content="Narrative:" FontWeight="Bold"/>
         <Label Grid.Column="1" Grid.Row="3" x:Name="labelNarrative" Content="This is an example error"/>
 
-        <Label Grid.Column="0" Grid.Row="4" Content="Applications:"/>
+        <Label Grid.Column="0" Grid.Row="4" Content="Applications:" FontWeight="Bold"/>
         <Label Grid.Column="1" Grid.Row="4" x:Name="labelApplications" Content="Client,Server,Skynet"/>
 
-        <Label Grid.Column="0" Grid.Row="5" Content="Devices:"/>
+        <Label Grid.Column="0" Grid.Row="5" Content="Devices:" FontWeight="Bold"/>
         <Label Grid.Column="1" Grid.Row="5" x:Name="labelDevices" Content="PC,Arduino,T.A.R.D.I.S"/>
 
-        <Label Grid.Column="0" Grid.Row="6" Content="Def. Severity:"/>
+        <Label Grid.Column="0" Grid.Row="6" Content="Def. Severity:" FontWeight="Bold"/>
         <Label Grid.Column="1" Grid.Row="6" x:Name="labelDefaultSeverity" Content="Warning"/>
     </Grid>
 </UserControl>
