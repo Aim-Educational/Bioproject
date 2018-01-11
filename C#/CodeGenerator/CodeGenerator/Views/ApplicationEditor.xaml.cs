@@ -209,11 +209,14 @@ namespace CodeGenerator.Views
         {
             using (var dialog = new FolderBrowserDialog())
             {
+                if(Directory.Exists(this.textboxPath.Text))
+                    dialog.SelectedPath = this.textboxPath.Text;
+
                 var result = dialog.ShowDialog();
 
                 if(result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath))
                     this.textboxPath.Text = dialog.SelectedPath;
-                else
+                else if(result != DialogResult.Cancel)
                     System.Windows.Forms.MessageBox.Show("An invalid path was chosen", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
