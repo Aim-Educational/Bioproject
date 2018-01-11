@@ -20,6 +20,7 @@
                 </Style>
             </DockPanel.Resources>
 
+            <Button Width="70" Content="Applications" Click="buttonApplications_Click"/>
             <Button Width="60" Content="Devices" Click="buttonDevices_Click"/>
             <Button Width="60" Content="Generator" Click="Button_Click"/>            
         </DockPanel>

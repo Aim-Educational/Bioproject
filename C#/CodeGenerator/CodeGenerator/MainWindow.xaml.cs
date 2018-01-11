@@ -81,5 +81,10 @@ namespace CodeGenerator
         {
             this.changeView<DeviceEditor>();
         }
+
+        private void buttonApplications_Click(object sender, RoutedEventArgs e)
+        {
+            this.changeView<ApplicationEditor>();
+        }
     }
 }

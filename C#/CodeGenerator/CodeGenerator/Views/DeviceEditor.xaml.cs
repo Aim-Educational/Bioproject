@@ -125,6 +125,7 @@ namespace CodeGenerator.Views
                 throw new Exception($"For some reason the device {oldName} no longer exists in the database.");
 
             device.description = name;
+            device.bit_index = bitIndex;
             db.SaveChanges();
 
             this._updateDevices();
