@@ -24,13 +24,15 @@ namespace CodeGenerator
     public partial class MainWindow : Window
     {
         private Dictionary<string, UserControl> _viewCache { get; set; }
+        private readonly Brush TAB_BACKGROUND_CURRENT = new SolidColorBrush(Color.FromRgb(0xFF, 0xDD, 0xDD));
+        private readonly Brush TAB_BACKGROUND_DEFAULT = new SolidColorBrush(Color.FromRgb(0xDD, 0xDD, 0xDD));
 
         public MainWindow()
         {
             InitializeComponent();
             this._viewCache = new Dictionary<string, UserControl>();
 
-            this.changeView<GeneratorView>();
+            this.changeViewEvent(this.buttonGenerator, null);
         }
 
         /// <summary>
@@ -72,19 +74,24 @@ namespace CodeGenerator
             this.currentView.Content = view;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void changeViewEvent(object sender, RoutedEventArgs e)
         {
-            this.changeView<GeneratorView>();
-        }
+            var button = sender as Button;
+            if(button == null)
+                throw new Exception("Bug");
 
-        private void buttonDevices_Click(object sender, RoutedEventArgs e)
-        {
-            this.changeView<DeviceEditor>();
-        }
+            // Change the view
+            if(button == this.buttonApplications)   this.changeView<ApplicationEditor>();
+            else if(button == this.buttonDevices)   this.changeView<DeviceEditor>();
+            else if(button == this.buttonGenerator) this.changeView<GeneratorView>();
+            else throw new Exception($"Did you forget to add a new button to the event handler? Name: {button.Name}");
 
-        private void buttonApplications_Click(object sender, RoutedEventArgs e)
-        {
-            this.changeView<ApplicationEditor>();
+            // Set all buttons to the default background colour
+            foreach(var but in this.panelTabs.Children)
+                ((Button)but).Background = TAB_BACKGROUND_DEFAULT;
+
+            // Then set the current button to the selected background colour
+            button.Background = TAB_BACKGROUND_CURRENT;
         }
     }
 }

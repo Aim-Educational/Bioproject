@@ -13,16 +13,16 @@
             <RowDefinition Height="32*"/>
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="0" HorizontalAlignment="Stretch" Height="30" LastChildFill="False" VerticalAlignment="Top" Background="#FFCFCECE">
+        <DockPanel Grid.Row="0" HorizontalAlignment="Stretch" x:Name="panelTabs" Height="30" LastChildFill="False" VerticalAlignment="Top" Background="#FFCFCECE">
             <DockPanel.Resources>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Margin" Value="1,0,0,0"/>
                 </Style>
             </DockPanel.Resources>
 
-            <Button Width="70" Content="Applications" Click="buttonApplications_Click"/>
-            <Button Width="60" Content="Devices" Click="buttonDevices_Click"/>
-            <Button Width="60" Content="Generator" Click="Button_Click"/>            
+            <Button Width="70" Content="Applications" x:Name="buttonApplications" Click="changeViewEvent"/>
+            <Button Width="60" Content="Devices" x:Name="buttonDevices" Click="changeViewEvent"/>
+            <Button Width="60" Content="Generator" x:Name="buttonGenerator" Click="changeViewEvent"/>            
         </DockPanel>
         
         <ContentControl x:Name="currentView" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch"/>
