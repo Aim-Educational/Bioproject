@@ -124,7 +124,7 @@ namespace CodeGenerator.Views
                     $"{{\n" +
                     $"  code = \"{error.error_code1}\",\n" +
                     $"  mneumonic = \"{error.error_code_mneumonic}\",\n" +
-                    $"  narrative = \"{error.error_code_mneumonic}\",\n" +
+                    $"  narrative = \"{error.narrative}\",\n" +
                     $"  severity = \"Severity::{severity.First().description}\"\n" +
                     $"}}");
             }

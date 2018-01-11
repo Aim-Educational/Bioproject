@@ -7,61 +7,43 @@ class ErrorList
 {
   code = "1",
   mneumonic = "Unknown",
-  narrative = "Unknown",
+  narrative = "An unknown error has occured.",
   severity = "Severity::Warning"
 },
 {
   code = "1001",
   mneumonic = "FileNotFound",
-  narrative = "FileNotFound",
+  narrative = "Unable to find file/directory: %1",
   severity = "Severity::Severe"
 },
 {
   code = "1002",
   mneumonic = "DiskNotFound",
-  narrative = "DiskNotFound",
+  narrative = "Unable to find disk: %1",
   severity = "Severity::Severe"
 },
 {
   code = "1003",
   mneumonic = "FileAlreadyOpen",
-  narrative = "FileAlreadyOpen",
+  narrative = "Unable to open file because it is already open: %1",
   severity = "Severity::Severe"
 },
 {
   code = "2000",
   mneumonic = "InternetNotAvaliable",
-  narrative = "InternetNotAvaliable",
+  narrative = "No connection to the internet is avaliable.",
   severity = "Severity::Severe"
 },
 {
   code = "2001",
   mneumonic = "InternetGatewayNotFound",
-  narrative = "InternetGatewayNotFound",
-  severity = "Severity::Severe"
-},
-{
-  code = "2002",
-  mneumonic = "UnableToConnectToServer",
-  narrative = "UnableToConnectToServer",
-  severity = "Severity::Severe"
-},
-{
-  code = "3000",
-  mneumonic = "UnableToConnectToSensor",
-  narrative = "UnableToConnectToSensor",
-  severity = "Severity::Severe"
-},
-{
-  code = "3001",
-  mneumonic = "SensorOutOfRange",
-  narrative = "SensorOutOfRange",
+  narrative = "No connection to the gateway is avaliable.",
   severity = "Severity::Severe"
 },
 {
   code = "1004",
   mneumonic = "DiskFull",
-  narrative = "DiskFull",
+  narrative = "The targeted disk is full: %1",
   severity = "Severity::Severe"
 }
     };
