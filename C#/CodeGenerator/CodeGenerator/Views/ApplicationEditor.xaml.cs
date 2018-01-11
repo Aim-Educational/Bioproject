@@ -189,6 +189,13 @@ namespace CodeGenerator.Views
         private void buttonDeleteDevice_Click(object sender, RoutedEventArgs e)
         {
             var appName = this.dropDownApplications.SelectedItem.ToString();
+            var result = System.Windows.Forms.MessageBox.Show($"Are you sure you want to remove the application '{this.dropDownApplications.SelectedItem}'?", 
+                                                              "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if(result == DialogResult.No)
+            {
+                this._window.updateStatus("Not going through with removal of the application");
+                return;
+            }
 
             using (var db = new DatabaseCon())
             {
