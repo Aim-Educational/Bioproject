@@ -110,8 +110,8 @@ namespace CodeGenerator.Views
                 {
                     if(this.dropDownApplications.SelectedItem.ToString() == "[NEW APPLICATION]")
                     {
-                        this._enforceNameAvaliable(name);
-                        this._enforceIndexAvaliable(bitIndex);
+                        db.enforceNameIsUnique<application>(name);
+                        db.enforceBitIndexIsUnique<application>(bitIndex);
                         this._addApplication(db, name, bitIndex, path);
                     }
                     else
@@ -119,10 +119,10 @@ namespace CodeGenerator.Views
                         var cached = this._applications.Single(a => a.description == this.dropDownApplications.SelectedItem.ToString());
 
                         if(name != cached.description)
-                            this._enforceNameAvaliable(name);
+                            db.enforceNameIsUnique<application>(name);
 
                         if(bitIndex != cached.bit_index)
-                            this._enforceIndexAvaliable(bitIndex);
+                            db.enforceBitIndexIsUnique<application>(bitIndex);
 
                         this._updateApplication(db, name, bitIndex, path);
                     }
@@ -164,28 +164,6 @@ namespace CodeGenerator.Views
             db.SaveChanges();
 
             this._updateApplications();
-        }
-
-        private void _enforceNameAvaliable(string name)
-        {
-            foreach (var app in this._applications)
-            {
-                if (app.description == name)
-                {
-                    throw new Exception($"The name '{name}' is already being used.");
-                }
-            }
-        }
-
-        private void _enforceIndexAvaliable(byte index)
-        {
-            foreach (var app in this._applications)
-            {
-                if(app.bit_index == index)
-                {
-                    throw new Exception($"The bit index {index} is being used by application '{app.description}'");
-                }
-            }
         }
 
         private void dropDownApplications_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -92,6 +92,46 @@ namespace CodeGenerator.Common
             return list;
         }
 
+        /// <summary>
+        /// Throws an exception if the given bit index is already being used.
+        /// 
+        /// NOTE: The type `T` must contain fields called `bit_index` and `description`.
+        /// </summary>
+        /// <typeparam name="T">The type to check with. (this determines which table is used)</typeparam>
+        /// <param name="db">The database connection</param>
+        /// <param name="index">The index to check</param>
+        public static void enforceBitIndexIsUnique<T>(this DatabaseCon db, byte index) where T : class
+        {
+            var set = db._getSetFromT<T>();
+
+            foreach (var record in set)
+            {
+                dynamic dyRecord = record;
+                if (dyRecord.bit_index == index)
+                    throw new Exception($"The bit index {index} is being used by the {typeof(T).Name} '{dyRecord.description}'");
+            }
+        }
+
+        /// <summary>
+        /// Throws an exception if the given name/description (the field is called 'description' but is used more as a name) is already being used.
+        /// 
+        /// NOTE: The type `T` must contain a field called 'description'.
+        /// </summary>
+        /// <typeparam name="T">The type to check with. (this determines which table is used)</typeparam>
+        /// <param name="db">The database connection.</param>
+        /// <param name="name_description">The name/description to check for.</param>
+        public static void enforceNameIsUnique<T>(this DatabaseCon db, string name_description) where T : class
+        {
+            var set = db._getSetFromT<T>();
+
+            foreach (var record in set)
+            {
+                dynamic dyRecord = record;
+                if (dyRecord.description == name_description)
+                    throw new Exception($"The name/description '{name_description}' is already being used by another {typeof(T).Name}");
+            }
+        }
+
         // A hacky way to get around how generics work
         private static byte _getBitIndex(this object obj)
         {

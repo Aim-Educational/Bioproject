@@ -77,8 +77,8 @@ namespace CodeGenerator.Views
                 {
                     if(this.dropDownApplications.SelectedItem.ToString() == "[NEW DEVICE]")
                     {
-                        this._enforceNameAvaliable(name);
-                        this._enforceIndexAvaliable(bitIndex);
+                        db.enforceNameIsUnique<device_type>(name);
+                        db.enforceBitIndexIsUnique<device_type>(bitIndex);
                         this._addDevice(db, name, bitIndex);
                     }
                     else
@@ -86,10 +86,10 @@ namespace CodeGenerator.Views
                         var cached = this._devices.Single(d => d.description == this.dropDownApplications.SelectedItem.ToString());
 
                         if(name != cached.description)
-                            this._enforceNameAvaliable(name);
+                            db.enforceNameIsUnique<device_type>(name);
 
                         if(bitIndex != cached.bit_index)
-                            this._enforceIndexAvaliable(bitIndex);
+                            db.enforceBitIndexIsUnique<device_type>(bitIndex);
 
                         this._updateDevice(db, name, bitIndex);
                     }
@@ -129,28 +129,6 @@ namespace CodeGenerator.Views
             db.SaveChanges();
 
             this._updateDevices();
-        }
-
-        private void _enforceNameAvaliable(string name)
-        {
-            foreach (var device in this._devices)
-            {
-                if (device.description == name)
-                {
-                    throw new Exception($"The name '{name}' is already being used.");
-                }
-            }
-        }
-
-        private void _enforceIndexAvaliable(byte index)
-        {
-            foreach (var device in this._devices)
-            {
-                if(device.bit_index == index)
-                {
-                    throw new Exception($"The bit index {index} is being used by device '{device.description}'");
-                }
-            }
         }
 
         private void dropDownApplications_SelectionChanged(object sender, SelectionChangedEventArgs e)
