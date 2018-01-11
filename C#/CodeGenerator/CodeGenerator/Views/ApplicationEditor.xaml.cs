@@ -35,6 +35,8 @@ namespace CodeGenerator.Views
         private List<application> _applications;
         private int _maxPathLength;
 
+        private const string PATH_MEMBER_NAME = "path_to_output_file"; // The name of the member inside the application class that contains the output path.
+
         public ApplicationEditor(MainWindow window)
         {
             InitializeComponent();
@@ -68,15 +70,16 @@ namespace CodeGenerator.Views
         private void _findPathLength()
         {
             // The 'path_to_output_file' member has a StringLength attribute that we can use to make sure the file path is a good size.
-            // We probably *could* hardcode the max length, since it probably won't ever change, but this is more fun.
+            // We probably *could* hardcode the max length, since it probably won't ever change, but this is more fun/stupid (but stupid is fun).
+            // The only actual benefit of this method, is that it keeps the max length up to date with the database model, without having to manually do it ourselves.
             var members = typeof(application).GetProperties(BindingFlags.Public | BindingFlags.Instance);
             var lengthAttrib = (from mem in members
-                                where mem.Name == "path_to_output_file"
+                                where mem.Name == PATH_MEMBER_NAME
                                 select mem.GetCustomAttribute(typeof(StringLengthAttribute), true)).FirstOrDefault();
 
             var length = lengthAttrib as StringLengthAttribute;
             if (length == null)
-                throw new Exception("Bug with the code.");
+                throw new Exception($"There is no member called '{PATH_MEMBER_NAME}' anymore, please update the variable's value.");
 
             this._maxPathLength = length.MaximumLength;
         }
