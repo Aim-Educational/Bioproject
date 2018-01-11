@@ -159,7 +159,7 @@ namespace CodeGenerator.Views
 
             var app = db.applications.SingleOrDefault(a => a.description == oldName);
             if(app == null)
-                throw new Exception($"For some reason the device {oldName} no longer exists in the database.");
+                throw new Exception($"For some reason the application {oldName} no longer exists in the database.");
 
             app.description = name;
             app.path_to_output_file = path;
