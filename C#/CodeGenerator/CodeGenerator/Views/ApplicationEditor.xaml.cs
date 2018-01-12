@@ -186,7 +186,7 @@ namespace CodeGenerator.Views
             }
         }
 
-        private void buttonDeleteDevice_Click(object sender, RoutedEventArgs e)
+        private void buttonDeleteApplication_Click(object sender, RoutedEventArgs e)
         {
             var item = this.dropDownApplications.SelectedItem;
             if(item == null || item.ToString() == "[NEW APPLICATION]")

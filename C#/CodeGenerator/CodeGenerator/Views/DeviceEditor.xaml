@@ -24,6 +24,7 @@
 
         <Label Grid.Column="0" Grid.Row="0" Content="Device Type:" />
         <ComboBox x:Name="dropDownApplications" Grid.Column="1" Grid.Row="0" SelectionChanged="dropDownApplications_SelectionChanged"/>
+        <Button Grid.Column="2" Grid.Row="0" x:Name="buttonDeleteApp" Content="X" Click="buttonDeleteDevice_Click" Margin="2,2,2,2" Background="#FFB40101"/>
 
         <Label Grid.Column="0" Grid.Row="1" Content="Name:"/>
         <TextBox Grid.Column="1" Grid.Row="1" x:Name="textboxName" Text="" Margin="0,4,0,0"/>
@@ -34,7 +35,6 @@
         <Label Grid.Column="2" Grid.Row="2" x:Name="labelBitIndex" Content="0"/>
 
         <Button Grid.Column="1" Grid.Row="3" x:Name="buttonUpdateDatabase" Content="Apply" Click="buttonUpdateDatabase_Click"/>
-        <Button Grid.Column="0" Grid.Row="3" x:Name="buttonDeleteDevice" Content="Delete" Click="buttonDeleteDevice_Click" Width="50"/>
 
         <GroupBox Grid.Column="4" Grid.Row="0" Grid.RowSpan="5" Header="All Devices">
             <ScrollViewer HorizontalScrollBarVisibility="Auto">

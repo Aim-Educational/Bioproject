@@ -149,21 +149,12 @@ namespace CodeGenerator.Views
 
         private void buttonDeleteDevice_Click(object sender, RoutedEventArgs e)
         {
-            var deviceName = this.dropDownApplications.SelectedItem.ToString();
+            var item = this.dropDownApplications.SelectedItem;
+            if (item == null || item.ToString() == "[NEW DEVICE]")
+                return;
 
-            using (var db = new DatabaseCon())
-            {
-                var device = db.device_type.SingleOrDefault(d => d.description == deviceName);
-
-                if (device == null)
-                    throw new Exception("Can't delete a device that doesn't exist");
-
-                this._window.updateStatus($"Removing device '{deviceName}' from the database");
-                db.device_type.Remove(device);
-                db.SaveChanges();
-
-                this._updateDevices();
-            }
+            ViewHelper.deleteTByDescription<device_type>(this._window, item.ToString());
+            this._updateDevices();
         }
     }
 }
