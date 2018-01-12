@@ -192,8 +192,9 @@ namespace CodeGenerator.Views
             if(item == null || item.ToString() == "[NEW APPLICATION]")
                 return;
 
-            ViewHelper.deleteTByDescription<application>(this._window, item.ToString());
-            this._updateApplications();
+            var wasDeletion = ViewHelper.deleteTByDescription<application>(this._window, item.ToString());
+            if(wasDeletion)
+                this._updateApplications();
         }
 
         private void buttonSelectPath_Click(object sender, RoutedEventArgs e)

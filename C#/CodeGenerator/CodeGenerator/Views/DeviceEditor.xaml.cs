@@ -36,9 +36,9 @@ namespace CodeGenerator.Views
 
         private void _updateDevices()
         {
-            this.dropDownApplications.Items.Clear();
+            this.dropDownDevices.Items.Clear();
             this.panelDevices.Children.Clear();
-            this.dropDownApplications.Items.Add("[NEW DEVICE]");
+            this.dropDownDevices.Items.Add("[NEW DEVICE]");
 
             Action<device_type> addToPanel =
             (dev) =>
@@ -52,7 +52,7 @@ namespace CodeGenerator.Views
             };
 
             using (var db = new DatabaseCon())
-                ViewHelper.populateDropDownWithT<device_type>(db, this.dropDownApplications, out this._devices, addToPanel);
+                ViewHelper.populateDropDownWithT<device_type>(db, this.dropDownDevices, out this._devices, addToPanel);
         }
 
         private void sliderBitIndex_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -64,7 +64,7 @@ namespace CodeGenerator.Views
         {
             try
             {
-                if(this.dropDownApplications.SelectedItem == null)
+                if(this.dropDownDevices.SelectedItem == null)
                     throw new Exception("No device was selected!");
 
                 var name = this.textboxName.Text;
@@ -75,7 +75,7 @@ namespace CodeGenerator.Views
 
                 using (var db = new DatabaseCon())
                 {
-                    if(this.dropDownApplications.SelectedItem.ToString() == "[NEW DEVICE]")
+                    if(this.dropDownDevices.SelectedItem.ToString() == "[NEW DEVICE]")
                     {
                         db.enforceNameIsUnique<device_type>(name);
                         db.enforceBitIndexIsUnique<device_type>(bitIndex);
@@ -83,7 +83,7 @@ namespace CodeGenerator.Views
                     }
                     else
                     {
-                        var cached = this._devices.Single(d => d.description == this.dropDownApplications.SelectedItem.ToString());
+                        var cached = this._devices.Single(d => d.description == this.dropDownDevices.SelectedItem.ToString());
 
                         if(name != cached.description)
                             db.enforceNameIsUnique<device_type>(name);
@@ -118,7 +118,7 @@ namespace CodeGenerator.Views
         private void _updateDevice(DatabaseCon db, string name, byte bitIndex)
         {
             this._window.updateStatus($"Updating existing device '{name}'");
-            var oldName = this.dropDownApplications.SelectedItem.ToString();
+            var oldName = this.dropDownDevices.SelectedItem.ToString();
 
             var device = db.device_type.SingleOrDefault(d => d.description == oldName);
             if(device == null)
@@ -149,12 +149,13 @@ namespace CodeGenerator.Views
 
         private void buttonDeleteDevice_Click(object sender, RoutedEventArgs e)
         {
-            var item = this.dropDownApplications.SelectedItem;
+            var item = this.dropDownDevices.SelectedItem;
             if (item == null || item.ToString() == "[NEW DEVICE]")
                 return;
 
-            ViewHelper.deleteTByDescription<device_type>(this._window, item.ToString());
-            this._updateDevices();
+            var wasDeletion = ViewHelper.deleteTByDescription<device_type>(this._window, item.ToString());
+            if(wasDeletion)
+                this._updateDevices();
         }
     }
 }

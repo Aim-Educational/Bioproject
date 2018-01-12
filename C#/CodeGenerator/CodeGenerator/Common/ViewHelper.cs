@@ -100,7 +100,8 @@ namespace CodeGenerator.Common
         /// <typeparam name="T">The database type to remove (and also determines the database table that's used)</typeparam>
         /// <param name="window">The main window, so it's status can be updated</param>
         /// <param name="name_description">The name/description of the object to remove</param>
-        public static void deleteTByDescription<T>(MainWindow window, string name_description) where T : class
+        /// <returns>True if something was delete.</returns>
+        public static bool deleteTByDescription<T>(MainWindow window, string name_description) where T : class
         {
             var TName = typeof(T).Name;
             var result = System.Windows.Forms.MessageBox.Show($"Are you sure you want to remove the {TName} '{name_description}'?",
@@ -108,7 +109,7 @@ namespace CodeGenerator.Common
             if (result == DialogResult.No)
             {
                 window.updateStatus($"Not going through with removal of the {TName}");
-                return;
+                return false;
             }
 
             using (var db = new DatabaseCon())
@@ -130,13 +131,15 @@ namespace CodeGenerator.Common
                 if (value == null)
                 {
                     window.updateStatus($"Can't delete a(n) {TName} that doesn't exist");
-                    return;
+                    return false;
                 }
 
                 window.updateStatus($"Removing {TName} '{name_description}' from the database");
                 set.Remove(value);
                 db.SaveChanges();
             }
+
+            return true;
         }
     }
 }

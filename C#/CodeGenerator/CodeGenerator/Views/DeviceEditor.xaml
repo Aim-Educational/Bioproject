@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row="0" Content="Device Type:" />
-        <ComboBox x:Name="dropDownApplications" Grid.Column="1" Grid.Row="0" SelectionChanged="dropDownApplications_SelectionChanged"/>
+        <ComboBox x:Name="dropDownDevices" Grid.Column="1" Grid.Row="0" SelectionChanged="dropDownApplications_SelectionChanged"/>
         <Button Grid.Column="2" Grid.Row="0" x:Name="buttonDeleteApp" Content="X" Click="buttonDeleteDevice_Click" Margin="2,2,2,2" Background="#FFB40101"/>
 
         <Label Grid.Column="0" Grid.Row="1" Content="Name:"/>
