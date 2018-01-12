@@ -77,8 +77,13 @@ namespace CodeGenerator.Common
         /// </param>
         public static void populateDropDownWithT<T>(this DatabaseCon db, System.Windows.Controls.ComboBox dropDown, out List<T> list, Action<T> additionalProcessing = null) where T : class
         {
-            list = db._getSetFromT<T>().ToList();
+            if(db == null)
+                throw new ArgumentNullException("db");
 
+            if(dropDown == null)
+                throw new ArgumentNullException("dropDown");
+
+            list = db._getSetFromT<T>().ToList();
             foreach(var value in list.OrderBy(v => { dynamic dyV = v; return dyV.description; }))
             {
                 dynamic dyValue = value;
@@ -103,6 +108,12 @@ namespace CodeGenerator.Common
         /// <returns>True if something was delete.</returns>
         public static bool deleteTByDescription<T>(MainWindow window, string name_description) where T : class
         {
+            if(window == null)
+                throw new ArgumentNullException("window");
+
+            if(name_description == null)
+                throw new ArgumentNullException("name_description");
+
             var TName = typeof(T).Name;
             var result = System.Windows.Forms.MessageBox.Show($"Are you sure you want to remove the {TName} '{name_description}'?",
                                                               "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
