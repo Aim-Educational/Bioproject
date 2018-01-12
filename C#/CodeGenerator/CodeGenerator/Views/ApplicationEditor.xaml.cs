@@ -188,28 +188,12 @@ namespace CodeGenerator.Views
 
         private void buttonDeleteDevice_Click(object sender, RoutedEventArgs e)
         {
-            var appName = this.dropDownApplications.SelectedItem.ToString();
-            var result = System.Windows.Forms.MessageBox.Show($"Are you sure you want to remove the application '{this.dropDownApplications.SelectedItem}'?", 
-                                                              "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if(result == DialogResult.No)
-            {
-                this._window.updateStatus("Not going through with removal of the application");
+            var item = this.dropDownApplications.SelectedItem;
+            if(item == null || item.ToString() == "[NEW APPLICATION]")
                 return;
-            }
 
-            using (var db = new DatabaseCon())
-            {
-                var app = db.applications.SingleOrDefault(d => d.description == appName);
-
-                if (app == null)
-                    throw new Exception("Can't delete an application that doesn't exist");
-
-                this._window.updateStatus($"Removing application '{appName}' from the database");
-                db.applications.Remove(app);
-                db.SaveChanges();
-
-                this._updateApplications();
-            }
+            ViewHelper.deleteTByDescription<application>(this._window, item.ToString());
+            this._updateApplications();
         }
 
         private void buttonSelectPath_Click(object sender, RoutedEventArgs e)
