@@ -48,23 +48,23 @@ namespace CodeGenerator.Views
 
         private void _updateApplications()
         {
-            using (var db = new DatabaseCon())
-                this._applications = db.applications.ToList();
-
             this.dropDownApplications.Items.Clear();
             this.panelApplications.Children.Clear();
             this.dropDownApplications.Items.Add("[NEW APPLICATION]");
-            
-            foreach(var app in this._applications.OrderBy(a => a.description))
+
+            Action<application> addToPanel = 
+            (app) => 
             {
-                this.dropDownApplications.Items.Add(app.description);
                 this.panelApplications.Children.Add(
                 new ApplicationInfoControl(app)
                 {
-                    Margin = new Thickness(0,2,0,0),
+                    Margin = new Thickness(0, 2, 0, 0),
                     Width = Double.NaN // auto
                 });
-            }
+            };
+
+            using (var db = new DatabaseCon())
+                ViewHelper.populateDropDownWithT<application>(db, this.dropDownApplications, out this._applications, addToPanel);
         }
 
         private void _findPathLength()

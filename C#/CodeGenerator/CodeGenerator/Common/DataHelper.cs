@@ -140,7 +140,7 @@ namespace CodeGenerator.Common
         }
 
         // Gets the right DbSet from the database, depending on what `T` is.
-        private static DbSet<T> _getSetFromT<T>(this DatabaseCon db) where T : class
+        internal static DbSet<T> _getSetFromT<T>(this DatabaseCon db) where T : class
         {
             object set = null; // Contains the DbSet that we're gonna look use
             var type = typeof(T);

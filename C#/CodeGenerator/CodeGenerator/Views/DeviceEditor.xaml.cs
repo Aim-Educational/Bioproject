@@ -36,23 +36,23 @@ namespace CodeGenerator.Views
 
         private void _updateDevices()
         {
-            using (var db = new DatabaseCon())
-                this._devices = db.device_type.ToList();
-
             this.dropDownApplications.Items.Clear();
             this.panelDevices.Children.Clear();
             this.dropDownApplications.Items.Add("[NEW DEVICE]");
-            
-            foreach(var device in this._devices.OrderBy(d => d.description))
+
+            Action<device_type> addToPanel =
+            (dev) =>
             {
-                this.dropDownApplications.Items.Add(device.description);
                 this.panelDevices.Children.Add(
-                new DeviceInfoControl(device)
+                new DeviceInfoControl(dev)
                 {
-                    Margin = new Thickness(0,2,0,0),
+                    Margin = new Thickness(0, 2, 0, 0),
                     Width = Double.NaN // auto
                 });
-            }
+            };
+
+            using (var db = new DatabaseCon())
+                ViewHelper.populateDropDownWithT<device_type>(db, this.dropDownApplications, out this._devices, addToPanel);
         }
 
         private void sliderBitIndex_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

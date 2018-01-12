@@ -68,6 +68,7 @@
     <Compile Include="Common\ApplicationInfoControl.xaml.cs">
       <DependentUpon>ApplicationInfoControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\ViewHelper.cs" />
     <Compile Include="Common\DeviceInfoControl.xaml.cs">
       <DependentUpon>DeviceInfoControl.xaml</DependentUpon>
     </Compile>
