@@ -71,12 +71,19 @@ namespace CodeGenerator.Common
         }
 
         /// <summary>
+        /// Given a bitmask, returns a list of all objects of `T` from the database that the bitmask contains.
         /// 
+        /// For example, say `T` was `device_type`, and in the database we only had two devices:
+        ///     1: 'Arduino' with a bit_index of 0
+        ///     2: 'PC' with a bit_index of 1
+        ///     
+        /// Now, imagine the bitmask of '00000001', the 0th bit is set to 1, so a list only containing 'Arduino' is returned.
+        /// Take '00000011', both the 0th and 1st bits are set, so a list containing both 'Arduino' and 'PC' is returned.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="db"></param>
-        /// <param name="bitmask"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">The database type to use.</typeparam>
+        /// <param name="db">The database connection.</param>
+        /// <param name="bitmask">The bitmask to use.</param>
+        /// <returns>See extended summary</returns>
         public static List<T> getFromBitmask<T>(this DatabaseCon db, byte bitmask) where T : class
         {
             var set = db._getSetFromT<T>();
