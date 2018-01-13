@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.IO;
 
 using CodeGenerator.Database;
 
@@ -24,7 +25,7 @@ namespace CodeGenerator.Common
         public static GridLength View_Column_0_Width
         {
             private set { }
-            get { return new GridLength(80); }
+            get { return new GridLength(88); }
         }
 
         /// <summary>
@@ -151,6 +152,24 @@ namespace CodeGenerator.Common
             }
 
             return true;
+        }
+
+        public static string askForPath(string defaultPath = null)
+        {
+            using (var dialog = new FolderBrowserDialog())
+            {
+                if (Directory.Exists(defaultPath))
+                    dialog.SelectedPath = defaultPath;
+
+                var result = dialog.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath))
+                    return dialog.SelectedPath;
+                else if (result != DialogResult.Cancel)
+                    System.Windows.Forms.MessageBox.Show("An invalid path was chosen", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return null;
         }
     }
 }

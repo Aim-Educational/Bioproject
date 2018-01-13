@@ -199,18 +199,9 @@ namespace CodeGenerator.Views
 
         private void buttonSelectPath_Click(object sender, RoutedEventArgs e)
         {
-            using (var dialog = new FolderBrowserDialog())
-            {
-                if(Directory.Exists(this.textboxPath.Text))
-                    dialog.SelectedPath = this.textboxPath.Text;
-
-                var result = dialog.ShowDialog();
-
-                if(result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath))
-                    this.textboxPath.Text = dialog.SelectedPath;
-                else if(result != DialogResult.Cancel)
-                    System.Windows.Forms.MessageBox.Show("An invalid path was chosen", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            var path = ViewHelper.askForPath(this.textboxPath.Text);
+            if (path != null)
+                this.textboxPath.Text = path;
         }
     }
 }

@@ -84,6 +84,7 @@ namespace CodeGenerator
             if(button == this.buttonApplications)   this.changeView<ApplicationEditor>();
             else if(button == this.buttonDevices)   this.changeView<DeviceEditor>();
             else if(button == this.buttonGenerator) this.changeView<GeneratorView>();
+            else if(button == this.buttonLanguages) this.changeView<LanguageEditor>();
             else throw new Exception($"Did you forget to add a new button to the event handler? Name: {button.Name}");
 
             // Set all buttons to the default background colour

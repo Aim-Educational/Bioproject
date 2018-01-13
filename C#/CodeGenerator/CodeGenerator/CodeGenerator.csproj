@@ -44,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
@@ -68,6 +69,9 @@
     <Compile Include="Common\ApplicationInfoControl.xaml.cs">
       <DependentUpon>ApplicationInfoControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\LanguageInfoControl.xaml.cs">
+      <DependentUpon>LanguageInfoControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\ViewHelper.cs" />
     <Compile Include="Common\DeviceInfoControl.xaml.cs">
       <DependentUpon>DeviceInfoControl.xaml</DependentUpon>
@@ -84,6 +88,9 @@
     <Compile Include="Views\Generator.xaml.cs">
       <DependentUpon>Generator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\LanguageEditor.xaml.cs">
+      <DependentUpon>LanguageEditor.xaml</DependentUpon>
+    </Compile>
     <Page Include="Common\ApplicationInfoControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -93,6 +100,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Common\ErrorInfoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Common\LanguageInfoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Generator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LanguageEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
