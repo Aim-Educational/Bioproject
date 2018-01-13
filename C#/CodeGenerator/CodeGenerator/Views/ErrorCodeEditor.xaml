@@ -29,8 +29,8 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="Error Info:"/>
-        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="dropDownErrors" Grid.ColumnSpan="2"/>
-        <Button Grid.Row="0" Grid.Column="3" x:Name="buttonDeleteError" Content="X" Margin="2,2,2,2" Background="#FFB40101"/>
+        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="dropDownErrors" Grid.ColumnSpan="2" SelectionChanged="dropDownErrors_SelectionChanged"/>
+        <Button Grid.Row="0" Grid.Column="3" x:Name="buttonDeleteError" Content="X" Margin="2,2,2,2" Background="#FFB40101" Click="buttonDeleteError_Click"/>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Mneumonic:"/>
         <TextBox Grid.Row="1" Grid.Column="1" x:Name="textboxMneumonic" Grid.ColumnSpan="2"/>
@@ -43,18 +43,18 @@
 
         <Label Grid.Row="4" Grid.Column="0" Content="Applications:"/>
         <ComboBox Grid.Row="4" Grid.Column="1" x:Name="dropDownApplications" Grid.ColumnSpan="2"/>
-        <Button Grid.Row="4" Grid.Column="3" x:Name="buttonUnsetApplication" Content="X" Margin="2,2,2,2" Background="#FFB40101"/>
-        <Button Grid.Row="4" Grid.Column="4" x:Name="buttonSetApplication" Content="+" Margin="2,2,2,2" Background="#FF01B401"/>
+        <Button Grid.Row="4" Grid.Column="3" x:Name="buttonUnsetApplication" Content="X" Margin="2,2,2,2" Background="#FFB40101" Click="buttonUnsetAppOrDevice_Click"/>
+        <Button Grid.Row="4" Grid.Column="4" x:Name="buttonSetApplication" Content="+" Margin="2,2,2,2" Background="#FF01B401" Click="buttonSetAppOrDevice_Click"/>
 
         <Label Grid.Row="5" Grid.Column="0" Content="Devices:"/>
         <ComboBox Grid.Row="5" Grid.Column="1" x:Name="dropDownDevices" Grid.ColumnSpan="2"/>
-        <Button Grid.Row="5" Grid.Column="3" x:Name="buttonUnsetDevice" Content="X" Margin="2,2,2,2" Background="#FFB40101"/>
-        <Button Grid.Row="5" Grid.Column="4" x:Name="buttonSetDevice" Content="+" Margin="2,2,2,2" Background="#FF01B401"/>
+        <Button Grid.Row="5" Grid.Column="3" x:Name="buttonUnsetDevice" Content="X" Margin="2,2,2,2" Background="#FFB40101" Click="buttonUnsetAppOrDevice_Click"/>
+        <Button Grid.Row="5" Grid.Column="4" x:Name="buttonSetDevice" Content="+" Margin="2,2,2,2" Background="#FF01B401" Click="buttonSetAppOrDevice_Click"/>
 
         <Label Grid.Row="6" Grid.Column="0" Content="Def. Severity:" ToolTip="The default severity for the error"/>
         <ComboBox Grid.Row="6" Grid.Column="1" x:Name="dropDownSeverity" Grid.ColumnSpan="2"/>
 
-        <Button Grid.Row="7" Grid.Column="1" Content="Apply" x:Name="buttonApply" Grid.ColumnSpan="2"/>
+        <Button Grid.Row="7" Grid.Column="1" Content="Apply" x:Name="buttonApply" Grid.ColumnSpan="2" Click="buttonApply_Click"/>
 
         <GroupBox Grid.Row="8" Grid.Column="0" Header="Applications" Grid.ColumnSpan="2">
             <ScrollViewer HorizontalScrollBarVisibility="Auto">
@@ -67,6 +67,14 @@
         <GroupBox Grid.Row="8" Grid.Column="2" Header="Devices">
             <ScrollViewer HorizontalScrollBarVisibility="Auto">
                 <StackPanel x:Name="panelDevices">
+
+                </StackPanel>
+            </ScrollViewer>
+        </GroupBox>
+
+        <GroupBox Grid.Column="5" Grid.Row="0" Grid.RowSpan="9" Header="All Errors">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                <StackPanel x:Name="panelErrors">
 
                 </StackPanel>
             </ScrollViewer>

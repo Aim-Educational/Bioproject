@@ -169,6 +169,10 @@ namespace CodeGenerator.Common
             {
                 set = db.severities;
             }
+            else if(type == typeof(error_code))
+            {
+                set = db.error_code;
+            }
 
             // Cast it, to make sure `T` is supported/we haven't messed up with what DbSet we're using.
             var castedSet = set as DbSet<T>;
