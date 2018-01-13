@@ -51,12 +51,15 @@ namespace CodeGenerator.Views
 
         private void buttonGenerate_Click(object sender, RoutedEventArgs e)
         {
-            var app = this.dropDownApplication.SelectedItem.ToString();
-            var dev = this.dropDownDevice.SelectedItem.ToString();
-            var lang = this.dropDownLanguage.SelectedItem.ToString();
-
             try
             {
+                var app = this.dropDownApplication.SelectedItem?.ToString();
+                var dev = this.dropDownDevice.SelectedItem?.ToString();
+                var lang = this.dropDownLanguage.SelectedItem?.ToString();
+
+                if (app == null || dev == null || lang == null)
+                    throw new Exception("One of selection boxes haven't been used");
+
                 this.generate(app, dev, lang);
             }
             catch(Exception ex)

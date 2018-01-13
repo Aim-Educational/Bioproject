@@ -41,6 +41,24 @@ class ErrorList
   severity = "Severity::Severe"
 },
 {
+  code = "2002",
+  mneumonic = "UnableToConnectToServer",
+  narrative = "Unable to connect to server at: %1",
+  severity = "Severity::Severe"
+},
+{
+  code = "3000",
+  mneumonic = "UnableToConnectToSensor",
+  narrative = "Unable to connec to a sensor: %1",
+  severity = "Severity::Severe"
+},
+{
+  code = "3001",
+  mneumonic = "SensorOutOfRange",
+  narrative = "A sensor's value is outside of a valid range: %1",
+  severity = "Severity::Severe"
+},
+{
   code = "1004",
   mneumonic = "DiskFull",
   narrative = "The targeted disk is full: %1",
