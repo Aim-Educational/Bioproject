@@ -91,6 +91,9 @@
     <Compile Include="Views\DeviceEditor.xaml.cs">
       <DependentUpon>DeviceEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ErrorCodeEditor.xaml.cs">
+      <DependentUpon>ErrorCodeEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Generator.xaml.cs">
       <DependentUpon>Generator.xaml</DependentUpon>
     </Compile>
@@ -138,6 +141,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DeviceEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ErrorCodeEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

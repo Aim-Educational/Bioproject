@@ -22,8 +22,9 @@
 
             <Button Width="70" Content="Applications" x:Name="buttonApplications" Click="changeViewEvent"/>
             <Button Width="60" Content="Devices" x:Name="buttonDevices" Click="changeViewEvent"/>
+            <Button Width="60" Content="Errors" x:Name="buttonErrors" Click="changeViewEvent"/>
             <Button Width="60" Content="Generator" x:Name="buttonGenerator" Click="changeViewEvent"/>
-            <Button Width="60" Content="Languages" x:Name="buttonLanguages" Click="changeViewEvent"/>
+            <Button Width="60" Content="Languages" x:Name="buttonLanguages" Click="changeViewEvent"/>            
         </DockPanel>
         
         <ContentControl x:Name="currentView" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch"/>
