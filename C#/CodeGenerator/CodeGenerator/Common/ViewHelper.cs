@@ -8,6 +8,8 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.IO;
 
+using Microsoft.WindowsAPICodePack.Dialogs;
+
 using CodeGenerator.Database;
 
 namespace CodeGenerator.Common
@@ -156,16 +158,20 @@ namespace CodeGenerator.Common
 
         public static string askForPath(string defaultPath = null)
         {
-            using (var dialog = new FolderBrowserDialog())
+            using (var dialog = new CommonOpenFileDialog())
             {
+                dialog.DefaultFileName = "";
+                dialog.IsFolderPicker = true;
+                dialog.EnsurePathExists = true;
+
                 if (Directory.Exists(defaultPath))
-                    dialog.SelectedPath = defaultPath;
+                    dialog.InitialDirectory = defaultPath;
 
                 var result = dialog.ShowDialog();
 
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath))
-                    return dialog.SelectedPath;
-                else if (result != DialogResult.Cancel)
+                if (result == CommonFileDialogResult.Ok && !string.IsNullOrWhiteSpace(dialog.FileName))
+                    return dialog.FileName;
+                else if (result != CommonFileDialogResult.Cancel)
                     System.Windows.Forms.MessageBox.Show("An invalid path was chosen", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
