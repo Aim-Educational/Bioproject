@@ -299,13 +299,13 @@ namespace CodeGenerator.Views
                     {
                         this._window.updateStatus($"Updating error called '{selectedErrorName}'");
 
-                        var oldError = db.error_code.SingleOrDefault(er => er.error_code_mneumonic == selectedErrorName);                        
-                        oldError.application_ids = error.application_ids;
-                        oldError.default_severity_id = error.default_severity_id;
-                        oldError.device_ids = error.device_ids;
-                        oldError.error_code1 = error.error_code1;
-                        oldError.error_code_mneumonic = error.error_code_mneumonic;
-                        oldError.narrative = error.narrative;
+                        var dbError = db.error_code.SingleOrDefault(er => er.error_code_mneumonic == selectedErrorName);                        
+                        dbError.application_ids = error.application_ids;
+                        dbError.default_severity_id = error.default_severity_id;
+                        dbError.device_ids = error.device_ids;
+                        dbError.error_code1 = error.error_code1;
+                        dbError.error_code_mneumonic = error.error_code_mneumonic;
+                        dbError.narrative = error.narrative;
                         db.SaveChanges();
                     }
                 }
