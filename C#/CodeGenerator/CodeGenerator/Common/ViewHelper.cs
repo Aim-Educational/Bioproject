@@ -96,6 +96,39 @@ namespace CodeGenerator.Common
             }
         }
 
+        // The parameters are formatted like that because it's just way too long otherwise.
+        /// <summary>
+        /// Functions like `populateDropDownWithT` but also populates a `Panel` using `TInfoControl`.
+        /// 
+        /// Note: `TInfoControl` must have a constructor that takes `T` as it's only parameter.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TInfoControl"></typeparam>
+        /// <param name="panel"></param>
+        public static void populateDropDownAndPanelWithT<T, TInfoControl>(this DatabaseCon                  db, 
+                                                                          System.Windows.Controls.ComboBox  dropDown, 
+                                                                          System.Windows.Controls.Panel     panel, 
+                                                                          out List<T>                       list, 
+                                                                          Action<T>                         additionalProcessing = null) where T : class
+        {
+            if(panel == null)
+                throw new ArgumentNullException("panel");
+
+            Action<T> action = 
+            (tValue) =>
+            {
+                if(additionalProcessing != null)
+                    additionalProcessing(tValue);
+
+                var info = Activator.CreateInstance(typeof(TInfoControl), tValue) as System.Windows.Controls.UserControl;
+                info.Margin = new Thickness(0,2,0,0);
+                info.Width = double.NaN; // auto width
+
+                panel.Children.Add(info);
+            };
+            db.populateDropDownWithT<T>(dropDown, out list, action);
+        }
+
         // The reason this function is in ViewHelper, instead of DataHelper, is because of the user-interaction is requires, as well as the requirement of the MainWindow, making it specialised for use in views.
         /// <summary>
         /// Deletes a `T` from the database that has a description matching the given description.

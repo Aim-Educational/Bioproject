@@ -41,19 +41,8 @@ namespace CodeGenerator.Views
             this.panelLanguages.Children.Clear();
             this.dropDownLanguages.Items.Add("[NEW LANGUAGE]");
 
-            Action<language> addToPanel =
-            (lang) =>
-            {
-                this.panelLanguages.Children.Add(
-                new LanguageInfoControl(lang)
-                {
-                    Margin = new Thickness(0, 2, 0, 0),
-                    Width = Double.NaN // auto
-                });
-            };
-
             using (var db = new DatabaseCon())
-                ViewHelper.populateDropDownWithT<language>(db, this.dropDownLanguages, out this._languages, addToPanel);
+                ViewHelper.populateDropDownAndPanelWithT<language, LanguageInfoControl>(db, this.dropDownLanguages, this.panelLanguages, out this._languages);
         }
 
         private void dropDownLanguages_SelectionChanged(object sender, SelectionChangedEventArgs e)

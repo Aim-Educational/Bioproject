@@ -40,19 +40,8 @@ namespace CodeGenerator.Views
             this.panelDevices.Children.Clear();
             this.dropDownDevices.Items.Add("[NEW DEVICE]");
 
-            Action<device_type> addToPanel =
-            (dev) =>
-            {
-                this.panelDevices.Children.Add(
-                new DeviceInfoControl(dev)
-                {
-                    Margin = new Thickness(0, 2, 0, 0),
-                    Width = Double.NaN // auto
-                });
-            };
-
             using (var db = new DatabaseCon())
-                ViewHelper.populateDropDownWithT<device_type>(db, this.dropDownDevices, out this._devices, addToPanel);
+                ViewHelper.populateDropDownAndPanelWithT<device_type, DeviceInfoControl>(db, this.dropDownDevices, this.panelDevices, out this._devices);
         }
 
         private void sliderBitIndex_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

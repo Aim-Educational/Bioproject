@@ -52,19 +52,8 @@ namespace CodeGenerator.Views
             this.panelApplications.Children.Clear();
             this.dropDownApplications.Items.Add("[NEW APPLICATION]");
 
-            Action<application> addToPanel = 
-            (app) => 
-            {
-                this.panelApplications.Children.Add(
-                new ApplicationInfoControl(app)
-                {
-                    Margin = new Thickness(0, 2, 0, 0),
-                    Width = Double.NaN // auto
-                });
-            };
-
             using (var db = new DatabaseCon())
-                ViewHelper.populateDropDownWithT<application>(db, this.dropDownApplications, out this._applications, addToPanel);
+                ViewHelper.populateDropDownAndPanelWithT<application, ApplicationInfoControl>(db, this.dropDownApplications, this.panelApplications, out this._applications);
         }
 
         private void _findPathLength()
