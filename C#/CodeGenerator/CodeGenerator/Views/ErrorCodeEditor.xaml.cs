@@ -347,7 +347,7 @@ namespace CodeGenerator.Views
             foreach(var child in panel.Children)
             {
                 dynamic dyChild = child;
-                mask |= Convert.ToByte(dyChild.labelIndex.Content.ToString()); // Will only work as long as ApplicationInfo and DeviceInfo have this field.
+                mask |= 1 << Convert.ToByte(dyChild.labelIndex.Content.ToString()); // Will only work as long as ApplicationInfo and DeviceInfo have this field.
             }
 
             return mask;
