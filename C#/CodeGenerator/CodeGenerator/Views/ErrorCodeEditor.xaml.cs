@@ -293,6 +293,9 @@ namespace CodeGenerator.Views
                     var error = this._createObjectFromData(db);
                     if(selectedErrorName == NEW_ITEM_TEXT)
                     {
+                        this._enforceMneumonicIsUnique(db, error.error_code_mneumonic);
+                        this._enforceErrorCodeIsUnique(db, error.error_code1);
+
                         this._window.updateStatus($"Adding new error called '{error.error_code_mneumonic}' to the database");
                         db.error_code.Add(error);
                         db.SaveChanges();
@@ -301,7 +304,15 @@ namespace CodeGenerator.Views
                     {
                         this._window.updateStatus($"Updating error called '{selectedErrorName}'");
 
-                        var dbError = db.error_code.SingleOrDefault(er => er.error_code_mneumonic == selectedErrorName);                        
+                        var dbError = db.error_code.SingleOrDefault(er => er.error_code_mneumonic == selectedErrorName);
+
+                        // If we're changing the mneumonic/error code, make sure it's fine to do.
+                        if(dbError.error_code1 != error.error_code1)
+                            this._enforceErrorCodeIsUnique(db, error.error_code1);
+
+                        if(dbError.error_code_mneumonic != error.error_code_mneumonic)
+                            this._enforceMneumonicIsUnique(db, error.error_code_mneumonic);
+
                         dbError.application_ids = error.application_ids;
                         dbError.default_severity_id = error.default_severity_id;
                         dbError.device_ids = error.device_ids;
@@ -317,6 +328,22 @@ namespace CodeGenerator.Views
             catch (Exception ex)
             {
                 this._window.updateStatus($"[ERROR] {ex.ToString()}");
+            }
+        }
+
+        private void _enforceMneumonicIsUnique(DatabaseCon db, string mneumonic)
+        {
+            if(db.error_code.Count(ec => ec.error_code_mneumonic == mneumonic) != 0)
+                throw new Exception($"There is already an error using the mneumonic of '{mneumonic}'");
+        }
+
+        private void _enforceErrorCodeIsUnique(DatabaseCon db, string code)
+        {
+            // Using a foreach loop so I can get the name of the offending error.
+            foreach(var error in db.error_code)
+            {
+                if(error.error_code1 == code)
+                    throw new Exception($"The error '{error.error_code_mneumonic}' is already using the error code '{code}'");
             }
         }
 
