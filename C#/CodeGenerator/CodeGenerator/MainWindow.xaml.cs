@@ -12,7 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+
 using CodeGenerator.Database;
+using CodeGenerator.Views;
 
 namespace CodeGenerator
 {
@@ -21,85 +23,77 @@ namespace CodeGenerator
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Dictionary<string, UserControl> _viewCache { get; set; }
+        private readonly Brush TAB_BACKGROUND_CURRENT = new SolidColorBrush(Color.FromRgb(0xFF, 0xDD, 0xDD));
+        private readonly Brush TAB_BACKGROUND_DEFAULT = new SolidColorBrush(Color.FromRgb(0xDD, 0xDD, 0xDD));
+
         public MainWindow()
         {
             InitializeComponent();
+            this._viewCache = new Dictionary<string, UserControl>();
 
-            using (var db = new DatabaseCon())
-            {
-                this.populateDropdowns(db);
-            }
+            this.changeViewEvent(this.buttonGenerator, null);
         }
 
-        private void populateDropdowns(DatabaseCon db)
+        /// <summary>
+        /// Updates the status label.
+        /// </summary>
+        /// <param name="newStatus">The new status to show. Will be prefixed with "Last Status: "</param>
+        public void updateStatus(string newStatus)
         {
-            this.updateStatus("Populating Dropdown menus");
-
-            foreach(var language in db.languages.OrderBy(lang => lang.description))
-            {
-                languageDropDown.Items.Add(language.description);
-            }
-
-            foreach(var device in db.device_type.OrderBy(lang => lang.description))
-            {
-                deviceTypeDropDown.Items.Add(device.description);
-            }
-
-            foreach(var application in db.applications.OrderBy(app => app.description))
-            {
-                applicationDropDown.Items.Add(application.description);
-            }
+            this.labelStatus.Content = $"Last Status: {newStatus}";
+            this.labelStatus.ToolTip = newStatus;
         }
 
-        private void updateStatus(string status)
+        /// <summary>
+        /// Changes the current view to the given view type.
+        /// 
+        /// If a view of `ViewType` hasn't been made already, an object of it is made and then cached.
+        /// If a view of `ViewType` has been cached already, then that object is reused.
+        /// </summary>
+        /// 
+        /// <typeparam name="ViewType">
+        ///     The type of the view to create, e.g. `changeView<GeneratorView>`.
+        ///     
+        ///     This type must inherit from `UserControl`.
+        ///     This type must take a single parameter of `MainWindow` for a constructor.
+        /// </typeparam>
+        public void changeView<ViewType>() where ViewType : UserControl
         {
-            this.statusLabel.Content = "Status: " + status;
-        }
+            var typeName = typeof(ViewType).ToString();
+            UserControl view = null;
 
-        private void buttonGenerate_Click(object sender, RoutedEventArgs e)
-        {
-            this.updateStatus("Generating files...");
-
-            var selectedLanguage = languageDropDown.SelectedItem.ToString();
-            var selectedDevice = deviceTypeDropDown.SelectedItem.ToString();
-            var selectedApplication = applicationDropDown.SelectedItem.ToString();
-            using (var db = new DatabaseCon())
+            if(this._viewCache.ContainsKey(typeName))
+                view = this._viewCache[typeName];
+            else
             {
-                switch(selectedLanguage)
-                {
-                    case "C++":
-                        var lang = (from db_lang in db.languages
-                                   where db_lang.description == selectedLanguage
-                                   select db_lang).First();
-                        var application = (from db_app in db.applications
-                                           where db_app.description == selectedApplication
-                                           select db_app).First();
-
-                        var templatePath = lang.path_to_templates;
-                        var outputPath = application.path_to_output_file; // Might have to remove 'file' from that name, it's not accurate
-
-                        this.ReadWriteFile(Path.Combine(templatePath, "Template.h"), Path.Combine(outputPath, "Template.h"));
-                        this.ReadWriteFile(Path.Combine(templatePath, "Template.cpp"), Path.Combine(outputPath, "Template.cpp"));
-                        break;
-
-                    default: MessageBox.Show("Unsupported language: " + selectedLanguage); return;
-                }
-            }
-        }
-
-        private void ReadWriteFile(string template, string output)
-        {
-            var templateStream = new StreamReader(File.OpenRead(template));
-            var outputStream = new StreamWriter(File.OpenWrite(output));
-
-            while(templateStream.Peek() >= 0)
-            {
-                var line = templateStream.ReadLine();
-                outputStream.WriteLine(line);
+                view = (UserControl)Activator.CreateInstance(typeof(ViewType), this);
+                this._viewCache[typeName] = view;
             }
 
-            templateStream.Close();
-            outputStream.Close();
+            this.currentView.Content = view;
+        }
+
+        private void changeViewEvent(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            if(button == null)
+                throw new Exception("Bug");
+
+            // Change the view
+            if(button == this.buttonApplications)   this.changeView<ApplicationEditor>();
+            else if(button == this.buttonDevices)   this.changeView<DeviceEditor>();
+            else if(button == this.buttonGenerator) this.changeView<GeneratorView>();
+            else if(button == this.buttonLanguages) this.changeView<LanguageEditor>();
+            else if(button == this.buttonErrors)    this.changeView<ErrorCodeEditor>();
+            else throw new Exception($"Did you forget to add a new button to the event handler? Name: {button.Name}");
+
+            // Set all buttons to the default background colour
+            foreach(var but in this.panelTabs.Children)
+                ((Button)but).Background = TAB_BACKGROUND_DEFAULT;
+
+            // Then set the current button to the selected background colour
+            button.Background = TAB_BACKGROUND_CURRENT;
         }
     }
 }

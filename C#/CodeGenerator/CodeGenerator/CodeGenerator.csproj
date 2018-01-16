@@ -41,11 +41,19 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Scaffolding.EntityFramework.12.0, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -64,6 +72,50 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\ApplicationInfoControl.xaml.cs">
+      <DependentUpon>ApplicationInfoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\LanguageInfoControl.xaml.cs">
+      <DependentUpon>LanguageInfoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ViewHelper.cs" />
+    <Compile Include="Common\DeviceInfoControl.xaml.cs">
+      <DependentUpon>DeviceInfoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ErrorInfoControl.xaml.cs">
+      <DependentUpon>ErrorInfoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ApplicationEditor.xaml.cs">
+      <DependentUpon>ApplicationEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceEditor.xaml.cs">
+      <DependentUpon>DeviceEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ErrorCodeEditor.xaml.cs">
+      <DependentUpon>ErrorCodeEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Generator.xaml.cs">
+      <DependentUpon>Generator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LanguageEditor.xaml.cs">
+      <DependentUpon>LanguageEditor.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Common\ApplicationInfoControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Common\DeviceInfoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Common\ErrorInfoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Common\LanguageInfoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,6 +124,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Common\DataHelper.cs" />
     <Compile Include="Database\application.cs" />
     <Compile Include="Database\DatabaseCon.cs" />
     <Compile Include="Database\device_type.cs" />
@@ -83,6 +136,26 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ApplicationEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DeviceEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ErrorCodeEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Generator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LanguageEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

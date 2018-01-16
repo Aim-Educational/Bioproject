@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="CodeGenerator.Views.LanguageEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CodeGenerator.Views"
+             xmlns:common="clr-namespace:CodeGenerator.Common"
+             mc:Ignorable="d" 
+             d:DesignHeight="266" d:DesignWidth="480">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{x:Static common:ViewHelper.View_Column_0_Width}"/>
+            <ColumnDefinition Width="{x:Static common:ViewHelper.View_Column_1_Width}"/>
+            <ColumnDefinition Width="{x:Static common:ViewHelper.View_Column_2_Width}"/>
+            <ColumnDefinition Width="239*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{x:Static common:ViewHelper.View_Row_Height}"/>
+            <RowDefinition Height="{x:Static common:ViewHelper.View_Row_Height}"/>
+            <RowDefinition Height="{x:Static common:ViewHelper.View_Row_Height}"/>
+            <RowDefinition Height="{x:Static common:ViewHelper.View_Row_Height}"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Language:" Margin="0,-1,0,0"/>
+        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="dropDownLanguages" SelectionChanged="dropDownLanguages_SelectionChanged"/>
+        <Button Grid.Row="0" Grid.Column="2" x:Name="buttonDeleteLanguage" Content="X" Margin="2,2,2,2" Background="#FFB40101" Click="buttonDeleteLanguage_Click"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Name:"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="textboxName" />
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Template Path:" />
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="textboxPath"/>
+        <Button Grid.Row="2" Grid.Column="2" Content="..." x:Name="buttonSelectPath" Click="buttonSelectPath_Click"/>
+
+        <Button Grid.Row="3" Grid.Column="1" Content="Apply" x:Name="buttonApply" Click="buttonApply_Click"/>
+
+        <GroupBox Grid.Column="4" Grid.Row="0" Grid.RowSpan="6" Header="All Languages">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                <StackPanel x:Name="panelLanguages">
+
+                </StackPanel>
+            </ScrollViewer>
+        </GroupBox>
+    </Grid>
+</UserControl>

@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="CodeGenerator.Common.LanguageInfoControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:common="clr-namespace:CodeGenerator.Common"
+             mc:Ignorable="d" 
+             d:DesignHeight="75" Width="180">
+    <Grid Background="LightGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="95"/>
+            <ColumnDefinition Width="113*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{x:Static common:ViewHelper.View_Row_Height}"/>
+            <RowDefinition Height="{x:Static common:ViewHelper.View_Row_Height}"/>
+            <RowDefinition Height="{x:Static common:ViewHelper.View_Row_Height}"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="ID:" FontWeight="Bold"/>
+        <Label Grid.Row="0" Grid.Column="1" Content="666" x:Name="labelID"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Name:" FontWeight="Bold"/>
+        <Label Grid.Row="1" Grid.Column="1" Content="C++-#_" x:Name="labelName"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Template Path:" FontWeight="Bold"/>
+        <Label Grid.Row="2" Grid.Column="1" Content="C:\something" x:Name="labelPath"/>
+    </Grid>
+</UserControl>
