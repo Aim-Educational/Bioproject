@@ -36,6 +36,7 @@ namespace CodeGenerator.Views
         private int _maxPathLength;
 
         private const string PATH_MEMBER_NAME = "path_to_output_file"; // The name of the member inside the application class that contains the output path.
+        private const string NEW_ITEM_TEXT = "[NEW APPLICATION]";
 
         public ApplicationEditor(MainWindow window)
         {
@@ -50,7 +51,7 @@ namespace CodeGenerator.Views
         {
             this.dropDownApplications.Items.Clear();
             this.panelApplications.Children.Clear();
-            this.dropDownApplications.Items.Add("[NEW APPLICATION]");
+            this.dropDownApplications.Items.Add(NEW_ITEM_TEXT);
 
             using (var db = new DatabaseCon())
                 ViewHelper.populateDropDownAndPanelWithT<application, ApplicationInfoControl>(db, this.dropDownApplications, this.panelApplications, out this._applications);
@@ -100,7 +101,7 @@ namespace CodeGenerator.Views
 
                 using (var db = new DatabaseCon())
                 {
-                    if(this.dropDownApplications.SelectedItem.ToString() == "[NEW APPLICATION]")
+                    if(this.dropDownApplications.SelectedItem.ToString() == NEW_ITEM_TEXT)
                     {
                         db.enforceNameIsUnique<application>(name);
                         db.enforceBitIndexIsUnique<application>(bitIndex);
@@ -178,7 +179,7 @@ namespace CodeGenerator.Views
         private void buttonDeleteApplication_Click(object sender, RoutedEventArgs e)
         {
             var item = this.dropDownApplications.SelectedItem;
-            if(item == null || item.ToString() == "[NEW APPLICATION]")
+            if(item == null || item.ToString() == NEW_ITEM_TEXT)
                 return;
 
             var wasDeletion = ViewHelper.deleteTByDescription<application>(this._window, item.ToString());

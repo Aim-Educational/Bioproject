@@ -31,6 +31,8 @@ namespace CodeGenerator.Views
         private List<severity> _severity;
         private MainWindow _window;
 
+        private const string NEW_ITEM_TEXT = "[NEW ERROR]";
+
         public ErrorCodeEditor(MainWindow window)
         {
             InitializeComponent();
@@ -54,7 +56,7 @@ namespace CodeGenerator.Views
             // populteDropDownWithT will clear the other lists for us.
             this._errors.Clear();
 
-            this.dropDownErrors.Items.Add("[NEW ERROR]");
+            this.dropDownErrors.Items.Add(NEW_ITEM_TEXT);
 
             using (var db = new DatabaseCon())
             {
@@ -289,7 +291,7 @@ namespace CodeGenerator.Views
                 using (var db = new DatabaseCon())
                 {
                     var error = this._createObjectFromData(db);
-                    if(selectedErrorName == "[NEW ERROR]")
+                    if(selectedErrorName == NEW_ITEM_TEXT)
                     {
                         this._window.updateStatus($"Adding new error called '{error.error_code_mneumonic}' to the database");
                         db.error_code.Add(error);

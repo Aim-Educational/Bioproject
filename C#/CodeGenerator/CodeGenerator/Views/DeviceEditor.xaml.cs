@@ -26,6 +26,8 @@ namespace CodeGenerator.Views
         private MainWindow _window;
         private List<device_type> _devices;
 
+        private const string NEW_ITEM_TEXT = "[NEW DEVICE]";
+
         public DeviceEditor(MainWindow window)
         {
             InitializeComponent();
@@ -38,7 +40,7 @@ namespace CodeGenerator.Views
         {
             this.dropDownDevices.Items.Clear();
             this.panelDevices.Children.Clear();
-            this.dropDownDevices.Items.Add("[NEW DEVICE]");
+            this.dropDownDevices.Items.Add(NEW_ITEM_TEXT);
 
             using (var db = new DatabaseCon())
                 ViewHelper.populateDropDownAndPanelWithT<device_type, DeviceInfoControl>(db, this.dropDownDevices, this.panelDevices, out this._devices);
@@ -64,7 +66,7 @@ namespace CodeGenerator.Views
 
                 using (var db = new DatabaseCon())
                 {
-                    if(this.dropDownDevices.SelectedItem.ToString() == "[NEW DEVICE]")
+                    if(this.dropDownDevices.SelectedItem.ToString() == NEW_ITEM_TEXT)
                     {
                         db.enforceNameIsUnique<device_type>(name);
                         db.enforceBitIndexIsUnique<device_type>(bitIndex);
@@ -139,7 +141,7 @@ namespace CodeGenerator.Views
         private void buttonDeleteDevice_Click(object sender, RoutedEventArgs e)
         {
             var item = this.dropDownDevices.SelectedItem;
-            if (item == null || item.ToString() == "[NEW DEVICE]")
+            if (item == null || item.ToString() == NEW_ITEM_TEXT)
                 return;
 
             var wasDeletion = ViewHelper.deleteTByDescription<device_type>(this._window, item.ToString());

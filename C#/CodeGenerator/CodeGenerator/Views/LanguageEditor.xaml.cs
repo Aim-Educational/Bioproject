@@ -27,6 +27,8 @@ namespace CodeGenerator.Views
         private MainWindow _window;
         private List<language> _languages;
 
+        private const string NEW_ITEM_TEXT = "[NEW LANGUAGE]";
+
         public LanguageEditor(MainWindow window)
         {
             InitializeComponent();
@@ -39,7 +41,7 @@ namespace CodeGenerator.Views
         {
             this.dropDownLanguages.Items.Clear();
             this.panelLanguages.Children.Clear();
-            this.dropDownLanguages.Items.Add("[NEW LANGUAGE]");
+            this.dropDownLanguages.Items.Add(NEW_ITEM_TEXT);
 
             using (var db = new DatabaseCon())
                 ViewHelper.populateDropDownAndPanelWithT<language, LanguageInfoControl>(db, this.dropDownLanguages, this.panelLanguages, out this._languages);
@@ -64,7 +66,7 @@ namespace CodeGenerator.Views
         private void buttonDeleteLanguage_Click(object sender, RoutedEventArgs e)
         {
             var item = this.dropDownLanguages.SelectedItem;
-            if (item == null || item.ToString() == "[NEW LANGUAGE]")
+            if (item == null || item.ToString() == NEW_ITEM_TEXT)
                 return;
 
             var wasDeletion = ViewHelper.deleteTByDescription<language>(this._window, item.ToString());
@@ -100,7 +102,7 @@ namespace CodeGenerator.Views
 
                 using (var db = new DatabaseCon())
                 {
-                    if (this.dropDownLanguages.SelectedItem.ToString() == "[NEW LANGUAGE]")
+                    if (this.dropDownLanguages.SelectedItem.ToString() == NEW_ITEM_TEXT)
                     {
                         db.enforceNameIsUnique<language>(name);
                         this._addLanguage(db, name, path);
