@@ -35,4 +35,4 @@
 	- This allows a choice between the two options.
 	- It should ask which option you want from 'XML' and 'Static Dictionary'.
 	- It should allow you to choose where the file will be output.
-	- 
+	- If it's generating a static dictionary, 

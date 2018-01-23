@@ -86,6 +86,7 @@ namespace CodeGenerator.Views
                                 dbLang.path_to_templates,
                                 dbApp.path_to_output_file,
                                 this.generateCPP(db, errors),
+                                (uint)errors.Count(),
                                 "Template.cpp",
                                 "Template.h"
                             );
@@ -97,7 +98,7 @@ namespace CodeGenerator.Views
             }
         }
 
-        private void copyTemplates(string templateDir, string outputDir, string errorListCode, params string[] files)
+        private void copyTemplates(string templateDir, string outputDir, string errorListCode, uint errorCount, params string[] files)
         {
             if (!Directory.Exists(templateDir))
                 throw new DirectoryNotFoundException(templateDir);
@@ -112,6 +113,8 @@ namespace CodeGenerator.Views
 
                 var text = File.ReadAllText(template);
                 text = text.Replace("<ErrorCodes>", errorListCode);
+                text = text.Replace("<FileName>", "Gen-ErrorList");
+                text = text.Replace("<ErrorCount>", $"{errorCount}");
 
                 File.WriteAllText(generated, text);
             }
@@ -120,19 +123,21 @@ namespace CodeGenerator.Views
         private string generateCPP(DatabaseCon con, List<error_code> codes)
         {
             List<string> objects = new List<string>();
+            int i = 0;
             foreach(var error in codes)
             {
                 var severity = from sev in con.severities where sev.severity_id == error.default_severity_id select sev;
                 objects.Add(
-                    $"{{\n" +
-                    $"  code = \"{error.error_code1}\",\n" +
-                    $"  mneumonic = \"{error.error_code_mneumonic}\",\n" +
-                    $"  narrative = \"{error.narrative}\",\n" +
-                    $"  severity = \"Severity::{severity.First().description}\"\n" +
-                    $"}}");
+                    $"ErrorList::errorCodes[{i++}] = \n" +
+                    $"ErrorCode(\n" +
+                    $"  F(\"{error.error_code1}\"),\n" +
+                    $"  F(\"{error.error_code_mneumonic}\"),\n" +
+                    $"  F(\"{error.narrative}\"),\n" +
+                    $"  Severity::{severity.First().description}\n" +
+                    $");");
             }
 
-            return string.Join(",\n", objects);
+            return string.Join("\n", objects);
         }
 
         private void showExportedErrors(DatabaseCon db, List<error_code> errors)

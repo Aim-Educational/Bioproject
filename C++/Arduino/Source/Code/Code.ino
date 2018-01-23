@@ -9,6 +9,7 @@
 #include "Constants.h"
 #include "Globals.h"
 #include "HTTP.h"
+#include "Gen-ErrorList.h"
 
 struct Event
 {
@@ -27,9 +28,8 @@ void setup()
   SPI.begin();    
   if(!SD.begin(SD_CARD_PIN))
   {
-      // REplace with Event
-      Serial.println("SD.begin failed");
-      // What should we do if it fails, the example code just forever prints out an error message.
+      auto error = ErrorList::getErrorByMneumonic("UnableToOpenSDCard");
+      // What do we do with this object now?
   }
 
   readConfiguration();

@@ -16,6 +16,6 @@ enum class HTTPRequestType
 
 extern void setupWifi();
 
-extern String wifiSendRequest(WiFiClient client, String& url, String& path, HTTPRequestType requestType);
+extern String wifiSendRequest(WiFiClient client, String& url, String& path, HTTPRequestType requestType, String data = "");
 
 #endif

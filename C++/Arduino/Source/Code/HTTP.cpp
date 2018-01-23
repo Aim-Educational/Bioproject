@@ -24,7 +24,7 @@ void setupWifi()
     }    
 }
 
-String wifiSendRequest(WiFiClient client, String& url, String& path, HTTPRequestType requestType)
+String wifiSendRequest(WiFiClient client, String& url, String& path, HTTPRequestType requestType, String data)
 {
     if(!client.connect(url.c_str(), 80))
     {
@@ -32,8 +32,7 @@ String wifiSendRequest(WiFiClient client, String& url, String& path, HTTPRequest
         Serial.println(url);
         return "";
     }
-  
-    char buffer[HTTP_BUFFER_SIZE];
+    
     String requestString;
     switch(requestType)
     {
@@ -56,4 +55,40 @@ String wifiSendRequest(WiFiClient client, String& url, String& path, HTTPRequest
     client.print(" ");
     client.print(path);
     client.println(" HTTP/1.1");
+
+    // Host: url.com
+    client.print("Host: ");
+    client.println(url);
+
+    // Content-Type
+    client.println("Content-Type: text/plain");
+
+    // Content-Length: 0
+    client.print("Content-Length: ");
+    client.println(String(data.length()));
+
+    // The content
+    client.println("");
+    client.println(data);
+
+    // End with a new line
+    client.println("");
+
+    // Read in the response.
+    char buffer[256]; // TODO: Add a #define in Globals.h for this size
+    int index = 0;
+    while(client.connected() && client.available())
+    {
+        if(index >= 256 - 1) // Need to leave one character for the null terminator
+        {
+          // TODO: Make a BufferTooSmall (or whatever we'll name it) error.
+          return "";
+        }
+
+        buffer[index++] = client.read();
+    }
+    buffer[index] = '\0';
+
+    client.stop();
+    return String(buffer);
 }
