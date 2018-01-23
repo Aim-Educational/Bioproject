@@ -16,7 +16,10 @@ enum
     INI_BUFFER_SIZE = 128,
     HTTP_BUFFER_SIZE = 512,
     ACTIVITY_LOG_BUFFER_SIZE = 512,
-    MAX_DEVICES = 8
+    MAX_DEVICES = 8,
+    MAX_BUILDSTEPS = 5,
+    NTP_PACKET_SIZE = 48,
+    UDP_PORT = 123
 };
 
 enum class BitFlags : int

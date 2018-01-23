@@ -3,6 +3,7 @@
 // General objects
 static Configuration Globals::config;
 static WiFiClient Globals::wifiServer;
+static WiFiUDP Globals::udp;
 
 // Arrays
 static Device Globals::devices[MAX_DEVICES];

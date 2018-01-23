@@ -54,14 +54,34 @@ void readConfiguration()
     //config.dateTimeLastPolled = readStringFromIni("Configuration", "DateTimeLastPolled", ini, buffer, INI_BUFFER_SIZE);
     // Commented out since I have no idea on how we store dates.
     Globals::config.heartbeatFrequencyMS = readStringFromIni("Configuration", "HeartbeatFrequencyMS", ini, buffer).toInt();
+    Globals::config.localIPAddress = readStringFromIni("Configuration", "LocalIPAddress", ini, buffer);
 
     // Server config
     Globals::config.primaryNetwork   = readNetworkInfoFromIni("PrimaryServer", ini, buffer);
     Globals::config.secondaryNetwork = readNetworkInfoFromIni("SecondaryServer", ini, buffer);
 
+    // Time server
+    Globals::config.timeServer.IPAddress = readStringFromIni("TimeServer", "IPAddress", ini, buffer);
+    Globals::config.timeServer.offset = readStringFromIni("TimeServer", "Offset", ini, buffer);
+
     // Flags
     Globals::config.flags |= readFlagFromIni("Configuration", "SerialLog", ini, buffer, BitFlags::LOGS_WRITE_TO_SERIAL);
     Globals::config.flags |= readFlagFromIni("Configuration", "PlayTune", ini, buffer, BitFlags::PLAY_TUNE);
+
+    // Bootstrap
+    int steps = readStringFromIni("Boostrap", "Steps", ini, buffer).toInt();
+    for(int i = 0; i < steps; i++)
+    {        
+        sprintf(buffer, "BuildStep%i", i);
+        String stepName = String(buffer);
+
+        if(Globals::buildSteps_index >= MAX_BUILDSTEPS)
+        {
+          // TODO: Error
+        }
+
+        Globals::buildSteps[Globals::buildSteps_index++] = readStringFromIni("Bootstrap", stepName, ini, buffer);
+    }
 
     // Devices
     int numberOfDevices = readStringFromIni("Devices", "NumberOfDevices", ini, buffer).toInt();
@@ -74,6 +94,7 @@ void readConfiguration()
         device.deviceType = readStringFromIni(sectionName, "DeviceType", ini, buffer).toInt();
         device.inputNumber = readStringFromIni(sectionName, "InputNumber", ini, buffer).toInt();
         device.outputNumber = readStringFromIni(sectionName, "OutputNumber", ini, buffer).toInt();
+        device.pollFrequencySeconds = readStringFromIni(sectionName, "PollFrequencySeconds", ini, buffer).toInt();
 
         if(Globals::devices_index >= MAX_DEVICES)
         {

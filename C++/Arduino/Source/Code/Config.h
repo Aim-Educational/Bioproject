@@ -5,6 +5,7 @@
 #include "Constants.h"
 #include "IniFile.h"
 #include "Globals.h"
+#include "UTCTime.h"
 
 struct NetworkInfo
 {
@@ -15,6 +16,12 @@ struct NetworkInfo
     String serverPort;
 };
 
+struct TimeServer
+{
+  String IPAddress;
+  String offset;
+};
+
 struct Configuration
 {
     String version;
@@ -22,7 +29,9 @@ struct Configuration
     //DateTime? dateTimeLastPolled;
     NetworkInfo primaryNetwork;
     NetworkInfo secondaryNetwork;
+    TimeServer timeServer;
     int heartbeatFrequencyMS;
+    String localIPAddress;
     BitFlags flags;
 };
 
@@ -31,6 +40,8 @@ struct Device
     int deviceType;
     int inputNumber;
     int outputNumber;
+    int pollFrequencySeconds;
+    UTCTime timeLastPolled;
 };
 
 extern void readConfiguration();

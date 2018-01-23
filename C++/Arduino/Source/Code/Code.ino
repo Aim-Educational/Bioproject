@@ -34,6 +34,13 @@ void setup()
 
   readConfiguration();
   setupWifi();
+
+  IPAddress timeServer;
+  timeServer.fromString(Globals::config.timeServer.IPAddress);
+  sendNTPPacket(timeServer);
+
+  while(!Globals::udp.parsePacket()); // Should I do this?
+  Globals::localTime = parseNTPPacket();
 }
 
 void loop()
