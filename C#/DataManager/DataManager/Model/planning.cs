@@ -5,7 +5,7 @@ namespace DataManager.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class PlanningContext : DbContext
+    public partial class planning : DbContext
     {
         public PlanningContext()
             : base("name=planning")
@@ -153,6 +153,10 @@ namespace DataManager.Model
                 .HasMany(e => e.contacts)
                 .WithRequired(e => e.contact_type)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<database_config>()
+                .Property(e => e.timestamp)
+                .IsFixedLength();
 
             modelBuilder.Entity<device>()
                 .Property(e => e.cost)

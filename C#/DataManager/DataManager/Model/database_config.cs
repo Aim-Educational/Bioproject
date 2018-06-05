@@ -9,10 +9,17 @@ namespace DataManager.Model
     public partial class database_config
     {
         [Key]
-        public int id { get; set; }
+        public int database_config_id { get; set; }
 
         [Required]
         [StringLength(255)]
         public string database_backup_directory { get; set; }
+
+        public int version { get; set; }
+
+        [Column(TypeName = "timestamp")]
+        [MaxLength(8)]
+        [Timestamp]
+        public byte[] timestamp { get; set; }
     }
 }

@@ -31,6 +31,8 @@ namespace DataManager.Model
 
         public bool is_active { get; set; }
 
+        public int version { get; set; }
+
         public virtual device device { get; set; }
 
         public virtual device_address_type device_address_type { get; set; }

@@ -9,7 +9,7 @@ namespace DataManager.Model
 {
     public partial class bbc_rss_barometric_change : IDataModel
     {
-        public bool isOutOfDate(PlanningContext db)
+        public bool isOutOfDate(planning db)
         {
             var obj = db.bbc_rss_barometric_change.SingleOrDefault(d => d.bbc_rss_barometric_change_id == this.bbc_rss_barometric_change_id);
 
@@ -21,7 +21,7 @@ namespace DataManager.Model
 
         public bool isValidForUpdate(IncrementVersion shouldIncrement = IncrementVersion.no)
         {
-            using (var db = new PlanningContext())
+            using (var db = new planning())
             {
                 var obj = db.bbc_rss_barometric_change.SingleOrDefault(d => d.bbc_rss_barometric_change_id == this.bbc_rss_barometric_change_id);
                 

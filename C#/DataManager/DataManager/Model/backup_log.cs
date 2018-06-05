@@ -27,5 +27,7 @@ namespace DataManager.Model
         [MaxLength(8)]
         [Timestamp]
         public byte[] timestamp { get; set; }
+
+        public int version { get; set; }
     }
 }

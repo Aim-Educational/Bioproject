@@ -9,7 +9,7 @@ namespace DataManager.Model
 {
     public partial class backup_log : IDataModel
     {
-        public bool isOutOfDate(PlanningContext db)
+        public bool isOutOfDate(planning db)
         {
             var obj = db.backup_log.SingleOrDefault(d => d.backup_log_id == this.backup_log_id);
 
@@ -21,7 +21,7 @@ namespace DataManager.Model
 
         public bool isValidForUpdate(IncrementVersion shouldIncrement = IncrementVersion.no)
         {
-            using (var db = new PlanningContext())
+            using (var db = new planning())
             {
                 var obj = db.backup_log.SingleOrDefault(d => d.backup_log_id == this.backup_log_id);
                 
