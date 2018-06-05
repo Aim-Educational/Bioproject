@@ -9,7 +9,7 @@ namespace DataManager.Model
 {
     public partial class contact_email : IDataModel
     {
-        public bool isOutOfDate(planning db)
+        public bool isOutOfDate(PlanningContext db)
         {
             var obj = db.contact_email.SingleOrDefault(d => d.contact_id == this.contact_id);
 
@@ -21,7 +21,7 @@ namespace DataManager.Model
 
         public bool isValidForUpdate(IncrementVersion shouldIncrement = IncrementVersion.no)
         {
-            using (var db = new planning())
+            using (var db = new PlanningContext())
             {
                 var obj = db.contact_email.SingleOrDefault(d => d.contact_id == this.contact_id);
                 

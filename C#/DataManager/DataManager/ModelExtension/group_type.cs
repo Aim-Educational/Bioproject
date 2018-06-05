@@ -9,7 +9,7 @@ namespace DataManager.Model
 {
     public partial class group_type : IDataModel
     {
-        public bool isOutOfDate(planning db)
+        public bool isOutOfDate(PlanningContext db)
         {
             var obj = db.group_type.SingleOrDefault(d => d.parent_group_type_id == this.parent_group_type_id);
 
@@ -21,7 +21,7 @@ namespace DataManager.Model
 
         public bool isValidForUpdate(IncrementVersion shouldIncrement = IncrementVersion.no)
         {
-            using (var db = new planning())
+            using (var db = new PlanningContext())
             {
                 var obj = db.group_type.SingleOrDefault(d => d.parent_group_type_id == this.parent_group_type_id);
                 

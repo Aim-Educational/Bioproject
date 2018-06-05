@@ -9,7 +9,7 @@ namespace DataManager.Model
 {
     public partial class device_url : IDataModel
     {
-        public bool isOutOfDate(planning db)
+        public bool isOutOfDate(PlanningContext db)
         {
             var obj = db.device_url.SingleOrDefault(d => d.device_url_id == this.device_url_id);
 
@@ -21,7 +21,7 @@ namespace DataManager.Model
 
         public bool isValidForUpdate(IncrementVersion shouldIncrement = IncrementVersion.no)
         {
-            using (var db = new planning())
+            using (var db = new PlanningContext())
             {
                 var obj = db.device_url.SingleOrDefault(d => d.device_url_id == this.device_url_id);
                 

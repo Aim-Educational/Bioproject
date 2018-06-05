@@ -9,7 +9,7 @@ namespace DataManager.Model
 {
     public partial class device_history_action : IDataModel
     {
-        public bool isOutOfDate(planning db)
+        public bool isOutOfDate(PlanningContext db)
         {
             var obj = db.device_history_action.SingleOrDefault(d => d.device_history_action1 == this.device_history_action1);
 
@@ -21,7 +21,7 @@ namespace DataManager.Model
 
         public bool isValidForUpdate(IncrementVersion shouldIncrement = IncrementVersion.no)
         {
-            using (var db = new planning())
+            using (var db = new PlanningContext())
             {
                 var obj = db.device_history_action.SingleOrDefault(d => d.device_history_action1 == this.device_history_action1);
                 

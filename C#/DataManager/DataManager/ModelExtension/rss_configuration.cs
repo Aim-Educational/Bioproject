@@ -9,7 +9,7 @@ namespace DataManager.Model
 {
     public partial class rss_configuration : IDataModel
     {
-        public bool isOutOfDate(planning db)
+        public bool isOutOfDate(PlanningContext db)
         {
             var obj = db.rss_configuration.SingleOrDefault(d => d.rss_configuration_id == this.rss_configuration_id);
 
@@ -21,7 +21,7 @@ namespace DataManager.Model
 
         public bool isValidForUpdate(IncrementVersion shouldIncrement = IncrementVersion.no)
         {
-            using (var db = new planning())
+            using (var db = new PlanningContext())
             {
                 var obj = db.rss_configuration.SingleOrDefault(d => d.rss_configuration_id == this.rss_configuration_id);
                 

@@ -9,7 +9,7 @@ namespace DataManager.Model
 {
     public partial class alarm : IDataModel
     {
-        public bool isOutOfDate(planning db)
+        public bool isOutOfDate(PlanningContext db)
         {
             var obj = db.alarms.SingleOrDefault(d => d.group_type_id == this.group_type_id);
 
@@ -21,7 +21,7 @@ namespace DataManager.Model
 
         public bool isValidForUpdate(IncrementVersion shouldIncrement = IncrementVersion.no)
         {
-            using (var db = new planning())
+            using (var db = new PlanningContext())
             {
                 var obj = db.alarms.SingleOrDefault(d => d.group_type_id == this.group_type_id);
                 

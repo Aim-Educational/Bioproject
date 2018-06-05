@@ -5,7 +5,7 @@ namespace DataManager.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class planning : DbContext
+    public partial class PlanningContext : DbContext
     {
         public PlanningContext()
             : base("name=planning")

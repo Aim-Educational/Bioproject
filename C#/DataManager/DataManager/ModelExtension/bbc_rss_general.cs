@@ -9,7 +9,7 @@ namespace DataManager.Model
 {
     public partial class bbc_rss_general : IDataModel
     {
-        public bool isOutOfDate(planning db)
+        public bool isOutOfDate(PlanningContext db)
         {
             var obj = db.bbc_rss_general.SingleOrDefault(d => d.bbc_rss_general_id == this.bbc_rss_general_id);
 
@@ -21,7 +21,7 @@ namespace DataManager.Model
 
         public bool isValidForUpdate(IncrementVersion shouldIncrement = IncrementVersion.no)
         {
-            using (var db = new planning())
+            using (var db = new PlanningContext())
             {
                 var obj = db.bbc_rss_general.SingleOrDefault(d => d.bbc_rss_general_id == this.bbc_rss_general_id);
                 

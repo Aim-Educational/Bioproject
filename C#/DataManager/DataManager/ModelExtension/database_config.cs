@@ -9,7 +9,7 @@ namespace DataManager.Model
 {
     public partial class database_config : IDataModel
     {
-        public bool isOutOfDate(planning db)
+        public bool isOutOfDate(PlanningContext db)
         {
             var obj = db.database_config.SingleOrDefault(d => d.database_config_id == this.database_config_id);
 
@@ -21,7 +21,7 @@ namespace DataManager.Model
 
         public bool isValidForUpdate(IncrementVersion shouldIncrement = IncrementVersion.no)
         {
-            using (var db = new planning())
+            using (var db = new PlanningContext())
             {
                 var obj = db.database_config.SingleOrDefault(d => d.database_config_id == this.database_config_id);
                 
