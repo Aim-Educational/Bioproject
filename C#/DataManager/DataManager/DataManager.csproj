@@ -68,10 +68,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelExtension\device.cs" />
+    <Compile Include="ModelExtension\IDataModel.cs" />
     <Compile Include="Model\action_level.cs" />
     <Compile Include="Model\action_type.cs" />
+    <Compile Include="Model\alarm.cs" />
+    <Compile Include="Model\alarm_type.cs" />
     <Compile Include="Model\application.cs" />
     <Compile Include="Model\application_log.cs" />
+    <Compile Include="Model\backup_log.cs" />
     <Compile Include="Model\bbc_rss_barometric_change.cs" />
     <Compile Include="Model\bbc_rss_general.cs" />
     <Compile Include="Model\bbc_rss_visibility.cs" />
@@ -80,7 +85,10 @@
     <Compile Include="Model\contact_history.cs" />
     <Compile Include="Model\contact_telephone.cs" />
     <Compile Include="Model\contact_type.cs" />
+    <Compile Include="Model\database_config.cs" />
     <Compile Include="Model\device.cs" />
+    <Compile Include="Model\device_address.cs" />
+    <Compile Include="Model\device_address_type.cs" />
     <Compile Include="Model\device_history.cs" />
     <Compile Include="Model\device_history_action.cs" />
     <Compile Include="Model\device_type.cs" />
@@ -119,5 +127,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -13,6 +13,8 @@ namespace DataManager.Model
         public device()
         {
             action_level = new HashSet<action_level>();
+            alarms = new HashSet<alarm>();
+            device_address = new HashSet<device_address>();
             device1 = new HashSet<device>();
             device_history_action = new HashSet<device_history_action>();
             device_history = new HashSet<device_history>();
@@ -68,12 +70,18 @@ namespace DataManager.Model
         [StringLength(50)]
         public string comment { get; set; }
 
-        public int parent_device_id { get; set; }
+        public int? parent_device_id { get; set; }
 
         public bool is_allowed_for_use { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<action_level> action_level { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<alarm> alarms { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<device_address> device_address { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<device> device1 { get; set; }

@@ -23,7 +23,7 @@ void setupWifi()
           delay(5000); // Try every 5 seconds
     }
 
-    Globals::udp.begin(UDP_PORT);
+//    Globals::udp.begin(UDP_PORT);
 }
 
 String wifiSendRequest(WiFiClient client, String& url, String& path, HTTPRequestType requestType, String data)
@@ -117,19 +117,19 @@ unsigned long sendNTPpacket(IPAddress& address) {
 
   // all NTP fields have been given values, now
   // you can send a packet requesting a timestamp:
-  Globals::udp.beginPacket(address, 123); //NTP requests are to port 123
-  Globals::udp.write(packetBuffer, NTP_PACKET_SIZE);
-  Globals::udp.endPacket();
+ // Globals::udp.beginPacket(address, 123); //NTP requests are to port 123
+ // Globals::udp.write(packetBuffer, NTP_PACKET_SIZE);
+ // Globals::udp.endPacket();
 }
 
 UTCTime parseNTPPacket()
 {
-  if (Globals::udp.available())
+  //if (Globals::udp.available())
   {
     char packetBuffer[NTP_PACKET_SIZE];
     
     // We've received a packet, read the data from it
-    Globals::udp.read(packetBuffer, NTP_PACKET_SIZE); // read the packet into the buffer
+    //Globals::udp.read(packetBuffer, NTP_PACKET_SIZE); // read the packet into the buffer
 
     //the timestamp starts at byte 40 of the received packet and is four bytes,
     // or two words, long. First, esxtract the two words:

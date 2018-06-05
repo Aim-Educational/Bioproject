@@ -11,6 +11,7 @@ namespace DataManager.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public group_type()
         {
+            alarms = new HashSet<alarm>();
             group_action = new HashSet<group_action>();
             group_member = new HashSet<group_member>();
             group_type1 = new HashSet<group_type>();
@@ -41,6 +42,9 @@ namespace DataManager.Model
         [Required]
         [StringLength(50)]
         public string comment { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<alarm> alarms { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<group_action> group_action { get; set; }

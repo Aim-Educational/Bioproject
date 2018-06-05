@@ -42,6 +42,7 @@ struct Device
     int outputNumber;
     int pollFrequencySeconds;
     UTCTime timeLastPolled;
+    int portNumber;
 };
 
 extern void readConfiguration();

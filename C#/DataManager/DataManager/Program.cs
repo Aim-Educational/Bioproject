@@ -11,7 +11,6 @@ namespace DataManager
     {
         static void Main(string[] args)
         {
-            // Should we add, then read in some test data, just to see if it works?
             using (var db = new PlanningContext())
             {
                 var query = from device in db.devices select device;

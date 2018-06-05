@@ -1,8 +1,8 @@
 #ifndef _GLOBALS_H
 #define _GLOBALS_H
 
-#include "WiFiClient.h"
-#include "WiFiUdp.h"
+//#include "WiFiClient.h"
+//#include "WiFiUdp.h"
 #include "Config.h"
 #include "UTCTime.h"
 
@@ -15,8 +15,8 @@ public:
   // General objects
   static Configuration config;
   static UTCTime localTime;
-  static WiFiClient wifiServer;
-  static WiFiUDP udp;
+  //static WiFiClient wifiServer;
+  //static WiFiUDP udp;
   // NOTE: Possibly make ActivityLog a static variable.
   
   // Arrays

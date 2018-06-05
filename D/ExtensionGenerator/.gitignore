@@ -1,0 +1,14 @@
+.dub
+docs.json
+__dummy.html
+docs/
+extension_generator.so
+extension_generator.dylib
+extension_generator.dll
+extension_generator.a
+extension_generator.lib
+extension_generator-test-*
+*.exe
+*.o
+*.obj
+*.lst

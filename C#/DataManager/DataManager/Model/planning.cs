@@ -14,8 +14,11 @@ namespace DataManager.Model
 
         public virtual DbSet<action_level> action_level { get; set; }
         public virtual DbSet<action_type> action_type { get; set; }
+        public virtual DbSet<alarm> alarms { get; set; }
+        public virtual DbSet<alarm_type> alarm_type { get; set; }
         public virtual DbSet<application> applications { get; set; }
         public virtual DbSet<application_log> application_log { get; set; }
+        public virtual DbSet<backup_log> backup_log { get; set; }
         public virtual DbSet<bbc_rss_barometric_change> bbc_rss_barometric_change { get; set; }
         public virtual DbSet<bbc_rss_general> bbc_rss_general { get; set; }
         public virtual DbSet<bbc_rss_visibility> bbc_rss_visibility { get; set; }
@@ -24,7 +27,10 @@ namespace DataManager.Model
         public virtual DbSet<contact_history> contact_history { get; set; }
         public virtual DbSet<contact_telephone> contact_telephone { get; set; }
         public virtual DbSet<contact_type> contact_type { get; set; }
+        public virtual DbSet<database_config> database_config { get; set; }
         public virtual DbSet<device> devices { get; set; }
+        public virtual DbSet<device_address> device_address { get; set; }
+        public virtual DbSet<device_address_type> device_address_type { get; set; }
         public virtual DbSet<device_history> device_history { get; set; }
         public virtual DbSet<device_history_action> device_history_action { get; set; }
         public virtual DbSet<device_type> device_type { get; set; }
@@ -61,6 +67,19 @@ namespace DataManager.Model
                 .WithRequired(e => e.action_type)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<alarm>()
+                .Property(e => e.timestamp)
+                .IsFixedLength();
+
+            modelBuilder.Entity<alarm_type>()
+                .Property(e => e.timestamp)
+                .IsFixedLength();
+
+            modelBuilder.Entity<alarm_type>()
+                .HasMany(e => e.alarms)
+                .WithRequired(e => e.alarm_type)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<application>()
                 .Property(e => e.timestamp)
                 .IsFixedLength();
@@ -71,6 +90,10 @@ namespace DataManager.Model
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<application_log>()
+                .Property(e => e.timestamp)
+                .IsFixedLength();
+
+            modelBuilder.Entity<backup_log>()
                 .Property(e => e.timestamp)
                 .IsFixedLength();
 
@@ -145,8 +168,18 @@ namespace DataManager.Model
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<device>()
+                .HasMany(e => e.alarms)
+                .WithRequired(e => e.device)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<device>()
+                .HasMany(e => e.device_address)
+                .WithRequired(e => e.device)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<device>()
                 .HasMany(e => e.device1)
-                .WithRequired(e => e.device2)
+                .WithOptional(e => e.device2)
                 .HasForeignKey(e => e.parent_device_id);
 
             modelBuilder.Entity<device>()
@@ -172,6 +205,19 @@ namespace DataManager.Model
             modelBuilder.Entity<device>()
                 .HasMany(e => e.rss_configuration)
                 .WithRequired(e => e.device)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<device_address>()
+                .Property(e => e.timestamp)
+                .IsFixedLength();
+
+            modelBuilder.Entity<device_address_type>()
+                .Property(e => e.timestamp)
+                .IsFixedLength();
+
+            modelBuilder.Entity<device_address_type>()
+                .HasMany(e => e.device_address)
+                .WithRequired(e => e.device_address_type)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<device_history>()
@@ -216,6 +262,11 @@ namespace DataManager.Model
             modelBuilder.Entity<group_type>()
                 .Property(e => e.timestamp)
                 .IsFixedLength();
+
+            modelBuilder.Entity<group_type>()
+                .HasMany(e => e.alarms)
+                .WithRequired(e => e.group_type)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<group_type>()
                 .HasMany(e => e.group_action)
