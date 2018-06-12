@@ -136,47 +136,13 @@ namespace DataUserInterface.Forms
 
             // The tag for each item is always it's ID.
             var id = (int)selected[0].Tag;
-            Form form;
-            switch(this.type)
-            {
-                case EnumSearchFormType.Device:
-                    form = new FormDeviceEditor(EnumEditorMode.Modify, id);
-                    form.MdiParent = this.MdiParent;
-                    form.Show();
-                    break;
-
-                case EnumSearchFormType.DeviceType:
-                    form = new FormDeviceTypeEditor(EnumEditorMode.Modify, id);
-                    form.MdiParent = this.MdiParent;
-                    form.Show();
-                    break;
-
-                default:
-                    throw new NotImplementedException($"No editor for type: {this.type}");
-            }
+            this.openEditorByType(this.type, EnumEditorMode.Modify, id);
         }
 
         // New entry button
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            Form form;
-            switch(this.type)
-            {
-                case EnumSearchFormType.Device:
-                    form = new FormDeviceEditor(EnumEditorMode.Create);
-                    form.MdiParent = this.MdiParent;
-                    form.Show();
-                    break;
-
-                case EnumSearchFormType.DeviceType:
-                    form = new FormDeviceTypeEditor(EnumEditorMode.Create);
-                    form.MdiParent = this.MdiParent;
-                    form.Show();
-                    break;
-
-                default:
-                    throw new NotImplementedException($"No support for making new entries of type: {this.type}");
-            }
+            this.openEditorByType(this.type, EnumEditorMode.Create);
         }
     }
 }

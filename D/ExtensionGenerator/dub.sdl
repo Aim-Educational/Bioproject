@@ -4,3 +4,5 @@ authors "Bradley Chatha"
 copyright "Copyright © 2018, Bradley Chatha"
 license "proprietary"
 dependency "scriptlike" version="~>0.10.2"
+
+targetPath "bin"
