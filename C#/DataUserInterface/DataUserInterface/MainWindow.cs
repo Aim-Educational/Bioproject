@@ -88,10 +88,9 @@ namespace DataUserInterface
         #region Window Menu Items
         private void ShowNewForm(object sender, EventArgs e)
         {
-            Form childForm = new Form();
-            childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
-            childForm.Show();
+            var testWindow = new FormDeviceEditor(EnumEditorMode.Create);
+            testWindow.MdiParent = this;
+            testWindow.Show();
         }
 
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)

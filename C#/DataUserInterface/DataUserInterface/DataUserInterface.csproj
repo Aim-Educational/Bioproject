@@ -57,12 +57,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\EnumEditorMode.cs" />
+    <Compile Include="Forms\FormActionLevelEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormActionLevelEditor.Designer.cs">
+      <DependentUpon>FormActionLevelEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormDeviceTypeEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormDeviceTypeEditor.Designer.cs">
+      <DependentUpon>FormDeviceTypeEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormDeviceEditor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FormDeviceEditor.Designer.cs">
       <DependentUpon>FormDeviceEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormHelper.cs" />
     <Compile Include="Forms\SearchForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +97,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\FormActionLevelEditor.resx">
+      <DependentUpon>FormActionLevelEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormDeviceTypeEditor.resx">
+      <DependentUpon>FormDeviceTypeEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormDeviceEditor.resx">
       <DependentUpon>FormDeviceEditor.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,6 +1,6 @@
 ﻿namespace DataUserInterface.Forms
 {
-    partial class FormDeviceEditor
+    partial class FormActionLevelEditor
     {
         /// <summary>
         /// Required designer variable.
@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -38,19 +36,16 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textboxComment = new System.Windows.Forms.TextBox();
-            this.textboxSerial = new System.Windows.Forms.TextBox();
             this.buttonReload = new System.Windows.Forms.Button();
             this.numericMax = new System.Windows.Forms.NumericUpDown();
             this.numericMin = new System.Windows.Forms.NumericUpDown();
             this.listTypes = new System.Windows.Forms.ComboBox();
             this.labelDirty = new System.Windows.Forms.Label();
-            this.buttonAction = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
             this.textboxLocation = new System.Windows.Forms.TextBox();
             this.textboxDescription = new System.Windows.Forms.TextBox();
             this.textboxName = new System.Windows.Forms.TextBox();
             this.textboxID = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -68,8 +63,6 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.AutoScroll = true;
-            this.splitContainer1.Panel1.Controls.Add(this.label8);
-            this.splitContainer1.Panel1.Controls.Add(this.label9);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.label7);
             this.splitContainer1.Panel1.Controls.Add(this.label6);
@@ -81,15 +74,12 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
-            this.splitContainer1.Panel2.Controls.Add(this.button1);
-            this.splitContainer1.Panel2.Controls.Add(this.textboxComment);
-            this.splitContainer1.Panel2.Controls.Add(this.textboxSerial);
             this.splitContainer1.Panel2.Controls.Add(this.buttonReload);
             this.splitContainer1.Panel2.Controls.Add(this.numericMax);
             this.splitContainer1.Panel2.Controls.Add(this.numericMin);
             this.splitContainer1.Panel2.Controls.Add(this.listTypes);
             this.splitContainer1.Panel2.Controls.Add(this.labelDirty);
-            this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonSave);
             this.splitContainer1.Panel2.Controls.Add(this.textboxLocation);
             this.splitContainer1.Panel2.Controls.Add(this.textboxDescription);
             this.splitContainer1.Panel2.Controls.Add(this.textboxName);
@@ -97,30 +87,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
             this.splitContainer1.TabIndex = 0;
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(51, 192);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(53, 20);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "Serial:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(22, 216);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(82, 20);
-            this.label9.TabIndex = 10;
-            this.label9.Text = "Comment:";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label1
             // 
@@ -206,26 +172,6 @@
             this.label2.Text = "Name:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textboxComment
-            // 
-            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxComment.Location = new System.Drawing.Point(3, 218);
-            this.textboxComment.Name = "textboxComment";
-            this.textboxComment.Size = new System.Drawing.Size(211, 20);
-            this.textboxComment.TabIndex = 9;
-            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
-            // 
-            // textboxSerial
-            // 
-            this.textboxSerial.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxSerial.Location = new System.Drawing.Point(3, 192);
-            this.textboxSerial.Name = "textboxSerial";
-            this.textboxSerial.Size = new System.Drawing.Size(211, 20);
-            this.textboxSerial.TabIndex = 7;
-            this.textboxSerial.Leave += new System.EventHandler(this.textboxSerial_Leave);
-            // 
             // buttonReload
             // 
             this.buttonReload.Location = new System.Drawing.Point(4, 314);
@@ -245,8 +191,6 @@
             this.numericMax.Size = new System.Drawing.Size(211, 20);
             this.numericMax.TabIndex = 5;
             this.numericMax.ValueChanged += new System.EventHandler(this.numericMax_ValueChanged);
-            this.numericMax.Click += new System.EventHandler(this.numericMax_Enter);
-            this.numericMax.Enter += new System.EventHandler(this.numericMax_Enter);
             // 
             // numericMin
             // 
@@ -257,8 +201,6 @@
             this.numericMin.Size = new System.Drawing.Size(211, 20);
             this.numericMin.TabIndex = 5;
             this.numericMin.ValueChanged += new System.EventHandler(this.numericMin_ValueChanged);
-            this.numericMin.Click += new System.EventHandler(this.numericMin_Enter);
-            this.numericMin.Enter += new System.EventHandler(this.numericMin_Enter);
             // 
             // listTypes
             // 
@@ -268,7 +210,7 @@
             this.listTypes.FormattingEnabled = true;
             this.listTypes.Location = new System.Drawing.Point(3, 90);
             this.listTypes.Name = "listTypes";
-            this.listTypes.Size = new System.Drawing.Size(165, 21);
+            this.listTypes.Size = new System.Drawing.Size(211, 21);
             this.listTypes.TabIndex = 4;
             this.listTypes.SelectionChangeCommitted += new System.EventHandler(this.listTypes_SelectionChangeCommitted);
             // 
@@ -283,16 +225,16 @@
             this.labelDirty.Text = "Changed";
             this.labelDirty.Visible = false;
             // 
-            // buttonAction
+            // buttonSave
             // 
-            this.buttonAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAction.Location = new System.Drawing.Point(141, 313);
-            this.buttonAction.Name = "buttonAction";
-            this.buttonAction.Size = new System.Drawing.Size(75, 23);
-            this.buttonAction.TabIndex = 2;
-            this.buttonAction.Text = "Save";
-            this.buttonAction.UseVisualStyleBackColor = true;
-            this.buttonAction.Click += new System.EventHandler(this.buttonSave_Click);
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSave.Location = new System.Drawing.Point(141, 313);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.TabIndex = 2;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // textboxLocation
             // 
@@ -334,25 +276,14 @@
             this.textboxID.Size = new System.Drawing.Size(211, 20);
             this.textboxID.TabIndex = 0;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(174, 88);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(40, 23);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "...";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // FormDeviceEditor
+            // FormActionLevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(330, 341);
             this.Controls.Add(this.splitContainer1);
-            this.Name = "FormDeviceEditor";
-            this.Text = "Device Editor";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDeviceEditor_FormClosing);
+            this.Name = "FormActionLevelEditor";
+            this.Text = "FormActionLevelEditor";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -372,7 +303,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textboxName;
         private System.Windows.Forms.TextBox textboxID;
-        private System.Windows.Forms.Button buttonAction;
+        private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textboxDescription;
         private System.Windows.Forms.Label labelDirty;
@@ -385,10 +316,5 @@
         private System.Windows.Forms.NumericUpDown numericMin;
         private System.Windows.Forms.NumericUpDown numericMax;
         private System.Windows.Forms.Button buttonReload;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textboxSerial;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textboxComment;
-        private System.Windows.Forms.Button button1;
     }
 }

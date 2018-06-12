@@ -12,12 +12,12 @@ using DataManager.Model;
 
 namespace DataUserInterface.Forms
 {
-    public partial class FormDeviceEditor : Form
+    public partial class FormDeviceTypeEditor : Form
     {
-        private static device _defaultDevice = new device();
+        private static device_type _defaultType = new device_type();
 
         public int id { private set; get; }
-        private device _device { set; get; }
+        private device_type _device_type { set; get; }
 
         private bool _isDirty_value;
         private bool _isDirty
@@ -82,50 +82,42 @@ namespace DataUserInterface.Forms
             {
                 if (this.mode == EnumEditorMode.Create)
                 {
-                    foreach (var dev_type in db.device_type.OrderBy(d => d.description))
-                        this.listTypes.Items.Add(dev_type.description);
+                    foreach (var unit_type in db.units.OrderBy(u => u.description))
+                        this.listTypes.Items.Add(unit_type.description);
                 }
 
                 if (this.mode != EnumEditorMode.Create)
                 {
-                    var dev = db.devices.SingleOrDefault(d => d.device_id == id);
+                    var dev = db.device_type.SingleOrDefault(d => d.device_type_id == this.id);
                     if (dev != null)
                     {
                         this.textboxID.Text = Convert.ToString(id);
-                        this.textboxName.Text = dev.name;
                         this.textboxDescription.Text = dev.description;
-                        this.textboxLocation.Text = dev.location;
                         this.textboxComment.Text = dev.comment;
-                        this.textboxSerial.Text = dev.serial_number;
-                        this.numericMin.Value = (decimal)dev.min_value;
-                        this.numericMax.Value = (decimal)dev.max_value;
 
-                        foreach (var dev_type in db.device_type.OrderBy(d => d.description))
+                        foreach (var unit_type in db.units.OrderBy(u => u.description))
                         {
-                            this.listTypes.Items.Add(dev_type.description);
-                            if (dev_type.device_type_id == dev.device_type_id)
+                            this.listTypes.Items.Add(unit_type.description);
+                            if (unit_type.unit_id == dev.unit_id)
                                 this.listTypes.SelectedIndex = this.listTypes.Items.Count - 1;
                         }
 
-                        this._device = dev;
+                        this._device_type = dev;
                         this._isDirty = false;
                     }
                 }
             }
         }
         
-        public FormDeviceEditor(EnumEditorMode mode, int id = -1) // ID isn't always needed, e.g. Create
+        public FormDeviceTypeEditor(EnumEditorMode mode, int id = -1) // ID isn't always needed, e.g. Create
         {
             InitializeComponent();
-
-            FormHelper.unlimitNumericBox(this.numericMin);
-            FormHelper.unlimitNumericBox(this.numericMax);
 
             this.mode = mode;
             if (mode != EnumEditorMode.Create)
                 this.id = id;
             else
-                this._device = FormDeviceEditor._defaultDevice;
+                this._device_type = FormDeviceTypeEditor._defaultType;
 
             this.reload();
         }
@@ -141,7 +133,23 @@ namespace DataUserInterface.Forms
             }
         }
 
-        #region Modify/Create Events
+        #region Modify/Create/Reload Events
+        private void buttonReload_Click(object sender, EventArgs e)
+        {
+            if (this.mode == EnumEditorMode.Create)
+                return;
+
+            DialogResult result = DialogResult.No;
+            if (this._isDirty)
+            {
+                result = MessageBox.Show("Reloading the form will cause your changes to be lost, continue?", "Confirmation",
+                                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
+
+            if (result == DialogResult.Yes)
+                this.reload();
+        }
+
         private void buttonSave_Click(object sender, EventArgs e)
         {
             switch(this.mode)
@@ -169,23 +177,18 @@ namespace DataUserInterface.Forms
 
             using (var db = new PlanningContext())
             {
-                var dev = db.devices.SingleOrDefault(d => d.device_id == id);
+                var dev = db.device_type.SingleOrDefault(d => d.device_type_id == this.id);
                 
-                dev.name = this.textboxName.Text;
                 dev.description = this.textboxDescription.Text;
-                dev.location = this.textboxLocation.Text;
                 dev.comment = this.textboxComment.Text;
-                dev.serial_number = this.textboxSerial.Text;
-                dev.min_value = (double)this.numericMin.Value;
-                dev.max_value = (double)this.numericMax.Value;
 
                 var selectedType = this.listTypes.Items[this.listTypes.SelectedIndex] as string;
-                dev.device_type = db.device_type.Single(t => t.description == selectedType);
+                dev.unit = db.units.Single(u => u.description == selectedType);
 
                 if (dev.isValidForUpdate(IncrementVersion.yes))
                 {
                     db.SaveChanges();
-                    this._device = dev;
+                    this._device_type = dev;
                     this._isDirty = false;
                 }
                 else
@@ -201,22 +204,17 @@ namespace DataUserInterface.Forms
             // TODO: Stop the user from creating the object if all the fields aren't filled out.
             using (var db = new PlanningContext())
             {
-                var dev = new device();
-                dev.name = this.textboxName.Text;
+                var dev = new device_type();
                 dev.description = this.textboxDescription.Text;
-                dev.location = this.textboxLocation.Text;
                 dev.comment = this.textboxComment.Text;
-                dev.serial_number = this.textboxSerial.Text;
-                dev.min_value = (double)this.numericMin.Value;
-                dev.max_value = (double)this.numericMax.Value;
 
                 var selectedType = this.listTypes.Items[this.listTypes.SelectedIndex] as string;
-                dev.device_type = db.device_type.Single(t => t.description == selectedType);
+                dev.unit = db.units.Single(u => u.description == selectedType);
 
-                db.devices.Add(dev);
+                db.device_type.Add(dev);
                 db.SaveChanges();
-                this._device = dev;
-                this.id = dev.device_id;
+                this._device_type = dev;
+                this.id = dev.device_type_id;
                 this._isDirty = false;
                 this.mode = EnumEditorMode.Modify;
 
@@ -226,15 +224,9 @@ namespace DataUserInterface.Forms
         #endregion
 
         #region Input Control Events
-        private void textboxName_Leave(object sender, EventArgs e)
-        {
-            if (textboxName.Text != this._device.name)
-                this._isDirty = true;
-        }
-
         private void textboxDescription_Leave(object sender, EventArgs e)
         {
-            if (textboxDescription.Text != this._device.description)
+            if (textboxDescription.Text != this._device_type.description)
                 this._isDirty = true;
         }
 
@@ -243,78 +235,15 @@ namespace DataUserInterface.Forms
             var index = this.listTypes.SelectedIndex;
             var value = this.listTypes.Items[index] as string;
 
-            if (this.mode == EnumEditorMode.Create || value != this._device.device_type.description)
-                this._isDirty = true;
-        }
-
-        private void textboxLocation_Leave(object sender, EventArgs e)
-        {
-            if (textboxLocation.Text != this._device.location)
-                this._isDirty = true;
-        }
-
-        private void numericMin_ValueChanged(object sender, EventArgs e)
-        {
-            if (this._device == null)
-                return;
-
-            if (Convert.ToDouble(numericMin.Value) != this._device.min_value)
-                this._isDirty = true;
-        }
-
-        private void numericMax_ValueChanged(object sender, EventArgs e)
-        {
-            if (this._device == null)
-                return;
-
-            if (Convert.ToDouble(numericMax.Value) != this._device.max_value)
-                this._isDirty = true;
-        }
-
-        private void buttonReload_Click(object sender, EventArgs e)
-        {
-            if (this.mode == EnumEditorMode.Create)
-                return;
-
-            DialogResult result = DialogResult.No;
-            if (this._isDirty)
-            {
-                result = MessageBox.Show("Reloading the form will cause your changes to be lost, continue?", "Confirmation", 
-                                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            }
-
-            if(result == DialogResult.Yes)
-                this.reload();
-        }
-
-        private void textboxSerial_Leave(object sender, EventArgs e)
-        {
-            if (textboxSerial.Text != this._device.serial_number)
+            if (this.mode == EnumEditorMode.Create || value != this._device_type.unit.description)
                 this._isDirty = true;
         }
 
         private void textboxComment_Leave(object sender, EventArgs e)
         {
-            if (textboxComment.Text != this._device.comment)
+            if (textboxComment.Text != this._device_type.comment)
                 this._isDirty = true;
         }
-
-        private void numericMin_Enter(object sender, EventArgs e)
-        {
-            FormHelper.selectAllText(this.numericMin);
-        }
-
-        private void numericMax_Enter(object sender, EventArgs e)
-        {
-            FormHelper.selectAllText(this.numericMax);
-        }
         #endregion
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var form = new SearchForm(EnumSearchFormType.DeviceType);
-            form.MdiParent = this.MdiParent;
-            form.Show();
-        }
     }
 }

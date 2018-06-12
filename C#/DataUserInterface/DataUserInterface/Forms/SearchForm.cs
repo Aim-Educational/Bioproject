@@ -99,6 +99,29 @@ namespace DataUserInterface.Forms
                         this.list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
                         break;
 
+                    case EnumSearchFormType.DeviceType:
+                        var dtQuery = from type in db.device_type
+                                      orderby type.description
+                                      select type;
+
+                        this.list.Columns.Add("ID");
+                        this.list.Columns.Add("Name");
+                        foreach (var type in dtQuery)
+                        {
+                            var item = new ListViewItem(
+                                new string[]
+                                {
+                                    Convert.ToString(type.device_type_id),
+                                    type.description
+                                }
+                            );
+                            item.Tag = type.device_type_id;
+                            this.list.Items.Add(item);
+                        }
+
+                        this.list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                        break;
+
                     default:
                         throw new NotImplementedException($"Type: {dataType}");
                 }
@@ -113,16 +136,46 @@ namespace DataUserInterface.Forms
 
             // The tag for each item is always it's ID.
             var id = (int)selected[0].Tag;
+            Form form;
             switch(this.type)
             {
                 case EnumSearchFormType.Device:
-                    var form = new FormDeviceEditor(id);
+                    form = new FormDeviceEditor(EnumEditorMode.Modify, id);
+                    form.MdiParent = this.MdiParent;
+                    form.Show();
+                    break;
+
+                case EnumSearchFormType.DeviceType:
+                    form = new FormDeviceTypeEditor(EnumEditorMode.Modify, id);
                     form.MdiParent = this.MdiParent;
                     form.Show();
                     break;
 
                 default:
                     throw new NotImplementedException($"No editor for type: {this.type}");
+            }
+        }
+
+        // New entry button
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            Form form;
+            switch(this.type)
+            {
+                case EnumSearchFormType.Device:
+                    form = new FormDeviceEditor(EnumEditorMode.Create);
+                    form.MdiParent = this.MdiParent;
+                    form.Show();
+                    break;
+
+                case EnumSearchFormType.DeviceType:
+                    form = new FormDeviceTypeEditor(EnumEditorMode.Create);
+                    form.MdiParent = this.MdiParent;
+                    form.Show();
+                    break;
+
+                default:
+                    throw new NotImplementedException($"No support for making new entries of type: {this.type}");
             }
         }
     }
