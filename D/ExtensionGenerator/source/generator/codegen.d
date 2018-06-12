@@ -43,10 +43,6 @@ void generateSearchExtensions(const Model model, Path outputDir)
     import std.array : array;
     import std.algorithm : splitter, canFind, map;
 
-    // TODO: At some point add the ability to parse certain information about
-    // the UserInterface project, so the templates can be a be more generalised,
-    // and so that we can perform validation (e.g. making sure each object has an editor form.)
-
     writefln("Generating Search Form extensions, outputted to directory '%s'", outputDir);
 
     if(!outputDir.exists)
