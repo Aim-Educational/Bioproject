@@ -74,17 +74,8 @@ Model parseModelDirectory(Path dirPath)
 	// Only has one match, which is the name of the DbContext class.
 	auto dbModelNameRegex = regex(`public\spartial\sclass\s([a-zA-Z_]+)\s:\sDbContext`);
 
-	// Contains two matches, [1] is the class name of the DbSet, [2] is the variable name of the DbSet
-	auto dbModelDbSetRegex = regex(`public\svirtual\sDbSet<([a-zA-Z_]+)>\s([a-zA-Z_]+)\s`);
-
-	// Only has one match, which is the namespace
-	auto dbModelNamespaceRegex = regex(`namespace\s([a-zA-Z\._]+)\s`);
-
 	// Only has one match, which is the name of the table object class.
 	auto dbObjectNameRegex = regex(`public\spartial\sclass\s([a-zA-Z_]+)\s`);
-
-	// Only has one match, which is the name of the object's key variable.
-	auto dbObjectKeyNameRegex = regex(`\[Key\]\s*\[?[^\]]+\]?\s*public\sint\s([a-zA-Z_0-1]+)\s\{\sget;\sset;\s\}`);
 
 	Model model;
 	foreach(entry; dirEntries(dirPath, SpanMode.breadth))
@@ -99,28 +90,9 @@ Model parseModelDirectory(Path dirPath)
 		auto matches = matchFirst(content, dbModelNameRegex);
 		if(matches.length > 1)
 		{
-			// Reminder: [0] is always the fully matched string.
-			//           The actual capture groups start at [1]
-			model.context.className = matches[1];
-
-			// Figure out which namespace this is in.
-			matches = matchFirst(content, dbModelNamespaceRegex);
-			enforce(matches.length == 2, "Could not determine the namespace for the model.");
-			model.namespace = matches[1];
-
-			// Look for all of the DbSets in the context, which represent tables.
-			auto tableMatches = matchAll(content, dbModelDbSetRegex);
-			foreach(match; tableMatches)
-			{
-				assert(match.length == 3);
-
-				DbSet set;
-				set.typeName = match[1];
-				set.variableName = match[2];
-
-				model.context.tables ~= set;
-			}
-
+            // Reminder: [0] is always the fully matched string.
+            //           The actual capture groups start at [1]
+            parseDbContext(model, content, matches[1]);
 			continue;
 		}
 
@@ -128,23 +100,62 @@ Model parseModelDirectory(Path dirPath)
 		matches = matchFirst(content, dbObjectNameRegex);
 		if(matches.length > 1)
 		{
-			TableObject object;
-			object.className = matches[1];
-			object.fileName  = entry.name.baseName;
-
-			// Look for what the key is called
-			matches = matchFirst(content, dbObjectKeyNameRegex);
-			enforce(matches.length == 2, "Couldn't find the Key field for object '%s'".format(object.className));
-			object.keyName = matches[1];
-
-			model.objects ~= object;
-
-			// QUESTION: Should the generator also check for 'version', 'is_active', 'comment', and 'timestamp'?
-			// This'd make sure that all of our objects have them.
+			parseObjectFile(model, content, matches[1], entry.name);
 		}
 	}
 
 	return model;
+}
+
+private void parseDbContext(ref Model model, string content, string className)
+{
+    // Contains two matches, [1] is the class name of the DbSet, [2] is the variable name of the DbSet
+	auto dbModelDbSetRegex = regex(`public\svirtual\sDbSet<([a-zA-Z_]+)>\s([a-zA-Z_]+)\s`);
+
+    // Only has one match, which is the namespace
+	auto dbModelNamespaceRegex = regex(`namespace\s([a-zA-Z\._]+)\s`);
+
+    model.context.className = className;
+
+    // Figure out which namespace this is in.
+    auto matches = matchFirst(content, dbModelNamespaceRegex);
+    enforce(matches.length == 2, "Could not determine the namespace for the model.");
+    model.namespace = matches[1];
+
+    // Look for all of the DbSets in the context, which represent tables.
+    auto tableMatches = matchAll(content, dbModelDbSetRegex);
+    foreach(match; tableMatches)
+    {
+        assert(match.length == 3);
+
+        DbSet set;
+        set.typeName = match[1];
+        set.variableName = match[2];
+
+        model.context.tables ~= set;
+    }
+}
+
+private void parseObjectFile(ref Model model, string content, string className, string filePath)
+{
+    // This function is called multiple times, so ctRegex is being used instead of the normal regex.
+
+    // Only has one match, which is the name of the object's key variable.
+	auto dbObjectKeyNameRegex = ctRegex!(`\[Key\]\s*\[?[^\]]+\]?\s*public\sint\s([a-zA-Z_0-1]+)\s\{\sget;\sset;\s\}`);
+
+    TableObject object;
+    object.className = className;
+    object.fileName  = filePath.baseName;
+
+    // Look for what the key is called
+    auto matches = matchFirst(content, dbObjectKeyNameRegex);
+    enforce(matches.length == 2, "Couldn't find the Key field for object '%s'".format(object.className));
+    object.keyName = matches[1];
+
+    model.objects ~= object;
+
+    // QUESTION: Should the generator also check for 'version', 'is_active', 'comment', and 'timestamp'?
+    // This'd make sure that all of our objects have them.
 }
 
 void validateModel(const Model model)
