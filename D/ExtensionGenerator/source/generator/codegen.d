@@ -14,7 +14,6 @@ private
     const TEMPLATE_SEARCHFORM_MAIN = cast(string)import("templates/SearchForm/searchFormMain.cs");
     const TEMPLATE_SEARCHFORM_EDITOR_CASES = cast(string)import("templates/SearchForm/searchFormEditorCases.cs");
     const TEMPLATE_EDITOR_CODE = cast(string)import("templates/Editor/FormEditorCode.cs");
-    const TEMPLATE_EDITOR_DESIGNER_CODE = cast(string)import("templates/Editor/FormEditorDesigner.cs");
 
     //////////////
     /// Config ///
@@ -90,7 +89,7 @@ void generateCustomModelExtensions(const Model model, Path outputDir)
     }
 }
 
-void generateEditorStubs(const Model model, Path csprojDir, Path outputDir)
+void generateEditorStubs(const Model model, Path outputDir)
 {
     import std.algorithm;
     import std.format;
@@ -98,44 +97,18 @@ void generateEditorStubs(const Model model, Path csprojDir, Path outputDir)
     writefln("Generating Editor Form stubs, outputted to directory '%s'", outputDir);
     tryMkdirRecurse(outputDir);
 
-    auto relativeDir = relativePath(outputDir, csprojDir);
-    char[] csproj = "Include the following XML into your .csproj file, replacing any old generated ones.\n\n".dup;
-
     foreach(object; model.objects)
     {
         auto custom_fixedName     = object.className.standardisedName;
         auto custom_baseTypeTable = model.context.tables.filter!(t => t.typeName == object.className).front.variableName;
 
-        auto fileName     = format("Form%sEditor", custom_fixedName);
-        auto codeFile     = buildNormalizedPath(outputDir.raw, fileName ~ ".cs");
-        auto designerFile = buildNormalizedPath(outputDir.raw, fileName ~ ".Designer.cs");
-
-        csproj ~= format(
-`<Compile Include="%s.cs">
-    <SubType>Form</SubType>
-</Compile>
-<Compile Include="%s.Designer.cs">
-    <DependentUpon>%s.cs</DependentUpon>
-</Compile>`,
-
-        buildPath(relativeDir.raw, fileName),
-        buildPath(relativeDir.raw, fileName),
-        buildPath(relativeDir.raw, fileName)
-        );
+        auto fileName = format("Form%sEditor", custom_fixedName);
+        auto codeFile = buildNormalizedPath(outputDir.raw, fileName ~ ".cs");
 
         writeln("Generating ", fileName);
         if(!codeFile.exists)
             writeFile(codeFile, mixin(interp!TEMPLATE_EDITOR_CODE));
-
-        if(!designerFile.exists)
-            writeFile(designerFile, mixin(interp!TEMPLATE_EDITOR_DESIGNER_CODE));
     }
-
-    writeln("==================================================================");
-    writeln("== Please review the contents of 'ADD_TO_CSPROJ.txt', which was ==");
-    writeln("== generated next to the .csproj file                           ==");
-    writeln("==================================================================");
-    writeFile(buildNormalizedPath(csprojDir.raw, "ADD_TO_CSPROJ.txt"), csproj);
 }
 
 void generateSearchExtensions(const Model model, Path outputDir)

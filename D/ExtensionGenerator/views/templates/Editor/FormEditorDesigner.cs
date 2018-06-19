@@ -1,7 +1,4 @@
-namespace DataUserInterface.Forms
-{
-    partial class Form${custom_fixedName}Editor
-    {
+#region DESIGNER_CODE
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -129,5 +126,4 @@ namespace DataUserInterface.Forms
         private System.Windows.Forms.Label labelDirty;
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Button buttonDelete;
-    }
-}
+#endregion
