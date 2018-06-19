@@ -18,20 +18,57 @@ struct DbSet
 
 	/// The name of the variable the set is stored as, inside of the DbContext.
 	string variableName;
+
+    string toString()
+    {
+        return "DbSet<"~typeName~"> "~variableName~";";
+    }
 }
 
 /// Contains the information about the DbContext class for the data model.
-struct DatabaseContext
+class DatabaseContext
 {
     /// The name of the DbContext class.
 	string  className;
 
     /// All of the tables that the context manages.
 	DbSet[] tables;
+
+    override string toString()
+    {
+        import std.algorithm;
+        import std.array;
+        import std.format;
+
+        return format("[DbContext]\n"
+                    ~ "Name: %s\n"
+                    ~ "Tables:\n\t%s",
+                    
+                      this.className,
+                      this.tables.map!(t => t.toString()).joiner("\n\n\t"));
+    }
+}
+
+class Field
+{
+    string typeName;
+    string variableName;
+    string[] attributes;
+
+    override string toString()
+    {
+        import std.format;
+        import std.algorithm;
+
+        return format("%s\n%s %s;",
+                      this.attributes.map!(a => format("[%s]", a)).joiner("\n"),
+                      this.typeName,
+                      this.variableName);
+    }
 }
 
 /// Contains information about an object in a table(DbSet).
-struct TableObject
+class TableObject
 {
     /// The name of the class.
 	string className;
@@ -41,10 +78,39 @@ struct TableObject
 
     /// The name of the file the object is stored in.
 	string fileName;
+
+    Field[] fields;
+
+    Dependant[] dependants;
+
+    override string toString()
+    {
+        import std.algorithm;
+        import std.format;
+
+        return format("[Table Object]\n"
+                    ~ "Name: %s\n"
+                    ~ "KeyVar: %s\n"
+                    ~ "File: '%s'\n"
+                    ~ "Dependants: \n\t%s\n"
+                    ~ "Fields:\n%s",
+                    
+                      this.className,
+                      this.keyName,
+                      this.fileName,
+                      this.dependants.map!(d => d.dependant.className).joiner("\n\t"),
+                      this.fields.map!(f => f.toString()).joiner("\n\n"));
+    }
+}
+
+struct Dependant
+{
+    TableObject dependant;
+    Field dependantFK;
 }
 
 /// Contains information about the entire model.
-struct Model
+class Model
 {
     /// The namespace that all of the files in the model use.
 	string          namespace; // Determined by the file holding the DbContext
@@ -54,6 +120,21 @@ struct Model
 
     /// The various objects that make up the model's data.
 	TableObject[]   objects;
+
+    override string toString()
+    {
+        import std.algorithm;
+        import std.format;
+
+        return format("[Model]\n"
+                    ~ "Namespace: %s\n"
+                    ~ "Context:\n%s\n"
+                    ~ "Objects:\n%s",
+                    
+                      this.namespace,
+                      this.context,
+                      this.objects.map!(o => o.toString()).joiner("\n\n"));
+    }
 }
 
 /++
@@ -77,7 +158,7 @@ Model parseModelDirectory(Path dirPath)
 	// Only has one match, which is the name of the table object class.
 	auto dbObjectNameRegex = regex(`public\spartial\sclass\s([a-zA-Z_]+)\s`);
 
-	Model model;
+	Model model = new Model();
 	foreach(entry; dirEntries(dirPath, SpanMode.breadth))
 	{
 		if(entry.isDir || entry.extension != ".cs")
@@ -101,10 +182,60 @@ Model parseModelDirectory(Path dirPath)
 		if(matches.length > 1)
 		{
 			parseObjectFile(model, content, matches[1], entry.name);
+            continue;
 		}
 	}
 
+    finaliseModel(model);
 	return model;
+}
+
+private void finaliseModel(Model model)
+{
+    auto iCollectionRegex = regex(`ICollection<([a-zA-Z_0-9]+)>`);
+
+    // Go over all the table objects, and find their dependants.
+    foreach(object; model.objects)
+    {
+        // If a field is of the form "ICollection<SomeTableObject>" then that means
+        // 'this' object is a dependant of 'SomeTableObject'.
+        foreach(field; object.fields)
+        {
+            auto match = matchFirst(field.typeName, iCollectionRegex);
+            if(match.length == 2)
+            {
+                auto dependantTypeName = match[1];
+                auto query = model.objects.filter!(o => o.className == dependantTypeName);
+                if(query.empty)
+                    assert(false, dependantTypeName);
+
+                Dependant info;
+                info.dependant = query.front;
+                
+                // Figure out the FK's variable name.
+                if(info.dependant == object) // Special case: The object has an FK of another object with the same type (device for example)
+                {
+                    // Solution: Follow the convention of naming the FK 'parent_[type name]_id'
+                    // Future Solution: Read in a file that can provide an FK name for special cases like this
+                    auto fkName = "parent_" ~ info.dependant.className ~ "_id";
+                    auto fkQuery = info.dependant.fields.filter!(f => f.variableName == fkName);
+                    assert(!fkQuery.empty, "Special case failed for " ~ object.className);
+                    info.dependantFK = fkQuery.front;
+                }
+                else // Non-special cases
+                {
+                    // Naming convention: Simply slap "_id" after the type name and it makes a foreign key
+                    // If this is violated, or EF generates special cases, then this logic fails.
+                    auto fkName = object.className ~ "_id";
+                    auto fkQuery = info.dependant.fields.filter!(f => f.variableName == fkName);
+                    assert(!fkQuery.empty, "Could not find the FK for " ~ info.dependant.className ~ " in " ~ object.className);
+                    info.dependantFK = fkQuery.front;
+                }
+
+                object.dependants ~= info;
+            }
+        }
+    }
 }
 
 private void parseDbContext(ref Model model, string content, string className)
@@ -115,12 +246,13 @@ private void parseDbContext(ref Model model, string content, string className)
     // Only has one match, which is the namespace
 	auto dbModelNamespaceRegex = regex(`namespace\s([a-zA-Z\._]+)\s`);
 
+    model.context = new DatabaseContext();
     model.context.className = className;
 
     // Figure out which namespace this is in.
     auto matches = matchFirst(content, dbModelNamespaceRegex);
     enforce(matches.length == 2, "Could not determine the namespace for the model.");
-    model.namespace = matches[1];
+    model.namespace = matches[1];   
 
     // Look for all of the DbSets in the context, which represent tables.
     auto tableMatches = matchAll(content, dbModelDbSetRegex);
@@ -143,15 +275,85 @@ private void parseObjectFile(ref Model model, string content, string className, 
     // Only has one match, which is the name of the object's key variable.
 	auto dbObjectKeyNameRegex = ctRegex!(`\[Key\]\s*\[?[^\]]+\]?\s*public\sint\s([a-zA-Z_0-1]+)\s\{\sget;\sset;\s\}`);
 
-    TableObject object;
+    auto dbObjectCtorRegex = regex(format(`public (%s)\(\)`, className));
+
+    auto dbObjectEndCurlyRegex = ctRegex!`\s*(\})\s*`;
+
+    // [1] = Whatever's inside the attribute brackets
+    auto dbObjectAttributeRegex = ctRegex!`\[([^\]]+)\]`;
+
+    // [1] = Type name. [2] = Variable name.
+    auto dbObjectFieldRegex = ctRegex!`public\s(?:virtual\s)?([^\s]+)\s([^\s]+)\s\{\sget;\sset;\s\}`;
+
+    TableObject object = new TableObject();
     object.className = className;
     object.fileName  = filePath.baseName;
 
-    // Look for what the key is called
-    auto matches = matchFirst(content, dbObjectKeyNameRegex);
-    enforce(matches.length == 2, "Couldn't find the Key field for object '%s'".format(object.className));
-    object.keyName = matches[1];
+    // Search the file's content line-by-line
+    // First thing is to skip over the constructor, then the only things that are left are the
+    // fields.
+    // Then parse in all the fields.
+    bool hasCtor = (matchFirst(content, dbObjectCtorRegex).length > 1);
+    bool foundCtor = false;
+    bool skippedCtor = false;
+    string[] attributes;
+    foreach(line; content.splitter('\n'))
+    {
+        // Look for the ctor
+        if(!foundCtor && hasCtor)
+        {
+            auto matches = matchFirst(line, dbObjectCtorRegex);
+            if(matches.length > 1)
+                foundCtor = true;
 
+            continue;
+        }
+        else if(!skippedCtor && hasCtor) // Look for the first '}' that ends the ctor.
+        {
+            auto matches = matchFirst(line, dbObjectEndCurlyRegex);
+            if(matches.length > 1)
+                skippedCtor = true;
+
+            continue;
+        }
+
+        // Push all of the attributes onto a list
+        // When a field is found, associate the attributes with it
+        // Clear the attributes list
+        // Repeat until the end of the contents.
+
+        auto atribMatches = matchFirst(line, dbObjectAttributeRegex);
+        if(atribMatches.length > 1)
+        {
+            attributes ~= atribMatches[1];
+            continue;
+        }
+
+        auto fieldMatches = matchFirst(line, dbObjectFieldRegex);
+        if(fieldMatches.length > 1)
+        {
+            //assert(false, "This part is broken still, future me. The regex isn't working");
+            assert(fieldMatches.length == 3);
+
+            Field field = new Field();
+            field.typeName = fieldMatches[1];
+            field.variableName = fieldMatches[2];
+            field.attributes = attributes;
+
+            object.fields ~= field;
+
+            // Special case: I can't be bothered to change the code that already uses 'keyName'
+            // So we'll just handle the Key attribute here.
+            auto query = field.attributes.filter!(a => a == "Key");
+            if(!query.empty)
+                object.keyName = field.variableName;
+
+            attributes = null;
+            continue;
+        }
+    }
+
+    assert(object.fields.length > 0, object.className);
     model.objects ~= object;
 
     // QUESTION: Should the generator also check for 'version', 'is_active', 'comment', and 'timestamp'?

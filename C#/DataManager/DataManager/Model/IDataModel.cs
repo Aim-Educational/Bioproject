@@ -16,5 +16,6 @@ namespace DataManager.Model
     {
         bool isValidForUpdate(IncrementVersion shouldIncrement = IncrementVersion.no);
         bool isOutOfDate(PlanningContext db);
+        bool isDeletable(PlanningContext db);
     }
 }

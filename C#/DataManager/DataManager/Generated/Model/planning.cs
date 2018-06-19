@@ -242,6 +242,7 @@ namespace DataManager.Model
                 .Property(e => e.timestamp)
                 .IsFixedLength();
 
+            // This 'pattern' seems to be what generates for relationships.
             modelBuilder.Entity<device_type>()
                 .HasMany(e => e.devices)
                 .WithRequired(e => e.device_type)

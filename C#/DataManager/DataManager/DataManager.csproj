@@ -68,40 +68,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generated\ModelExtension\action_level.cs" />
-    <Compile Include="Generated\ModelExtension\action_type.cs" />
-    <Compile Include="Generated\ModelExtension\alarm.cs" />
-    <Compile Include="Generated\ModelExtension\alarm_type.cs" />
-    <Compile Include="Generated\ModelExtension\application.cs" />
-    <Compile Include="Generated\ModelExtension\application_log.cs" />
-    <Compile Include="Generated\ModelExtension\backup_log.cs" />
-    <Compile Include="Generated\ModelExtension\bbc_rss_barometric_change.cs" />
-    <Compile Include="Generated\ModelExtension\bbc_rss_general.cs" />
-    <Compile Include="Generated\ModelExtension\bbc_rss_visibility.cs" />
-    <Compile Include="Generated\ModelExtension\contact.cs" />
-    <Compile Include="Generated\ModelExtension\contact_email.cs" />
-    <Compile Include="Generated\ModelExtension\contact_history.cs" />
-    <Compile Include="Generated\ModelExtension\contact_telephone.cs" />
-    <Compile Include="Generated\ModelExtension\contact_type.cs" />
-    <Compile Include="Generated\ModelExtension\database_config.cs" />
-    <Compile Include="Generated\ModelExtension\device.cs" />
-    <Compile Include="Generated\ModelExtension\device_address.cs" />
-    <Compile Include="Generated\ModelExtension\device_address_type.cs" />
-    <Compile Include="Generated\ModelExtension\device_history.cs" />
-    <Compile Include="Generated\ModelExtension\device_history_action.cs" />
-    <Compile Include="Generated\ModelExtension\device_type.cs" />
-    <Compile Include="Generated\ModelExtension\device_url.cs" />
-    <Compile Include="Generated\ModelExtension\device_value.cs" />
-    <Compile Include="Generated\ModelExtension\group_action.cs" />
-    <Compile Include="Generated\ModelExtension\group_member.cs" />
-    <Compile Include="Generated\ModelExtension\group_type.cs" />
-    <Compile Include="Generated\ModelExtension\history_event.cs" />
-    <Compile Include="Generated\ModelExtension\message_type.cs" />
-    <Compile Include="Generated\ModelExtension\rss_configuration.cs" />
-    <Compile Include="Generated\ModelExtension\supplier.cs" />
-    <Compile Include="Generated\ModelExtension\unit.cs" />
-    <Compile Include="Generated\ModelExtension\update_period.cs" />
-    <Compile Include="Generated\ModelExtension\user.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\action_level.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\action_type.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\alarm.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\alarm_type.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\application.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\application_log.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\backup_log.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\bbc_rss_barometric_change.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\bbc_rss_general.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\bbc_rss_visibility.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\contact.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\contact_email.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\contact_history.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\contact_telephone.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\contact_type.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\database_config.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\device.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\device_address.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\device_address_type.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\device_history.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\device_history_action.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\device_type.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\device_url.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\device_value.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\group_action.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\group_member.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\group_type.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\history_event.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\message_type.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\rss_configuration.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\supplier.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\unit.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\update_period.cs" />
+    <Compile Include="Generated\ModelExtension\Generated\user.cs" />
     <Compile Include="Generated\Model\action_level.cs" />
     <Compile Include="Generated\Model\action_type.cs" />
     <Compile Include="Generated\Model\alarm.cs" />
@@ -160,6 +160,8 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Generated\ModelExtension\Custom\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

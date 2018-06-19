@@ -136,7 +136,7 @@ namespace DataUserInterface.Forms
 
             // The tag for each item is always it's ID.
             var id = (int)selected[0].Tag;
-            this.openEditorByType(this.type, EnumEditorMode.Modify, id);
+            this.openEditorByType(this.type, EnumEditorMode.Delete, id);
         }
 
         // New entry button

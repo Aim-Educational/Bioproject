@@ -25,10 +25,13 @@ void main()
 	try
 	{
 		// Hard coded paths for testing
-		auto model = parseModelDirectory(Path(`C:\Users\user\Desktop\Arduino_Project\C#\DataManager\DataManager\Model`));
+		auto model = parseModelDirectory(Path(`C:\Users\user\Desktop\Arduino_Project\C#\DataManager\DataManager\Generated\Model`));		
 		validateModel(model);
-		generateExtensions(model, Path(`C:\Users\user\Desktop\Arduino_Project\C#\DataManager\DataManager\Generated\ModelExtension`));
+		generateModelExtensions(model, Path(`C:\Users\user\Desktop\Arduino_Project\C#\DataManager\DataManager\Generated\ModelExtension\Generated`));
+		generateCustomModelExtensions(model, Path(`C:\Users\user\Desktop\Arduino_Project\C#\DataManager\DataManager\Generated\ModelExtension\Custom`));
 		generateSearchExtensions(model, Path(`C:\Users\user\Desktop\Arduino_Project\C#\DataUserInterface\DataUserInterface\Generated`));
+		generateEditorStubs(model, Path(`C:\Users\user\Desktop\Arduino_Project\C#\DataUserInterface\DataUserInterface`), Path(`C:\Users\user\Desktop\Arduino_Project\C#\DataUserInterface\DataUserInterface\Forms\Generated`));
+		writeln(model);
 	}
 	catch(Exception ex)
 	{

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDeviceEditor));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -36,21 +37,22 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.labelDirty = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.buttonDelete = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.textboxComment = new System.Windows.Forms.TextBox();
             this.textboxSerial = new System.Windows.Forms.TextBox();
             this.buttonReload = new System.Windows.Forms.Button();
             this.numericMax = new System.Windows.Forms.NumericUpDown();
             this.numericMin = new System.Windows.Forms.NumericUpDown();
             this.listTypes = new System.Windows.Forms.ComboBox();
-            this.labelDirty = new System.Windows.Forms.Label();
             this.buttonAction = new System.Windows.Forms.Button();
             this.textboxLocation = new System.Windows.Forms.TextBox();
             this.textboxDescription = new System.Windows.Forms.TextBox();
             this.textboxName = new System.Windows.Forms.TextBox();
             this.textboxID = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -75,12 +77,14 @@
             this.splitContainer1.Panel1.Controls.Add(this.label6);
             this.splitContainer1.Panel1.Controls.Add(this.label5);
             this.splitContainer1.Panel1.Controls.Add(this.label4);
+            this.splitContainer1.Panel1.Controls.Add(this.labelDirty);
             this.splitContainer1.Panel1.Controls.Add(this.label3);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
+            this.splitContainer1.Panel2.Controls.Add(this.buttonDelete);
             this.splitContainer1.Panel2.Controls.Add(this.button1);
             this.splitContainer1.Panel2.Controls.Add(this.textboxComment);
             this.splitContainer1.Panel2.Controls.Add(this.textboxSerial);
@@ -88,7 +92,6 @@
             this.splitContainer1.Panel2.Controls.Add(this.numericMax);
             this.splitContainer1.Panel2.Controls.Add(this.numericMin);
             this.splitContainer1.Panel2.Controls.Add(this.listTypes);
-            this.splitContainer1.Panel2.Controls.Add(this.labelDirty);
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
             this.splitContainer1.Panel2.Controls.Add(this.textboxLocation);
             this.splitContainer1.Panel2.Controls.Add(this.textboxDescription);
@@ -182,6 +185,17 @@
             this.label4.Text = "Type:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // labelDirty
+            // 
+            this.labelDirty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelDirty.AutoSize = true;
+            this.labelDirty.Location = new System.Drawing.Point(3, 9);
+            this.labelDirty.Name = "labelDirty";
+            this.labelDirty.Size = new System.Drawing.Size(50, 13);
+            this.labelDirty.TabIndex = 3;
+            this.labelDirty.Text = "Changed";
+            this.labelDirty.Visible = false;
+            // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -205,6 +219,28 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Name:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDelete.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.buttonDelete.Image = ((System.Drawing.Image)(resources.GetObject("buttonDelete.Image")));
+            this.buttonDelete.Location = new System.Drawing.Point(85, 313);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(50, 23);
+            this.buttonDelete.TabIndex = 11;
+            this.buttonDelete.UseVisualStyleBackColor = false;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(174, 88);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(40, 23);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "...";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // textboxComment
             // 
@@ -272,17 +308,6 @@
             this.listTypes.TabIndex = 4;
             this.listTypes.SelectionChangeCommitted += new System.EventHandler(this.listTypes_SelectionChangeCommitted);
             // 
-            // labelDirty
-            // 
-            this.labelDirty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelDirty.AutoSize = true;
-            this.labelDirty.Location = new System.Drawing.Point(85, 318);
-            this.labelDirty.Name = "labelDirty";
-            this.labelDirty.Size = new System.Drawing.Size(50, 13);
-            this.labelDirty.TabIndex = 3;
-            this.labelDirty.Text = "Changed";
-            this.labelDirty.Visible = false;
-            // 
             // buttonAction
             // 
             this.buttonAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -334,16 +359,6 @@
             this.textboxID.Size = new System.Drawing.Size(211, 20);
             this.textboxID.TabIndex = 0;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(174, 88);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(40, 23);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "...";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // FormDeviceEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -390,5 +405,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textboxComment;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }

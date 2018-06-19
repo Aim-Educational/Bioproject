@@ -44,9 +44,16 @@ namespace DataUserInterface.Forms
                 switch(value)
                 {
                     case EnumEditorMode.Delete:
-                        // Disable all controls except the Reload and Save button
+                        // Disable all controls except the Reload
                         // Make the 'delete' button visible, disable/hide the 'save' button.
                         // After deletion, close the form.
+                        foreach (var control in this.splitContainer1.Panel2.Controls)
+                            FormHelper.disableControl(control);
+
+                        this.buttonReload.Enabled = true;
+                        this.buttonDelete.Enabled = true;
+                        this.buttonDelete.Visible = true;
+                        this.buttonAction.Visible = false;
                         break;
                         
                     case EnumEditorMode.Create:
@@ -56,6 +63,7 @@ namespace DataUserInterface.Forms
                         // After creating, reload the form.
                         this.buttonAction.Text = "Create";
                         this.buttonReload.Visible = false;
+                        this.buttonDelete.Visible = false;
                         this.textboxID.Text = "New";
                         break;
 
@@ -63,6 +71,7 @@ namespace DataUserInterface.Forms
                         // The save button's onClick event will do what it's currently does.
                         this.buttonAction.Text = "Save";
                         this.buttonReload.Visible = true;
+                        this.buttonDelete.Visible = false;
                         break;
 
                     default:
@@ -121,6 +130,19 @@ namespace DataUserInterface.Forms
             FormHelper.unlimitNumericBox(this.numericMin);
             FormHelper.unlimitNumericBox(this.numericMax);
 
+            // temp
+            if (mode == EnumEditorMode.Modify)
+            {
+                using (var db = new PlanningContext())
+                {
+                    var type = (from dt in db.devices
+                                where dt.device_id == id
+                                select dt).Single();
+
+                    MessageBox.Show($"{type.isDeletable(db)}");
+                }
+            }
+
             this.mode = mode;
             if (mode != EnumEditorMode.Create)
                 this.id = id;
@@ -141,7 +163,33 @@ namespace DataUserInterface.Forms
             }
         }
 
-        #region Modify/Create Events
+        #region Modify/Create/Delete Events
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (this.mode != EnumEditorMode.Delete)
+                return;
+
+            using (var db = new PlanningContext())
+            {
+                var dev = db.devices.SingleOrDefault(d => d.device_id == this.id);
+
+                if (!dev.isDeletable(db))
+                {
+                    MessageBox.Show("Cannot delete this record as other records are still linked to it.", 
+                                    "Unable to delete", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                var result = MessageBox.Show("Are you sure you want to delete this record?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result != DialogResult.Yes)
+                    return;
+
+                db.devices.Remove(dev);
+                db.SaveChanges();
+                this.Close();
+            }
+        }
+
         private void buttonSave_Click(object sender, EventArgs e)
         {
             switch(this.mode)

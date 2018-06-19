@@ -11,7 +11,7 @@ namespace DataManager.Model
     {
         public bool isOutOfDate(PlanningContext db)
         {
-            var obj = db.device_value.SingleOrDefault(d => d.version == this.version);
+            var obj = db.device_value.SingleOrDefault(d => d.device_value_id == this.device_value_id);
 
             var dbTimestamp = BitConverter.ToInt64(obj.timestamp, 0);
             var localTimestamp = BitConverter.ToInt64(this.timestamp, 0);
@@ -23,7 +23,7 @@ namespace DataManager.Model
         {
             using (var db = new PlanningContext())
             {
-                var obj = db.device_value.SingleOrDefault(d => d.version == this.version);
+                var obj = db.device_value.SingleOrDefault(d => d.device_value_id == this.device_value_id);
                 
                 if (this.isOutOfDate(db) && obj.version <= this.version)
                 {
