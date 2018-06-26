@@ -7,15 +7,24 @@ using System.Windows.Forms;
 
 namespace DataUserInterface.Forms
 {
+    enum AllowDecimals
+    {
+        yes,
+        no
+    }
+
     static class FormHelper
     {
-        public static void unlimitNumericBox(NumericUpDown numberBox)
+        public static void unlimitNumericBox(NumericUpDown numberBox, AllowDecimals decimals = AllowDecimals.yes)
         {
             if (numberBox == null)
                 throw new ArgumentNullException("numberBox");
 
             numberBox.Minimum = decimal.MinValue;
             numberBox.Maximum = decimal.MaxValue;
+
+            if(decimals == AllowDecimals.yes)
+                numberBox.DecimalPlaces = 5;
         }
 
         public static void selectAllText(NumericUpDown numberBox)

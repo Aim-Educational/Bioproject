@@ -93,7 +93,7 @@ namespace DataUserInterface.Forms
                     var obj = db.bbc_rss_visibility.SingleOrDefault(v => v.bbc_rss_visibility_id == this.id);
                     if (obj != null)
                     {
-                        #error Fill out 'obj' with the updated info.
+                        //#error Fill out 'obj' with the updated info.
 
                         this._cached  = obj;
                         this._isDirty = false;
@@ -182,7 +182,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = db.bbc_rss_visibility.SingleOrDefault(v => v.bbc_rss_visibility_id == this.id);
 
-                #error Edit 'obj' with the new info to upload to the database.
+                //#error Edit 'obj' with the new info to upload to the database.
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -204,7 +204,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = new bbc_rss_visibility();
 
-                #error Fill out 'obj' with the new info.
+                //#error Fill out 'obj' with the new info.
 
                 db.bbc_rss_visibility.Add(obj);
                 db.SaveChanges();

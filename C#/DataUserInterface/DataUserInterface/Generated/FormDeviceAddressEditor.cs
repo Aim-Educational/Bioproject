@@ -93,7 +93,7 @@ namespace DataUserInterface.Forms
                     var obj = db.device_address.SingleOrDefault(v => v.device_address_id == this.id);
                     if (obj != null)
                     {
-                        #error Fill out 'obj' with the updated info.
+                        //#error Fill out 'obj' with the updated info.
 
                         this._cached  = obj;
                         this._isDirty = false;
@@ -182,7 +182,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = db.device_address.SingleOrDefault(v => v.device_address_id == this.id);
 
-                #error Edit 'obj' with the new info to upload to the database.
+                //#error Edit 'obj' with the new info to upload to the database.
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -204,7 +204,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = new device_address();
 
-                #error Fill out 'obj' with the new info.
+                //#error Fill out 'obj' with the new info.
 
                 db.device_address.Add(obj);
                 db.SaveChanges();

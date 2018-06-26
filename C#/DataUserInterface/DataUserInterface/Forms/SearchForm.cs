@@ -76,6 +76,213 @@ namespace DataUserInterface.Forms
             {
                 switch (dataType)
                 {
+                    case EnumSearchFormType.ActionLevel:
+                        var alQuery = from action in db.action_level
+                                    orderby action.comment
+                                    select action;
+
+                        this.list.Columns.Add("ID");
+                        this.list.Columns.Add("Comment");
+                        foreach (var action in alQuery)
+                        {
+                            var item = new ListViewItem(
+                                new string[]
+                                {
+                                    Convert.ToString(action.action_level_id),
+                                    action.comment
+                                }
+                            );
+                            item.Tag = action.action_level_id;
+                            this.list.Items.Add(item);
+                        }
+
+                        this.list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                        break;
+
+                    case EnumSearchFormType.ActionType:
+                        var atQuery = from val in db.action_type
+                                      orderby val.description
+                                      select val;
+
+                        this.list.Columns.Add("ID");
+                        this.list.Columns.Add("Description");
+                        foreach (var val in atQuery)
+                        {
+                            var item = new ListViewItem(
+                                new string[]
+                                {
+                                    Convert.ToString(val.action_type_id),
+                                    val.description
+                                }
+                            );
+                            item.Tag = val.action_type_id;
+                            this.list.Items.Add(item);
+                        }
+
+                        this.list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                        break;
+
+                    case EnumSearchFormType.ApplicationLog:
+                        var appLogQuery = from val in db.application_log
+                                          orderby val.message_type_id
+                                          select val;
+
+                        this.list.Columns.Add("ID");
+                        this.list.Columns.Add("Message");
+                        foreach (var val in appLogQuery)
+                        {
+                            var item = new ListViewItem(
+                                new string[]
+                                {
+                                    Convert.ToString(val.application_log_id),
+                                    val.message
+                                }
+                            );
+                            item.Tag = val.application_log_id;
+                            this.list.Items.Add(item);
+                        }
+
+                        this.list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                        break;
+
+                    case EnumSearchFormType.Alarm:
+                        var alarmQuery = from val in db.alarms
+                                         orderby val.comment
+                                         select val;
+
+                        this.list.Columns.Add("ID");
+                        this.list.Columns.Add("Comment");
+                        foreach (var val in alarmQuery)
+                        {
+                            var item = new ListViewItem(
+                                new string[]
+                                {
+                                    Convert.ToString(val.alarm_id),
+                                    val.comment
+                                }
+                            );
+                            item.Tag = val.alarm_id;
+                            this.list.Items.Add(item);
+                        }
+
+                        this.list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                        break;
+
+                    case EnumSearchFormType.AlarmType:
+                        var alarmTQuery = from val in db.action_type
+                                         orderby val.description
+                                         select val;
+
+                        this.list.Columns.Add("ID");
+                        this.list.Columns.Add("Description");
+                        foreach (var val in alarmTQuery)
+                        {
+                            var item = new ListViewItem(
+                                new string[]
+                                {
+                                    Convert.ToString(val.action_type_id),
+                                    val.description
+                                }
+                            );
+                            item.Tag = val.action_type_id;
+                            this.list.Items.Add(item);
+                        }
+
+                        this.list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                        break;
+
+                    case EnumSearchFormType.Application:
+                        var appQuery = from val in db.applications
+                                       orderby val.name
+                                       select val;
+
+                        this.list.Columns.Add("ID");
+                        this.list.Columns.Add("Name");
+                        foreach (var val in appQuery)
+                        {
+                            var item = new ListViewItem(
+                                new string[]
+                                {
+                                    Convert.ToString(val.application_id),
+                                    val.name
+                                }
+                            );
+                            item.Tag = val.application_id;
+                            this.list.Items.Add(item);
+                        }
+
+                        this.list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                        break;
+
+                    case EnumSearchFormType.BackupLog:
+                        var backQuery = from val in db.backup_log
+                                        orderby val.filename
+                                        select val;
+
+                        this.list.Columns.Add("ID");
+                        this.list.Columns.Add("Filename");
+                        foreach (var val in backQuery)
+                        {
+                            var item = new ListViewItem(
+                                new string[]
+                                {
+                                    Convert.ToString(val.backup_log_id),
+                                    val.filename
+                                }
+                            );
+                            item.Tag = val.backup_log_id;
+                            this.list.Items.Add(item);
+                        }
+
+                        this.list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                        break;
+
+                    case EnumSearchFormType.MessageType:
+                        var messageTQuery = from val in db.message_type
+                                            orderby val.description
+                                            select val;
+
+                        this.list.Columns.Add("ID");
+                        this.list.Columns.Add("Description");
+                        foreach (var val in messageTQuery)
+                        {
+                            var item = new ListViewItem(
+                                new string[]
+                                {
+                                    Convert.ToString(val.message_type_id),
+                                    val.description
+                                }
+                            );
+                            item.Tag = val.message_type_id;
+                            this.list.Items.Add(item);
+                        }
+
+                        this.list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                        break;
+
+                    case EnumSearchFormType.GroupType:
+                        var gtQuery = from val in db.group_type
+                                      orderby val.name
+                                      select val;
+
+                        this.list.Columns.Add("ID");
+                        this.list.Columns.Add("Name");
+                        foreach (var val in gtQuery)
+                        {
+                            var item = new ListViewItem(
+                                new string[]
+                                {
+                                    Convert.ToString(val.group_type_id),
+                                    val.name
+                                }
+                            );
+                            item.Tag = val.group_type_id;
+                            this.list.Items.Add(item);
+                        }
+
+                        this.list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                        break;
+
                     case EnumSearchFormType.Device:
                         var query = from dev in db.devices
                                     orderby dev.name
@@ -136,7 +343,7 @@ namespace DataUserInterface.Forms
 
             // The tag for each item is always it's ID.
             var id = (int)selected[0].Tag;
-            this.openEditorByType(this.type, EnumEditorMode.Delete, id);
+            this.openEditorByType(this.type, EnumEditorMode.Modify, id);
         }
 
         // New entry button

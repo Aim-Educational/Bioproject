@@ -130,19 +130,6 @@ namespace DataUserInterface.Forms
             FormHelper.unlimitNumericBox(this.numericMin);
             FormHelper.unlimitNumericBox(this.numericMax);
 
-            // temp
-            if (mode == EnumEditorMode.Modify)
-            {
-                using (var db = new PlanningContext())
-                {
-                    var type = (from dt in db.devices
-                                where dt.device_id == id
-                                select dt).Single();
-
-                    MessageBox.Show($"{type.isDeletable(db)}");
-                }
-            }
-
             this.mode = mode;
             if (mode != EnumEditorMode.Create)
                 this.id = id;

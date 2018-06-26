@@ -31,7 +31,7 @@ void main()
 		generateCustomModelExtensions(model, Path(`C:\Users\user\Desktop\Arduino_Project\C#\DataManager\DataManager\Generated\ModelExtension\Custom`));
 		generateSearchExtensions(model, Path(`C:\Users\user\Desktop\Arduino_Project\C#\DataUserInterface\DataUserInterface\Generated`));
 		generateEditorStubs(model, Path(`C:\Users\user\Desktop\Arduino_Project\C#\DataUserInterface\DataUserInterface\Forms\Generated`));
-		writeln(model);
+		//writeln(model);
 	}
 	catch(Exception ex)
 	{

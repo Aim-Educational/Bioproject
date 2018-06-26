@@ -25,7 +25,7 @@ namespace DataManager.Model
             var dbTimestamp = BitConverter.ToInt64(obj.timestamp, 0);
             var localTimestamp = BitConverter.ToInt64(this.timestamp, 0);
 
-            return (dbTimestamp > localTimestamp);
+            return (dbTimestamp >= localTimestamp);
         }
 
         public bool isValidForUpdate(IncrementVersion shouldIncrement = IncrementVersion.no)

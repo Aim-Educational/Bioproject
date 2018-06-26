@@ -170,6 +170,9 @@
     <Compile Include="Generated\FormUserEditor.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Generated\SearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,11 +181,38 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Generated\FormActionLevelEditor.resx">
+      <DependentUpon>FormActionLevelEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generated\FormActionTypeEditor.resx">
+      <DependentUpon>FormActionTypeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generated\FormAlarmEditor.resx">
+      <DependentUpon>FormAlarmEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generated\FormAlarmTypeEditor.resx">
+      <DependentUpon>FormAlarmTypeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generated\FormApplicationEditor.resx">
+      <DependentUpon>FormApplicationEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generated\FormApplicationLogEditor.resx">
+      <DependentUpon>FormApplicationLogEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generated\FormBackupLogEditor.resx">
+      <DependentUpon>FormBackupLogEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Generated\FormDeviceEditor.resx">
       <DependentUpon>FormDeviceEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SearchForm.resx">
       <DependentUpon>SearchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generated\FormGroupTypeEditor.resx">
+      <DependentUpon>FormGroupTypeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generated\FormMessageTypeEditor.resx">
+      <DependentUpon>FormMessageTypeEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

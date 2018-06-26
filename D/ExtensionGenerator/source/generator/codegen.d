@@ -8,18 +8,18 @@ private
     //////////////////////
     /// Template Files ///
     //////////////////////
-    const TEMPLATE_MODEL_EXTENSION = cast(string)import("templates/Model/generated.cs");
-    const TEMPLATE_MODEL_CUSTOM_EXTENSION = cast(string)import("templates/Model/custom.cs");
+    const TEMPLATE_MODEL_EXTENSION                           = cast(string)import("templates/Model/generated.cs");
+    const TEMPLATE_MODEL_CUSTOM_EXTENSION                    = cast(string)import("templates/Model/custom.cs");
     const TEMPLATE_MODEL_CUSTOM_EXTENSION_IS_DELETABLE_QUERY = cast(string)import("templates/Model/custom_isDeletable_query.cs");
-    const TEMPLATE_SEARCHFORM_MAIN = cast(string)import("templates/SearchForm/searchFormMain.cs");
-    const TEMPLATE_SEARCHFORM_EDITOR_CASES = cast(string)import("templates/SearchForm/searchFormEditorCases.cs");
-    const TEMPLATE_EDITOR_CODE = cast(string)import("templates/Editor/FormEditorCode.cs");
+    const TEMPLATE_SEARCHFORM_MAIN                           = cast(string)import("templates/SearchForm/searchFormMain.cs");
+    const TEMPLATE_SEARCHFORM_EDITOR_CASES                   = cast(string)import("templates/SearchForm/searchFormEditorCases.cs");
+    const TEMPLATE_EDITOR_CODE                               = cast(string)import("templates/Editor/FormEditorCode.cs");
 
     //////////////
     /// Config ///
     //////////////
     const SEARCH_FORM_EXTENSION_FILENAME = "SearchForm.cs";
-    const WORDS_TO_CAPITALISE = ["bbc", "rss"];
+    const WORDS_TO_CAPITALISE            = ["bbc", "rss", "url"];
 }
 
 void generateModelExtensions(Model model, Path outputDir)

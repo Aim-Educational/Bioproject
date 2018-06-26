@@ -93,7 +93,7 @@ namespace DataUserInterface.Forms
                     var obj = db.rss_configuration.SingleOrDefault(v => v.rss_configuration_id == this.id);
                     if (obj != null)
                     {
-                        #error Fill out 'obj' with the updated info.
+                        //#error Fill out 'obj' with the updated info.
 
                         this._cached  = obj;
                         this._isDirty = false;
@@ -182,7 +182,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = db.rss_configuration.SingleOrDefault(v => v.rss_configuration_id == this.id);
 
-                #error Edit 'obj' with the new info to upload to the database.
+                //#error Edit 'obj' with the new info to upload to the database.
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -204,7 +204,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = new rss_configuration();
 
-                #error Fill out 'obj' with the new info.
+                //#error Fill out 'obj' with the new info.
 
                 db.rss_configuration.Add(obj);
                 db.SaveChanges();

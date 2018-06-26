@@ -12,7 +12,7 @@ using DataManager.Model;
 
 namespace DataUserInterface.Forms
 {
-    public partial class FormDeviceUrlEditor : Form
+    public partial class FormDeviceURLEditor : Form
     {
         private static device_url _defaultObject = new device_url();
 
@@ -93,7 +93,7 @@ namespace DataUserInterface.Forms
                     var obj = db.device_url.SingleOrDefault(v => v.device_url_id == this.id);
                     if (obj != null)
                     {
-                        #error Fill out 'obj' with the updated info.
+                        //#error Fill out 'obj' with the updated info.
 
                         this._cached  = obj;
                         this._isDirty = false;
@@ -102,7 +102,7 @@ namespace DataUserInterface.Forms
             }
         }
         
-        public FormDeviceUrlEditor(EnumEditorMode mode, int id = -1) // ID isn't always needed, e.g. Create
+        public FormDeviceURLEditor(EnumEditorMode mode, int id = -1) // ID isn't always needed, e.g. Create
         {
             InitializeComponent();
 
@@ -110,7 +110,7 @@ namespace DataUserInterface.Forms
             if (mode != EnumEditorMode.Create)
                 this.id = id;
             else
-                this._cached = FormDeviceUrlEditor._defaultObject;
+                this._cached = FormDeviceURLEditor._defaultObject;
 
             this.reload();
         }
@@ -182,7 +182,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = db.device_url.SingleOrDefault(v => v.device_url_id == this.id);
 
-                #error Edit 'obj' with the new info to upload to the database.
+                //#error Edit 'obj' with the new info to upload to the database.
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -204,7 +204,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = new device_url();
 
-                #error Fill out 'obj' with the new info.
+                //#error Fill out 'obj' with the new info.
 
                 db.device_url.Add(obj);
                 db.SaveChanges();
@@ -265,7 +265,7 @@ namespace DataUserInterface.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDeviceUrlEditor));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDeviceURLEditor));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.labelDirty = new System.Windows.Forms.Label();
             this.buttonDelete = new System.Windows.Forms.Button();
