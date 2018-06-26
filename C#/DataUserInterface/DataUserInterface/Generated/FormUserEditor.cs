@@ -559,7 +559,7 @@ namespace DataUserInterface.Forms
             this.ClientSize = new System.Drawing.Size(330, 211);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormUserEditor";
-            this.Text = "Device Editor";
+            this.Text = "User Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDeviceEditor_FormClosing);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();

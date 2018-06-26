@@ -145,6 +145,31 @@ namespace DataUserInterface.Forms
                         this.list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
                         break;
 
+                    case EnumSearchFormType.Unit:
+                        var unitQuery = from val in db.units
+                                        orderby val.unit_id
+                                        select val;
+
+                        this.list.Columns.Add("ID");
+                        this.list.Columns.Add("Abbreviation");
+                        this.list.Columns.Add("Description");
+                        foreach (var val in unitQuery)
+                        {
+                            var item = new ListViewItem(
+                                new string[]
+                                {
+                                    Convert.ToString(val.unit_id),
+                                    val.abbreviation,
+                                    val.description
+                                }
+                            );
+                            item.Tag = val.unit_id;
+                            this.list.Items.Add(item);
+                        }
+
+                        this.list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                        break;
+
                     case EnumSearchFormType.Alarm:
                         var alarmQuery = from val in db.alarms
                                          orderby val.comment

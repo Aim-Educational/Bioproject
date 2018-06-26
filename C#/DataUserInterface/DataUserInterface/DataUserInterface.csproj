@@ -214,6 +214,9 @@
     <EmbeddedResource Include="Generated\FormMessageTypeEditor.resx">
       <DependentUpon>FormMessageTypeEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Generated\FormUnitEditor.resx">
+      <DependentUpon>FormUnitEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Generated\FormUserEditor.resx">
       <DependentUpon>FormUserEditor.cs</DependentUpon>
     </EmbeddedResource>
