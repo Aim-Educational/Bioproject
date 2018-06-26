@@ -329,6 +329,33 @@ namespace DataUserInterface.Forms
                         this.list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
                         break;
 
+                    case EnumSearchFormType.User:
+                        var userQuery = from val in db.users
+                                        orderby val.username
+                                        select val;
+
+                        this.list.Columns.Add("ID");
+                        this.list.Columns.Add("Username");
+                        this.list.Columns.Add("Forename");
+                        this.list.Columns.Add("Surname");
+                        foreach (var val in userQuery)
+                        {
+                            var item = new ListViewItem(
+                                new string[]
+                                {
+                                    Convert.ToString(val.user_id),
+                                    val.username,
+                                    val.forename,
+                                    val.surname
+                                }
+                            );
+                            item.Tag = val.user_id;
+                            this.list.Items.Add(item);
+                        }
+
+                        this.list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                        break;
+
                     default:
                         throw new NotImplementedException($"Type: {dataType}");
                 }
