@@ -1,6 +1,10 @@
 {
 	"fileVersion": 1,
 	"versions": {
-		"scriptlike": "0.10.2"
+		"libinputvisitor": "1.2.2",
+		"scriptlike": "0.10.2",
+		"sdlang-d": "0.10.3",
+		"taggedalgebraic": "0.10.11",
+		"unit-threaded": "0.7.46"
 	}
 }

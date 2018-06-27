@@ -1,6 +1,6 @@
 import std.stdio;
 import scriptlike;
-import generator.model, generator.codegen;
+import generator.model, generator.codegen, generator.config;
 
 /+
 Next steps:
@@ -21,17 +21,19 @@ Next steps:
 
 void main()
 {
-	debug scriptlikeEcho = true;
 	try
 	{
-		// Hard coded paths for testing
-		auto model = parseModelDirectory(Path(`C:\Users\user\Desktop\Arduino_Project\C#\DataManager\DataManager\Generated\Model`));		
+		loadConfig();
+
+		scriptlikeEcho   = appConfig.debugOptions.echo.get(false);
+		scriptlikeDryRun = appConfig.debugOptions.dryRun.get(false);
+
+		auto model = parseModelDirectory(Path(buildPath(appConfig.projDataManager.rootDir, appConfig.projDataManager.efModelDir)));		
 		validateModel(model);
-		generateModelExtensions(model, Path(`C:\Users\user\Desktop\Arduino_Project\C#\DataManager\DataManager\Generated\ModelExtension\Generated`));
-		generateCustomModelExtensions(model, Path(`C:\Users\user\Desktop\Arduino_Project\C#\DataManager\DataManager\Generated\ModelExtension\Custom`));
-		generateSearchExtensions(model, Path(`C:\Users\user\Desktop\Arduino_Project\C#\DataUserInterface\DataUserInterface\Generated`));
-		generateEditorStubs(model, Path(`C:\Users\user\Desktop\Arduino_Project\C#\DataUserInterface\DataUserInterface\Forms\Generated`));
-		//writeln(model);
+		generateModelExtensions(model, Path(buildPath(appConfig.projDataManager.rootDir, appConfig.projDataManager.generatorOutputDir, "/ModelExtension/Generated")));
+		generateCustomModelExtensions(model, Path(buildPath(appConfig.projDataManager.rootDir, appConfig.projDataManager.generatorOutputDir, "/ModelExtension/Custom")));
+		generateSearchExtensions(model, Path(buildPath(appConfig.projUserInterface.rootDir, appConfig.projUserInterface.searchExtensionOutputDir, appConfig.projUserInterface.searchExtensionFilename)));
+		generateEditorStubs(model, Path(buildPath(appConfig.projUserInterface.rootDir, appConfig.projUserInterface.formOutputDir)));
 	}
 	catch(Exception ex)
 	{

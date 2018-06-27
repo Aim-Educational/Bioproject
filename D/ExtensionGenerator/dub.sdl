@@ -4,5 +4,6 @@ authors "Bradley Chatha"
 copyright "Copyright © 2018, Bradley Chatha"
 license "proprietary"
 dependency "scriptlike" version="~>0.10.2"
+dependency "sdlang-d" version="~>0.10.3"
 
 targetPath "bin"

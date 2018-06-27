@@ -18,7 +18,6 @@ private
     //////////////
     /// Config ///
     //////////////
-    const SEARCH_FORM_EXTENSION_FILENAME = "SearchForm.cs";
     const WORDS_TO_CAPITALISE            = ["bbc", "rss", "url"];
 }
 
@@ -111,16 +110,16 @@ void generateEditorStubs(const Model model, Path outputDir)
     }
 }
 
-void generateSearchExtensions(const Model model, Path outputDir)
+void generateSearchExtensions(const Model model, Path outputFile)
 {
     import std.uni : toUpperInPlace, toUpper;
     import std.array : array;
     import std.algorithm : splitter, canFind, map;
 
-    writefln("Generating Search Form extensions, outputted to directory '%s'", outputDir);
+    writefln("Generating Search Form extensions, outputted to file '%s'", outputFile);
 
-    if(!outputDir.exists)
-		mkdirRecurse(outputDir);
+    if(!outputFile.exists)
+		mkdirRecurse(outputFile.dirName);
 
     // First, generate the cases
     char[] custom_EditorCaseStatements;
@@ -134,7 +133,7 @@ void generateSearchExtensions(const Model model, Path outputDir)
 
     // And then, generate the main file
     auto text = mixin(interp!TEMPLATE_SEARCHFORM_MAIN);
-    writeFile(buildNormalizedPath(outputDir.raw, SEARCH_FORM_EXTENSION_FILENAME), text);
+    writeFile(outputFile.raw, text);
 }
 
 char[] standardisedName(const char[] name)
