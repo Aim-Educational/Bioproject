@@ -223,7 +223,23 @@ FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
             {
                 var obj = db.devices.SingleOrDefault(v => v.device_id == this.id);
 
-                #error Edit 'obj' with the new info to upload to the database.
+                
+obj.name = this.textboxName.Text;
+obj.description = this.textboxDescription.Text;
+obj.location = this.textboxLocation.Text;
+obj.min_value = (double)this.numericMinValue.Value;
+obj.max_value = (double)this.numericMaxValue.Value;
+obj.accuracy = (double)this.numericAccuracy.Value;
+obj.serial_number = this.textboxSerialNumber.Text;
+obj.reliability = (int)this.numericReliability.Value;
+obj.strikes = (int)this.numericStrikes.Value;
+obj.version = (int)this.numericVersion.Value;
+obj.comment = this.textboxComment.Text;
+var selectedDevice2 = this.listDevice2.Items[this.listDevice2.SelectedIndex] as string;
+obj.device2 = db.devices.Single(v => v.name == selectedDevice2);
+var selectedDeviceType = this.listDeviceType.Items[this.listDeviceType.SelectedIndex] as string;
+obj.device_type = db.device_type.Single(v => v.description == selectedDeviceType);
+
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -245,7 +261,23 @@ FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
             {
                 var obj = new device();
 
-                #error Fill out 'obj' with the new info.
+                
+obj.name = this.textboxName.Text;
+obj.description = this.textboxDescription.Text;
+obj.location = this.textboxLocation.Text;
+obj.min_value = (double)this.numericMinValue.Value;
+obj.max_value = (double)this.numericMaxValue.Value;
+obj.accuracy = (double)this.numericAccuracy.Value;
+obj.serial_number = this.textboxSerialNumber.Text;
+obj.reliability = (int)this.numericReliability.Value;
+obj.strikes = (int)this.numericStrikes.Value;
+obj.version = (int)this.numericVersion.Value;
+obj.comment = this.textboxComment.Text;
+var selectedDevice2 = this.listDevice2.Items[this.listDevice2.SelectedIndex] as string;
+obj.device2 = db.devices.Single(v => v.name == selectedDevice2);
+var selectedDeviceType = this.listDeviceType.Items[this.listDeviceType.SelectedIndex] as string;
+obj.device_type = db.device_type.Single(v => v.description == selectedDeviceType);
+
 
                 db.devices.Add(obj);
                 db.SaveChanges();
@@ -305,6 +337,9 @@ FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
         }
         private void numericMinValue_ValueChanged(object sender, EventArgs e)
         {
+            if(this._cached == null)
+                return;
+
             if (Convert.ToDouble(this.numericMinValue.Value) != this._cached.min_value)
                 this._isDirty = true;
         }
@@ -314,6 +349,9 @@ FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
         }
         private void numericMaxValue_ValueChanged(object sender, EventArgs e)
         {
+            if(this._cached == null)
+                return;
+
             if (Convert.ToDouble(this.numericMaxValue.Value) != this._cached.max_value)
                 this._isDirty = true;
         }
@@ -323,6 +361,9 @@ FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
         }
         private void numericAccuracy_ValueChanged(object sender, EventArgs e)
         {
+            if(this._cached == null)
+                return;
+
             if (Convert.ToDouble(this.numericAccuracy.Value) != this._cached.accuracy)
                 this._isDirty = true;
         }
@@ -338,6 +379,9 @@ FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
         }
         private void numericReliability_ValueChanged(object sender, EventArgs e)
         {
+            if(this._cached == null)
+                return;
+
             if (Convert.ToDouble(this.numericReliability.Value) != this._cached.reliability)
                 this._isDirty = true;
         }
@@ -347,6 +391,9 @@ FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
         }
         private void numericStrikes_ValueChanged(object sender, EventArgs e)
         {
+            if(this._cached == null)
+                return;
+
             if (Convert.ToDouble(this.numericStrikes.Value) != this._cached.strikes)
                 this._isDirty = true;
         }
@@ -356,6 +403,9 @@ FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
         }
         private void numericVersion_ValueChanged(object sender, EventArgs e)
         {
+            if(this._cached == null)
+                return;
+
             if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
                 this._isDirty = true;
         }
@@ -370,18 +420,30 @@ FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
             var index = this.listDevice2.SelectedIndex;
             var value = this.listDevice2.Items[index] as string;
 
-            if (this.mode == EnumEditorMode.Create || value != this._cached.device2.name)
+            if (this.mode == EnumEditorMode.Create || (this._cached.device2 != null && value != this._cached.device2.name))
                 this._isDirty = true;
         }
-                private void listDeviceType_SelectionChangeCommitted(object sender, EventArgs e)
+        private void buttonShowDevice2_Click(object sender, EventArgs e)
+{
+    var form = new SearchForm(EnumSearchFormType.Device);
+    form.MdiParent = this.MdiParent;
+    form.Show();
+}
+        private void listDeviceType_SelectionChangeCommitted(object sender, EventArgs e)
         {
             var index = this.listDeviceType.SelectedIndex;
             var value = this.listDeviceType.Items[index] as string;
 
-            if (this.mode == EnumEditorMode.Create || value != this._cached.device_type.description)
+            if (this.mode == EnumEditorMode.Create || (this._cached.device_type != null && value != this._cached.device_type.description))
                 this._isDirty = true;
         }
-        
+        private void buttonShowDeviceType_Click(object sender, EventArgs e)
+{
+    var form = new SearchForm(EnumSearchFormType.DeviceType);
+    form.MdiParent = this.MdiParent;
+    form.Show();
+}
+
         #endregion
 
 
@@ -421,32 +483,34 @@ FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonAction = new System.Windows.Forms.Button();
             this.textboxDeviceId = new System.Windows.Forms.TextBox();
-this.textboxName = new System.Windows.Forms.TextBox();
-this.textboxDescription = new System.Windows.Forms.TextBox();
-this.textboxLocation = new System.Windows.Forms.TextBox();
-this.numericMinValue = new System.Windows.Forms.NumericUpDown();
-this.numericMaxValue = new System.Windows.Forms.NumericUpDown();
-this.numericAccuracy = new System.Windows.Forms.NumericUpDown();
-this.textboxSerialNumber = new System.Windows.Forms.TextBox();
-this.numericReliability = new System.Windows.Forms.NumericUpDown();
-this.numericStrikes = new System.Windows.Forms.NumericUpDown();
-this.numericVersion = new System.Windows.Forms.NumericUpDown();
-this.textboxComment = new System.Windows.Forms.TextBox();
-this.listDevice2 = new System.Windows.Forms.ComboBox();
-this.listDeviceType = new System.Windows.Forms.ComboBox();
 this.labelDeviceId = new System.Windows.Forms.Label();
+this.textboxName = new System.Windows.Forms.TextBox();
 this.labelName = new System.Windows.Forms.Label();
+this.textboxDescription = new System.Windows.Forms.TextBox();
 this.labelDescription = new System.Windows.Forms.Label();
+this.textboxLocation = new System.Windows.Forms.TextBox();
 this.labelLocation = new System.Windows.Forms.Label();
+this.numericMinValue = new System.Windows.Forms.NumericUpDown();
 this.labelMinValue = new System.Windows.Forms.Label();
+this.numericMaxValue = new System.Windows.Forms.NumericUpDown();
 this.labelMaxValue = new System.Windows.Forms.Label();
+this.numericAccuracy = new System.Windows.Forms.NumericUpDown();
 this.labelAccuracy = new System.Windows.Forms.Label();
+this.textboxSerialNumber = new System.Windows.Forms.TextBox();
 this.labelSerialNumber = new System.Windows.Forms.Label();
+this.numericReliability = new System.Windows.Forms.NumericUpDown();
 this.labelReliability = new System.Windows.Forms.Label();
+this.numericStrikes = new System.Windows.Forms.NumericUpDown();
 this.labelStrikes = new System.Windows.Forms.Label();
+this.numericVersion = new System.Windows.Forms.NumericUpDown();
 this.labelVersion = new System.Windows.Forms.Label();
+this.textboxComment = new System.Windows.Forms.TextBox();
 this.labelComment = new System.Windows.Forms.Label();
+this.listDevice2 = new System.Windows.Forms.ComboBox();
+this.buttonShowDevice2 = new System.Windows.Forms.Button();
 this.labelDevice2 = new System.Windows.Forms.Label();
+this.listDeviceType = new System.Windows.Forms.ComboBox();
+this.buttonShowDeviceType = new System.Windows.Forms.Button();
 this.labelDeviceType = new System.Windows.Forms.Label();
 
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -507,7 +571,9 @@ this.splitContainer1.Panel2.Controls.Add(numericStrikes);
 this.splitContainer1.Panel2.Controls.Add(numericVersion);
 this.splitContainer1.Panel2.Controls.Add(textboxComment);
 this.splitContainer1.Panel2.Controls.Add(listDevice2);
+this.splitContainer1.Panel2.Controls.Add(buttonShowDevice2);
 this.splitContainer1.Panel2.Controls.Add(listDeviceType);
+this.splitContainer1.Panel2.Controls.Add(buttonShowDeviceType);
 
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
@@ -526,11 +592,9 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.buttonDelete.Image = ((System.Drawing.Image)(resources.GetObject("buttonDelete.Image")));
-            this.buttonDelete.Location = new System.Drawing.Point(85, 313);
+            this.buttonDelete.Location = new System.Drawing.Point(85, 390);
             this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Text = "[X]";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
             this.buttonDelete.TabIndex = 11;
             this.buttonDelete.UseVisualStyleBackColor = false;
@@ -538,7 +602,7 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(4, 314);
+            this.buttonReload.Location = new System.Drawing.Point(4, 390);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -548,8 +612,7 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             // 
             // buttonAction
             // 
-            this.buttonAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAction.Location = new System.Drawing.Point(141, 313);
+            this.buttonAction.Location = new System.Drawing.Point(141, 390);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
@@ -568,157 +631,6 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             this.textboxDeviceId.Leave += new System.EventHandler(this.textboxDeviceId_Leave);
             this.textboxDeviceId.Enabled = false;
                         // 
-            // textboxName
-            // 
-            this.textboxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxName.Location = new System.Drawing.Point(4, 38);
-            this.textboxName.Name = "textboxName";
-            this.textboxName.Size = new System.Drawing.Size(208, 20);
-            this.textboxName.TabIndex = 31;
-            this.textboxName.Leave += new System.EventHandler(this.textboxName_Leave);
-            this.textboxName.Enabled = true;
-                        // 
-            // textboxDescription
-            // 
-            this.textboxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxDescription.Location = new System.Drawing.Point(4, 64);
-            this.textboxDescription.Name = "textboxDescription";
-            this.textboxDescription.Size = new System.Drawing.Size(208, 20);
-            this.textboxDescription.TabIndex = 31;
-            this.textboxDescription.Leave += new System.EventHandler(this.textboxDescription_Leave);
-            this.textboxDescription.Enabled = true;
-                        // 
-            // textboxLocation
-            // 
-            this.textboxLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxLocation.Location = new System.Drawing.Point(4, 90);
-            this.textboxLocation.Name = "textboxLocation";
-            this.textboxLocation.Size = new System.Drawing.Size(208, 20);
-            this.textboxLocation.TabIndex = 31;
-            this.textboxLocation.Leave += new System.EventHandler(this.textboxLocation_Leave);
-            this.textboxLocation.Enabled = true;
-                        // 
-            // numericMinValue
-            // 
-            this.numericMinValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericMinValue.Location = new System.Drawing.Point(4, 116);
-            this.numericMinValue.Name = "numericMinValue";
-            this.numericMinValue.Size = new System.Drawing.Size(211, 20);
-            this.numericMinValue.TabIndex = 32;
-            this.numericMinValue.ValueChanged += new System.EventHandler(this.numericMinValue_ValueChanged);
-            this.numericMinValue.Click += new System.EventHandler(this.numericMinValue_Enter);
-            this.numericMinValue.Enter += new System.EventHandler(this.numericMinValue_Enter);
-                        // 
-            // numericMaxValue
-            // 
-            this.numericMaxValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericMaxValue.Location = new System.Drawing.Point(4, 142);
-            this.numericMaxValue.Name = "numericMaxValue";
-            this.numericMaxValue.Size = new System.Drawing.Size(211, 20);
-            this.numericMaxValue.TabIndex = 32;
-            this.numericMaxValue.ValueChanged += new System.EventHandler(this.numericMaxValue_ValueChanged);
-            this.numericMaxValue.Click += new System.EventHandler(this.numericMaxValue_Enter);
-            this.numericMaxValue.Enter += new System.EventHandler(this.numericMaxValue_Enter);
-                        // 
-            // numericAccuracy
-            // 
-            this.numericAccuracy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericAccuracy.Location = new System.Drawing.Point(4, 168);
-            this.numericAccuracy.Name = "numericAccuracy";
-            this.numericAccuracy.Size = new System.Drawing.Size(211, 20);
-            this.numericAccuracy.TabIndex = 32;
-            this.numericAccuracy.ValueChanged += new System.EventHandler(this.numericAccuracy_ValueChanged);
-            this.numericAccuracy.Click += new System.EventHandler(this.numericAccuracy_Enter);
-            this.numericAccuracy.Enter += new System.EventHandler(this.numericAccuracy_Enter);
-                        // 
-            // textboxSerialNumber
-            // 
-            this.textboxSerialNumber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxSerialNumber.Location = new System.Drawing.Point(4, 194);
-            this.textboxSerialNumber.Name = "textboxSerialNumber";
-            this.textboxSerialNumber.Size = new System.Drawing.Size(208, 20);
-            this.textboxSerialNumber.TabIndex = 31;
-            this.textboxSerialNumber.Leave += new System.EventHandler(this.textboxSerialNumber_Leave);
-            this.textboxSerialNumber.Enabled = true;
-                        // 
-            // numericReliability
-            // 
-            this.numericReliability.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericReliability.Location = new System.Drawing.Point(4, 220);
-            this.numericReliability.Name = "numericReliability";
-            this.numericReliability.Size = new System.Drawing.Size(211, 20);
-            this.numericReliability.TabIndex = 32;
-            this.numericReliability.ValueChanged += new System.EventHandler(this.numericReliability_ValueChanged);
-            this.numericReliability.Click += new System.EventHandler(this.numericReliability_Enter);
-            this.numericReliability.Enter += new System.EventHandler(this.numericReliability_Enter);
-                        // 
-            // numericStrikes
-            // 
-            this.numericStrikes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericStrikes.Location = new System.Drawing.Point(4, 246);
-            this.numericStrikes.Name = "numericStrikes";
-            this.numericStrikes.Size = new System.Drawing.Size(211, 20);
-            this.numericStrikes.TabIndex = 32;
-            this.numericStrikes.ValueChanged += new System.EventHandler(this.numericStrikes_ValueChanged);
-            this.numericStrikes.Click += new System.EventHandler(this.numericStrikes_Enter);
-            this.numericStrikes.Enter += new System.EventHandler(this.numericStrikes_Enter);
-                        // 
-            // numericVersion
-            // 
-            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericVersion.Location = new System.Drawing.Point(4, 272);
-            this.numericVersion.Name = "numericVersion";
-            this.numericVersion.Size = new System.Drawing.Size(211, 20);
-            this.numericVersion.TabIndex = 32;
-            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
-            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
-            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
-                        // 
-            // textboxComment
-            // 
-            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxComment.Location = new System.Drawing.Point(4, 298);
-            this.textboxComment.Name = "textboxComment";
-            this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
-            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
-            this.textboxComment.Enabled = true;
-                        // 
-            // listDevice2
-            // 
-            this.listDevice2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listDevice2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.listDevice2.FormattingEnabled = true;
-            this.listDevice2.Location = new System.Drawing.Point(4, 324);
-            this.listDevice2.Name = "listDevice2";
-            this.listDevice2.Size = new System.Drawing.Size(165, 21);
-            this.listDevice2.TabIndex = 25;
-            this.listDevice2.SelectionChangeCommitted += new System.EventHandler(this.listDevice2_SelectionChangeCommitted);
-                        // 
-            // listDeviceType
-            // 
-            this.listDeviceType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listDeviceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.listDeviceType.FormattingEnabled = true;
-            this.listDeviceType.Location = new System.Drawing.Point(4, 350);
-            this.listDeviceType.Name = "listDeviceType";
-            this.listDeviceType.Size = new System.Drawing.Size(165, 21);
-            this.listDeviceType.TabIndex = 25;
-            this.listDeviceType.SelectionChangeCommitted += new System.EventHandler(this.listDeviceType_SelectionChangeCommitted);
-                        // 
             // labelDeviceId
             // 
             this.labelDeviceId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -730,6 +642,17 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             this.labelDeviceId.TabIndex = 14;
             this.labelDeviceId.Text = "ID";
             this.labelDeviceId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // textboxName
+            // 
+            this.textboxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxName.Location = new System.Drawing.Point(4, 38);
+            this.textboxName.Name = "textboxName";
+            this.textboxName.Size = new System.Drawing.Size(208, 20);
+            this.textboxName.TabIndex = 31;
+            this.textboxName.Leave += new System.EventHandler(this.textboxName_Leave);
+            this.textboxName.Enabled = true;
                         // 
             // labelName
             // 
@@ -743,6 +666,17 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             this.labelName.Text = "Name";
             this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // textboxDescription
+            // 
+            this.textboxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxDescription.Location = new System.Drawing.Point(4, 64);
+            this.textboxDescription.Name = "textboxDescription";
+            this.textboxDescription.Size = new System.Drawing.Size(208, 20);
+            this.textboxDescription.TabIndex = 31;
+            this.textboxDescription.Leave += new System.EventHandler(this.textboxDescription_Leave);
+            this.textboxDescription.Enabled = true;
+                        // 
             // labelDescription
             // 
             this.labelDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -754,6 +688,17 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             this.labelDescription.TabIndex = 14;
             this.labelDescription.Text = "Description";
             this.labelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // textboxLocation
+            // 
+            this.textboxLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxLocation.Location = new System.Drawing.Point(4, 90);
+            this.textboxLocation.Name = "textboxLocation";
+            this.textboxLocation.Size = new System.Drawing.Size(208, 20);
+            this.textboxLocation.TabIndex = 31;
+            this.textboxLocation.Leave += new System.EventHandler(this.textboxLocation_Leave);
+            this.textboxLocation.Enabled = true;
                         // 
             // labelLocation
             // 
@@ -767,6 +712,18 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             this.labelLocation.Text = "Location";
             this.labelLocation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // numericMinValue
+            // 
+            this.numericMinValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericMinValue.Location = new System.Drawing.Point(4, 116);
+            this.numericMinValue.Name = "numericMinValue";
+            this.numericMinValue.Size = new System.Drawing.Size(211, 20);
+            this.numericMinValue.TabIndex = 32;
+            this.numericMinValue.ValueChanged += new System.EventHandler(this.numericMinValue_ValueChanged);
+            this.numericMinValue.Click += new System.EventHandler(this.numericMinValue_Enter);
+            this.numericMinValue.Enter += new System.EventHandler(this.numericMinValue_Enter);
+                        // 
             // labelMinValue
             // 
             this.labelMinValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -778,6 +735,18 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             this.labelMinValue.TabIndex = 14;
             this.labelMinValue.Text = "MinValue";
             this.labelMinValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // numericMaxValue
+            // 
+            this.numericMaxValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericMaxValue.Location = new System.Drawing.Point(4, 142);
+            this.numericMaxValue.Name = "numericMaxValue";
+            this.numericMaxValue.Size = new System.Drawing.Size(211, 20);
+            this.numericMaxValue.TabIndex = 32;
+            this.numericMaxValue.ValueChanged += new System.EventHandler(this.numericMaxValue_ValueChanged);
+            this.numericMaxValue.Click += new System.EventHandler(this.numericMaxValue_Enter);
+            this.numericMaxValue.Enter += new System.EventHandler(this.numericMaxValue_Enter);
                         // 
             // labelMaxValue
             // 
@@ -791,6 +760,18 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             this.labelMaxValue.Text = "MaxValue";
             this.labelMaxValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // numericAccuracy
+            // 
+            this.numericAccuracy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericAccuracy.Location = new System.Drawing.Point(4, 168);
+            this.numericAccuracy.Name = "numericAccuracy";
+            this.numericAccuracy.Size = new System.Drawing.Size(211, 20);
+            this.numericAccuracy.TabIndex = 32;
+            this.numericAccuracy.ValueChanged += new System.EventHandler(this.numericAccuracy_ValueChanged);
+            this.numericAccuracy.Click += new System.EventHandler(this.numericAccuracy_Enter);
+            this.numericAccuracy.Enter += new System.EventHandler(this.numericAccuracy_Enter);
+                        // 
             // labelAccuracy
             // 
             this.labelAccuracy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -802,6 +783,17 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             this.labelAccuracy.TabIndex = 14;
             this.labelAccuracy.Text = "Accuracy";
             this.labelAccuracy.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // textboxSerialNumber
+            // 
+            this.textboxSerialNumber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxSerialNumber.Location = new System.Drawing.Point(4, 194);
+            this.textboxSerialNumber.Name = "textboxSerialNumber";
+            this.textboxSerialNumber.Size = new System.Drawing.Size(208, 20);
+            this.textboxSerialNumber.TabIndex = 31;
+            this.textboxSerialNumber.Leave += new System.EventHandler(this.textboxSerialNumber_Leave);
+            this.textboxSerialNumber.Enabled = true;
                         // 
             // labelSerialNumber
             // 
@@ -815,6 +807,18 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             this.labelSerialNumber.Text = "SerialNumber";
             this.labelSerialNumber.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // numericReliability
+            // 
+            this.numericReliability.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericReliability.Location = new System.Drawing.Point(4, 220);
+            this.numericReliability.Name = "numericReliability";
+            this.numericReliability.Size = new System.Drawing.Size(211, 20);
+            this.numericReliability.TabIndex = 32;
+            this.numericReliability.ValueChanged += new System.EventHandler(this.numericReliability_ValueChanged);
+            this.numericReliability.Click += new System.EventHandler(this.numericReliability_Enter);
+            this.numericReliability.Enter += new System.EventHandler(this.numericReliability_Enter);
+                        // 
             // labelReliability
             // 
             this.labelReliability.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -826,6 +830,18 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             this.labelReliability.TabIndex = 14;
             this.labelReliability.Text = "Reliability";
             this.labelReliability.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // numericStrikes
+            // 
+            this.numericStrikes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericStrikes.Location = new System.Drawing.Point(4, 246);
+            this.numericStrikes.Name = "numericStrikes";
+            this.numericStrikes.Size = new System.Drawing.Size(211, 20);
+            this.numericStrikes.TabIndex = 32;
+            this.numericStrikes.ValueChanged += new System.EventHandler(this.numericStrikes_ValueChanged);
+            this.numericStrikes.Click += new System.EventHandler(this.numericStrikes_Enter);
+            this.numericStrikes.Enter += new System.EventHandler(this.numericStrikes_Enter);
                         // 
             // labelStrikes
             // 
@@ -839,6 +855,18 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             this.labelStrikes.Text = "Strikes";
             this.labelStrikes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // numericVersion
+            // 
+            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericVersion.Location = new System.Drawing.Point(4, 272);
+            this.numericVersion.Name = "numericVersion";
+            this.numericVersion.Size = new System.Drawing.Size(211, 20);
+            this.numericVersion.TabIndex = 32;
+            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
+            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
+            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
+                        // 
             // labelVersion
             // 
             this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -850,6 +878,17 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             this.labelVersion.TabIndex = 14;
             this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // textboxComment
+            // 
+            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxComment.Location = new System.Drawing.Point(4, 298);
+            this.textboxComment.Name = "textboxComment";
+            this.textboxComment.Size = new System.Drawing.Size(208, 20);
+            this.textboxComment.TabIndex = 31;
+            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
+            this.textboxComment.Enabled = true;
                         // 
             // labelComment
             // 
@@ -863,6 +902,27 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             this.labelComment.Text = "Comment";
             this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // listDevice2
+            // 
+            this.listDevice2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listDevice2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.listDevice2.FormattingEnabled = true;
+            this.listDevice2.Location = new System.Drawing.Point(4, 324);
+            this.listDevice2.Name = "listDevice2";
+            this.listDevice2.Size = new System.Drawing.Size(165, 21);
+            this.listDevice2.TabIndex = 25;
+            this.listDevice2.SelectionChangeCommitted += new System.EventHandler(this.listDevice2_SelectionChangeCommitted);
+                        // 
+            // buttonShowDevice2
+            // 
+            this.buttonShowDevice2.Location = new System.Drawing.Point(174, 324);
+            this.buttonShowDevice2.Name = "buttonShowDevice2";
+            this.buttonShowDevice2.Size = new System.Drawing.Size(40, 23);
+            this.buttonShowDevice2.TabIndex = 10;
+            this.buttonShowDevice2.Text = "...";
+            this.buttonShowDevice2.Click += new System.EventHandler(this.buttonShowDevice2_Click);
+            // 
             // labelDevice2
             // 
             this.labelDevice2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -875,6 +935,27 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
             this.labelDevice2.Text = "Device2";
             this.labelDevice2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // listDeviceType
+            // 
+            this.listDeviceType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listDeviceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.listDeviceType.FormattingEnabled = true;
+            this.listDeviceType.Location = new System.Drawing.Point(4, 350);
+            this.listDeviceType.Name = "listDeviceType";
+            this.listDeviceType.Size = new System.Drawing.Size(165, 21);
+            this.listDeviceType.TabIndex = 25;
+            this.listDeviceType.SelectionChangeCommitted += new System.EventHandler(this.listDeviceType_SelectionChangeCommitted);
+                        // 
+            // buttonShowDeviceType
+            // 
+            this.buttonShowDeviceType.Location = new System.Drawing.Point(174, 350);
+            this.buttonShowDeviceType.Name = "buttonShowDeviceType";
+            this.buttonShowDeviceType.Size = new System.Drawing.Size(40, 23);
+            this.buttonShowDeviceType.TabIndex = 10;
+            this.buttonShowDeviceType.Text = "...";
+            this.buttonShowDeviceType.Click += new System.EventHandler(this.buttonShowDeviceType_Click);
+            // 
             // labelDeviceType
             // 
             this.labelDeviceType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -922,32 +1003,34 @@ this.splitContainer1.Panel2.Controls.Add(listDeviceType);
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox textboxDeviceId;
-private System.Windows.Forms.TextBox textboxName;
-private System.Windows.Forms.TextBox textboxDescription;
-private System.Windows.Forms.TextBox textboxLocation;
-private System.Windows.Forms.NumericUpDown numericMinValue;
-private System.Windows.Forms.NumericUpDown numericMaxValue;
-private System.Windows.Forms.NumericUpDown numericAccuracy;
-private System.Windows.Forms.TextBox textboxSerialNumber;
-private System.Windows.Forms.NumericUpDown numericReliability;
-private System.Windows.Forms.NumericUpDown numericStrikes;
-private System.Windows.Forms.NumericUpDown numericVersion;
-private System.Windows.Forms.TextBox textboxComment;
-private System.Windows.Forms.ComboBox listDevice2;
-private System.Windows.Forms.ComboBox listDeviceType;
 private System.Windows.Forms.Label labelDeviceId;
+private System.Windows.Forms.TextBox textboxName;
 private System.Windows.Forms.Label labelName;
+private System.Windows.Forms.TextBox textboxDescription;
 private System.Windows.Forms.Label labelDescription;
+private System.Windows.Forms.TextBox textboxLocation;
 private System.Windows.Forms.Label labelLocation;
+private System.Windows.Forms.NumericUpDown numericMinValue;
 private System.Windows.Forms.Label labelMinValue;
+private System.Windows.Forms.NumericUpDown numericMaxValue;
 private System.Windows.Forms.Label labelMaxValue;
+private System.Windows.Forms.NumericUpDown numericAccuracy;
 private System.Windows.Forms.Label labelAccuracy;
+private System.Windows.Forms.TextBox textboxSerialNumber;
 private System.Windows.Forms.Label labelSerialNumber;
+private System.Windows.Forms.NumericUpDown numericReliability;
 private System.Windows.Forms.Label labelReliability;
+private System.Windows.Forms.NumericUpDown numericStrikes;
 private System.Windows.Forms.Label labelStrikes;
+private System.Windows.Forms.NumericUpDown numericVersion;
 private System.Windows.Forms.Label labelVersion;
+private System.Windows.Forms.TextBox textboxComment;
 private System.Windows.Forms.Label labelComment;
+private System.Windows.Forms.ComboBox listDevice2;
+private System.Windows.Forms.Button buttonShowDevice2;
 private System.Windows.Forms.Label labelDevice2;
+private System.Windows.Forms.ComboBox listDeviceType;
+private System.Windows.Forms.Button buttonShowDeviceType;
 private System.Windows.Forms.Label labelDeviceType;
 
         #endregion

@@ -24,7 +24,7 @@ namespace DataUserInterface
         #region Help Menu Items
         private void searchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var childForm = new SearchForm(EnumSearchFormType.Unit);
+            var childForm = new SearchForm(EnumSearchFormType.Device);
             childForm.MdiParent = this;
             childForm.Show();
         }

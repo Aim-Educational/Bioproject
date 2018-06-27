@@ -104,6 +104,7 @@ namespace DataUserInterface.Forms
                     {
                         this.textboxApplicationLogId.Text = Convert.ToString(obj.application_log_id);
 this.textboxMessage.Text = obj.message;
+this.datetimeDatetime.Value = obj.datetime;
 this.numericVersion.Value = (decimal)obj.version;
 foreach (var value in db.applications.OrderBy(v => v.name))
 {
@@ -209,7 +210,16 @@ foreach (var value in db.message_type.OrderBy(v => v.description))
             {
                 var obj = db.application_log.SingleOrDefault(v => v.application_log_id == this.id);
 
-                #error Edit 'obj' with the new info to upload to the database.
+                
+obj.message = this.textboxMessage.Text;
+this.datetimeDatetime.Value = DateTime.Now;
+obj.datetime = this.datetimeDatetime.Value;
+obj.version = (int)this.numericVersion.Value;
+var selectedApplication = this.listApplication.Items[this.listApplication.SelectedIndex] as string;
+obj.application = db.applications.Single(v => v.name == selectedApplication);
+var selectedMessageType = this.listMessageType.Items[this.listMessageType.SelectedIndex] as string;
+obj.message_type = db.message_type.Single(v => v.description == selectedMessageType);
+
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -231,7 +241,16 @@ foreach (var value in db.message_type.OrderBy(v => v.description))
             {
                 var obj = new application_log();
 
-                #error Fill out 'obj' with the new info.
+                
+obj.message = this.textboxMessage.Text;
+this.datetimeDatetime.Value = DateTime.Now;
+obj.datetime = this.datetimeDatetime.Value;
+obj.version = (int)this.numericVersion.Value;
+var selectedApplication = this.listApplication.Items[this.listApplication.SelectedIndex] as string;
+obj.application = db.applications.Single(v => v.name == selectedApplication);
+var selectedMessageType = this.listMessageType.Items[this.listMessageType.SelectedIndex] as string;
+obj.message_type = db.message_type.Single(v => v.description == selectedMessageType);
+
 
                 db.application_log.Add(obj);
                 db.SaveChanges();
@@ -279,6 +298,9 @@ foreach (var value in db.message_type.OrderBy(v => v.description))
         }
         private void numericVersion_ValueChanged(object sender, EventArgs e)
         {
+            if(this._cached == null)
+                return;
+
             if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
                 this._isDirty = true;
         }
@@ -287,18 +309,30 @@ foreach (var value in db.message_type.OrderBy(v => v.description))
             var index = this.listApplication.SelectedIndex;
             var value = this.listApplication.Items[index] as string;
 
-            if (this.mode == EnumEditorMode.Create || value != this._cached.application.name)
+            if (this.mode == EnumEditorMode.Create || (this._cached.application != null && value != this._cached.application.name))
                 this._isDirty = true;
         }
-                private void listMessageType_SelectionChangeCommitted(object sender, EventArgs e)
+        private void buttonShowApplication_Click(object sender, EventArgs e)
+{
+    var form = new SearchForm(EnumSearchFormType.Application);
+    form.MdiParent = this.MdiParent;
+    form.Show();
+}
+        private void listMessageType_SelectionChangeCommitted(object sender, EventArgs e)
         {
             var index = this.listMessageType.SelectedIndex;
             var value = this.listMessageType.Items[index] as string;
 
-            if (this.mode == EnumEditorMode.Create || value != this._cached.message_type.description)
+            if (this.mode == EnumEditorMode.Create || (this._cached.message_type != null && value != this._cached.message_type.description))
                 this._isDirty = true;
         }
-        
+        private void buttonShowMessageType_Click(object sender, EventArgs e)
+{
+    var form = new SearchForm(EnumSearchFormType.MessageType);
+    form.MdiParent = this.MdiParent;
+    form.Show();
+}
+
         #endregion
 
 
@@ -338,14 +372,18 @@ foreach (var value in db.message_type.OrderBy(v => v.description))
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonAction = new System.Windows.Forms.Button();
             this.textboxApplicationLogId = new System.Windows.Forms.TextBox();
-this.textboxMessage = new System.Windows.Forms.TextBox();
-this.numericVersion = new System.Windows.Forms.NumericUpDown();
-this.listApplication = new System.Windows.Forms.ComboBox();
-this.listMessageType = new System.Windows.Forms.ComboBox();
 this.labelApplicationLogId = new System.Windows.Forms.Label();
+this.textboxMessage = new System.Windows.Forms.TextBox();
 this.labelMessage = new System.Windows.Forms.Label();
+this.datetimeDatetime = new System.Windows.Forms.DateTimePicker();
+this.labelDatetime = new System.Windows.Forms.Label();
+this.numericVersion = new System.Windows.Forms.NumericUpDown();
 this.labelVersion = new System.Windows.Forms.Label();
+this.listApplication = new System.Windows.Forms.ComboBox();
+this.buttonShowApplication = new System.Windows.Forms.Button();
 this.labelApplication = new System.Windows.Forms.Label();
+this.listMessageType = new System.Windows.Forms.ComboBox();
+this.buttonShowMessageType = new System.Windows.Forms.Button();
 this.labelMessageType = new System.Windows.Forms.Label();
 
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -368,6 +406,7 @@ this.labelMessageType = new System.Windows.Forms.Label();
             this.splitContainer1.Panel1.Controls.Add(this.labelDirty);
             this.splitContainer1.Panel1.Controls.Add(labelApplicationLogId);
 this.splitContainer1.Panel1.Controls.Add(labelMessage);
+this.splitContainer1.Panel1.Controls.Add(labelDatetime);
 this.splitContainer1.Panel1.Controls.Add(labelVersion);
 this.splitContainer1.Panel1.Controls.Add(labelApplication);
 this.splitContainer1.Panel1.Controls.Add(labelMessageType);
@@ -381,9 +420,12 @@ this.splitContainer1.Panel1.Controls.Add(labelMessageType);
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
             this.splitContainer1.Panel2.Controls.Add(textboxApplicationLogId);
 this.splitContainer1.Panel2.Controls.Add(textboxMessage);
+this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
 this.splitContainer1.Panel2.Controls.Add(numericVersion);
 this.splitContainer1.Panel2.Controls.Add(listApplication);
+this.splitContainer1.Panel2.Controls.Add(buttonShowApplication);
 this.splitContainer1.Panel2.Controls.Add(listMessageType);
+this.splitContainer1.Panel2.Controls.Add(buttonShowMessageType);
 
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
@@ -402,11 +444,9 @@ this.splitContainer1.Panel2.Controls.Add(listMessageType);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.buttonDelete.Image = ((System.Drawing.Image)(resources.GetObject("buttonDelete.Image")));
-            this.buttonDelete.Location = new System.Drawing.Point(85, 313);
+            this.buttonDelete.Location = new System.Drawing.Point(85, 182);
             this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Text = "[X]";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
             this.buttonDelete.TabIndex = 11;
             this.buttonDelete.UseVisualStyleBackColor = false;
@@ -414,7 +454,7 @@ this.splitContainer1.Panel2.Controls.Add(listMessageType);
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(4, 314);
+            this.buttonReload.Location = new System.Drawing.Point(4, 182);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -424,8 +464,7 @@ this.splitContainer1.Panel2.Controls.Add(listMessageType);
             // 
             // buttonAction
             // 
-            this.buttonAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAction.Location = new System.Drawing.Point(141, 313);
+            this.buttonAction.Location = new System.Drawing.Point(141, 182);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
@@ -444,53 +483,6 @@ this.splitContainer1.Panel2.Controls.Add(listMessageType);
             this.textboxApplicationLogId.Leave += new System.EventHandler(this.textboxApplicationLogId_Leave);
             this.textboxApplicationLogId.Enabled = false;
                         // 
-            // textboxMessage
-            // 
-            this.textboxMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxMessage.Location = new System.Drawing.Point(4, 38);
-            this.textboxMessage.Name = "textboxMessage";
-            this.textboxMessage.Size = new System.Drawing.Size(208, 20);
-            this.textboxMessage.TabIndex = 31;
-            this.textboxMessage.Leave += new System.EventHandler(this.textboxMessage_Leave);
-            this.textboxMessage.Enabled = true;
-                        // 
-            // numericVersion
-            // 
-            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericVersion.Location = new System.Drawing.Point(4, 64);
-            this.numericVersion.Name = "numericVersion";
-            this.numericVersion.Size = new System.Drawing.Size(211, 20);
-            this.numericVersion.TabIndex = 32;
-            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
-            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
-            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
-                        // 
-            // listApplication
-            // 
-            this.listApplication.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listApplication.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.listApplication.FormattingEnabled = true;
-            this.listApplication.Location = new System.Drawing.Point(4, 90);
-            this.listApplication.Name = "listApplication";
-            this.listApplication.Size = new System.Drawing.Size(165, 21);
-            this.listApplication.TabIndex = 25;
-            this.listApplication.SelectionChangeCommitted += new System.EventHandler(this.listApplication_SelectionChangeCommitted);
-                        // 
-            // listMessageType
-            // 
-            this.listMessageType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listMessageType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.listMessageType.FormattingEnabled = true;
-            this.listMessageType.Location = new System.Drawing.Point(4, 116);
-            this.listMessageType.Name = "listMessageType";
-            this.listMessageType.Size = new System.Drawing.Size(165, 21);
-            this.listMessageType.TabIndex = 25;
-            this.listMessageType.SelectionChangeCommitted += new System.EventHandler(this.listMessageType_SelectionChangeCommitted);
-                        // 
             // labelApplicationLogId
             // 
             this.labelApplicationLogId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -502,6 +494,17 @@ this.splitContainer1.Panel2.Controls.Add(listMessageType);
             this.labelApplicationLogId.TabIndex = 14;
             this.labelApplicationLogId.Text = "ID";
             this.labelApplicationLogId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // textboxMessage
+            // 
+            this.textboxMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxMessage.Location = new System.Drawing.Point(4, 38);
+            this.textboxMessage.Name = "textboxMessage";
+            this.textboxMessage.Size = new System.Drawing.Size(208, 20);
+            this.textboxMessage.TabIndex = 31;
+            this.textboxMessage.Leave += new System.EventHandler(this.textboxMessage_Leave);
+            this.textboxMessage.Enabled = true;
                         // 
             // labelMessage
             // 
@@ -515,36 +518,112 @@ this.splitContainer1.Panel2.Controls.Add(listMessageType);
             this.labelMessage.Text = "Message";
             this.labelMessage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // datetimeDatetime
+            // 
+            this.datetimeDatetime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.datetimeDatetime.Enabled = false;
+            this.datetimeDatetime.Location = new System.Drawing.Point(4, 64);
+            this.datetimeDatetime.Name = "datetimeDatetime";
+            this.datetimeDatetime.Size = new System.Drawing.Size(208, 20);
+            this.datetimeDatetime.TabIndex = 34;
+            // 
+            // labelDatetime
+            // 
+            this.labelDatetime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelDatetime.AutoSize = true;
+            this.labelDatetime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDatetime.Location = new System.Drawing.Point(0, 64);
+            this.labelDatetime.Name = "labelDatetime";
+            this.labelDatetime.Size = new System.Drawing.Size(30, 20);
+            this.labelDatetime.TabIndex = 14;
+            this.labelDatetime.Text = "Datetime";
+            this.labelDatetime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // numericVersion
+            // 
+            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericVersion.Location = new System.Drawing.Point(4, 90);
+            this.numericVersion.Name = "numericVersion";
+            this.numericVersion.Size = new System.Drawing.Size(211, 20);
+            this.numericVersion.TabIndex = 32;
+            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
+            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
+            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
+                        // 
             // labelVersion
             // 
             this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelVersion.AutoSize = true;
             this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelVersion.Location = new System.Drawing.Point(0, 64);
+            this.labelVersion.Location = new System.Drawing.Point(0, 90);
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(30, 20);
             this.labelVersion.TabIndex = 14;
             this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // listApplication
+            // 
+            this.listApplication.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listApplication.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.listApplication.FormattingEnabled = true;
+            this.listApplication.Location = new System.Drawing.Point(4, 116);
+            this.listApplication.Name = "listApplication";
+            this.listApplication.Size = new System.Drawing.Size(165, 21);
+            this.listApplication.TabIndex = 25;
+            this.listApplication.SelectionChangeCommitted += new System.EventHandler(this.listApplication_SelectionChangeCommitted);
+                        // 
+            // buttonShowApplication
+            // 
+            this.buttonShowApplication.Location = new System.Drawing.Point(174, 116);
+            this.buttonShowApplication.Name = "buttonShowApplication";
+            this.buttonShowApplication.Size = new System.Drawing.Size(40, 23);
+            this.buttonShowApplication.TabIndex = 10;
+            this.buttonShowApplication.Text = "...";
+            this.buttonShowApplication.Click += new System.EventHandler(this.buttonShowApplication_Click);
+            // 
             // labelApplication
             // 
             this.labelApplication.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelApplication.AutoSize = true;
             this.labelApplication.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelApplication.Location = new System.Drawing.Point(0, 90);
+            this.labelApplication.Location = new System.Drawing.Point(0, 116);
             this.labelApplication.Name = "labelApplication";
             this.labelApplication.Size = new System.Drawing.Size(30, 20);
             this.labelApplication.TabIndex = 14;
             this.labelApplication.Text = "Application";
             this.labelApplication.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // listMessageType
+            // 
+            this.listMessageType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listMessageType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.listMessageType.FormattingEnabled = true;
+            this.listMessageType.Location = new System.Drawing.Point(4, 142);
+            this.listMessageType.Name = "listMessageType";
+            this.listMessageType.Size = new System.Drawing.Size(165, 21);
+            this.listMessageType.TabIndex = 25;
+            this.listMessageType.SelectionChangeCommitted += new System.EventHandler(this.listMessageType_SelectionChangeCommitted);
+                        // 
+            // buttonShowMessageType
+            // 
+            this.buttonShowMessageType.Location = new System.Drawing.Point(174, 142);
+            this.buttonShowMessageType.Name = "buttonShowMessageType";
+            this.buttonShowMessageType.Size = new System.Drawing.Size(40, 23);
+            this.buttonShowMessageType.TabIndex = 10;
+            this.buttonShowMessageType.Text = "...";
+            this.buttonShowMessageType.Click += new System.EventHandler(this.buttonShowMessageType_Click);
+            // 
             // labelMessageType
             // 
             this.labelMessageType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMessageType.AutoSize = true;
             this.labelMessageType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMessageType.Location = new System.Drawing.Point(0, 116);
+            this.labelMessageType.Location = new System.Drawing.Point(0, 142);
             this.labelMessageType.Name = "labelMessageType";
             this.labelMessageType.Size = new System.Drawing.Size(30, 20);
             this.labelMessageType.TabIndex = 14;
@@ -556,7 +635,7 @@ this.splitContainer1.Panel2.Controls.Add(listMessageType);
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 182);
+            this.ClientSize = new System.Drawing.Size(330, 208);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormApplicationLogEditor";
             this.Text = "ApplicationLog Editor";
@@ -581,14 +660,18 @@ this.splitContainer1.Panel2.Controls.Add(listMessageType);
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox textboxApplicationLogId;
-private System.Windows.Forms.TextBox textboxMessage;
-private System.Windows.Forms.NumericUpDown numericVersion;
-private System.Windows.Forms.ComboBox listApplication;
-private System.Windows.Forms.ComboBox listMessageType;
 private System.Windows.Forms.Label labelApplicationLogId;
+private System.Windows.Forms.TextBox textboxMessage;
 private System.Windows.Forms.Label labelMessage;
+private System.Windows.Forms.DateTimePicker datetimeDatetime;
+private System.Windows.Forms.Label labelDatetime;
+private System.Windows.Forms.NumericUpDown numericVersion;
 private System.Windows.Forms.Label labelVersion;
+private System.Windows.Forms.ComboBox listApplication;
+private System.Windows.Forms.Button buttonShowApplication;
 private System.Windows.Forms.Label labelApplication;
+private System.Windows.Forms.ComboBox listMessageType;
+private System.Windows.Forms.Button buttonShowMessageType;
 private System.Windows.Forms.Label labelMessageType;
 
         #endregion

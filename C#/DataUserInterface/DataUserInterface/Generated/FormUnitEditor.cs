@@ -195,7 +195,12 @@ this.textboxComment.Text = obj.comment;
             {
                 var obj = db.units.SingleOrDefault(v => v.unit_id == this.id);
 
-                #error Edit 'obj' with the new info to upload to the database.
+                
+obj.description = this.textboxDescription.Text;
+obj.abbreviation = this.textboxAbbreviation.Text;
+obj.version = (int)this.numericVersion.Value;
+obj.comment = this.textboxComment.Text;
+
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -217,7 +222,12 @@ this.textboxComment.Text = obj.comment;
             {
                 var obj = new unit();
 
-                #error Fill out 'obj' with the new info.
+                
+obj.description = this.textboxDescription.Text;
+obj.abbreviation = this.textboxAbbreviation.Text;
+obj.version = (int)this.numericVersion.Value;
+obj.comment = this.textboxComment.Text;
+
 
                 db.units.Add(obj);
                 db.SaveChanges();
@@ -271,6 +281,9 @@ this.textboxComment.Text = obj.comment;
         }
         private void numericVersion_ValueChanged(object sender, EventArgs e)
         {
+            if(this._cached == null)
+                return;
+
             if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
                 this._isDirty = true;
         }
@@ -320,14 +333,14 @@ this.textboxComment.Text = obj.comment;
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonAction = new System.Windows.Forms.Button();
             this.textboxUnitId = new System.Windows.Forms.TextBox();
-this.textboxDescription = new System.Windows.Forms.TextBox();
-this.textboxAbbreviation = new System.Windows.Forms.TextBox();
-this.numericVersion = new System.Windows.Forms.NumericUpDown();
-this.textboxComment = new System.Windows.Forms.TextBox();
 this.labelUnitId = new System.Windows.Forms.Label();
+this.textboxDescription = new System.Windows.Forms.TextBox();
 this.labelDescription = new System.Windows.Forms.Label();
+this.textboxAbbreviation = new System.Windows.Forms.TextBox();
 this.labelAbbreviation = new System.Windows.Forms.Label();
+this.numericVersion = new System.Windows.Forms.NumericUpDown();
 this.labelVersion = new System.Windows.Forms.Label();
+this.textboxComment = new System.Windows.Forms.TextBox();
 this.labelComment = new System.Windows.Forms.Label();
 
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -384,11 +397,9 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.buttonDelete.Image = ((System.Drawing.Image)(resources.GetObject("buttonDelete.Image")));
-            this.buttonDelete.Location = new System.Drawing.Point(85, 313);
+            this.buttonDelete.Location = new System.Drawing.Point(85, 156);
             this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Text = "[X]";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
             this.buttonDelete.TabIndex = 11;
             this.buttonDelete.UseVisualStyleBackColor = false;
@@ -396,7 +407,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(4, 314);
+            this.buttonReload.Location = new System.Drawing.Point(4, 156);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -406,8 +417,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             // 
             // buttonAction
             // 
-            this.buttonAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAction.Location = new System.Drawing.Point(141, 313);
+            this.buttonAction.Location = new System.Drawing.Point(141, 156);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
@@ -426,51 +436,6 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxUnitId.Leave += new System.EventHandler(this.textboxUnitId_Leave);
             this.textboxUnitId.Enabled = false;
                         // 
-            // textboxDescription
-            // 
-            this.textboxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxDescription.Location = new System.Drawing.Point(4, 38);
-            this.textboxDescription.Name = "textboxDescription";
-            this.textboxDescription.Size = new System.Drawing.Size(208, 20);
-            this.textboxDescription.TabIndex = 31;
-            this.textboxDescription.Leave += new System.EventHandler(this.textboxDescription_Leave);
-            this.textboxDescription.Enabled = true;
-                        // 
-            // textboxAbbreviation
-            // 
-            this.textboxAbbreviation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxAbbreviation.Location = new System.Drawing.Point(4, 64);
-            this.textboxAbbreviation.Name = "textboxAbbreviation";
-            this.textboxAbbreviation.Size = new System.Drawing.Size(208, 20);
-            this.textboxAbbreviation.TabIndex = 31;
-            this.textboxAbbreviation.Leave += new System.EventHandler(this.textboxAbbreviation_Leave);
-            this.textboxAbbreviation.Enabled = true;
-                        // 
-            // numericVersion
-            // 
-            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericVersion.Location = new System.Drawing.Point(4, 90);
-            this.numericVersion.Name = "numericVersion";
-            this.numericVersion.Size = new System.Drawing.Size(211, 20);
-            this.numericVersion.TabIndex = 32;
-            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
-            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
-            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
-                        // 
-            // textboxComment
-            // 
-            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxComment.Location = new System.Drawing.Point(4, 116);
-            this.textboxComment.Name = "textboxComment";
-            this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
-            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
-            this.textboxComment.Enabled = true;
-                        // 
             // labelUnitId
             // 
             this.labelUnitId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -482,6 +447,17 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelUnitId.TabIndex = 14;
             this.labelUnitId.Text = "ID";
             this.labelUnitId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // textboxDescription
+            // 
+            this.textboxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxDescription.Location = new System.Drawing.Point(4, 38);
+            this.textboxDescription.Name = "textboxDescription";
+            this.textboxDescription.Size = new System.Drawing.Size(208, 20);
+            this.textboxDescription.TabIndex = 31;
+            this.textboxDescription.Leave += new System.EventHandler(this.textboxDescription_Leave);
+            this.textboxDescription.Enabled = true;
                         // 
             // labelDescription
             // 
@@ -495,6 +471,17 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelDescription.Text = "Description";
             this.labelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // textboxAbbreviation
+            // 
+            this.textboxAbbreviation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxAbbreviation.Location = new System.Drawing.Point(4, 64);
+            this.textboxAbbreviation.Name = "textboxAbbreviation";
+            this.textboxAbbreviation.Size = new System.Drawing.Size(208, 20);
+            this.textboxAbbreviation.TabIndex = 31;
+            this.textboxAbbreviation.Leave += new System.EventHandler(this.textboxAbbreviation_Leave);
+            this.textboxAbbreviation.Enabled = true;
+                        // 
             // labelAbbreviation
             // 
             this.labelAbbreviation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -507,6 +494,18 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelAbbreviation.Text = "Abbreviation";
             this.labelAbbreviation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // numericVersion
+            // 
+            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericVersion.Location = new System.Drawing.Point(4, 90);
+            this.numericVersion.Name = "numericVersion";
+            this.numericVersion.Size = new System.Drawing.Size(211, 20);
+            this.numericVersion.TabIndex = 32;
+            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
+            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
+            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
+                        // 
             // labelVersion
             // 
             this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -518,6 +517,17 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelVersion.TabIndex = 14;
             this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // textboxComment
+            // 
+            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxComment.Location = new System.Drawing.Point(4, 116);
+            this.textboxComment.Name = "textboxComment";
+            this.textboxComment.Size = new System.Drawing.Size(208, 20);
+            this.textboxComment.TabIndex = 31;
+            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
+            this.textboxComment.Enabled = true;
                         // 
             // labelComment
             // 
@@ -561,14 +571,14 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox textboxUnitId;
-private System.Windows.Forms.TextBox textboxDescription;
-private System.Windows.Forms.TextBox textboxAbbreviation;
-private System.Windows.Forms.NumericUpDown numericVersion;
-private System.Windows.Forms.TextBox textboxComment;
 private System.Windows.Forms.Label labelUnitId;
+private System.Windows.Forms.TextBox textboxDescription;
 private System.Windows.Forms.Label labelDescription;
+private System.Windows.Forms.TextBox textboxAbbreviation;
 private System.Windows.Forms.Label labelAbbreviation;
+private System.Windows.Forms.NumericUpDown numericVersion;
 private System.Windows.Forms.Label labelVersion;
+private System.Windows.Forms.TextBox textboxComment;
 private System.Windows.Forms.Label labelComment;
 
         #endregion

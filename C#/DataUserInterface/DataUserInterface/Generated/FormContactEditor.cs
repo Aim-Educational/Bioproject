@@ -217,7 +217,16 @@ foreach (var value in db.users.OrderBy(v => v.comment))
             {
                 var obj = db.contacts.SingleOrDefault(v => v.contact_id == this.id);
 
-                #error Edit 'obj' with the new info to upload to the database.
+                
+obj.version = (int)this.numericVersion.Value;
+obj.comment = this.textboxComment.Text;
+var selectedContactType = this.listContactType.Items[this.listContactType.SelectedIndex] as string;
+obj.contact_type = db.contact_type.Single(v => v.description == selectedContactType);
+var selectedSupplier = this.listSupplier.Items[this.listSupplier.SelectedIndex] as string;
+obj.supplier = db.suppliers.Single(v => v.name == selectedSupplier);
+var selectedUser = this.listUser.Items[this.listUser.SelectedIndex] as string;
+obj.user = db.users.Single(v => v.comment == selectedUser);
+
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -239,7 +248,16 @@ foreach (var value in db.users.OrderBy(v => v.comment))
             {
                 var obj = new contact();
 
-                #error Fill out 'obj' with the new info.
+                
+obj.version = (int)this.numericVersion.Value;
+obj.comment = this.textboxComment.Text;
+var selectedContactType = this.listContactType.Items[this.listContactType.SelectedIndex] as string;
+obj.contact_type = db.contact_type.Single(v => v.description == selectedContactType);
+var selectedSupplier = this.listSupplier.Items[this.listSupplier.SelectedIndex] as string;
+obj.supplier = db.suppliers.Single(v => v.name == selectedSupplier);
+var selectedUser = this.listUser.Items[this.listUser.SelectedIndex] as string;
+obj.user = db.users.Single(v => v.comment == selectedUser);
+
 
                 db.contacts.Add(obj);
                 db.SaveChanges();
@@ -281,6 +299,9 @@ foreach (var value in db.users.OrderBy(v => v.comment))
         }
         private void numericVersion_ValueChanged(object sender, EventArgs e)
         {
+            if(this._cached == null)
+                return;
+
             if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
                 this._isDirty = true;
         }
@@ -295,26 +316,44 @@ foreach (var value in db.users.OrderBy(v => v.comment))
             var index = this.listContactType.SelectedIndex;
             var value = this.listContactType.Items[index] as string;
 
-            if (this.mode == EnumEditorMode.Create || value != this._cached.contact_type.description)
+            if (this.mode == EnumEditorMode.Create || (this._cached.contact_type != null && value != this._cached.contact_type.description))
                 this._isDirty = true;
         }
-                private void listSupplier_SelectionChangeCommitted(object sender, EventArgs e)
+        private void buttonShowContactType_Click(object sender, EventArgs e)
+{
+    var form = new SearchForm(EnumSearchFormType.ContactType);
+    form.MdiParent = this.MdiParent;
+    form.Show();
+}
+        private void listSupplier_SelectionChangeCommitted(object sender, EventArgs e)
         {
             var index = this.listSupplier.SelectedIndex;
             var value = this.listSupplier.Items[index] as string;
 
-            if (this.mode == EnumEditorMode.Create || value != this._cached.supplier.name)
+            if (this.mode == EnumEditorMode.Create || (this._cached.supplier != null && value != this._cached.supplier.name))
                 this._isDirty = true;
         }
-                private void listUser_SelectionChangeCommitted(object sender, EventArgs e)
+        private void buttonShowSupplier_Click(object sender, EventArgs e)
+{
+    var form = new SearchForm(EnumSearchFormType.Supplier);
+    form.MdiParent = this.MdiParent;
+    form.Show();
+}
+        private void listUser_SelectionChangeCommitted(object sender, EventArgs e)
         {
             var index = this.listUser.SelectedIndex;
             var value = this.listUser.Items[index] as string;
 
-            if (this.mode == EnumEditorMode.Create || value != this._cached.user.comment)
+            if (this.mode == EnumEditorMode.Create || (this._cached.user != null && value != this._cached.user.comment))
                 this._isDirty = true;
         }
-        
+        private void buttonShowUser_Click(object sender, EventArgs e)
+{
+    var form = new SearchForm(EnumSearchFormType.User);
+    form.MdiParent = this.MdiParent;
+    form.Show();
+}
+
         #endregion
 
 
@@ -354,16 +393,19 @@ foreach (var value in db.users.OrderBy(v => v.comment))
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonAction = new System.Windows.Forms.Button();
             this.textboxContactId = new System.Windows.Forms.TextBox();
-this.numericVersion = new System.Windows.Forms.NumericUpDown();
-this.textboxComment = new System.Windows.Forms.TextBox();
-this.listContactType = new System.Windows.Forms.ComboBox();
-this.listSupplier = new System.Windows.Forms.ComboBox();
-this.listUser = new System.Windows.Forms.ComboBox();
 this.labelContactId = new System.Windows.Forms.Label();
+this.numericVersion = new System.Windows.Forms.NumericUpDown();
 this.labelVersion = new System.Windows.Forms.Label();
+this.textboxComment = new System.Windows.Forms.TextBox();
 this.labelComment = new System.Windows.Forms.Label();
+this.listContactType = new System.Windows.Forms.ComboBox();
+this.buttonShowContactType = new System.Windows.Forms.Button();
 this.labelContactType = new System.Windows.Forms.Label();
+this.listSupplier = new System.Windows.Forms.ComboBox();
+this.buttonShowSupplier = new System.Windows.Forms.Button();
 this.labelSupplier = new System.Windows.Forms.Label();
+this.listUser = new System.Windows.Forms.ComboBox();
+this.buttonShowUser = new System.Windows.Forms.Button();
 this.labelUser = new System.Windows.Forms.Label();
 
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -402,8 +444,11 @@ this.splitContainer1.Panel1.Controls.Add(labelUser);
 this.splitContainer1.Panel2.Controls.Add(numericVersion);
 this.splitContainer1.Panel2.Controls.Add(textboxComment);
 this.splitContainer1.Panel2.Controls.Add(listContactType);
+this.splitContainer1.Panel2.Controls.Add(buttonShowContactType);
 this.splitContainer1.Panel2.Controls.Add(listSupplier);
+this.splitContainer1.Panel2.Controls.Add(buttonShowSupplier);
 this.splitContainer1.Panel2.Controls.Add(listUser);
+this.splitContainer1.Panel2.Controls.Add(buttonShowUser);
 
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
@@ -422,11 +467,9 @@ this.splitContainer1.Panel2.Controls.Add(listUser);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.buttonDelete.Image = ((System.Drawing.Image)(resources.GetObject("buttonDelete.Image")));
-            this.buttonDelete.Location = new System.Drawing.Point(85, 313);
+            this.buttonDelete.Location = new System.Drawing.Point(85, 182);
             this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Text = "[X]";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
             this.buttonDelete.TabIndex = 11;
             this.buttonDelete.UseVisualStyleBackColor = false;
@@ -434,7 +477,7 @@ this.splitContainer1.Panel2.Controls.Add(listUser);
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(4, 314);
+            this.buttonReload.Location = new System.Drawing.Point(4, 182);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -444,8 +487,7 @@ this.splitContainer1.Panel2.Controls.Add(listUser);
             // 
             // buttonAction
             // 
-            this.buttonAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAction.Location = new System.Drawing.Point(141, 313);
+            this.buttonAction.Location = new System.Drawing.Point(141, 182);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
@@ -464,65 +506,6 @@ this.splitContainer1.Panel2.Controls.Add(listUser);
             this.textboxContactId.Leave += new System.EventHandler(this.textboxContactId_Leave);
             this.textboxContactId.Enabled = false;
                         // 
-            // numericVersion
-            // 
-            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericVersion.Location = new System.Drawing.Point(4, 38);
-            this.numericVersion.Name = "numericVersion";
-            this.numericVersion.Size = new System.Drawing.Size(211, 20);
-            this.numericVersion.TabIndex = 32;
-            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
-            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
-            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
-                        // 
-            // textboxComment
-            // 
-            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxComment.Location = new System.Drawing.Point(4, 64);
-            this.textboxComment.Name = "textboxComment";
-            this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
-            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
-            this.textboxComment.Enabled = true;
-                        // 
-            // listContactType
-            // 
-            this.listContactType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listContactType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.listContactType.FormattingEnabled = true;
-            this.listContactType.Location = new System.Drawing.Point(4, 90);
-            this.listContactType.Name = "listContactType";
-            this.listContactType.Size = new System.Drawing.Size(165, 21);
-            this.listContactType.TabIndex = 25;
-            this.listContactType.SelectionChangeCommitted += new System.EventHandler(this.listContactType_SelectionChangeCommitted);
-                        // 
-            // listSupplier
-            // 
-            this.listSupplier.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listSupplier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.listSupplier.FormattingEnabled = true;
-            this.listSupplier.Location = new System.Drawing.Point(4, 116);
-            this.listSupplier.Name = "listSupplier";
-            this.listSupplier.Size = new System.Drawing.Size(165, 21);
-            this.listSupplier.TabIndex = 25;
-            this.listSupplier.SelectionChangeCommitted += new System.EventHandler(this.listSupplier_SelectionChangeCommitted);
-                        // 
-            // listUser
-            // 
-            this.listUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listUser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.listUser.FormattingEnabled = true;
-            this.listUser.Location = new System.Drawing.Point(4, 142);
-            this.listUser.Name = "listUser";
-            this.listUser.Size = new System.Drawing.Size(165, 21);
-            this.listUser.TabIndex = 25;
-            this.listUser.SelectionChangeCommitted += new System.EventHandler(this.listUser_SelectionChangeCommitted);
-                        // 
             // labelContactId
             // 
             this.labelContactId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -534,6 +517,18 @@ this.splitContainer1.Panel2.Controls.Add(listUser);
             this.labelContactId.TabIndex = 14;
             this.labelContactId.Text = "ID";
             this.labelContactId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // numericVersion
+            // 
+            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericVersion.Location = new System.Drawing.Point(4, 38);
+            this.numericVersion.Name = "numericVersion";
+            this.numericVersion.Size = new System.Drawing.Size(211, 20);
+            this.numericVersion.TabIndex = 32;
+            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
+            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
+            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
                         // 
             // labelVersion
             // 
@@ -547,6 +542,17 @@ this.splitContainer1.Panel2.Controls.Add(listUser);
             this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // textboxComment
+            // 
+            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxComment.Location = new System.Drawing.Point(4, 64);
+            this.textboxComment.Name = "textboxComment";
+            this.textboxComment.Size = new System.Drawing.Size(208, 20);
+            this.textboxComment.TabIndex = 31;
+            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
+            this.textboxComment.Enabled = true;
+                        // 
             // labelComment
             // 
             this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -559,6 +565,27 @@ this.splitContainer1.Panel2.Controls.Add(listUser);
             this.labelComment.Text = "Comment";
             this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // listContactType
+            // 
+            this.listContactType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listContactType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.listContactType.FormattingEnabled = true;
+            this.listContactType.Location = new System.Drawing.Point(4, 90);
+            this.listContactType.Name = "listContactType";
+            this.listContactType.Size = new System.Drawing.Size(165, 21);
+            this.listContactType.TabIndex = 25;
+            this.listContactType.SelectionChangeCommitted += new System.EventHandler(this.listContactType_SelectionChangeCommitted);
+                        // 
+            // buttonShowContactType
+            // 
+            this.buttonShowContactType.Location = new System.Drawing.Point(174, 90);
+            this.buttonShowContactType.Name = "buttonShowContactType";
+            this.buttonShowContactType.Size = new System.Drawing.Size(40, 23);
+            this.buttonShowContactType.TabIndex = 10;
+            this.buttonShowContactType.Text = "...";
+            this.buttonShowContactType.Click += new System.EventHandler(this.buttonShowContactType_Click);
+            // 
             // labelContactType
             // 
             this.labelContactType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -571,6 +598,27 @@ this.splitContainer1.Panel2.Controls.Add(listUser);
             this.labelContactType.Text = "ContactType";
             this.labelContactType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // listSupplier
+            // 
+            this.listSupplier.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listSupplier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.listSupplier.FormattingEnabled = true;
+            this.listSupplier.Location = new System.Drawing.Point(4, 116);
+            this.listSupplier.Name = "listSupplier";
+            this.listSupplier.Size = new System.Drawing.Size(165, 21);
+            this.listSupplier.TabIndex = 25;
+            this.listSupplier.SelectionChangeCommitted += new System.EventHandler(this.listSupplier_SelectionChangeCommitted);
+                        // 
+            // buttonShowSupplier
+            // 
+            this.buttonShowSupplier.Location = new System.Drawing.Point(174, 116);
+            this.buttonShowSupplier.Name = "buttonShowSupplier";
+            this.buttonShowSupplier.Size = new System.Drawing.Size(40, 23);
+            this.buttonShowSupplier.TabIndex = 10;
+            this.buttonShowSupplier.Text = "...";
+            this.buttonShowSupplier.Click += new System.EventHandler(this.buttonShowSupplier_Click);
+            // 
             // labelSupplier
             // 
             this.labelSupplier.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -583,6 +631,27 @@ this.splitContainer1.Panel2.Controls.Add(listUser);
             this.labelSupplier.Text = "Supplier";
             this.labelSupplier.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // listUser
+            // 
+            this.listUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listUser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.listUser.FormattingEnabled = true;
+            this.listUser.Location = new System.Drawing.Point(4, 142);
+            this.listUser.Name = "listUser";
+            this.listUser.Size = new System.Drawing.Size(165, 21);
+            this.listUser.TabIndex = 25;
+            this.listUser.SelectionChangeCommitted += new System.EventHandler(this.listUser_SelectionChangeCommitted);
+                        // 
+            // buttonShowUser
+            // 
+            this.buttonShowUser.Location = new System.Drawing.Point(174, 142);
+            this.buttonShowUser.Name = "buttonShowUser";
+            this.buttonShowUser.Size = new System.Drawing.Size(40, 23);
+            this.buttonShowUser.TabIndex = 10;
+            this.buttonShowUser.Text = "...";
+            this.buttonShowUser.Click += new System.EventHandler(this.buttonShowUser_Click);
+            // 
             // labelUser
             // 
             this.labelUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -625,16 +694,19 @@ this.splitContainer1.Panel2.Controls.Add(listUser);
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox textboxContactId;
-private System.Windows.Forms.NumericUpDown numericVersion;
-private System.Windows.Forms.TextBox textboxComment;
-private System.Windows.Forms.ComboBox listContactType;
-private System.Windows.Forms.ComboBox listSupplier;
-private System.Windows.Forms.ComboBox listUser;
 private System.Windows.Forms.Label labelContactId;
+private System.Windows.Forms.NumericUpDown numericVersion;
 private System.Windows.Forms.Label labelVersion;
+private System.Windows.Forms.TextBox textboxComment;
 private System.Windows.Forms.Label labelComment;
+private System.Windows.Forms.ComboBox listContactType;
+private System.Windows.Forms.Button buttonShowContactType;
 private System.Windows.Forms.Label labelContactType;
+private System.Windows.Forms.ComboBox listSupplier;
+private System.Windows.Forms.Button buttonShowSupplier;
 private System.Windows.Forms.Label labelSupplier;
+private System.Windows.Forms.ComboBox listUser;
+private System.Windows.Forms.Button buttonShowUser;
 private System.Windows.Forms.Label labelUser;
 
         #endregion

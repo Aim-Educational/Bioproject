@@ -196,7 +196,12 @@ FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
             {
                 var obj = db.applications.SingleOrDefault(v => v.application_id == this.id);
 
-                #error Edit 'obj' with the new info to upload to the database.
+                
+obj.name = this.textboxName.Text;
+obj.description = this.textboxDescription.Text;
+obj.application_version = (int)this.numericApplicationVersion.Value;
+obj.version = (int)this.numericVersion.Value;
+
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -218,7 +223,12 @@ FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
             {
                 var obj = new application();
 
-                #error Fill out 'obj' with the new info.
+                
+obj.name = this.textboxName.Text;
+obj.description = this.textboxDescription.Text;
+obj.application_version = (int)this.numericApplicationVersion.Value;
+obj.version = (int)this.numericVersion.Value;
+
 
                 db.applications.Add(obj);
                 db.SaveChanges();
@@ -272,6 +282,9 @@ FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
         }
         private void numericApplicationVersion_ValueChanged(object sender, EventArgs e)
         {
+            if(this._cached == null)
+                return;
+
             if (Convert.ToDouble(this.numericApplicationVersion.Value) != this._cached.application_version)
                 this._isDirty = true;
         }
@@ -281,6 +294,9 @@ FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
         }
         private void numericVersion_ValueChanged(object sender, EventArgs e)
         {
+            if(this._cached == null)
+                return;
+
             if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
                 this._isDirty = true;
         }
@@ -324,14 +340,14 @@ FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonAction = new System.Windows.Forms.Button();
             this.textboxApplicationId = new System.Windows.Forms.TextBox();
-this.textboxName = new System.Windows.Forms.TextBox();
-this.textboxDescription = new System.Windows.Forms.TextBox();
-this.numericApplicationVersion = new System.Windows.Forms.NumericUpDown();
-this.numericVersion = new System.Windows.Forms.NumericUpDown();
 this.labelApplicationId = new System.Windows.Forms.Label();
+this.textboxName = new System.Windows.Forms.TextBox();
 this.labelName = new System.Windows.Forms.Label();
+this.textboxDescription = new System.Windows.Forms.TextBox();
 this.labelDescription = new System.Windows.Forms.Label();
+this.numericApplicationVersion = new System.Windows.Forms.NumericUpDown();
 this.labelApplicationVersion = new System.Windows.Forms.Label();
+this.numericVersion = new System.Windows.Forms.NumericUpDown();
 this.labelVersion = new System.Windows.Forms.Label();
 
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -389,11 +405,9 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.buttonDelete.Image = ((System.Drawing.Image)(resources.GetObject("buttonDelete.Image")));
-            this.buttonDelete.Location = new System.Drawing.Point(85, 313);
+            this.buttonDelete.Location = new System.Drawing.Point(85, 156);
             this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Text = "[X]";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
             this.buttonDelete.TabIndex = 11;
             this.buttonDelete.UseVisualStyleBackColor = false;
@@ -401,7 +415,7 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(4, 314);
+            this.buttonReload.Location = new System.Drawing.Point(4, 156);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -411,8 +425,7 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             // 
             // buttonAction
             // 
-            this.buttonAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAction.Location = new System.Drawing.Point(141, 313);
+            this.buttonAction.Location = new System.Drawing.Point(141, 156);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
@@ -431,52 +444,6 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             this.textboxApplicationId.Leave += new System.EventHandler(this.textboxApplicationId_Leave);
             this.textboxApplicationId.Enabled = false;
                         // 
-            // textboxName
-            // 
-            this.textboxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxName.Location = new System.Drawing.Point(4, 38);
-            this.textboxName.Name = "textboxName";
-            this.textboxName.Size = new System.Drawing.Size(208, 20);
-            this.textboxName.TabIndex = 31;
-            this.textboxName.Leave += new System.EventHandler(this.textboxName_Leave);
-            this.textboxName.Enabled = true;
-                        // 
-            // textboxDescription
-            // 
-            this.textboxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxDescription.Location = new System.Drawing.Point(4, 64);
-            this.textboxDescription.Name = "textboxDescription";
-            this.textboxDescription.Size = new System.Drawing.Size(208, 20);
-            this.textboxDescription.TabIndex = 31;
-            this.textboxDescription.Leave += new System.EventHandler(this.textboxDescription_Leave);
-            this.textboxDescription.Enabled = true;
-                        // 
-            // numericApplicationVersion
-            // 
-            this.numericApplicationVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericApplicationVersion.Location = new System.Drawing.Point(4, 90);
-            this.numericApplicationVersion.Name = "numericApplicationVersion";
-            this.numericApplicationVersion.Size = new System.Drawing.Size(211, 20);
-            this.numericApplicationVersion.TabIndex = 32;
-            this.numericApplicationVersion.ValueChanged += new System.EventHandler(this.numericApplicationVersion_ValueChanged);
-            this.numericApplicationVersion.Click += new System.EventHandler(this.numericApplicationVersion_Enter);
-            this.numericApplicationVersion.Enter += new System.EventHandler(this.numericApplicationVersion_Enter);
-                        // 
-            // numericVersion
-            // 
-            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericVersion.Location = new System.Drawing.Point(4, 116);
-            this.numericVersion.Name = "numericVersion";
-            this.numericVersion.Size = new System.Drawing.Size(211, 20);
-            this.numericVersion.TabIndex = 32;
-            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
-            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
-            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
-                        // 
             // labelApplicationId
             // 
             this.labelApplicationId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -488,6 +455,17 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             this.labelApplicationId.TabIndex = 14;
             this.labelApplicationId.Text = "ID";
             this.labelApplicationId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // textboxName
+            // 
+            this.textboxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxName.Location = new System.Drawing.Point(4, 38);
+            this.textboxName.Name = "textboxName";
+            this.textboxName.Size = new System.Drawing.Size(208, 20);
+            this.textboxName.TabIndex = 31;
+            this.textboxName.Leave += new System.EventHandler(this.textboxName_Leave);
+            this.textboxName.Enabled = true;
                         // 
             // labelName
             // 
@@ -501,6 +479,17 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             this.labelName.Text = "Name";
             this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // textboxDescription
+            // 
+            this.textboxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxDescription.Location = new System.Drawing.Point(4, 64);
+            this.textboxDescription.Name = "textboxDescription";
+            this.textboxDescription.Size = new System.Drawing.Size(208, 20);
+            this.textboxDescription.TabIndex = 31;
+            this.textboxDescription.Leave += new System.EventHandler(this.textboxDescription_Leave);
+            this.textboxDescription.Enabled = true;
+                        // 
             // labelDescription
             // 
             this.labelDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -513,6 +502,18 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             this.labelDescription.Text = "Description";
             this.labelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // numericApplicationVersion
+            // 
+            this.numericApplicationVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericApplicationVersion.Location = new System.Drawing.Point(4, 90);
+            this.numericApplicationVersion.Name = "numericApplicationVersion";
+            this.numericApplicationVersion.Size = new System.Drawing.Size(211, 20);
+            this.numericApplicationVersion.TabIndex = 32;
+            this.numericApplicationVersion.ValueChanged += new System.EventHandler(this.numericApplicationVersion_ValueChanged);
+            this.numericApplicationVersion.Click += new System.EventHandler(this.numericApplicationVersion_Enter);
+            this.numericApplicationVersion.Enter += new System.EventHandler(this.numericApplicationVersion_Enter);
+                        // 
             // labelApplicationVersion
             // 
             this.labelApplicationVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -524,6 +525,18 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             this.labelApplicationVersion.TabIndex = 14;
             this.labelApplicationVersion.Text = "ApplicationVersion";
             this.labelApplicationVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // numericVersion
+            // 
+            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericVersion.Location = new System.Drawing.Point(4, 116);
+            this.numericVersion.Name = "numericVersion";
+            this.numericVersion.Size = new System.Drawing.Size(211, 20);
+            this.numericVersion.TabIndex = 32;
+            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
+            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
+            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
                         // 
             // labelVersion
             // 
@@ -568,14 +581,14 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox textboxApplicationId;
-private System.Windows.Forms.TextBox textboxName;
-private System.Windows.Forms.TextBox textboxDescription;
-private System.Windows.Forms.NumericUpDown numericApplicationVersion;
-private System.Windows.Forms.NumericUpDown numericVersion;
 private System.Windows.Forms.Label labelApplicationId;
+private System.Windows.Forms.TextBox textboxName;
 private System.Windows.Forms.Label labelName;
+private System.Windows.Forms.TextBox textboxDescription;
 private System.Windows.Forms.Label labelDescription;
+private System.Windows.Forms.NumericUpDown numericApplicationVersion;
 private System.Windows.Forms.Label labelApplicationVersion;
+private System.Windows.Forms.NumericUpDown numericVersion;
 private System.Windows.Forms.Label labelVersion;
 
         #endregion

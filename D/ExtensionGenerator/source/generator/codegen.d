@@ -20,18 +20,26 @@ private
     const TEMPLATE_SEARCHFORM_EDITOR_CASES                   = import("templates/SearchForm/searchFormEditorCases.cs");
     const TEMPLATE_EDITOR_CODE                               = import("templates/Editor/FormEditorCode.cs");
     const TEMPLATE_CONTROL_TEXTBOX_DESIGN                    = import("templates/Editor/Controls/ControlTextbox.cs");
+    const TEMPLATE_CONTROL_TEXTBOX_CREATE_UPDATE             = import("templates/Editor/Controls/ControlTextbox_CreateUpdate.cs");
     const TEMPLATE_CONTROL_TEXTBOX_RELOAD                    = import("templates/Editor/Controls/ControlTextbox_Reload.cs");
     const TEMPLATE_CONTROL_TEXTBOX_EVENT_LEAVE               = import("templates/Editor/Controls/ControlTextbox_Leave.cs");
     const TEMPLATE_CONTROL_LABEL_DESIGN                      = import("templates/Editor/Controls/ControlLabel.cs");
     const TEMPLATE_CONTROL_NUMERIC_DESIGN                    = import("templates/Editor/Controls/ControlNumeric.cs");
+    const TEMPLATE_CONTROL_NUMERIC_CREATE_UPDATE             = import("templates/Editor/Controls/ControlNumeric_CreateUpdate.cs");
     const TEMPLATE_CONTROL_NUMERIC_RELOAD                    = import("templates/Editor/Controls/ControlNumeric_Reload.cs");
     const TEMPLATE_CONTROL_NUMERIC_EVENT_ENTER               = import("templates/Editor/Controls/ControlNumeric_Enter.cs");
     const TEMPLATE_CONTROL_NUMERIC_EVENT_VALUECHANGED        = import("templates/Editor/Controls/ControlNumeric_ValueChanged.cs");
     const TEMPLATE_CONTROL_NUMERIC_CTOR_INIT                 = import("templates/Editor/Controls/ControlNumeric_CtorInit.cs");
     const TEMPLATE_CONTROL_OBJECTLIST_DESIGN                 = import("templates/Editor/Controls/ControlObjectDropdown.cs");
+    const TEMPLATE_CONTROL_OBJECTLIST_CREATE_UPDATE          = import("templates/Editor/Controls/ControlObjectDropdown_CreateUpdate.cs");
     const TEMPLATE_CONTROL_OBJECTLIST_EVENT_SELECTIONCHANGED = import("templates/Editor/Controls/ControlObjectDropdown_SelectionChanged.cs");
-    const TEMPLATE_CONTORL_OBJECTLIST_RELOAD_CREATEONLY      = import("templates/Editor/Controls/ControlObjectDropdown_Reload_CreateOnly.cs");
-    const TEMPLATE_CONTORL_OBJECTLIST_RELOAD                 = import("templates/Editor/Controls/ControlObjectDropdown_Reload.cs");
+    const TEMPLATE_CONTROL_OBJECTLIST_RELOAD_CREATEONLY      = import("templates/Editor/Controls/ControlObjectDropdown_Reload_CreateOnly.cs");
+    const TEMPLATE_CONTROL_OBJECTLIST_RELOAD                 = import("templates/Editor/Controls/ControlObjectDropdown_Reload.cs");
+    const TEMPLATE_CONTROL_SHOWLIST_BUTTON_DESIGN            = import("templates/Editor/Controls/ControlShowListButton.cs");
+    const TEMPLATE_CONTROL_SHOWLIST_BUTTON_EVENT_CLICK       = import("templates/Editor/Controls/ControlShowListButton_Click.cs");
+    const TEMPLATE_CONTROL_DATETIME_DESIGN                   = import("templates/Editor/Controls/ControlDateTime.cs");
+    const TEMPLATE_CONTROL_DATETIME_CREATE_UPDATE            = import("templates/Editor/Controls/ControlDateTime_CreateUpdate.cs");
+    const TEMPLATE_CONTROL_DATETIME_RELOAD                   = import("templates/Editor/Controls/ControlDateTime_Reload.cs");
 
     //////////////
     /// Config ///
@@ -67,6 +75,8 @@ private
         abstract string generateCtorInit();
         abstract string generateReloadCode(const Model model, const TableObject object);
         abstract string generateCreateOnlyReloadCode(const Model model, const TableObject object);
+        abstract string generateObjectCreateCode(const Model model);
+        abstract string generateObjectUpdateCode(const Model model);
         abstract string winFormTypeName();
     }
 
@@ -103,6 +113,16 @@ private
         override string generateCreateOnlyReloadCode(const Model model, const TableObject object)
         {
             return "";
+        }
+
+        override string generateObjectCreateCode(const Model model)
+        {
+            return mixin(interp!TEMPLATE_CONTROL_TEXTBOX_CREATE_UPDATE);
+        }
+
+        override string generateObjectUpdateCode(const Model model)
+        {
+            return this.generateObjectCreateCode(model);
         }
 
         override string winFormTypeName()
@@ -142,6 +162,16 @@ private
         }
         
         override string generateCreateOnlyReloadCode(const Model model, const TableObject object)
+        {
+            return "";
+        }
+
+        override string generateObjectCreateCode(const Model model)
+        {
+            return "";
+        }
+
+        override string generateObjectUpdateCode(const Model model)
         {
             return "";
         }
@@ -186,6 +216,16 @@ private
         override string generateCreateOnlyReloadCode(const Model model, const TableObject object)
         {
             return "";
+        }
+
+        override string generateObjectCreateCode(const Model model)
+        {
+            return mixin(interp!TEMPLATE_CONTROL_NUMERIC_CREATE_UPDATE);
+        }
+
+        override string generateObjectUpdateCode(const Model model)
+        {
+            return this.generateObjectCreateCode(model);
         }
 
         override string winFormTypeName()
@@ -233,18 +273,125 @@ private
             assert(custom_objectKey !is null);
 
             auto custom_valueKey = valueObject.getKey();
-            return mixin(interp!TEMPLATE_CONTORL_OBJECTLIST_RELOAD);
+            return mixin(interp!TEMPLATE_CONTROL_OBJECTLIST_RELOAD);
         }
         
         override string generateCreateOnlyReloadCode(const Model model, const TableObject object)
         {
             auto custom_listTypeTable = model.context.getTableForType(this.objectField.typeName).variableName;
-            return mixin(interp!TEMPLATE_CONTORL_OBJECTLIST_RELOAD_CREATEONLY);
+            return mixin(interp!TEMPLATE_CONTROL_OBJECTLIST_RELOAD_CREATEONLY);
+        }
+
+        override string generateObjectCreateCode(const Model model)
+        {
+            auto custom_listTypeTable = model.context.getTableForType(this.objectField.typeName).variableName;
+            return mixin(interp!TEMPLATE_CONTROL_OBJECTLIST_CREATE_UPDATE);
+        }
+
+        override string generateObjectUpdateCode(const Model model)
+        {
+            return this.generateObjectCreateCode(model);
         }
 
         override string winFormTypeName()
         {
             return "System.Windows.Forms.ComboBox";
+        }
+    }
+
+    final class ShowListButton : Control
+    {
+        this(string name, const Field field, int yPos)
+        {
+            super("buttonShow" ~ name.standardisedName.idup, field, yPos);
+        }
+
+        override string generateDesignCode()
+        {
+            return mixin(interp!TEMPLATE_CONTROL_SHOWLIST_BUTTON_DESIGN);
+        }
+
+        override string generateEventCode()
+        {
+            return mixin(interp!TEMPLATE_CONTROL_SHOWLIST_BUTTON_EVENT_CLICK);
+        }
+
+        override string generateCtorInit()
+        {
+            return "";
+        }
+
+        override string generateReloadCode(const Model model, const TableObject object)
+        {
+            return "";
+        }
+        
+        override string generateCreateOnlyReloadCode(const Model model, const TableObject object)
+        {
+            return "";
+        }
+
+        override string generateObjectCreateCode(const Model model)
+        {
+            return "";
+        }
+
+        override string generateObjectUpdateCode(const Model model)
+        {
+            return "";
+        }
+
+        override string winFormTypeName()
+        {
+            return "System.Windows.Forms.Button";
+        }
+    }
+
+    final class DateTime : Control
+    {
+        this(string name, const Field field, int yPos)
+        {
+            super("datetime" ~ name.standardisedName.idup, field, yPos);
+        }
+
+        override string generateDesignCode()
+        {
+            return mixin(interp!TEMPLATE_CONTROL_DATETIME_DESIGN);
+        }
+
+        override string generateEventCode()
+        {
+            return "";
+        }
+
+        override string generateCtorInit()
+        {
+            return "";
+        }
+
+        override string generateReloadCode(const Model model, const TableObject object)
+        {
+            return mixin(interp!TEMPLATE_CONTROL_DATETIME_RELOAD);
+        }
+        
+        override string generateCreateOnlyReloadCode(const Model model, const TableObject object)
+        {
+            return "";
+        }
+
+        override string generateObjectCreateCode(const Model model)
+        {
+            return mixin(interp!TEMPLATE_CONTROL_DATETIME_CREATE_UPDATE);
+        }
+
+        override string generateObjectUpdateCode(const Model model)
+        {
+            return this.generateObjectCreateCode(model);
+        }
+
+        override string winFormTypeName()
+        {
+            return "System.Windows.Forms.DateTimePicker";
         }
     }
 }
@@ -334,13 +481,30 @@ void generateEditorStubs(const Model model, Path outputDir)
         // TODO: Move this into a function because it's gonna get _massive_
         writeln("Generating controls for ", fileName);
 
-        Control[] labels;
-        Control[] controls;
-        int nextY(Control[] c) { return (CONTROL_Y_PADDING * c.length) + CONTROL_STARTING_Y; }
-        void makeLabel(const Field field) { labels ~= new Label(field.variableName.idup, field, nextY(labels), field.variableName.standardisedName.idup); }
+        struct ControlRow
+        {
+            const(Field) field;
+            string labelNameOverride; // If not null, then this name is used instead.
+            int yPos;
+            Control[] controls;
+
+            Label makeLabel() 
+            { 
+                return new Label(this.field.variableName.idup, 
+                                 field,
+                                 this.yPos, 
+                                 (this.labelNameOverride !is null) ? this.labelNameOverride 
+                                                                   : this.field.variableName.standardisedName.idup); 
+            }
+        }
+
+        ControlRow[] controls;
+        int nextY() { return cast(int)((CONTROL_Y_PADDING * controls.length) + CONTROL_STARTING_Y); }        
 
         foreach(field; object.fields)
         {
+            auto row = ControlRow(field);
+            row.yPos = nextY();
             auto fieldFQN = format("'%s.%s'", object.className, field.variableName);
             auto objectQuery = model.objects.filter!(o => o.className == field.typeName);
 
@@ -349,11 +513,9 @@ void generateEditorStubs(const Model model, Path outputDir)
                 writefln("Creating textbox for %s", fieldFQN);
 
                 if(field.variableName == object.keyName)
-                    labels ~= new Label(field.variableName.idup, field, nextY(labels), "ID");
-                else
-                    makeLabel(field);
+                    row.labelNameOverride = "ID";
 
-                controls ~= new Textbox(field.variableName.idup, field, nextY(controls), (field.variableName == object.keyName) ? IsReadOnly.yes : IsReadOnly.no);
+                row.controls ~= new Textbox(field.variableName.idup, field, row.yPos, (field.variableName == object.keyName) ? IsReadOnly.yes : IsReadOnly.no);
             }
             else if(field.typeName == "int" || field.typeName == "float" || field.typeName == "double")
             {
@@ -363,14 +525,12 @@ void generateEditorStubs(const Model model, Path outputDir)
                     continue;
                 }
 
-                writefln("Createing numeric for %s", fieldFQN);
-                makeLabel(field);
-                controls ~= new Numeric(field.variableName.idup, field, nextY(controls), field.typeName == "int" ? IsInteger.yes : IsInteger.no);
+                writefln("Creating numeric for %s", fieldFQN);
+                row.controls ~= new Numeric(field.variableName.idup, field, row.yPos, field.typeName == "int" ? IsInteger.yes : IsInteger.no);
             }
             else if(!objectQuery.empty)
             {
-                writefln("Createing object list('%s') for %s", field.typeName, fieldFQN);
-                makeLabel(field);
+                writefln("Creating object list('%s') for %s", field.typeName, fieldFQN);
 
                 auto listObject = objectQuery.front;
                 assert(listObject.className == field.typeName);
@@ -388,7 +548,13 @@ void generateEditorStubs(const Model model, Path outputDir)
                 }
                 assert(bestMatchPriority != int.min);
 
-                controls ~= new ObjectList(field.variableName.idup, field, nextY(controls), bestKeyNameMatch);
+                row.controls ~= new ObjectList(field.variableName.idup, field, row.yPos, bestKeyNameMatch);
+                row.controls ~= new ShowListButton(field.variableName.idup, field, row.yPos);
+            }
+            else if(field.typeName == "DateTime")
+            {
+                writefln("Creating DateTimePicker for %s", fieldFQN);
+                row.controls ~= new DateTime(field.variableName.idup, field, row.yPos);
             }
             else if(field.typeName.startsWith("ICollection<"))
             {
@@ -399,6 +565,9 @@ void generateEditorStubs(const Model model, Path outputDir)
                 writefln("WARNING: The type '%s' for variable '%s.%s' is being skipped, as there is no handler for it.",
                             field.typeName, object.className, field.variableName);
             }
+
+            if(row.controls.length > 0)
+                controls ~= row;
         }
 
         // Then, generate all of the controls and variables needed.
@@ -413,15 +582,20 @@ void generateEditorStubs(const Model model, Path outputDir)
         char[] custom_control_designerInitEnd;
         char[] custom_control_reload;
         char[] custom_control_reload_createOnly;
-        foreach(control; chain(controls, labels))
+        char[] custom_control_createObjData;
+        char[] custom_control_updateObjData;
+        auto   custom_buttonYPad = (controls.length + 1) * CONTROL_Y_PADDING;
+        void generateControlCode(Control control)
         {
-            custom_control_events       ~= control.generateEventCode();
-            custom_control_designs      ~= control.generateDesignCode();
-            custom_control_ctorInit     ~= control.generateCtorInit();
-            custom_control_reload       ~= control.generateReloadCode(model, object);
+            custom_control_events            ~= control.generateEventCode();
+            custom_control_designs           ~= control.generateDesignCode();
+            custom_control_ctorInit          ~= control.generateCtorInit();
+            custom_control_reload            ~= control.generateReloadCode(model, object);
+            custom_control_createObjData     ~= control.generateObjectCreateCode(model);
+            custom_control_updateObjData     ~= control.generateObjectUpdateCode(model);
             custom_control_reload_createOnly ~= control.generateCreateOnlyReloadCode(model, object);
-            custom_control_variables    ~= format("private %s %s;\n", control.winFormTypeName, control.name);
-            custom_control_initialisers ~= format("this.%s = new %s();\n", control.name, control.winFormTypeName);
+            custom_control_variables         ~= format("private %s %s;\n", control.winFormTypeName, control.name);
+            custom_control_initialisers      ~= format("this.%s = new %s();\n", control.name, control.winFormTypeName);
 
             if(control.designerInit == NeedsDesignerInit.yes)
             {
@@ -434,6 +608,14 @@ void generateEditorStubs(const Model model, Path outputDir)
                 custom_control_addToPanel1 ~= format("this.splitContainer1.Panel1.Controls.Add(%s);\n", control.name);
             else
                 custom_control_addToPanel2 ~= format("this.splitContainer1.Panel2.Controls.Add(%s);\n", control.name);
+        }
+
+        foreach(row; controls)
+        {
+            foreach(control; row.controls)
+                generateControlCode(control);
+
+            generateControlCode(row.makeLabel());
         }
 
         // Write the code out.

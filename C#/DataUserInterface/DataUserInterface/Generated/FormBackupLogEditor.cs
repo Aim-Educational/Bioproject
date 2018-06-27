@@ -100,6 +100,7 @@ namespace DataUserInterface.Forms
                     {
                         this.textboxBackupLogId.Text = Convert.ToString(obj.backup_log_id);
 this.textboxFilename.Text = obj.filename;
+this.datetimeDatetime.Value = obj.datetime;
 this.textboxComment.Text = obj.comment;
 this.numericVersion.Value = (decimal)obj.version;
 
@@ -194,7 +195,13 @@ this.numericVersion.Value = (decimal)obj.version;
             {
                 var obj = db.backup_log.SingleOrDefault(v => v.backup_log_id == this.id);
 
-                #error Edit 'obj' with the new info to upload to the database.
+                
+obj.filename = this.textboxFilename.Text;
+this.datetimeDatetime.Value = DateTime.Now;
+obj.datetime = this.datetimeDatetime.Value;
+obj.comment = this.textboxComment.Text;
+obj.version = (int)this.numericVersion.Value;
+
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -216,7 +223,13 @@ this.numericVersion.Value = (decimal)obj.version;
             {
                 var obj = new backup_log();
 
-                #error Fill out 'obj' with the new info.
+                
+obj.filename = this.textboxFilename.Text;
+this.datetimeDatetime.Value = DateTime.Now;
+obj.datetime = this.datetimeDatetime.Value;
+obj.comment = this.textboxComment.Text;
+obj.version = (int)this.numericVersion.Value;
+
 
                 db.backup_log.Add(obj);
                 db.SaveChanges();
@@ -270,6 +283,9 @@ this.numericVersion.Value = (decimal)obj.version;
         }
         private void numericVersion_ValueChanged(object sender, EventArgs e)
         {
+            if(this._cached == null)
+                return;
+
             if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
                 this._isDirty = true;
         }
@@ -313,12 +329,14 @@ this.numericVersion.Value = (decimal)obj.version;
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonAction = new System.Windows.Forms.Button();
             this.textboxBackupLogId = new System.Windows.Forms.TextBox();
-this.textboxFilename = new System.Windows.Forms.TextBox();
-this.textboxComment = new System.Windows.Forms.TextBox();
-this.numericVersion = new System.Windows.Forms.NumericUpDown();
 this.labelBackupLogId = new System.Windows.Forms.Label();
+this.textboxFilename = new System.Windows.Forms.TextBox();
 this.labelFilename = new System.Windows.Forms.Label();
+this.datetimeDatetime = new System.Windows.Forms.DateTimePicker();
+this.labelDatetime = new System.Windows.Forms.Label();
+this.textboxComment = new System.Windows.Forms.TextBox();
 this.labelComment = new System.Windows.Forms.Label();
+this.numericVersion = new System.Windows.Forms.NumericUpDown();
 this.labelVersion = new System.Windows.Forms.Label();
 
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -341,6 +359,7 @@ this.labelVersion = new System.Windows.Forms.Label();
             this.splitContainer1.Panel1.Controls.Add(this.labelDirty);
             this.splitContainer1.Panel1.Controls.Add(labelBackupLogId);
 this.splitContainer1.Panel1.Controls.Add(labelFilename);
+this.splitContainer1.Panel1.Controls.Add(labelDatetime);
 this.splitContainer1.Panel1.Controls.Add(labelComment);
 this.splitContainer1.Panel1.Controls.Add(labelVersion);
 
@@ -353,6 +372,7 @@ this.splitContainer1.Panel1.Controls.Add(labelVersion);
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
             this.splitContainer1.Panel2.Controls.Add(textboxBackupLogId);
 this.splitContainer1.Panel2.Controls.Add(textboxFilename);
+this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
 this.splitContainer1.Panel2.Controls.Add(textboxComment);
 this.splitContainer1.Panel2.Controls.Add(numericVersion);
 
@@ -373,11 +393,9 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.buttonDelete.Image = ((System.Drawing.Image)(resources.GetObject("buttonDelete.Image")));
-            this.buttonDelete.Location = new System.Drawing.Point(85, 313);
+            this.buttonDelete.Location = new System.Drawing.Point(85, 156);
             this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Text = "[X]";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
             this.buttonDelete.TabIndex = 11;
             this.buttonDelete.UseVisualStyleBackColor = false;
@@ -385,7 +403,7 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(4, 314);
+            this.buttonReload.Location = new System.Drawing.Point(4, 156);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -395,8 +413,7 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             // 
             // buttonAction
             // 
-            this.buttonAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAction.Location = new System.Drawing.Point(141, 313);
+            this.buttonAction.Location = new System.Drawing.Point(141, 156);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
@@ -415,40 +432,6 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             this.textboxBackupLogId.Leave += new System.EventHandler(this.textboxBackupLogId_Leave);
             this.textboxBackupLogId.Enabled = false;
                         // 
-            // textboxFilename
-            // 
-            this.textboxFilename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxFilename.Location = new System.Drawing.Point(4, 38);
-            this.textboxFilename.Name = "textboxFilename";
-            this.textboxFilename.Size = new System.Drawing.Size(208, 20);
-            this.textboxFilename.TabIndex = 31;
-            this.textboxFilename.Leave += new System.EventHandler(this.textboxFilename_Leave);
-            this.textboxFilename.Enabled = true;
-                        // 
-            // textboxComment
-            // 
-            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxComment.Location = new System.Drawing.Point(4, 64);
-            this.textboxComment.Name = "textboxComment";
-            this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
-            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
-            this.textboxComment.Enabled = true;
-                        // 
-            // numericVersion
-            // 
-            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericVersion.Location = new System.Drawing.Point(4, 90);
-            this.numericVersion.Name = "numericVersion";
-            this.numericVersion.Size = new System.Drawing.Size(211, 20);
-            this.numericVersion.TabIndex = 32;
-            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
-            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
-            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
-                        // 
             // labelBackupLogId
             // 
             this.labelBackupLogId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -460,6 +443,17 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             this.labelBackupLogId.TabIndex = 14;
             this.labelBackupLogId.Text = "ID";
             this.labelBackupLogId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // textboxFilename
+            // 
+            this.textboxFilename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxFilename.Location = new System.Drawing.Point(4, 38);
+            this.textboxFilename.Name = "textboxFilename";
+            this.textboxFilename.Size = new System.Drawing.Size(208, 20);
+            this.textboxFilename.TabIndex = 31;
+            this.textboxFilename.Leave += new System.EventHandler(this.textboxFilename_Leave);
+            this.textboxFilename.Enabled = true;
                         // 
             // labelFilename
             // 
@@ -473,24 +467,69 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             this.labelFilename.Text = "Filename";
             this.labelFilename.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // datetimeDatetime
+            // 
+            this.datetimeDatetime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.datetimeDatetime.Enabled = false;
+            this.datetimeDatetime.Location = new System.Drawing.Point(4, 64);
+            this.datetimeDatetime.Name = "datetimeDatetime";
+            this.datetimeDatetime.Size = new System.Drawing.Size(208, 20);
+            this.datetimeDatetime.TabIndex = 34;
+            // 
+            // labelDatetime
+            // 
+            this.labelDatetime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelDatetime.AutoSize = true;
+            this.labelDatetime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDatetime.Location = new System.Drawing.Point(0, 64);
+            this.labelDatetime.Name = "labelDatetime";
+            this.labelDatetime.Size = new System.Drawing.Size(30, 20);
+            this.labelDatetime.TabIndex = 14;
+            this.labelDatetime.Text = "Datetime";
+            this.labelDatetime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // textboxComment
+            // 
+            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxComment.Location = new System.Drawing.Point(4, 90);
+            this.textboxComment.Name = "textboxComment";
+            this.textboxComment.Size = new System.Drawing.Size(208, 20);
+            this.textboxComment.TabIndex = 31;
+            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
+            this.textboxComment.Enabled = true;
+                        // 
             // labelComment
             // 
             this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelComment.AutoSize = true;
             this.labelComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelComment.Location = new System.Drawing.Point(0, 64);
+            this.labelComment.Location = new System.Drawing.Point(0, 90);
             this.labelComment.Name = "labelComment";
             this.labelComment.Size = new System.Drawing.Size(30, 20);
             this.labelComment.TabIndex = 14;
             this.labelComment.Text = "Comment";
             this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // numericVersion
+            // 
+            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericVersion.Location = new System.Drawing.Point(4, 116);
+            this.numericVersion.Name = "numericVersion";
+            this.numericVersion.Size = new System.Drawing.Size(211, 20);
+            this.numericVersion.TabIndex = 32;
+            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
+            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
+            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
+                        // 
             // labelVersion
             // 
             this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelVersion.AutoSize = true;
             this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelVersion.Location = new System.Drawing.Point(0, 90);
+            this.labelVersion.Location = new System.Drawing.Point(0, 116);
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(30, 20);
             this.labelVersion.TabIndex = 14;
@@ -502,7 +541,7 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 156);
+            this.ClientSize = new System.Drawing.Size(330, 182);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormBackupLogEditor";
             this.Text = "BackupLog Editor";
@@ -527,12 +566,14 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox textboxBackupLogId;
-private System.Windows.Forms.TextBox textboxFilename;
-private System.Windows.Forms.TextBox textboxComment;
-private System.Windows.Forms.NumericUpDown numericVersion;
 private System.Windows.Forms.Label labelBackupLogId;
+private System.Windows.Forms.TextBox textboxFilename;
 private System.Windows.Forms.Label labelFilename;
+private System.Windows.Forms.DateTimePicker datetimeDatetime;
+private System.Windows.Forms.Label labelDatetime;
+private System.Windows.Forms.TextBox textboxComment;
 private System.Windows.Forms.Label labelComment;
+private System.Windows.Forms.NumericUpDown numericVersion;
 private System.Windows.Forms.Label labelVersion;
 
         #endregion

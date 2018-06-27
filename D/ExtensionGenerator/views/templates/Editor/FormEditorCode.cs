@@ -189,7 +189,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = db.${custom_baseTypeTable}.SingleOrDefault(v => v.${object.keyName} == this.id);
 
-                #error Edit 'obj' with the new info to upload to the database.
+                ${custom_control_updateObjData}
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -211,7 +211,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = new ${object.className}();
 
-                #error Fill out 'obj' with the new info.
+                ${custom_control_createObjData}
 
                 db.${custom_baseTypeTable}.Add(obj);
                 db.SaveChanges();
@@ -324,11 +324,9 @@ namespace DataUserInterface.Forms
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.buttonDelete.Image = ((System.Drawing.Image)(resources.GetObject("buttonDelete.Image")));
-            this.buttonDelete.Location = new System.Drawing.Point(85, 313);
+            this.buttonDelete.Location = new System.Drawing.Point(85, ${custom_buttonYPad});
             this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Text = "[X]";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
             this.buttonDelete.TabIndex = 11;
             this.buttonDelete.UseVisualStyleBackColor = false;
@@ -336,7 +334,7 @@ namespace DataUserInterface.Forms
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(4, 314);
+            this.buttonReload.Location = new System.Drawing.Point(4, ${custom_buttonYPad});
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -346,8 +344,7 @@ namespace DataUserInterface.Forms
             // 
             // buttonAction
             // 
-            this.buttonAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAction.Location = new System.Drawing.Point(141, 313);
+            this.buttonAction.Location = new System.Drawing.Point(141, ${custom_buttonYPad});
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
@@ -360,7 +357,7 @@ namespace DataUserInterface.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, ${(controls.length + 2) * CONTROL_Y_PADDING});
+            this.ClientSize = new System.Drawing.Size(330, ${custom_buttonYPad + CONTROL_Y_PADDING});
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form${custom_fixedName}Editor";
             this.Text = "${custom_fixedName} Editor";

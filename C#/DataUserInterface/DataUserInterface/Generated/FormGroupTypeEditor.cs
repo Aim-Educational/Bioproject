@@ -203,7 +203,14 @@ foreach (var value in db.group_type.OrderBy(v => v.name))
             {
                 var obj = db.group_type.SingleOrDefault(v => v.group_type_id == this.id);
 
-                #error Edit 'obj' with the new info to upload to the database.
+                
+obj.name = this.textboxName.Text;
+obj.description = this.textboxDescription.Text;
+obj.version = (int)this.numericVersion.Value;
+obj.comment = this.textboxComment.Text;
+var selectedGroupType2 = this.listGroupType2.Items[this.listGroupType2.SelectedIndex] as string;
+obj.group_type2 = db.group_type.Single(v => v.name == selectedGroupType2);
+
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -225,7 +232,14 @@ foreach (var value in db.group_type.OrderBy(v => v.name))
             {
                 var obj = new group_type();
 
-                #error Fill out 'obj' with the new info.
+                
+obj.name = this.textboxName.Text;
+obj.description = this.textboxDescription.Text;
+obj.version = (int)this.numericVersion.Value;
+obj.comment = this.textboxComment.Text;
+var selectedGroupType2 = this.listGroupType2.Items[this.listGroupType2.SelectedIndex] as string;
+obj.group_type2 = db.group_type.Single(v => v.name == selectedGroupType2);
+
 
                 db.group_type.Add(obj);
                 db.SaveChanges();
@@ -279,6 +293,9 @@ foreach (var value in db.group_type.OrderBy(v => v.name))
         }
         private void numericVersion_ValueChanged(object sender, EventArgs e)
         {
+            if(this._cached == null)
+                return;
+
             if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
                 this._isDirty = true;
         }
@@ -293,10 +310,16 @@ foreach (var value in db.group_type.OrderBy(v => v.name))
             var index = this.listGroupType2.SelectedIndex;
             var value = this.listGroupType2.Items[index] as string;
 
-            if (this.mode == EnumEditorMode.Create || value != this._cached.group_type2.name)
+            if (this.mode == EnumEditorMode.Create || (this._cached.group_type2 != null && value != this._cached.group_type2.name))
                 this._isDirty = true;
         }
-        
+        private void buttonShowGroupType2_Click(object sender, EventArgs e)
+{
+    var form = new SearchForm(EnumSearchFormType.GroupType);
+    form.MdiParent = this.MdiParent;
+    form.Show();
+}
+
         #endregion
 
 
@@ -336,16 +359,17 @@ foreach (var value in db.group_type.OrderBy(v => v.name))
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonAction = new System.Windows.Forms.Button();
             this.textboxGroupTypeId = new System.Windows.Forms.TextBox();
-this.textboxName = new System.Windows.Forms.TextBox();
-this.textboxDescription = new System.Windows.Forms.TextBox();
-this.numericVersion = new System.Windows.Forms.NumericUpDown();
-this.textboxComment = new System.Windows.Forms.TextBox();
-this.listGroupType2 = new System.Windows.Forms.ComboBox();
 this.labelGroupTypeId = new System.Windows.Forms.Label();
+this.textboxName = new System.Windows.Forms.TextBox();
 this.labelName = new System.Windows.Forms.Label();
+this.textboxDescription = new System.Windows.Forms.TextBox();
 this.labelDescription = new System.Windows.Forms.Label();
+this.numericVersion = new System.Windows.Forms.NumericUpDown();
 this.labelVersion = new System.Windows.Forms.Label();
+this.textboxComment = new System.Windows.Forms.TextBox();
 this.labelComment = new System.Windows.Forms.Label();
+this.listGroupType2 = new System.Windows.Forms.ComboBox();
+this.buttonShowGroupType2 = new System.Windows.Forms.Button();
 this.labelGroupType2 = new System.Windows.Forms.Label();
 
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -386,6 +410,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxDescription);
 this.splitContainer1.Panel2.Controls.Add(numericVersion);
 this.splitContainer1.Panel2.Controls.Add(textboxComment);
 this.splitContainer1.Panel2.Controls.Add(listGroupType2);
+this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType2);
 
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
@@ -404,11 +429,9 @@ this.splitContainer1.Panel2.Controls.Add(listGroupType2);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.buttonDelete.Image = ((System.Drawing.Image)(resources.GetObject("buttonDelete.Image")));
-            this.buttonDelete.Location = new System.Drawing.Point(85, 313);
+            this.buttonDelete.Location = new System.Drawing.Point(85, 182);
             this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Text = "[X]";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
             this.buttonDelete.TabIndex = 11;
             this.buttonDelete.UseVisualStyleBackColor = false;
@@ -416,7 +439,7 @@ this.splitContainer1.Panel2.Controls.Add(listGroupType2);
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(4, 314);
+            this.buttonReload.Location = new System.Drawing.Point(4, 182);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -426,8 +449,7 @@ this.splitContainer1.Panel2.Controls.Add(listGroupType2);
             // 
             // buttonAction
             // 
-            this.buttonAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAction.Location = new System.Drawing.Point(141, 313);
+            this.buttonAction.Location = new System.Drawing.Point(141, 182);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
@@ -446,63 +468,6 @@ this.splitContainer1.Panel2.Controls.Add(listGroupType2);
             this.textboxGroupTypeId.Leave += new System.EventHandler(this.textboxGroupTypeId_Leave);
             this.textboxGroupTypeId.Enabled = false;
                         // 
-            // textboxName
-            // 
-            this.textboxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxName.Location = new System.Drawing.Point(4, 38);
-            this.textboxName.Name = "textboxName";
-            this.textboxName.Size = new System.Drawing.Size(208, 20);
-            this.textboxName.TabIndex = 31;
-            this.textboxName.Leave += new System.EventHandler(this.textboxName_Leave);
-            this.textboxName.Enabled = true;
-                        // 
-            // textboxDescription
-            // 
-            this.textboxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxDescription.Location = new System.Drawing.Point(4, 64);
-            this.textboxDescription.Name = "textboxDescription";
-            this.textboxDescription.Size = new System.Drawing.Size(208, 20);
-            this.textboxDescription.TabIndex = 31;
-            this.textboxDescription.Leave += new System.EventHandler(this.textboxDescription_Leave);
-            this.textboxDescription.Enabled = true;
-                        // 
-            // numericVersion
-            // 
-            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericVersion.Location = new System.Drawing.Point(4, 90);
-            this.numericVersion.Name = "numericVersion";
-            this.numericVersion.Size = new System.Drawing.Size(211, 20);
-            this.numericVersion.TabIndex = 32;
-            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
-            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
-            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
-                        // 
-            // textboxComment
-            // 
-            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxComment.Location = new System.Drawing.Point(4, 116);
-            this.textboxComment.Name = "textboxComment";
-            this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
-            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
-            this.textboxComment.Enabled = true;
-                        // 
-            // listGroupType2
-            // 
-            this.listGroupType2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listGroupType2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.listGroupType2.FormattingEnabled = true;
-            this.listGroupType2.Location = new System.Drawing.Point(4, 142);
-            this.listGroupType2.Name = "listGroupType2";
-            this.listGroupType2.Size = new System.Drawing.Size(165, 21);
-            this.listGroupType2.TabIndex = 25;
-            this.listGroupType2.SelectionChangeCommitted += new System.EventHandler(this.listGroupType2_SelectionChangeCommitted);
-                        // 
             // labelGroupTypeId
             // 
             this.labelGroupTypeId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -514,6 +479,17 @@ this.splitContainer1.Panel2.Controls.Add(listGroupType2);
             this.labelGroupTypeId.TabIndex = 14;
             this.labelGroupTypeId.Text = "ID";
             this.labelGroupTypeId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // textboxName
+            // 
+            this.textboxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxName.Location = new System.Drawing.Point(4, 38);
+            this.textboxName.Name = "textboxName";
+            this.textboxName.Size = new System.Drawing.Size(208, 20);
+            this.textboxName.TabIndex = 31;
+            this.textboxName.Leave += new System.EventHandler(this.textboxName_Leave);
+            this.textboxName.Enabled = true;
                         // 
             // labelName
             // 
@@ -527,6 +503,17 @@ this.splitContainer1.Panel2.Controls.Add(listGroupType2);
             this.labelName.Text = "Name";
             this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // textboxDescription
+            // 
+            this.textboxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxDescription.Location = new System.Drawing.Point(4, 64);
+            this.textboxDescription.Name = "textboxDescription";
+            this.textboxDescription.Size = new System.Drawing.Size(208, 20);
+            this.textboxDescription.TabIndex = 31;
+            this.textboxDescription.Leave += new System.EventHandler(this.textboxDescription_Leave);
+            this.textboxDescription.Enabled = true;
+                        // 
             // labelDescription
             // 
             this.labelDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -538,6 +525,18 @@ this.splitContainer1.Panel2.Controls.Add(listGroupType2);
             this.labelDescription.TabIndex = 14;
             this.labelDescription.Text = "Description";
             this.labelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // numericVersion
+            // 
+            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericVersion.Location = new System.Drawing.Point(4, 90);
+            this.numericVersion.Name = "numericVersion";
+            this.numericVersion.Size = new System.Drawing.Size(211, 20);
+            this.numericVersion.TabIndex = 32;
+            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
+            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
+            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
                         // 
             // labelVersion
             // 
@@ -551,6 +550,17 @@ this.splitContainer1.Panel2.Controls.Add(listGroupType2);
             this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // textboxComment
+            // 
+            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxComment.Location = new System.Drawing.Point(4, 116);
+            this.textboxComment.Name = "textboxComment";
+            this.textboxComment.Size = new System.Drawing.Size(208, 20);
+            this.textboxComment.TabIndex = 31;
+            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
+            this.textboxComment.Enabled = true;
+                        // 
             // labelComment
             // 
             this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -563,6 +573,27 @@ this.splitContainer1.Panel2.Controls.Add(listGroupType2);
             this.labelComment.Text = "Comment";
             this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // listGroupType2
+            // 
+            this.listGroupType2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listGroupType2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.listGroupType2.FormattingEnabled = true;
+            this.listGroupType2.Location = new System.Drawing.Point(4, 142);
+            this.listGroupType2.Name = "listGroupType2";
+            this.listGroupType2.Size = new System.Drawing.Size(165, 21);
+            this.listGroupType2.TabIndex = 25;
+            this.listGroupType2.SelectionChangeCommitted += new System.EventHandler(this.listGroupType2_SelectionChangeCommitted);
+                        // 
+            // buttonShowGroupType2
+            // 
+            this.buttonShowGroupType2.Location = new System.Drawing.Point(174, 142);
+            this.buttonShowGroupType2.Name = "buttonShowGroupType2";
+            this.buttonShowGroupType2.Size = new System.Drawing.Size(40, 23);
+            this.buttonShowGroupType2.TabIndex = 10;
+            this.buttonShowGroupType2.Text = "...";
+            this.buttonShowGroupType2.Click += new System.EventHandler(this.buttonShowGroupType2_Click);
+            // 
             // labelGroupType2
             // 
             this.labelGroupType2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -605,16 +636,17 @@ this.splitContainer1.Panel2.Controls.Add(listGroupType2);
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox textboxGroupTypeId;
-private System.Windows.Forms.TextBox textboxName;
-private System.Windows.Forms.TextBox textboxDescription;
-private System.Windows.Forms.NumericUpDown numericVersion;
-private System.Windows.Forms.TextBox textboxComment;
-private System.Windows.Forms.ComboBox listGroupType2;
 private System.Windows.Forms.Label labelGroupTypeId;
+private System.Windows.Forms.TextBox textboxName;
 private System.Windows.Forms.Label labelName;
+private System.Windows.Forms.TextBox textboxDescription;
 private System.Windows.Forms.Label labelDescription;
+private System.Windows.Forms.NumericUpDown numericVersion;
 private System.Windows.Forms.Label labelVersion;
+private System.Windows.Forms.TextBox textboxComment;
 private System.Windows.Forms.Label labelComment;
+private System.Windows.Forms.ComboBox listGroupType2;
+private System.Windows.Forms.Button buttonShowGroupType2;
 private System.Windows.Forms.Label labelGroupType2;
 
         #endregion
