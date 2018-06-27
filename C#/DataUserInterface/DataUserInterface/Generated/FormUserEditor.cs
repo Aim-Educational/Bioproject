@@ -88,17 +88,24 @@ namespace DataUserInterface.Forms
         {
             using (var db = new PlanningContext())
             {
+                if (this.mode == EnumEditorMode.Create)
+                {
+                    
+                }
+
                 if (this.mode != EnumEditorMode.Create)
                 {
                     var obj = db.users.SingleOrDefault(v => v.user_id == this.id);
                     if (obj != null)
                     {
-                        this.textboxComment.Text = obj.comment;
-                        this.textboxFore.Text = obj.forename;
-                        this.textboxSur.Text = obj.surname;
-                        this.textboxUsername.Text = obj.username;
-                        this.textboxPass.Text = obj.password;
-                        this.textboxID.Text = Convert.ToString(obj.user_id);
+                        this.textboxUserId.Text = Convert.ToString(obj.user_id);
+this.textboxForename.Text = obj.forename;
+this.textboxSurname.Text = obj.surname;
+this.textboxUsername.Text = obj.username;
+this.textboxPassword.Text = obj.password;
+this.numericVersion.Value = (decimal)obj.version;
+this.textboxComment.Text = obj.comment;
+
 
                         this._cached  = obj;
                         this._isDirty = false;
@@ -110,6 +117,9 @@ namespace DataUserInterface.Forms
         public FormUserEditor(EnumEditorMode mode, int id = -1) // ID isn't always needed, e.g. Create
         {
             InitializeComponent();
+
+            FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
+
 
             this.mode = mode;
             if (mode != EnumEditorMode.Create)
@@ -187,11 +197,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = db.users.SingleOrDefault(v => v.user_id == this.id);
 
-                obj.username = this.textboxUsername.Text;
-                obj.forename = this.textboxFore.Text;
-                obj.surname = this.textboxSur.Text;
-                obj.password = this.textboxPass.Text;
-                obj.comment = this.textboxComment.Text;
+                #error Edit 'obj' with the new info to upload to the database.
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -213,11 +219,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = new user();
 
-                obj.username = this.textboxUsername.Text;
-                obj.forename = this.textboxFore.Text;
-                obj.surname = this.textboxSur.Text;
-                obj.password = this.textboxPass.Text;
-                obj.comment = this.textboxComment.Text;
+                #error Fill out 'obj' with the new info.
 
                 db.users.Add(obj);
                 db.SaveChanges();
@@ -247,35 +249,52 @@ namespace DataUserInterface.Forms
                 this.reload();
         }
 
-        private void textboxUsername_Leave(object sender, EventArgs e)
+                private void textboxUserId_Leave(object sender, EventArgs e)
         {
-            if (textboxUsername.Text != this._cached.username)
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxUserId.Text != Convert.ToString(this._cached.user_id))
                 this._isDirty = true;
         }
-
-        private void textboxFore_Leave(object sender, EventArgs e)
+                private void textboxForename_Leave(object sender, EventArgs e)
         {
-            if (textboxFore.Text != this._cached.forename)
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxForename.Text != Convert.ToString(this._cached.forename))
                 this._isDirty = true;
         }
-
-        private void textboxSur_Leave(object sender, EventArgs e)
+                private void textboxSurname_Leave(object sender, EventArgs e)
         {
-            if (textboxSur.Text != this._cached.surname)
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxSurname.Text != Convert.ToString(this._cached.surname))
                 this._isDirty = true;
         }
-
-        private void textboxPass_Leave(object sender, EventArgs e)
+                private void textboxUsername_Leave(object sender, EventArgs e)
         {
-            if (textboxPass.Text != this._cached.password)
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxUsername.Text != Convert.ToString(this._cached.username))
                 this._isDirty = true;
         }
-
+                private void textboxPassword_Leave(object sender, EventArgs e)
+        {
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxPassword.Text != Convert.ToString(this._cached.password))
+                this._isDirty = true;
+        }
+                private void numericVersion_Enter(object sender, EventArgs e)
+        {
+            FormHelper.selectAllText(this.numericVersion);
+        }
+        private void numericVersion_ValueChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
+                this._isDirty = true;
+        }
         private void textboxComment_Leave(object sender, EventArgs e)
         {
-            if (textboxComment.Text != this._cached.comment)
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxComment.Text != Convert.ToString(this._cached.comment))
                 this._isDirty = true;
         }
+        
         #endregion
 
 
@@ -308,28 +327,33 @@ namespace DataUserInterface.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormUserEditor));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.labelDirty = new System.Windows.Forms.Label();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonAction = new System.Windows.Forms.Button();
-            this.textboxID = new System.Windows.Forms.TextBox();
-            this.textboxUsername = new System.Windows.Forms.TextBox();
-            this.textboxFore = new System.Windows.Forms.TextBox();
-            this.textboxSur = new System.Windows.Forms.TextBox();
-            this.textboxPass = new System.Windows.Forms.TextBox();
-            this.textboxComment = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.textboxUserId = new System.Windows.Forms.TextBox();
+this.textboxForename = new System.Windows.Forms.TextBox();
+this.textboxSurname = new System.Windows.Forms.TextBox();
+this.textboxUsername = new System.Windows.Forms.TextBox();
+this.textboxPassword = new System.Windows.Forms.TextBox();
+this.numericVersion = new System.Windows.Forms.NumericUpDown();
+this.textboxComment = new System.Windows.Forms.TextBox();
+this.labelUserId = new System.Windows.Forms.Label();
+this.labelForename = new System.Windows.Forms.Label();
+this.labelSurname = new System.Windows.Forms.Label();
+this.labelUsername = new System.Windows.Forms.Label();
+this.labelPassword = new System.Windows.Forms.Label();
+this.labelVersion = new System.Windows.Forms.Label();
+this.labelComment = new System.Windows.Forms.Label();
+
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).BeginInit();
+
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -341,33 +365,37 @@ namespace DataUserInterface.Forms
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.AutoScroll = true;
-            this.splitContainer1.Panel1.Controls.Add(this.label6);
-            this.splitContainer1.Panel1.Controls.Add(this.label5);
-            this.splitContainer1.Panel1.Controls.Add(this.label4);
-            this.splitContainer1.Panel1.Controls.Add(this.label3);
-            this.splitContainer1.Panel1.Controls.Add(this.label2);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.labelDirty);
+            this.splitContainer1.Panel1.Controls.Add(labelUserId);
+this.splitContainer1.Panel1.Controls.Add(labelForename);
+this.splitContainer1.Panel1.Controls.Add(labelSurname);
+this.splitContainer1.Panel1.Controls.Add(labelUsername);
+this.splitContainer1.Panel1.Controls.Add(labelPassword);
+this.splitContainer1.Panel1.Controls.Add(labelVersion);
+this.splitContainer1.Panel1.Controls.Add(labelComment);
+
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
-            this.splitContainer1.Panel2.Controls.Add(this.label7);
-            this.splitContainer1.Panel2.Controls.Add(this.textboxComment);
-            this.splitContainer1.Panel2.Controls.Add(this.textboxPass);
-            this.splitContainer1.Panel2.Controls.Add(this.textboxSur);
-            this.splitContainer1.Panel2.Controls.Add(this.textboxFore);
-            this.splitContainer1.Panel2.Controls.Add(this.textboxUsername);
-            this.splitContainer1.Panel2.Controls.Add(this.textboxID);
             this.splitContainer1.Panel2.Controls.Add(this.buttonDelete);
             this.splitContainer1.Panel2.Controls.Add(this.buttonReload);
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
-            this.splitContainer1.Size = new System.Drawing.Size(330, 211);
+            this.splitContainer1.Panel2.Controls.Add(textboxUserId);
+this.splitContainer1.Panel2.Controls.Add(textboxForename);
+this.splitContainer1.Panel2.Controls.Add(textboxSurname);
+this.splitContainer1.Panel2.Controls.Add(textboxUsername);
+this.splitContainer1.Panel2.Controls.Add(textboxPassword);
+this.splitContainer1.Panel2.Controls.Add(numericVersion);
+this.splitContainer1.Panel2.Controls.Add(textboxComment);
+
+            this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
             this.splitContainer1.TabIndex = 0;
             // 
             // labelDirty
             // 
+            this.labelDirty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelDirty.AutoSize = true;
             this.labelDirty.Location = new System.Drawing.Point(3, 9);
             this.labelDirty.Name = "labelDirty";
@@ -380,7 +408,8 @@ namespace DataUserInterface.Forms
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDelete.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.buttonDelete.Location = new System.Drawing.Point(85, 183);
+            this.buttonDelete.Image = ((System.Drawing.Image)(resources.GetObject("buttonDelete.Image")));
+            this.buttonDelete.Location = new System.Drawing.Point(85, 313);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
             this.buttonDelete.TabIndex = 11;
@@ -389,8 +418,7 @@ namespace DataUserInterface.Forms
             // 
             // buttonReload
             // 
-            this.buttonReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonReload.Location = new System.Drawing.Point(4, 184);
+            this.buttonReload.Location = new System.Drawing.Point(4, 314);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -401,172 +429,194 @@ namespace DataUserInterface.Forms
             // buttonAction
             // 
             this.buttonAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAction.Location = new System.Drawing.Point(141, 183);
+            this.buttonAction.Location = new System.Drawing.Point(141, 313);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
             this.buttonAction.Text = "Save";
             this.buttonAction.UseVisualStyleBackColor = true;
             this.buttonAction.Click += new System.EventHandler(this.buttonSave_Click);
+                        // 
+            // textboxUserId
             // 
-            // textboxID
-            // 
-            this.textboxID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textboxUserId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxID.Enabled = false;
-            this.textboxID.Location = new System.Drawing.Point(3, 12);
-            this.textboxID.Name = "textboxID";
-            this.textboxID.ReadOnly = true;
-            this.textboxID.Size = new System.Drawing.Size(208, 20);
-            this.textboxID.TabIndex = 15;
+            this.textboxUserId.Location = new System.Drawing.Point(4, 12);
+            this.textboxUserId.Name = "textboxUserId";
+            this.textboxUserId.Size = new System.Drawing.Size(208, 20);
+            this.textboxUserId.TabIndex = 31;
+            this.textboxUserId.Leave += new System.EventHandler(this.textboxUserId_Leave);
+            this.textboxUserId.Enabled = false;
+                        // 
+            // textboxForename
             // 
+            this.textboxForename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxForename.Location = new System.Drawing.Point(4, 38);
+            this.textboxForename.Name = "textboxForename";
+            this.textboxForename.Size = new System.Drawing.Size(208, 20);
+            this.textboxForename.TabIndex = 31;
+            this.textboxForename.Leave += new System.EventHandler(this.textboxForename_Leave);
+            this.textboxForename.Enabled = true;
+                        // 
+            // textboxSurname
+            // 
+            this.textboxSurname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxSurname.Location = new System.Drawing.Point(4, 64);
+            this.textboxSurname.Name = "textboxSurname";
+            this.textboxSurname.Size = new System.Drawing.Size(208, 20);
+            this.textboxSurname.TabIndex = 31;
+            this.textboxSurname.Leave += new System.EventHandler(this.textboxSurname_Leave);
+            this.textboxSurname.Enabled = true;
+                        // 
             // textboxUsername
             // 
             this.textboxUsername.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxUsername.Location = new System.Drawing.Point(4, 38);
+            this.textboxUsername.Location = new System.Drawing.Point(4, 90);
             this.textboxUsername.Name = "textboxUsername";
             this.textboxUsername.Size = new System.Drawing.Size(208, 20);
-            this.textboxUsername.TabIndex = 32;
+            this.textboxUsername.TabIndex = 31;
             this.textboxUsername.Leave += new System.EventHandler(this.textboxUsername_Leave);
+            this.textboxUsername.Enabled = true;
+                        // 
+            // textboxPassword
             // 
-            // textboxFore
-            // 
-            this.textboxFore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textboxPassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxFore.Location = new System.Drawing.Point(3, 64);
-            this.textboxFore.Name = "textboxFore";
-            this.textboxFore.Size = new System.Drawing.Size(208, 20);
-            this.textboxFore.TabIndex = 33;
-            this.textboxFore.Leave += new System.EventHandler(this.textboxFore_Leave);
+            this.textboxPassword.Location = new System.Drawing.Point(4, 116);
+            this.textboxPassword.Name = "textboxPassword";
+            this.textboxPassword.Size = new System.Drawing.Size(208, 20);
+            this.textboxPassword.TabIndex = 31;
+            this.textboxPassword.Leave += new System.EventHandler(this.textboxPassword_Leave);
+            this.textboxPassword.Enabled = true;
+                        // 
+            // numericVersion
             // 
-            // textboxSur
-            // 
-            this.textboxSur.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxSur.Location = new System.Drawing.Point(3, 90);
-            this.textboxSur.Name = "textboxSur";
-            this.textboxSur.Size = new System.Drawing.Size(208, 20);
-            this.textboxSur.TabIndex = 34;
-            this.textboxSur.Leave += new System.EventHandler(this.textboxSur_Leave);
-            // 
-            // textboxPass
-            // 
-            this.textboxPass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxPass.Location = new System.Drawing.Point(3, 116);
-            this.textboxPass.Name = "textboxPass";
-            this.textboxPass.Size = new System.Drawing.Size(208, 20);
-            this.textboxPass.TabIndex = 35;
-            this.textboxPass.Leave += new System.EventHandler(this.textboxPass_Leave);
-            // 
+            this.numericVersion.Location = new System.Drawing.Point(4, 142);
+            this.numericVersion.Name = "numericVersion";
+            this.numericVersion.Size = new System.Drawing.Size(211, 20);
+            this.numericVersion.TabIndex = 32;
+            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
+            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
+            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
+                        // 
             // textboxComment
             // 
             this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxComment.Location = new System.Drawing.Point(3, 142);
+            this.textboxComment.Location = new System.Drawing.Point(4, 168);
             this.textboxComment.Name = "textboxComment";
             this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 36;
+            this.textboxComment.TabIndex = 31;
             this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
+            this.textboxComment.Enabled = true;
+                        // 
+            // labelUserId
             // 
-            // label1
+            this.labelUserId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelUserId.AutoSize = true;
+            this.labelUserId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUserId.Location = new System.Drawing.Point(0, 12);
+            this.labelUserId.Name = "labelUserId";
+            this.labelUserId.Size = new System.Drawing.Size(30, 20);
+            this.labelUserId.TabIndex = 14;
+            this.labelUserId.Text = "ID";
+            this.labelUserId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelForename
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(76, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 20);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "ID:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelForename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelForename.AutoSize = true;
+            this.labelForename.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelForename.Location = new System.Drawing.Point(0, 38);
+            this.labelForename.Name = "labelForename";
+            this.labelForename.Size = new System.Drawing.Size(30, 20);
+            this.labelForename.TabIndex = 14;
+            this.labelForename.Text = "Forename";
+            this.labelForename.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelSurname
             // 
-            // label2
+            this.labelSurname.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSurname.AutoSize = true;
+            this.labelSurname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSurname.Location = new System.Drawing.Point(0, 64);
+            this.labelSurname.Name = "labelSurname";
+            this.labelSurname.Size = new System.Drawing.Size(30, 20);
+            this.labelSurname.TabIndex = 14;
+            this.labelSurname.Text = "Surname";
+            this.labelSurname.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelUsername
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(19, 38);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 20);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Username:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelUsername.AutoSize = true;
+            this.labelUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUsername.Location = new System.Drawing.Point(0, 90);
+            this.labelUsername.Name = "labelUsername";
+            this.labelUsername.Size = new System.Drawing.Size(30, 20);
+            this.labelUsername.TabIndex = 14;
+            this.labelUsername.Text = "Username";
+            this.labelUsername.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelPassword
             // 
-            // label3
+            this.labelPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelPassword.AutoSize = true;
+            this.labelPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPassword.Location = new System.Drawing.Point(0, 116);
+            this.labelPassword.Name = "labelPassword";
+            this.labelPassword.Size = new System.Drawing.Size(30, 20);
+            this.labelPassword.TabIndex = 14;
+            this.labelPassword.Text = "Password";
+            this.labelPassword.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelVersion
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(23, 90);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(78, 20);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Surname:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelVersion.Location = new System.Drawing.Point(0, 142);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(30, 20);
+            this.labelVersion.TabIndex = 14;
+            this.labelVersion.Text = "Version";
+            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelComment
             // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(20, 64);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(86, 20);
-            this.label4.TabIndex = 18;
-            this.label4.Text = "Forename:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(19, 116);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(82, 20);
-            this.label5.TabIndex = 19;
-            this.label5.Text = "Password:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(19, 142);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(82, 20);
-            this.label6.TabIndex = 20;
-            this.label6.Text = "Comment:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(3, 165);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(214, 13);
-            this.label7.TabIndex = 37;
-            this.label7.Text = "* Passwords are currently stored in plain text";
+            this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelComment.AutoSize = true;
+            this.labelComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelComment.Location = new System.Drawing.Point(0, 168);
+            this.labelComment.Name = "labelComment";
+            this.labelComment.Size = new System.Drawing.Size(30, 20);
+            this.labelComment.TabIndex = 14;
+            this.labelComment.Text = "Comment";
+            this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            
             // 
             // FormUserEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 211);
+            this.ClientSize = new System.Drawing.Size(330, 234);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormUserEditor";
             this.Text = "User Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDeviceEditor_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).EndInit();
+
             this.ResumeLayout(false);
 
         }
@@ -578,21 +628,21 @@ namespace DataUserInterface.Forms
         private System.Windows.Forms.Label labelDirty;
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Button buttonDelete;
-        private TextBox textboxID;
-        private TextBox textboxPass;
-        private TextBox textboxSur;
-        private TextBox textboxFore;
-        private TextBox textboxUsername;
-        private TextBox textboxComment;
-        private Label label6;
-        private Label label5;
-        private Label label4;
-        private Label label3;
-        private Label label2;
-        private Label label1;
-        private Label label7;
+        private System.Windows.Forms.TextBox textboxUserId;
+private System.Windows.Forms.TextBox textboxForename;
+private System.Windows.Forms.TextBox textboxSurname;
+private System.Windows.Forms.TextBox textboxUsername;
+private System.Windows.Forms.TextBox textboxPassword;
+private System.Windows.Forms.NumericUpDown numericVersion;
+private System.Windows.Forms.TextBox textboxComment;
+private System.Windows.Forms.Label labelUserId;
+private System.Windows.Forms.Label labelForename;
+private System.Windows.Forms.Label labelSurname;
+private System.Windows.Forms.Label labelUsername;
+private System.Windows.Forms.Label labelPassword;
+private System.Windows.Forms.Label labelVersion;
+private System.Windows.Forms.Label labelComment;
+
         #endregion
-
-
     }
 }

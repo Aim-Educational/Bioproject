@@ -47,6 +47,18 @@ class DatabaseContext
                       this.className,
                       this.tables.map!(t => t.toString()).joiner("\n\n\t"));
     }
+
+    @safe @nogc
+    inout(DbSet) getTableForType(string type) inout nothrow
+    {
+        foreach(tab; this.tables)
+        {
+            if(tab.typeName == type)
+                return tab;
+        }
+
+        assert(false);
+    }
 }
 
 class Field
@@ -101,6 +113,17 @@ class TableObject
                       this.dependants.map!(d => d.dependant.className).joiner("\n\t"),
                       this.fields.map!(f => f.toString()).joiner("\n\n"));
     }
+
+    inout(Field) getKey() inout
+    {
+        foreach(field; this.fields)
+        {
+            if(field.variableName == this.keyName)
+                return field;
+        }
+
+        assert(false);
+    }
 }
 
 struct Dependant
@@ -134,6 +157,17 @@ class Model
                       this.namespace,
                       this.context,
                       this.objects.map!(o => o.toString()).joiner("\n\n"));
+    }
+
+    inout(TableObject) getObjectByType(string type) inout
+    {
+        foreach(obj; this.objects)
+        {
+            if(obj.className == type)
+                return obj;
+        }
+
+        assert(false);
     }
 }
 

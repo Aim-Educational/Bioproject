@@ -88,12 +88,20 @@ namespace DataUserInterface.Forms
         {
             using (var db = new PlanningContext())
             {
+                if (this.mode == EnumEditorMode.Create)
+                {
+                    
+                }
+
                 if (this.mode != EnumEditorMode.Create)
                 {
                     var obj = db.database_config.SingleOrDefault(v => v.database_config_id == this.id);
                     if (obj != null)
                     {
-                        //#error Fill out 'obj' with the updated info.
+                        this.textboxDatabaseConfigId.Text = Convert.ToString(obj.database_config_id);
+this.textboxDatabaseBackupDirectory.Text = obj.database_backup_directory;
+this.numericVersion.Value = (decimal)obj.version;
+
 
                         this._cached  = obj;
                         this._isDirty = false;
@@ -105,6 +113,9 @@ namespace DataUserInterface.Forms
         public FormDatabaseConfigEditor(EnumEditorMode mode, int id = -1) // ID isn't always needed, e.g. Create
         {
             InitializeComponent();
+
+            FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
+
 
             this.mode = mode;
             if (mode != EnumEditorMode.Create)
@@ -182,7 +193,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = db.database_config.SingleOrDefault(v => v.database_config_id == this.id);
 
-                //#error Edit 'obj' with the new info to upload to the database.
+                #error Edit 'obj' with the new info to upload to the database.
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -204,7 +215,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = new database_config();
 
-                //#error Fill out 'obj' with the new info.
+                #error Fill out 'obj' with the new info.
 
                 db.database_config.Add(obj);
                 db.SaveChanges();
@@ -233,6 +244,29 @@ namespace DataUserInterface.Forms
             if(result == DialogResult.Yes)
                 this.reload();
         }
+
+                private void textboxDatabaseConfigId_Leave(object sender, EventArgs e)
+        {
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxDatabaseConfigId.Text != Convert.ToString(this._cached.database_config_id))
+                this._isDirty = true;
+        }
+                private void textboxDatabaseBackupDirectory_Leave(object sender, EventArgs e)
+        {
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxDatabaseBackupDirectory.Text != Convert.ToString(this._cached.database_backup_directory))
+                this._isDirty = true;
+        }
+                private void numericVersion_Enter(object sender, EventArgs e)
+        {
+            FormHelper.selectAllText(this.numericVersion);
+        }
+        private void numericVersion_ValueChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
+                this._isDirty = true;
+        }
+
         #endregion
 
 
@@ -271,9 +305,19 @@ namespace DataUserInterface.Forms
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonAction = new System.Windows.Forms.Button();
+            this.textboxDatabaseConfigId = new System.Windows.Forms.TextBox();
+this.textboxDatabaseBackupDirectory = new System.Windows.Forms.TextBox();
+this.numericVersion = new System.Windows.Forms.NumericUpDown();
+this.labelDatabaseConfigId = new System.Windows.Forms.Label();
+this.labelDatabaseBackupDirectory = new System.Windows.Forms.Label();
+this.labelVersion = new System.Windows.Forms.Label();
+
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).BeginInit();
+
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -286,6 +330,10 @@ namespace DataUserInterface.Forms
             // 
             this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.Controls.Add(this.labelDirty);
+            this.splitContainer1.Panel1.Controls.Add(labelDatabaseConfigId);
+this.splitContainer1.Panel1.Controls.Add(labelDatabaseBackupDirectory);
+this.splitContainer1.Panel1.Controls.Add(labelVersion);
+
             // 
             // splitContainer1.Panel2
             // 
@@ -293,6 +341,10 @@ namespace DataUserInterface.Forms
             this.splitContainer1.Panel2.Controls.Add(this.buttonDelete);
             this.splitContainer1.Panel2.Controls.Add(this.buttonReload);
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
+            this.splitContainer1.Panel2.Controls.Add(textboxDatabaseConfigId);
+this.splitContainer1.Panel2.Controls.Add(textboxDatabaseBackupDirectory);
+this.splitContainer1.Panel2.Controls.Add(numericVersion);
+
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
             this.splitContainer1.TabIndex = 0;
@@ -340,21 +392,95 @@ namespace DataUserInterface.Forms
             this.buttonAction.Text = "Save";
             this.buttonAction.UseVisualStyleBackColor = true;
             this.buttonAction.Click += new System.EventHandler(this.buttonSave_Click);
+                        // 
+            // textboxDatabaseConfigId
             // 
-            // FormDeviceEditor
+            this.textboxDatabaseConfigId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxDatabaseConfigId.Location = new System.Drawing.Point(4, 12);
+            this.textboxDatabaseConfigId.Name = "textboxDatabaseConfigId";
+            this.textboxDatabaseConfigId.Size = new System.Drawing.Size(208, 20);
+            this.textboxDatabaseConfigId.TabIndex = 31;
+            this.textboxDatabaseConfigId.Leave += new System.EventHandler(this.textboxDatabaseConfigId_Leave);
+            this.textboxDatabaseConfigId.Enabled = false;
+                        // 
+            // textboxDatabaseBackupDirectory
+            // 
+            this.textboxDatabaseBackupDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxDatabaseBackupDirectory.Location = new System.Drawing.Point(4, 38);
+            this.textboxDatabaseBackupDirectory.Name = "textboxDatabaseBackupDirectory";
+            this.textboxDatabaseBackupDirectory.Size = new System.Drawing.Size(208, 20);
+            this.textboxDatabaseBackupDirectory.TabIndex = 31;
+            this.textboxDatabaseBackupDirectory.Leave += new System.EventHandler(this.textboxDatabaseBackupDirectory_Leave);
+            this.textboxDatabaseBackupDirectory.Enabled = true;
+                        // 
+            // numericVersion
+            // 
+            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericVersion.Location = new System.Drawing.Point(4, 64);
+            this.numericVersion.Name = "numericVersion";
+            this.numericVersion.Size = new System.Drawing.Size(211, 20);
+            this.numericVersion.TabIndex = 32;
+            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
+            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
+            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
+                        // 
+            // labelDatabaseConfigId
+            // 
+            this.labelDatabaseConfigId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelDatabaseConfigId.AutoSize = true;
+            this.labelDatabaseConfigId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDatabaseConfigId.Location = new System.Drawing.Point(0, 12);
+            this.labelDatabaseConfigId.Name = "labelDatabaseConfigId";
+            this.labelDatabaseConfigId.Size = new System.Drawing.Size(30, 20);
+            this.labelDatabaseConfigId.TabIndex = 14;
+            this.labelDatabaseConfigId.Text = "ID";
+            this.labelDatabaseConfigId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelDatabaseBackupDirectory
+            // 
+            this.labelDatabaseBackupDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelDatabaseBackupDirectory.AutoSize = true;
+            this.labelDatabaseBackupDirectory.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDatabaseBackupDirectory.Location = new System.Drawing.Point(0, 38);
+            this.labelDatabaseBackupDirectory.Name = "labelDatabaseBackupDirectory";
+            this.labelDatabaseBackupDirectory.Size = new System.Drawing.Size(30, 20);
+            this.labelDatabaseBackupDirectory.TabIndex = 14;
+            this.labelDatabaseBackupDirectory.Text = "DatabaseBackupDirectory";
+            this.labelDatabaseBackupDirectory.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelVersion
+            // 
+            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelVersion.Location = new System.Drawing.Point(0, 64);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(30, 20);
+            this.labelVersion.TabIndex = 14;
+            this.labelVersion.Text = "Version";
+            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            
+            // 
+            // FormDatabaseConfigEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 341);
+            this.ClientSize = new System.Drawing.Size(330, 130);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormDatabaseConfigEditor";
-            this.Text = "Device Editor";
+            this.Text = "DatabaseConfig Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDeviceEditor_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).EndInit();
+
             this.ResumeLayout(false);
 
         }
@@ -366,6 +492,13 @@ namespace DataUserInterface.Forms
         private System.Windows.Forms.Label labelDirty;
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Button buttonDelete;
-#endregion
+        private System.Windows.Forms.TextBox textboxDatabaseConfigId;
+private System.Windows.Forms.TextBox textboxDatabaseBackupDirectory;
+private System.Windows.Forms.NumericUpDown numericVersion;
+private System.Windows.Forms.Label labelDatabaseConfigId;
+private System.Windows.Forms.Label labelDatabaseBackupDirectory;
+private System.Windows.Forms.Label labelVersion;
+
+        #endregion
     }
 }

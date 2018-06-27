@@ -88,12 +88,29 @@ namespace DataUserInterface.Forms
         {
             using (var db = new PlanningContext())
             {
+                if (this.mode == EnumEditorMode.Create)
+                {
+                    foreach (var val in db.contacts.OrderBy(v => v.comment))
+    this.listContact.Items.Add(val.comment);
+    
+                }
+
                 if (this.mode != EnumEditorMode.Create)
                 {
                     var obj = db.contact_email.SingleOrDefault(v => v.contact_email_id == this.id);
                     if (obj != null)
                     {
-                        //#error Fill out 'obj' with the updated info.
+                        this.textboxContactEmailId.Text = Convert.ToString(obj.contact_email_id);
+this.textboxEmail.Text = obj.email;
+this.numericVersion.Value = (decimal)obj.version;
+this.textboxComment.Text = obj.comment;
+foreach (var value in db.contacts.OrderBy(v => v.comment))
+{
+    this.listContact.Items.Add(value.comment);
+    if (value.contact_id == obj.contact_id)
+        this.listContact.SelectedIndex = this.listContact.Items.Count - 1;
+}
+
 
                         this._cached  = obj;
                         this._isDirty = false;
@@ -105,6 +122,9 @@ namespace DataUserInterface.Forms
         public FormContactEmailEditor(EnumEditorMode mode, int id = -1) // ID isn't always needed, e.g. Create
         {
             InitializeComponent();
+
+            FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
+
 
             this.mode = mode;
             if (mode != EnumEditorMode.Create)
@@ -182,7 +202,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = db.contact_email.SingleOrDefault(v => v.contact_email_id == this.id);
 
-                //#error Edit 'obj' with the new info to upload to the database.
+                #error Edit 'obj' with the new info to upload to the database.
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -204,7 +224,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = new contact_email();
 
-                //#error Fill out 'obj' with the new info.
+                #error Fill out 'obj' with the new info.
 
                 db.contact_email.Add(obj);
                 db.SaveChanges();
@@ -233,6 +253,43 @@ namespace DataUserInterface.Forms
             if(result == DialogResult.Yes)
                 this.reload();
         }
+
+                private void textboxContactEmailId_Leave(object sender, EventArgs e)
+        {
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxContactEmailId.Text != Convert.ToString(this._cached.contact_email_id))
+                this._isDirty = true;
+        }
+                private void textboxEmail_Leave(object sender, EventArgs e)
+        {
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxEmail.Text != Convert.ToString(this._cached.email))
+                this._isDirty = true;
+        }
+                private void numericVersion_Enter(object sender, EventArgs e)
+        {
+            FormHelper.selectAllText(this.numericVersion);
+        }
+        private void numericVersion_ValueChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
+                this._isDirty = true;
+        }
+        private void textboxComment_Leave(object sender, EventArgs e)
+        {
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxComment.Text != Convert.ToString(this._cached.comment))
+                this._isDirty = true;
+        }
+                private void listContact_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var index = this.listContact.SelectedIndex;
+            var value = this.listContact.Items[index] as string;
+
+            if (this.mode == EnumEditorMode.Create || value != this._cached.contact.comment)
+                this._isDirty = true;
+        }
+        
         #endregion
 
 
@@ -271,9 +328,23 @@ namespace DataUserInterface.Forms
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonAction = new System.Windows.Forms.Button();
+            this.textboxContactEmailId = new System.Windows.Forms.TextBox();
+this.textboxEmail = new System.Windows.Forms.TextBox();
+this.numericVersion = new System.Windows.Forms.NumericUpDown();
+this.textboxComment = new System.Windows.Forms.TextBox();
+this.listContact = new System.Windows.Forms.ComboBox();
+this.labelContactEmailId = new System.Windows.Forms.Label();
+this.labelEmail = new System.Windows.Forms.Label();
+this.labelVersion = new System.Windows.Forms.Label();
+this.labelComment = new System.Windows.Forms.Label();
+this.labelContact = new System.Windows.Forms.Label();
+
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).BeginInit();
+
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -286,6 +357,12 @@ namespace DataUserInterface.Forms
             // 
             this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.Controls.Add(this.labelDirty);
+            this.splitContainer1.Panel1.Controls.Add(labelContactEmailId);
+this.splitContainer1.Panel1.Controls.Add(labelEmail);
+this.splitContainer1.Panel1.Controls.Add(labelVersion);
+this.splitContainer1.Panel1.Controls.Add(labelComment);
+this.splitContainer1.Panel1.Controls.Add(labelContact);
+
             // 
             // splitContainer1.Panel2
             // 
@@ -293,6 +370,12 @@ namespace DataUserInterface.Forms
             this.splitContainer1.Panel2.Controls.Add(this.buttonDelete);
             this.splitContainer1.Panel2.Controls.Add(this.buttonReload);
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
+            this.splitContainer1.Panel2.Controls.Add(textboxContactEmailId);
+this.splitContainer1.Panel2.Controls.Add(textboxEmail);
+this.splitContainer1.Panel2.Controls.Add(numericVersion);
+this.splitContainer1.Panel2.Controls.Add(textboxComment);
+this.splitContainer1.Panel2.Controls.Add(listContact);
+
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
             this.splitContainer1.TabIndex = 0;
@@ -340,21 +423,142 @@ namespace DataUserInterface.Forms
             this.buttonAction.Text = "Save";
             this.buttonAction.UseVisualStyleBackColor = true;
             this.buttonAction.Click += new System.EventHandler(this.buttonSave_Click);
+                        // 
+            // textboxContactEmailId
             // 
-            // FormDeviceEditor
+            this.textboxContactEmailId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxContactEmailId.Location = new System.Drawing.Point(4, 12);
+            this.textboxContactEmailId.Name = "textboxContactEmailId";
+            this.textboxContactEmailId.Size = new System.Drawing.Size(208, 20);
+            this.textboxContactEmailId.TabIndex = 31;
+            this.textboxContactEmailId.Leave += new System.EventHandler(this.textboxContactEmailId_Leave);
+            this.textboxContactEmailId.Enabled = false;
+                        // 
+            // textboxEmail
+            // 
+            this.textboxEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxEmail.Location = new System.Drawing.Point(4, 38);
+            this.textboxEmail.Name = "textboxEmail";
+            this.textboxEmail.Size = new System.Drawing.Size(208, 20);
+            this.textboxEmail.TabIndex = 31;
+            this.textboxEmail.Leave += new System.EventHandler(this.textboxEmail_Leave);
+            this.textboxEmail.Enabled = true;
+                        // 
+            // numericVersion
+            // 
+            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericVersion.Location = new System.Drawing.Point(4, 64);
+            this.numericVersion.Name = "numericVersion";
+            this.numericVersion.Size = new System.Drawing.Size(211, 20);
+            this.numericVersion.TabIndex = 32;
+            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
+            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
+            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
+                        // 
+            // textboxComment
+            // 
+            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxComment.Location = new System.Drawing.Point(4, 90);
+            this.textboxComment.Name = "textboxComment";
+            this.textboxComment.Size = new System.Drawing.Size(208, 20);
+            this.textboxComment.TabIndex = 31;
+            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
+            this.textboxComment.Enabled = true;
+                        // 
+            // listContact
+            // 
+            this.listContact.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listContact.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.listContact.FormattingEnabled = true;
+            this.listContact.Location = new System.Drawing.Point(4, 116);
+            this.listContact.Name = "listContact";
+            this.listContact.Size = new System.Drawing.Size(165, 21);
+            this.listContact.TabIndex = 25;
+            this.listContact.SelectionChangeCommitted += new System.EventHandler(this.listContact_SelectionChangeCommitted);
+                        // 
+            // labelContactEmailId
+            // 
+            this.labelContactEmailId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelContactEmailId.AutoSize = true;
+            this.labelContactEmailId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelContactEmailId.Location = new System.Drawing.Point(0, 12);
+            this.labelContactEmailId.Name = "labelContactEmailId";
+            this.labelContactEmailId.Size = new System.Drawing.Size(30, 20);
+            this.labelContactEmailId.TabIndex = 14;
+            this.labelContactEmailId.Text = "ID";
+            this.labelContactEmailId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelEmail
+            // 
+            this.labelEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelEmail.AutoSize = true;
+            this.labelEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelEmail.Location = new System.Drawing.Point(0, 38);
+            this.labelEmail.Name = "labelEmail";
+            this.labelEmail.Size = new System.Drawing.Size(30, 20);
+            this.labelEmail.TabIndex = 14;
+            this.labelEmail.Text = "Email";
+            this.labelEmail.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelVersion
+            // 
+            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelVersion.Location = new System.Drawing.Point(0, 64);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(30, 20);
+            this.labelVersion.TabIndex = 14;
+            this.labelVersion.Text = "Version";
+            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelComment
+            // 
+            this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelComment.AutoSize = true;
+            this.labelComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelComment.Location = new System.Drawing.Point(0, 90);
+            this.labelComment.Name = "labelComment";
+            this.labelComment.Size = new System.Drawing.Size(30, 20);
+            this.labelComment.TabIndex = 14;
+            this.labelComment.Text = "Comment";
+            this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelContact
+            // 
+            this.labelContact.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelContact.AutoSize = true;
+            this.labelContact.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelContact.Location = new System.Drawing.Point(0, 116);
+            this.labelContact.Name = "labelContact";
+            this.labelContact.Size = new System.Drawing.Size(30, 20);
+            this.labelContact.TabIndex = 14;
+            this.labelContact.Text = "Contact";
+            this.labelContact.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            
+            // 
+            // FormContactEmailEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 341);
+            this.ClientSize = new System.Drawing.Size(330, 182);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormContactEmailEditor";
-            this.Text = "Device Editor";
+            this.Text = "ContactEmail Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDeviceEditor_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).EndInit();
+
             this.ResumeLayout(false);
 
         }
@@ -366,6 +570,17 @@ namespace DataUserInterface.Forms
         private System.Windows.Forms.Label labelDirty;
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Button buttonDelete;
-#endregion
+        private System.Windows.Forms.TextBox textboxContactEmailId;
+private System.Windows.Forms.TextBox textboxEmail;
+private System.Windows.Forms.NumericUpDown numericVersion;
+private System.Windows.Forms.TextBox textboxComment;
+private System.Windows.Forms.ComboBox listContact;
+private System.Windows.Forms.Label labelContactEmailId;
+private System.Windows.Forms.Label labelEmail;
+private System.Windows.Forms.Label labelVersion;
+private System.Windows.Forms.Label labelComment;
+private System.Windows.Forms.Label labelContact;
+
+        #endregion
     }
 }

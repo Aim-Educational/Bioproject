@@ -51,9 +51,7 @@ namespace DataUserInterface.Forms
                 case EnumSearchFormType.BackupLog:
                     form = new FormBackupLogEditor(mode, id);
                     form.MdiParent = this.MdiParent;
-
-                    if(!form.IsDisposed)
-                        form.Show();
+                    form.Show();
                     break;
 
                 case EnumSearchFormType.BBCRSSBarometricChange:

@@ -90,8 +90,9 @@ namespace DataUserInterface.Forms
             {
                 if (this.mode == EnumEditorMode.Create)
                 {
-                    foreach (var type in db.group_type.OrderBy(v => v.name))
-                        this.listGroups.Items.Add(type.name);
+                    foreach (var val in db.group_type.OrderBy(v => v.name))
+    this.listGroupType2.Items.Add(val.name);
+    
                 }
 
                 if (this.mode != EnumEditorMode.Create)
@@ -99,20 +100,18 @@ namespace DataUserInterface.Forms
                     var obj = db.group_type.SingleOrDefault(v => v.group_type_id == this.id);
                     if (obj != null)
                     {
-                        this.textboxID.Text = Convert.ToString(obj.group_type_id);
-                        this.textboxComment.Text = obj.comment;
-                        this.textboxDescription.Text = obj.description;
-                        this.textboxName.Text = obj.name;
+                        this.textboxGroupTypeId.Text = Convert.ToString(obj.group_type_id);
+this.textboxName.Text = obj.name;
+this.textboxDescription.Text = obj.description;
+this.numericVersion.Value = (decimal)obj.version;
+this.textboxComment.Text = obj.comment;
+foreach (var value in db.group_type.OrderBy(v => v.name))
+{
+    this.listGroupType2.Items.Add(value.name);
+    if (value.group_type_id == obj.parent_group_type_id)
+        this.listGroupType2.SelectedIndex = this.listGroupType2.Items.Count - 1;
+}
 
-                        foreach (var value in db.group_type.OrderBy(v => v.name))
-                        {
-                            if (value.group_type_id == obj.group_type_id)
-                                continue;
-
-                            this.listGroups.Items.Add(value.name);
-                            if (value.group_type_id == obj.parent_group_type_id)
-                                this.listGroups.SelectedIndex = this.listGroups.Items.Count - 1;
-                        }
 
                         this._cached  = obj;
                         this._isDirty = false;
@@ -124,6 +123,9 @@ namespace DataUserInterface.Forms
         public FormGroupTypeEditor(EnumEditorMode mode, int id = -1) // ID isn't always needed, e.g. Create
         {
             InitializeComponent();
+
+            FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
+
 
             this.mode = mode;
             if (mode != EnumEditorMode.Create)
@@ -201,12 +203,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = db.group_type.SingleOrDefault(v => v.group_type_id == this.id);
 
-                obj.name = this.textboxName.Text;
-                obj.comment = this.textboxComment.Text;
-                obj.description = this.textboxDescription.Text;
-
-                var selectedType = this.listGroups.Items[this.listGroups.SelectedIndex] as string;
-                obj.group_type2 = db.group_type.Single(v => v.name == selectedType);
+                #error Edit 'obj' with the new info to upload to the database.
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -228,12 +225,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = new group_type();
 
-                obj.name = this.textboxName.Text;
-                obj.comment = this.textboxComment.Text;
-                obj.description = this.textboxDescription.Text;
-
-                var selectedType = this.listGroups.Items[this.listGroups.SelectedIndex] as string;
-                obj.group_type2 = db.group_type.Single(v => v.name == selectedType);
+                #error Fill out 'obj' with the new info.
 
                 db.group_type.Add(obj);
                 db.SaveChanges();
@@ -263,39 +255,48 @@ namespace DataUserInterface.Forms
                 this.reload();
         }
 
-        private void listGroups_SelectionChangeCommitted(object sender, EventArgs e)
+                private void textboxGroupTypeId_Leave(object sender, EventArgs e)
         {
-            var index = this.listGroups.SelectedIndex;
-            var value = this.listGroups.Items[index] as string;
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxGroupTypeId.Text != Convert.ToString(this._cached.group_type_id))
+                this._isDirty = true;
+        }
+                private void textboxName_Leave(object sender, EventArgs e)
+        {
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxName.Text != Convert.ToString(this._cached.name))
+                this._isDirty = true;
+        }
+                private void textboxDescription_Leave(object sender, EventArgs e)
+        {
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxDescription.Text != Convert.ToString(this._cached.description))
+                this._isDirty = true;
+        }
+                private void numericVersion_Enter(object sender, EventArgs e)
+        {
+            FormHelper.selectAllText(this.numericVersion);
+        }
+        private void numericVersion_ValueChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
+                this._isDirty = true;
+        }
+        private void textboxComment_Leave(object sender, EventArgs e)
+        {
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxComment.Text != Convert.ToString(this._cached.comment))
+                this._isDirty = true;
+        }
+                private void listGroupType2_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var index = this.listGroupType2.SelectedIndex;
+            var value = this.listGroupType2.Items[index] as string;
 
             if (this.mode == EnumEditorMode.Create || value != this._cached.group_type2.name)
                 this._isDirty = true;
         }
-
-        private void textboxName_Leave(object sender, EventArgs e)
-        {
-            if (textboxName.Text != this._cached.name)
-                this._isDirty = true;
-        }
-
-        private void textboxDescription_Leave(object sender, EventArgs e)
-        {
-            if (textboxDescription.Text != this._cached.description)
-                this._isDirty = true;
-        }
-
-        private void textboxComment_Leave(object sender, EventArgs e)
-        {
-            if (textboxComment.Text != this._cached.comment)
-                this._isDirty = true;
-        }
-
-        private void buttonModifyGroups_Click(object sender, EventArgs e)
-        {
-            var form = new SearchForm(EnumSearchFormType.GroupType);
-            form.MdiParent = this.MdiParent;
-            form.Show();
-        }
+        
         #endregion
 
 
@@ -328,26 +329,31 @@ namespace DataUserInterface.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGroupTypeEditor));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.labelDirty = new System.Windows.Forms.Label();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonAction = new System.Windows.Forms.Button();
-            this.textboxID = new System.Windows.Forms.TextBox();
-            this.textboxName = new System.Windows.Forms.TextBox();
-            this.textboxDescription = new System.Windows.Forms.TextBox();
-            this.textboxComment = new System.Windows.Forms.TextBox();
-            this.buttonModifyGroups = new System.Windows.Forms.Button();
-            this.listGroups = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.textboxGroupTypeId = new System.Windows.Forms.TextBox();
+this.textboxName = new System.Windows.Forms.TextBox();
+this.textboxDescription = new System.Windows.Forms.TextBox();
+this.numericVersion = new System.Windows.Forms.NumericUpDown();
+this.textboxComment = new System.Windows.Forms.TextBox();
+this.listGroupType2 = new System.Windows.Forms.ComboBox();
+this.labelGroupTypeId = new System.Windows.Forms.Label();
+this.labelName = new System.Windows.Forms.Label();
+this.labelDescription = new System.Windows.Forms.Label();
+this.labelVersion = new System.Windows.Forms.Label();
+this.labelComment = new System.Windows.Forms.Label();
+this.labelGroupType2 = new System.Windows.Forms.Label();
+
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).BeginInit();
+
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -359,31 +365,35 @@ namespace DataUserInterface.Forms
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.AutoScroll = true;
-            this.splitContainer1.Panel1.Controls.Add(this.label5);
-            this.splitContainer1.Panel1.Controls.Add(this.label4);
-            this.splitContainer1.Panel1.Controls.Add(this.label3);
-            this.splitContainer1.Panel1.Controls.Add(this.label2);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.labelDirty);
+            this.splitContainer1.Panel1.Controls.Add(labelGroupTypeId);
+this.splitContainer1.Panel1.Controls.Add(labelName);
+this.splitContainer1.Panel1.Controls.Add(labelDescription);
+this.splitContainer1.Panel1.Controls.Add(labelVersion);
+this.splitContainer1.Panel1.Controls.Add(labelComment);
+this.splitContainer1.Panel1.Controls.Add(labelGroupType2);
+
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
-            this.splitContainer1.Panel2.Controls.Add(this.buttonModifyGroups);
-            this.splitContainer1.Panel2.Controls.Add(this.listGroups);
-            this.splitContainer1.Panel2.Controls.Add(this.textboxComment);
-            this.splitContainer1.Panel2.Controls.Add(this.textboxDescription);
-            this.splitContainer1.Panel2.Controls.Add(this.textboxName);
-            this.splitContainer1.Panel2.Controls.Add(this.textboxID);
             this.splitContainer1.Panel2.Controls.Add(this.buttonDelete);
             this.splitContainer1.Panel2.Controls.Add(this.buttonReload);
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
-            this.splitContainer1.Size = new System.Drawing.Size(330, 168);
+            this.splitContainer1.Panel2.Controls.Add(textboxGroupTypeId);
+this.splitContainer1.Panel2.Controls.Add(textboxName);
+this.splitContainer1.Panel2.Controls.Add(textboxDescription);
+this.splitContainer1.Panel2.Controls.Add(numericVersion);
+this.splitContainer1.Panel2.Controls.Add(textboxComment);
+this.splitContainer1.Panel2.Controls.Add(listGroupType2);
+
+            this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
             this.splitContainer1.TabIndex = 0;
             // 
             // labelDirty
             // 
+            this.labelDirty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelDirty.AutoSize = true;
             this.labelDirty.Location = new System.Drawing.Point(3, 9);
             this.labelDirty.Name = "labelDirty";
@@ -396,7 +406,8 @@ namespace DataUserInterface.Forms
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDelete.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.buttonDelete.Location = new System.Drawing.Point(84, 140);
+            this.buttonDelete.Image = ((System.Drawing.Image)(resources.GetObject("buttonDelete.Image")));
+            this.buttonDelete.Location = new System.Drawing.Point(85, 313);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
             this.buttonDelete.TabIndex = 11;
@@ -405,8 +416,7 @@ namespace DataUserInterface.Forms
             // 
             // buttonReload
             // 
-            this.buttonReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonReload.Location = new System.Drawing.Point(3, 141);
+            this.buttonReload.Location = new System.Drawing.Point(4, 314);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -417,152 +427,172 @@ namespace DataUserInterface.Forms
             // buttonAction
             // 
             this.buttonAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAction.Location = new System.Drawing.Point(140, 140);
+            this.buttonAction.Location = new System.Drawing.Point(141, 313);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
             this.buttonAction.Text = "Save";
             this.buttonAction.UseVisualStyleBackColor = true;
             this.buttonAction.Click += new System.EventHandler(this.buttonSave_Click);
+                        // 
+            // textboxGroupTypeId
             // 
-            // textboxID
-            // 
-            this.textboxID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textboxGroupTypeId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxID.Enabled = false;
-            this.textboxID.Location = new System.Drawing.Point(3, 12);
-            this.textboxID.Name = "textboxID";
-            this.textboxID.ReadOnly = true;
-            this.textboxID.Size = new System.Drawing.Size(208, 20);
-            this.textboxID.TabIndex = 13;
-            // 
+            this.textboxGroupTypeId.Location = new System.Drawing.Point(4, 12);
+            this.textboxGroupTypeId.Name = "textboxGroupTypeId";
+            this.textboxGroupTypeId.Size = new System.Drawing.Size(208, 20);
+            this.textboxGroupTypeId.TabIndex = 31;
+            this.textboxGroupTypeId.Leave += new System.EventHandler(this.textboxGroupTypeId_Leave);
+            this.textboxGroupTypeId.Enabled = false;
+                        // 
             // textboxName
             // 
             this.textboxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxName.Location = new System.Drawing.Point(3, 65);
+            this.textboxName.Location = new System.Drawing.Point(4, 38);
             this.textboxName.Name = "textboxName";
             this.textboxName.Size = new System.Drawing.Size(208, 20);
-            this.textboxName.TabIndex = 20;
+            this.textboxName.TabIndex = 31;
             this.textboxName.Leave += new System.EventHandler(this.textboxName_Leave);
-            // 
+            this.textboxName.Enabled = true;
+                        // 
             // textboxDescription
             // 
             this.textboxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxDescription.Location = new System.Drawing.Point(3, 91);
+            this.textboxDescription.Location = new System.Drawing.Point(4, 64);
             this.textboxDescription.Name = "textboxDescription";
             this.textboxDescription.Size = new System.Drawing.Size(208, 20);
-            this.textboxDescription.TabIndex = 21;
+            this.textboxDescription.TabIndex = 31;
             this.textboxDescription.Leave += new System.EventHandler(this.textboxDescription_Leave);
+            this.textboxDescription.Enabled = true;
+                        // 
+            // numericVersion
             // 
+            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericVersion.Location = new System.Drawing.Point(4, 90);
+            this.numericVersion.Name = "numericVersion";
+            this.numericVersion.Size = new System.Drawing.Size(211, 20);
+            this.numericVersion.TabIndex = 32;
+            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
+            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
+            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
+                        // 
             // textboxComment
             // 
             this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxComment.Location = new System.Drawing.Point(3, 117);
+            this.textboxComment.Location = new System.Drawing.Point(4, 116);
             this.textboxComment.Name = "textboxComment";
             this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 22;
+            this.textboxComment.TabIndex = 31;
             this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
+            this.textboxComment.Enabled = true;
+                        // 
+            // listGroupType2
             // 
-            // buttonModifyGroups
-            // 
-            this.buttonModifyGroups.Location = new System.Drawing.Point(174, 37);
-            this.buttonModifyGroups.Name = "buttonModifyGroups";
-            this.buttonModifyGroups.Size = new System.Drawing.Size(40, 23);
-            this.buttonModifyGroups.TabIndex = 24;
-            this.buttonModifyGroups.Text = "...";
-            this.buttonModifyGroups.UseVisualStyleBackColor = true;
-            this.buttonModifyGroups.Click += new System.EventHandler(this.buttonModifyGroups_Click);
-            // 
-            // listGroups
-            // 
-            this.listGroups.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.listGroupType2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listGroups.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.listGroups.FormattingEnabled = true;
-            this.listGroups.Location = new System.Drawing.Point(3, 38);
-            this.listGroups.Name = "listGroups";
-            this.listGroups.Size = new System.Drawing.Size(165, 21);
-            this.listGroups.TabIndex = 23;
-            this.listGroups.SelectionChangeCommitted += new System.EventHandler(this.listGroups_SelectionChangeCommitted);
+            this.listGroupType2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.listGroupType2.FormattingEnabled = true;
+            this.listGroupType2.Location = new System.Drawing.Point(4, 142);
+            this.listGroupType2.Name = "listGroupType2";
+            this.listGroupType2.Size = new System.Drawing.Size(165, 21);
+            this.listGroupType2.TabIndex = 25;
+            this.listGroupType2.SelectionChangeCommitted += new System.EventHandler(this.listGroupType2_SelectionChangeCommitted);
+                        // 
+            // labelGroupTypeId
             // 
-            // label1
+            this.labelGroupTypeId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelGroupTypeId.AutoSize = true;
+            this.labelGroupTypeId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGroupTypeId.Location = new System.Drawing.Point(0, 12);
+            this.labelGroupTypeId.Name = "labelGroupTypeId";
+            this.labelGroupTypeId.Size = new System.Drawing.Size(30, 20);
+            this.labelGroupTypeId.TabIndex = 14;
+            this.labelGroupTypeId.Text = "ID";
+            this.labelGroupTypeId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelName
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(76, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 20);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "ID:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelName.AutoSize = true;
+            this.labelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelName.Location = new System.Drawing.Point(0, 38);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(30, 20);
+            this.labelName.TabIndex = 14;
+            this.labelName.Text = "Name";
+            this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelDescription
             // 
-            // label2
+            this.labelDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelDescription.AutoSize = true;
+            this.labelDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDescription.Location = new System.Drawing.Point(0, 64);
+            this.labelDescription.Name = "labelDescription";
+            this.labelDescription.Size = new System.Drawing.Size(30, 20);
+            this.labelDescription.TabIndex = 14;
+            this.labelDescription.Text = "Description";
+            this.labelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelVersion
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(-3, 39);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(109, 20);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "Parent Group:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelVersion.Location = new System.Drawing.Point(0, 90);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(30, 20);
+            this.labelVersion.TabIndex = 14;
+            this.labelVersion.Text = "Version";
+            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelComment
             // 
-            // label3
+            this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelComment.AutoSize = true;
+            this.labelComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelComment.Location = new System.Drawing.Point(0, 116);
+            this.labelComment.Name = "labelComment";
+            this.labelComment.Size = new System.Drawing.Size(30, 20);
+            this.labelComment.TabIndex = 14;
+            this.labelComment.Text = "Comment";
+            this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelGroupType2
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(51, 65);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 20);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "Name:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(13, 91);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(93, 20);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "Description:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(24, 117);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(82, 20);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Comment:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelGroupType2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelGroupType2.AutoSize = true;
+            this.labelGroupType2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGroupType2.Location = new System.Drawing.Point(0, 142);
+            this.labelGroupType2.Name = "labelGroupType2";
+            this.labelGroupType2.Size = new System.Drawing.Size(30, 20);
+            this.labelGroupType2.TabIndex = 14;
+            this.labelGroupType2.Text = "GroupType2";
+            this.labelGroupType2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            
             // 
             // FormGroupTypeEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 168);
+            this.ClientSize = new System.Drawing.Size(330, 208);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormGroupTypeEditor";
-            this.Text = "Group Type Editor";
+            this.Text = "GroupType Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDeviceEditor_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).EndInit();
+
             this.ResumeLayout(false);
 
         }
@@ -574,17 +604,19 @@ namespace DataUserInterface.Forms
         private System.Windows.Forms.Label labelDirty;
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Button buttonDelete;
-        private TextBox textboxID;
-        private TextBox textboxComment;
-        private TextBox textboxDescription;
-        private TextBox textboxName;
-        private Button buttonModifyGroups;
-        private ComboBox listGroups;
-        private Label label5;
-        private Label label4;
-        private Label label3;
-        private Label label2;
-        private Label label1;
+        private System.Windows.Forms.TextBox textboxGroupTypeId;
+private System.Windows.Forms.TextBox textboxName;
+private System.Windows.Forms.TextBox textboxDescription;
+private System.Windows.Forms.NumericUpDown numericVersion;
+private System.Windows.Forms.TextBox textboxComment;
+private System.Windows.Forms.ComboBox listGroupType2;
+private System.Windows.Forms.Label labelGroupTypeId;
+private System.Windows.Forms.Label labelName;
+private System.Windows.Forms.Label labelDescription;
+private System.Windows.Forms.Label labelVersion;
+private System.Windows.Forms.Label labelComment;
+private System.Windows.Forms.Label labelGroupType2;
+
         #endregion
     }
 }

@@ -88,12 +88,17 @@ namespace DataUserInterface.Forms
         {
             using (var db = new PlanningContext())
             {
+                if (this.mode == EnumEditorMode.Create)
+                {
+                    ${custom_control_reload_createOnly}
+                }
+
                 if (this.mode != EnumEditorMode.Create)
                 {
                     var obj = db.${custom_baseTypeTable}.SingleOrDefault(v => v.${object.keyName} == this.id);
                     if (obj != null)
                     {
-                        #error Fill out 'obj' with the updated info.
+                        ${custom_control_reload}
 
                         this._cached  = obj;
                         this._isDirty = false;
@@ -105,6 +110,8 @@ namespace DataUserInterface.Forms
         public Form${custom_fixedName}Editor(EnumEditorMode mode, int id = -1) // ID isn't always needed, e.g. Create
         {
             InitializeComponent();
+
+            ${custom_control_ctorInit}
 
             this.mode = mode;
             if (mode != EnumEditorMode.Create)
@@ -233,6 +240,8 @@ namespace DataUserInterface.Forms
             if(result == DialogResult.Yes)
                 this.reload();
         }
+
+        ${custom_control_events}
         #endregion
 
 
@@ -271,9 +280,12 @@ namespace DataUserInterface.Forms
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonAction = new System.Windows.Forms.Button();
+            ${custom_control_initialisers}
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ${custom_control_designerInitBegin}
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -286,6 +298,7 @@ namespace DataUserInterface.Forms
             // 
             this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.Controls.Add(this.labelDirty);
+            ${custom_control_addToPanel1}
             // 
             // splitContainer1.Panel2
             // 
@@ -293,6 +306,7 @@ namespace DataUserInterface.Forms
             this.splitContainer1.Panel2.Controls.Add(this.buttonDelete);
             this.splitContainer1.Panel2.Controls.Add(this.buttonReload);
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
+            ${custom_control_addToPanel2}
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
             this.splitContainer1.TabIndex = 0;
@@ -340,21 +354,24 @@ namespace DataUserInterface.Forms
             this.buttonAction.Text = "Save";
             this.buttonAction.UseVisualStyleBackColor = true;
             this.buttonAction.Click += new System.EventHandler(this.buttonSave_Click);
+            ${custom_control_designs}
             // 
-            // FormDeviceEditor
+            // Form${custom_fixedName}Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 341);
+            this.ClientSize = new System.Drawing.Size(330, ${(controls.length + 2) * CONTROL_Y_PADDING});
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form${custom_fixedName}Editor";
-            this.Text = "Device Editor";
+            this.Text = "${custom_fixedName} Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDeviceEditor_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
+            ${custom_control_designerInitEnd}
             this.ResumeLayout(false);
 
         }
@@ -366,6 +383,7 @@ namespace DataUserInterface.Forms
         private System.Windows.Forms.Label labelDirty;
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Button buttonDelete;
-#endregion
+        ${custom_control_variables}
+        #endregion
     }
 }

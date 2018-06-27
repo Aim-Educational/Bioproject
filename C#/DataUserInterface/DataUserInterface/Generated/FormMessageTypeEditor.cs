@@ -88,13 +88,20 @@ namespace DataUserInterface.Forms
         {
             using (var db = new PlanningContext())
             {
+                if (this.mode == EnumEditorMode.Create)
+                {
+                    
+                }
+
                 if (this.mode != EnumEditorMode.Create)
                 {
                     var obj = db.message_type.SingleOrDefault(v => v.message_type_id == this.id);
                     if (obj != null)
                     {
-                        this.textboxID.Text = Convert.ToString(obj.message_type_id);
-                        this.textboxDescription.Text = obj.description;
+                        this.textboxMessageTypeId.Text = Convert.ToString(obj.message_type_id);
+this.textboxDescription.Text = obj.description;
+this.numericVersion.Value = (decimal)obj.version;
+
 
                         this._cached  = obj;
                         this._isDirty = false;
@@ -106,6 +113,9 @@ namespace DataUserInterface.Forms
         public FormMessageTypeEditor(EnumEditorMode mode, int id = -1) // ID isn't always needed, e.g. Create
         {
             InitializeComponent();
+
+            FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
+
 
             this.mode = mode;
             if (mode != EnumEditorMode.Create)
@@ -183,7 +193,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = db.message_type.SingleOrDefault(v => v.message_type_id == this.id);
 
-                obj.description = this.textboxDescription.Text;
+                #error Edit 'obj' with the new info to upload to the database.
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -205,7 +215,7 @@ namespace DataUserInterface.Forms
             {
                 var obj = new message_type();
 
-                obj.description = this.textboxDescription.Text;
+                #error Fill out 'obj' with the new info.
 
                 db.message_type.Add(obj);
                 db.SaveChanges();
@@ -235,11 +245,28 @@ namespace DataUserInterface.Forms
                 this.reload();
         }
 
-        private void textboxDescription_Leave(object sender, EventArgs e)
+                private void textboxMessageTypeId_Leave(object sender, EventArgs e)
         {
-            if (textboxDescription.Text != this._cached.description)
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxMessageTypeId.Text != Convert.ToString(this._cached.message_type_id))
                 this._isDirty = true;
         }
+                private void textboxDescription_Leave(object sender, EventArgs e)
+        {
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxDescription.Text != Convert.ToString(this._cached.description))
+                this._isDirty = true;
+        }
+                private void numericVersion_Enter(object sender, EventArgs e)
+        {
+            FormHelper.selectAllText(this.numericVersion);
+        }
+        private void numericVersion_ValueChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
+                this._isDirty = true;
+        }
+
         #endregion
 
 
@@ -272,19 +299,25 @@ namespace DataUserInterface.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMessageTypeEditor));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.labelDirty = new System.Windows.Forms.Label();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonAction = new System.Windows.Forms.Button();
-            this.textboxID = new System.Windows.Forms.TextBox();
-            this.textboxDescription = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.textboxMessageTypeId = new System.Windows.Forms.TextBox();
+this.textboxDescription = new System.Windows.Forms.TextBox();
+this.numericVersion = new System.Windows.Forms.NumericUpDown();
+this.labelMessageTypeId = new System.Windows.Forms.Label();
+this.labelDescription = new System.Windows.Forms.Label();
+this.labelVersion = new System.Windows.Forms.Label();
+
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).BeginInit();
+
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -296,24 +329,29 @@ namespace DataUserInterface.Forms
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.AutoScroll = true;
-            this.splitContainer1.Panel1.Controls.Add(this.label2);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.labelDirty);
+            this.splitContainer1.Panel1.Controls.Add(labelMessageTypeId);
+this.splitContainer1.Panel1.Controls.Add(labelDescription);
+this.splitContainer1.Panel1.Controls.Add(labelVersion);
+
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
-            this.splitContainer1.Panel2.Controls.Add(this.textboxDescription);
-            this.splitContainer1.Panel2.Controls.Add(this.textboxID);
             this.splitContainer1.Panel2.Controls.Add(this.buttonDelete);
             this.splitContainer1.Panel2.Controls.Add(this.buttonReload);
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
-            this.splitContainer1.Size = new System.Drawing.Size(330, 89);
+            this.splitContainer1.Panel2.Controls.Add(textboxMessageTypeId);
+this.splitContainer1.Panel2.Controls.Add(textboxDescription);
+this.splitContainer1.Panel2.Controls.Add(numericVersion);
+
+            this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
             this.splitContainer1.TabIndex = 0;
             // 
             // labelDirty
             // 
+            this.labelDirty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelDirty.AutoSize = true;
             this.labelDirty.Location = new System.Drawing.Point(3, 9);
             this.labelDirty.Name = "labelDirty";
@@ -326,7 +364,8 @@ namespace DataUserInterface.Forms
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDelete.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.buttonDelete.Location = new System.Drawing.Point(85, 61);
+            this.buttonDelete.Image = ((System.Drawing.Image)(resources.GetObject("buttonDelete.Image")));
+            this.buttonDelete.Location = new System.Drawing.Point(85, 313);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
             this.buttonDelete.TabIndex = 11;
@@ -335,8 +374,7 @@ namespace DataUserInterface.Forms
             // 
             // buttonReload
             // 
-            this.buttonReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonReload.Location = new System.Drawing.Point(4, 62);
+            this.buttonReload.Location = new System.Drawing.Point(4, 314);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -347,25 +385,25 @@ namespace DataUserInterface.Forms
             // buttonAction
             // 
             this.buttonAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAction.Location = new System.Drawing.Point(141, 61);
+            this.buttonAction.Location = new System.Drawing.Point(141, 313);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
             this.buttonAction.Text = "Save";
             this.buttonAction.UseVisualStyleBackColor = true;
             this.buttonAction.Click += new System.EventHandler(this.buttonSave_Click);
+                        // 
+            // textboxMessageTypeId
             // 
-            // textboxID
-            // 
-            this.textboxID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textboxMessageTypeId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxID.Enabled = false;
-            this.textboxID.Location = new System.Drawing.Point(3, 12);
-            this.textboxID.Name = "textboxID";
-            this.textboxID.ReadOnly = true;
-            this.textboxID.Size = new System.Drawing.Size(208, 20);
-            this.textboxID.TabIndex = 15;
-            // 
+            this.textboxMessageTypeId.Location = new System.Drawing.Point(4, 12);
+            this.textboxMessageTypeId.Name = "textboxMessageTypeId";
+            this.textboxMessageTypeId.Size = new System.Drawing.Size(208, 20);
+            this.textboxMessageTypeId.TabIndex = 31;
+            this.textboxMessageTypeId.Leave += new System.EventHandler(this.textboxMessageTypeId_Leave);
+            this.textboxMessageTypeId.Enabled = false;
+                        // 
             // textboxDescription
             // 
             this.textboxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -373,48 +411,76 @@ namespace DataUserInterface.Forms
             this.textboxDescription.Location = new System.Drawing.Point(4, 38);
             this.textboxDescription.Name = "textboxDescription";
             this.textboxDescription.Size = new System.Drawing.Size(208, 20);
-            this.textboxDescription.TabIndex = 32;
+            this.textboxDescription.TabIndex = 31;
             this.textboxDescription.Leave += new System.EventHandler(this.textboxDescription_Leave);
+            this.textboxDescription.Enabled = true;
+                        // 
+            // numericVersion
             // 
-            // label1
+            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericVersion.Location = new System.Drawing.Point(4, 64);
+            this.numericVersion.Name = "numericVersion";
+            this.numericVersion.Size = new System.Drawing.Size(211, 20);
+            this.numericVersion.TabIndex = 32;
+            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
+            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
+            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
+                        // 
+            // labelMessageTypeId
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(13, 38);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 20);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Description:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelMessageTypeId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelMessageTypeId.AutoSize = true;
+            this.labelMessageTypeId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMessageTypeId.Location = new System.Drawing.Point(0, 12);
+            this.labelMessageTypeId.Name = "labelMessageTypeId";
+            this.labelMessageTypeId.Size = new System.Drawing.Size(30, 20);
+            this.labelMessageTypeId.TabIndex = 14;
+            this.labelMessageTypeId.Text = "ID";
+            this.labelMessageTypeId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelDescription
             // 
-            // label2
+            this.labelDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelDescription.AutoSize = true;
+            this.labelDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDescription.Location = new System.Drawing.Point(0, 38);
+            this.labelDescription.Name = "labelDescription";
+            this.labelDescription.Size = new System.Drawing.Size(30, 20);
+            this.labelDescription.TabIndex = 14;
+            this.labelDescription.Text = "Description";
+            this.labelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // labelVersion
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(76, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(30, 20);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "ID:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelVersion.Location = new System.Drawing.Point(0, 64);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(30, 20);
+            this.labelVersion.TabIndex = 14;
+            this.labelVersion.Text = "Version";
+            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            
             // 
             // FormMessageTypeEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 89);
+            this.ClientSize = new System.Drawing.Size(330, 130);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormMessageTypeEditor";
-            this.Text = "Message Type Editor";
+            this.Text = "MessageType Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDeviceEditor_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).EndInit();
+
             this.ResumeLayout(false);
 
         }
@@ -426,10 +492,13 @@ namespace DataUserInterface.Forms
         private System.Windows.Forms.Label labelDirty;
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Button buttonDelete;
-        private TextBox textboxID;
-        private TextBox textboxDescription;
-        private Label label2;
-        private Label label1;
+        private System.Windows.Forms.TextBox textboxMessageTypeId;
+private System.Windows.Forms.TextBox textboxDescription;
+private System.Windows.Forms.NumericUpDown numericVersion;
+private System.Windows.Forms.Label labelMessageTypeId;
+private System.Windows.Forms.Label labelDescription;
+private System.Windows.Forms.Label labelVersion;
+
         #endregion
     }
 }
