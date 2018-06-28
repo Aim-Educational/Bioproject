@@ -103,8 +103,6 @@ namespace DataUserInterface.Forms
                     if (obj != null)
                     {
                         this.textboxApplicationLogId.Text = Convert.ToString(obj.application_log_id);
-this.textboxMessage.Text = obj.message;
-this.datetimeDatetime.Value = obj.datetime;
 foreach (var value in db.applications.OrderBy(v => v.name))
 {
     this.listApplication.Items.Add(value.name);
@@ -117,6 +115,8 @@ foreach (var value in db.message_type.OrderBy(v => v.description))
     if (value.message_type_id == obj.message_type_id)
         this.listMessageType.SelectedIndex = this.listMessageType.Items.Count - 1;
 }
+this.textboxMessage.Text = obj.message;
+this.datetimeDatetime.Value = obj.datetime;
 
 
                         this._cached  = obj;
@@ -209,13 +209,13 @@ foreach (var value in db.message_type.OrderBy(v => v.description))
                 var obj = db.application_log.SingleOrDefault(v => v.application_log_id == this.id);
 
                 
-obj.message = this.textboxMessage.Text;
-this.datetimeDatetime.Value = DateTime.Now;
-obj.datetime = this.datetimeDatetime.Value;
 var selectedApplication = this.listApplication.Items[this.listApplication.SelectedIndex] as string;
 obj.application = db.applications.Single(v => v.name == selectedApplication);
 var selectedMessageType = this.listMessageType.Items[this.listMessageType.SelectedIndex] as string;
 obj.message_type = db.message_type.Single(v => v.description == selectedMessageType);
+obj.message = this.textboxMessage.Text;
+this.datetimeDatetime.Value = DateTime.Now;
+obj.datetime = this.datetimeDatetime.Value;
 
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
@@ -239,13 +239,13 @@ obj.message_type = db.message_type.Single(v => v.description == selectedMessageT
                 var obj = new application_log();
 
                 
-obj.message = this.textboxMessage.Text;
-this.datetimeDatetime.Value = DateTime.Now;
-obj.datetime = this.datetimeDatetime.Value;
 var selectedApplication = this.listApplication.Items[this.listApplication.SelectedIndex] as string;
 obj.application = db.applications.Single(v => v.name == selectedApplication);
 var selectedMessageType = this.listMessageType.Items[this.listMessageType.SelectedIndex] as string;
 obj.message_type = db.message_type.Single(v => v.description == selectedMessageType);
+obj.message = this.textboxMessage.Text;
+this.datetimeDatetime.Value = DateTime.Now;
+obj.datetime = this.datetimeDatetime.Value;
 
 
                 db.application_log.Add(obj);
@@ -282,12 +282,6 @@ obj.message_type = db.message_type.Single(v => v.description == selectedMessageT
             if (this.textboxApplicationLogId.Text != Convert.ToString(this._cached.application_log_id))
                 this._isDirty = true;
         }
-                private void textboxMessage_Leave(object sender, EventArgs e)
-        {
-            // The Convert.ToString is just in case the value we're comparing to is something like an int.
-            if (this.textboxMessage.Text != Convert.ToString(this._cached.message))
-                this._isDirty = true;
-        }
                 private void listApplication_SelectionChangeCommitted(object sender, EventArgs e)
         {
             var index = this.listApplication.SelectedIndex;
@@ -316,7 +310,13 @@ obj.message_type = db.message_type.Single(v => v.description == selectedMessageT
     form.MdiParent = this.MdiParent;
     form.Show();
 }
-
+        private void textboxMessage_Leave(object sender, EventArgs e)
+        {
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxMessage.Text != Convert.ToString(this._cached.message))
+                this._isDirty = true;
+        }
+        
         #endregion
 
 
@@ -357,16 +357,16 @@ obj.message_type = db.message_type.Single(v => v.description == selectedMessageT
             this.buttonAction = new System.Windows.Forms.Button();
             this.textboxApplicationLogId = new System.Windows.Forms.TextBox();
 this.labelApplicationLogId = new System.Windows.Forms.Label();
-this.textboxMessage = new System.Windows.Forms.TextBox();
-this.labelMessage = new System.Windows.Forms.Label();
-this.datetimeDatetime = new System.Windows.Forms.DateTimePicker();
-this.labelDatetime = new System.Windows.Forms.Label();
 this.listApplication = new System.Windows.Forms.ComboBox();
 this.buttonShowApplication = new System.Windows.Forms.Button();
 this.labelApplication = new System.Windows.Forms.Label();
 this.listMessageType = new System.Windows.Forms.ComboBox();
 this.buttonShowMessageType = new System.Windows.Forms.Button();
 this.labelMessageType = new System.Windows.Forms.Label();
+this.textboxMessage = new System.Windows.Forms.TextBox();
+this.labelMessage = new System.Windows.Forms.Label();
+this.datetimeDatetime = new System.Windows.Forms.DateTimePicker();
+this.labelDatetime = new System.Windows.Forms.Label();
 
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -386,10 +386,10 @@ this.labelMessageType = new System.Windows.Forms.Label();
             this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.Controls.Add(this.labelDirty);
             this.splitContainer1.Panel1.Controls.Add(labelApplicationLogId);
-this.splitContainer1.Panel1.Controls.Add(labelMessage);
-this.splitContainer1.Panel1.Controls.Add(labelDatetime);
 this.splitContainer1.Panel1.Controls.Add(labelApplication);
 this.splitContainer1.Panel1.Controls.Add(labelMessageType);
+this.splitContainer1.Panel1.Controls.Add(labelMessage);
+this.splitContainer1.Panel1.Controls.Add(labelDatetime);
 
             // 
             // splitContainer1.Panel2
@@ -399,12 +399,12 @@ this.splitContainer1.Panel1.Controls.Add(labelMessageType);
             this.splitContainer1.Panel2.Controls.Add(this.buttonReload);
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
             this.splitContainer1.Panel2.Controls.Add(textboxApplicationLogId);
-this.splitContainer1.Panel2.Controls.Add(textboxMessage);
-this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
 this.splitContainer1.Panel2.Controls.Add(listApplication);
 this.splitContainer1.Panel2.Controls.Add(buttonShowApplication);
 this.splitContainer1.Panel2.Controls.Add(listMessageType);
 this.splitContainer1.Panel2.Controls.Add(buttonShowMessageType);
+this.splitContainer1.Panel2.Controls.Add(textboxMessage);
+this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
 
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
@@ -474,58 +474,13 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowMessageType);
             this.labelApplicationLogId.Text = "ID";
             this.labelApplicationLogId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
-            // textboxMessage
-            // 
-            this.textboxMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxMessage.Location = new System.Drawing.Point(4, 38);
-            this.textboxMessage.Name = "textboxMessage";
-            this.textboxMessage.Size = new System.Drawing.Size(208, 20);
-            this.textboxMessage.TabIndex = 31;
-            this.textboxMessage.Leave += new System.EventHandler(this.textboxMessage_Leave);
-            this.textboxMessage.Enabled = true;
-                        // 
-            // labelMessage
-            // 
-            this.labelMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelMessage.AutoSize = true;
-            this.labelMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMessage.Location = new System.Drawing.Point(0, 38);
-            this.labelMessage.Name = "labelMessage";
-            this.labelMessage.Size = new System.Drawing.Size(30, 20);
-            this.labelMessage.TabIndex = 14;
-            this.labelMessage.Text = "Message";
-            this.labelMessage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
-            // datetimeDatetime
-            // 
-            this.datetimeDatetime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.datetimeDatetime.Enabled = false;
-            this.datetimeDatetime.Location = new System.Drawing.Point(4, 64);
-            this.datetimeDatetime.Name = "datetimeDatetime";
-            this.datetimeDatetime.Size = new System.Drawing.Size(208, 20);
-            this.datetimeDatetime.TabIndex = 34;
-            // 
-            // labelDatetime
-            // 
-            this.labelDatetime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelDatetime.AutoSize = true;
-            this.labelDatetime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDatetime.Location = new System.Drawing.Point(0, 64);
-            this.labelDatetime.Name = "labelDatetime";
-            this.labelDatetime.Size = new System.Drawing.Size(30, 20);
-            this.labelDatetime.TabIndex = 14;
-            this.labelDatetime.Text = "Datetime";
-            this.labelDatetime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
             // listApplication
             // 
             this.listApplication.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listApplication.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.listApplication.FormattingEnabled = true;
-            this.listApplication.Location = new System.Drawing.Point(4, 90);
+            this.listApplication.Location = new System.Drawing.Point(4, 38);
             this.listApplication.Name = "listApplication";
             this.listApplication.Size = new System.Drawing.Size(165, 21);
             this.listApplication.TabIndex = 25;
@@ -533,7 +488,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowMessageType);
                         // 
             // buttonShowApplication
             // 
-            this.buttonShowApplication.Location = new System.Drawing.Point(174, 90);
+            this.buttonShowApplication.Location = new System.Drawing.Point(174, 38);
             this.buttonShowApplication.Name = "buttonShowApplication";
             this.buttonShowApplication.Size = new System.Drawing.Size(40, 23);
             this.buttonShowApplication.TabIndex = 10;
@@ -545,7 +500,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowMessageType);
             this.labelApplication.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelApplication.AutoSize = true;
             this.labelApplication.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelApplication.Location = new System.Drawing.Point(0, 90);
+            this.labelApplication.Location = new System.Drawing.Point(0, 38);
             this.labelApplication.Name = "labelApplication";
             this.labelApplication.Size = new System.Drawing.Size(30, 20);
             this.labelApplication.TabIndex = 14;
@@ -558,7 +513,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowMessageType);
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listMessageType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.listMessageType.FormattingEnabled = true;
-            this.listMessageType.Location = new System.Drawing.Point(4, 116);
+            this.listMessageType.Location = new System.Drawing.Point(4, 64);
             this.listMessageType.Name = "listMessageType";
             this.listMessageType.Size = new System.Drawing.Size(165, 21);
             this.listMessageType.TabIndex = 25;
@@ -566,7 +521,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowMessageType);
                         // 
             // buttonShowMessageType
             // 
-            this.buttonShowMessageType.Location = new System.Drawing.Point(174, 116);
+            this.buttonShowMessageType.Location = new System.Drawing.Point(174, 64);
             this.buttonShowMessageType.Name = "buttonShowMessageType";
             this.buttonShowMessageType.Size = new System.Drawing.Size(40, 23);
             this.buttonShowMessageType.TabIndex = 10;
@@ -578,12 +533,57 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowMessageType);
             this.labelMessageType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMessageType.AutoSize = true;
             this.labelMessageType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMessageType.Location = new System.Drawing.Point(0, 116);
+            this.labelMessageType.Location = new System.Drawing.Point(0, 64);
             this.labelMessageType.Name = "labelMessageType";
             this.labelMessageType.Size = new System.Drawing.Size(30, 20);
             this.labelMessageType.TabIndex = 14;
             this.labelMessageType.Text = "MessageType";
             this.labelMessageType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // textboxMessage
+            // 
+            this.textboxMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxMessage.Location = new System.Drawing.Point(4, 90);
+            this.textboxMessage.Name = "textboxMessage";
+            this.textboxMessage.Size = new System.Drawing.Size(208, 20);
+            this.textboxMessage.TabIndex = 31;
+            this.textboxMessage.Leave += new System.EventHandler(this.textboxMessage_Leave);
+            this.textboxMessage.Enabled = true;
+                        // 
+            // labelMessage
+            // 
+            this.labelMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelMessage.AutoSize = true;
+            this.labelMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMessage.Location = new System.Drawing.Point(0, 90);
+            this.labelMessage.Name = "labelMessage";
+            this.labelMessage.Size = new System.Drawing.Size(30, 20);
+            this.labelMessage.TabIndex = 14;
+            this.labelMessage.Text = "Message";
+            this.labelMessage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // datetimeDatetime
+            // 
+            this.datetimeDatetime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.datetimeDatetime.Enabled = false;
+            this.datetimeDatetime.Location = new System.Drawing.Point(4, 116);
+            this.datetimeDatetime.Name = "datetimeDatetime";
+            this.datetimeDatetime.Size = new System.Drawing.Size(208, 20);
+            this.datetimeDatetime.TabIndex = 34;
+            // 
+            // labelDatetime
+            // 
+            this.labelDatetime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelDatetime.AutoSize = true;
+            this.labelDatetime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDatetime.Location = new System.Drawing.Point(0, 116);
+            this.labelDatetime.Name = "labelDatetime";
+            this.labelDatetime.Size = new System.Drawing.Size(30, 20);
+            this.labelDatetime.TabIndex = 14;
+            this.labelDatetime.Text = "Datetime";
+            this.labelDatetime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             
             // 
             // FormApplicationLogEditor
@@ -615,16 +615,16 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowMessageType);
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox textboxApplicationLogId;
 private System.Windows.Forms.Label labelApplicationLogId;
-private System.Windows.Forms.TextBox textboxMessage;
-private System.Windows.Forms.Label labelMessage;
-private System.Windows.Forms.DateTimePicker datetimeDatetime;
-private System.Windows.Forms.Label labelDatetime;
 private System.Windows.Forms.ComboBox listApplication;
 private System.Windows.Forms.Button buttonShowApplication;
 private System.Windows.Forms.Label labelApplication;
 private System.Windows.Forms.ComboBox listMessageType;
 private System.Windows.Forms.Button buttonShowMessageType;
 private System.Windows.Forms.Label labelMessageType;
+private System.Windows.Forms.TextBox textboxMessage;
+private System.Windows.Forms.Label labelMessage;
+private System.Windows.Forms.DateTimePicker datetimeDatetime;
+private System.Windows.Forms.Label labelDatetime;
 
         #endregion
     }

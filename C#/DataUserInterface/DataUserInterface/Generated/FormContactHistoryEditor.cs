@@ -103,8 +103,6 @@ namespace DataUserInterface.Forms
                     if (obj != null)
                     {
                         this.textboxContactHistoryId.Text = Convert.ToString(obj.contact_history_id);
-this.datetimeDateAndTime.Value = obj.date_and_time;
-this.textboxComment.Text = obj.comment;
 foreach (var value in db.contacts.OrderBy(v => v.comment))
 {
     this.listContact.Items.Add(value.comment);
@@ -117,6 +115,8 @@ foreach (var value in db.history_event.OrderBy(v => v.description))
     if (value.history_event_id == obj.history_event_id)
         this.listHistoryEvent.SelectedIndex = this.listHistoryEvent.Items.Count - 1;
 }
+this.datetimeDateAndTime.Value = obj.date_and_time;
+this.textboxComment.Text = obj.comment;
 
 
                         this._cached  = obj;
@@ -209,13 +209,13 @@ foreach (var value in db.history_event.OrderBy(v => v.description))
                 var obj = db.contact_history.SingleOrDefault(v => v.contact_history_id == this.id);
 
                 
-this.datetimeDateAndTime.Value = DateTime.Now;
-obj.date_and_time = this.datetimeDateAndTime.Value;
-obj.comment = this.textboxComment.Text;
 var selectedContact = this.listContact.Items[this.listContact.SelectedIndex] as string;
 obj.contact = db.contacts.Single(v => v.comment == selectedContact);
 var selectedHistoryEvent = this.listHistoryEvent.Items[this.listHistoryEvent.SelectedIndex] as string;
 obj.history_event = db.history_event.Single(v => v.description == selectedHistoryEvent);
+this.datetimeDateAndTime.Value = DateTime.Now;
+obj.date_and_time = this.datetimeDateAndTime.Value;
+obj.comment = this.textboxComment.Text;
 
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
@@ -239,13 +239,13 @@ obj.history_event = db.history_event.Single(v => v.description == selectedHistor
                 var obj = new contact_history();
 
                 
-this.datetimeDateAndTime.Value = DateTime.Now;
-obj.date_and_time = this.datetimeDateAndTime.Value;
-obj.comment = this.textboxComment.Text;
 var selectedContact = this.listContact.Items[this.listContact.SelectedIndex] as string;
 obj.contact = db.contacts.Single(v => v.comment == selectedContact);
 var selectedHistoryEvent = this.listHistoryEvent.Items[this.listHistoryEvent.SelectedIndex] as string;
 obj.history_event = db.history_event.Single(v => v.description == selectedHistoryEvent);
+this.datetimeDateAndTime.Value = DateTime.Now;
+obj.date_and_time = this.datetimeDateAndTime.Value;
+obj.comment = this.textboxComment.Text;
 
 
                 db.contact_history.Add(obj);
@@ -282,12 +282,6 @@ obj.history_event = db.history_event.Single(v => v.description == selectedHistor
             if (this.textboxContactHistoryId.Text != Convert.ToString(this._cached.contact_history_id))
                 this._isDirty = true;
         }
-                private void textboxComment_Leave(object sender, EventArgs e)
-        {
-            // The Convert.ToString is just in case the value we're comparing to is something like an int.
-            if (this.textboxComment.Text != Convert.ToString(this._cached.comment))
-                this._isDirty = true;
-        }
                 private void listContact_SelectionChangeCommitted(object sender, EventArgs e)
         {
             var index = this.listContact.SelectedIndex;
@@ -316,7 +310,13 @@ obj.history_event = db.history_event.Single(v => v.description == selectedHistor
     form.MdiParent = this.MdiParent;
     form.Show();
 }
-
+        private void textboxComment_Leave(object sender, EventArgs e)
+        {
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxComment.Text != Convert.ToString(this._cached.comment))
+                this._isDirty = true;
+        }
+        
         #endregion
 
 
@@ -357,16 +357,16 @@ obj.history_event = db.history_event.Single(v => v.description == selectedHistor
             this.buttonAction = new System.Windows.Forms.Button();
             this.textboxContactHistoryId = new System.Windows.Forms.TextBox();
 this.labelContactHistoryId = new System.Windows.Forms.Label();
-this.datetimeDateAndTime = new System.Windows.Forms.DateTimePicker();
-this.labelDateAndTime = new System.Windows.Forms.Label();
-this.textboxComment = new System.Windows.Forms.TextBox();
-this.labelComment = new System.Windows.Forms.Label();
 this.listContact = new System.Windows.Forms.ComboBox();
 this.buttonShowContact = new System.Windows.Forms.Button();
 this.labelContact = new System.Windows.Forms.Label();
 this.listHistoryEvent = new System.Windows.Forms.ComboBox();
 this.buttonShowHistoryEvent = new System.Windows.Forms.Button();
 this.labelHistoryEvent = new System.Windows.Forms.Label();
+this.datetimeDateAndTime = new System.Windows.Forms.DateTimePicker();
+this.labelDateAndTime = new System.Windows.Forms.Label();
+this.textboxComment = new System.Windows.Forms.TextBox();
+this.labelComment = new System.Windows.Forms.Label();
 
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -386,10 +386,10 @@ this.labelHistoryEvent = new System.Windows.Forms.Label();
             this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.Controls.Add(this.labelDirty);
             this.splitContainer1.Panel1.Controls.Add(labelContactHistoryId);
-this.splitContainer1.Panel1.Controls.Add(labelDateAndTime);
-this.splitContainer1.Panel1.Controls.Add(labelComment);
 this.splitContainer1.Panel1.Controls.Add(labelContact);
 this.splitContainer1.Panel1.Controls.Add(labelHistoryEvent);
+this.splitContainer1.Panel1.Controls.Add(labelDateAndTime);
+this.splitContainer1.Panel1.Controls.Add(labelComment);
 
             // 
             // splitContainer1.Panel2
@@ -399,12 +399,12 @@ this.splitContainer1.Panel1.Controls.Add(labelHistoryEvent);
             this.splitContainer1.Panel2.Controls.Add(this.buttonReload);
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
             this.splitContainer1.Panel2.Controls.Add(textboxContactHistoryId);
-this.splitContainer1.Panel2.Controls.Add(datetimeDateAndTime);
-this.splitContainer1.Panel2.Controls.Add(textboxComment);
 this.splitContainer1.Panel2.Controls.Add(listContact);
 this.splitContainer1.Panel2.Controls.Add(buttonShowContact);
 this.splitContainer1.Panel2.Controls.Add(listHistoryEvent);
 this.splitContainer1.Panel2.Controls.Add(buttonShowHistoryEvent);
+this.splitContainer1.Panel2.Controls.Add(datetimeDateAndTime);
+this.splitContainer1.Panel2.Controls.Add(textboxComment);
 
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
@@ -474,58 +474,13 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowHistoryEvent);
             this.labelContactHistoryId.Text = "ID";
             this.labelContactHistoryId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
-            // datetimeDateAndTime
-            // 
-            this.datetimeDateAndTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.datetimeDateAndTime.Enabled = false;
-            this.datetimeDateAndTime.Location = new System.Drawing.Point(4, 38);
-            this.datetimeDateAndTime.Name = "datetimeDateAndTime";
-            this.datetimeDateAndTime.Size = new System.Drawing.Size(208, 20);
-            this.datetimeDateAndTime.TabIndex = 34;
-            // 
-            // labelDateAndTime
-            // 
-            this.labelDateAndTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelDateAndTime.AutoSize = true;
-            this.labelDateAndTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDateAndTime.Location = new System.Drawing.Point(0, 38);
-            this.labelDateAndTime.Name = "labelDateAndTime";
-            this.labelDateAndTime.Size = new System.Drawing.Size(30, 20);
-            this.labelDateAndTime.TabIndex = 14;
-            this.labelDateAndTime.Text = "DateAndTime";
-            this.labelDateAndTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
-            // textboxComment
-            // 
-            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxComment.Location = new System.Drawing.Point(4, 64);
-            this.textboxComment.Name = "textboxComment";
-            this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
-            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
-            this.textboxComment.Enabled = true;
-                        // 
-            // labelComment
-            // 
-            this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelComment.AutoSize = true;
-            this.labelComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelComment.Location = new System.Drawing.Point(0, 64);
-            this.labelComment.Name = "labelComment";
-            this.labelComment.Size = new System.Drawing.Size(30, 20);
-            this.labelComment.TabIndex = 14;
-            this.labelComment.Text = "Comment";
-            this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
             // listContact
             // 
             this.listContact.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listContact.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.listContact.FormattingEnabled = true;
-            this.listContact.Location = new System.Drawing.Point(4, 90);
+            this.listContact.Location = new System.Drawing.Point(4, 38);
             this.listContact.Name = "listContact";
             this.listContact.Size = new System.Drawing.Size(165, 21);
             this.listContact.TabIndex = 25;
@@ -533,7 +488,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowHistoryEvent);
                         // 
             // buttonShowContact
             // 
-            this.buttonShowContact.Location = new System.Drawing.Point(174, 90);
+            this.buttonShowContact.Location = new System.Drawing.Point(174, 38);
             this.buttonShowContact.Name = "buttonShowContact";
             this.buttonShowContact.Size = new System.Drawing.Size(40, 23);
             this.buttonShowContact.TabIndex = 10;
@@ -545,7 +500,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowHistoryEvent);
             this.labelContact.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelContact.AutoSize = true;
             this.labelContact.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelContact.Location = new System.Drawing.Point(0, 90);
+            this.labelContact.Location = new System.Drawing.Point(0, 38);
             this.labelContact.Name = "labelContact";
             this.labelContact.Size = new System.Drawing.Size(30, 20);
             this.labelContact.TabIndex = 14;
@@ -558,7 +513,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowHistoryEvent);
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listHistoryEvent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.listHistoryEvent.FormattingEnabled = true;
-            this.listHistoryEvent.Location = new System.Drawing.Point(4, 116);
+            this.listHistoryEvent.Location = new System.Drawing.Point(4, 64);
             this.listHistoryEvent.Name = "listHistoryEvent";
             this.listHistoryEvent.Size = new System.Drawing.Size(165, 21);
             this.listHistoryEvent.TabIndex = 25;
@@ -566,7 +521,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowHistoryEvent);
                         // 
             // buttonShowHistoryEvent
             // 
-            this.buttonShowHistoryEvent.Location = new System.Drawing.Point(174, 116);
+            this.buttonShowHistoryEvent.Location = new System.Drawing.Point(174, 64);
             this.buttonShowHistoryEvent.Name = "buttonShowHistoryEvent";
             this.buttonShowHistoryEvent.Size = new System.Drawing.Size(40, 23);
             this.buttonShowHistoryEvent.TabIndex = 10;
@@ -578,12 +533,57 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowHistoryEvent);
             this.labelHistoryEvent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelHistoryEvent.AutoSize = true;
             this.labelHistoryEvent.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelHistoryEvent.Location = new System.Drawing.Point(0, 116);
+            this.labelHistoryEvent.Location = new System.Drawing.Point(0, 64);
             this.labelHistoryEvent.Name = "labelHistoryEvent";
             this.labelHistoryEvent.Size = new System.Drawing.Size(30, 20);
             this.labelHistoryEvent.TabIndex = 14;
             this.labelHistoryEvent.Text = "HistoryEvent";
             this.labelHistoryEvent.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // datetimeDateAndTime
+            // 
+            this.datetimeDateAndTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.datetimeDateAndTime.Enabled = false;
+            this.datetimeDateAndTime.Location = new System.Drawing.Point(4, 90);
+            this.datetimeDateAndTime.Name = "datetimeDateAndTime";
+            this.datetimeDateAndTime.Size = new System.Drawing.Size(208, 20);
+            this.datetimeDateAndTime.TabIndex = 34;
+            // 
+            // labelDateAndTime
+            // 
+            this.labelDateAndTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelDateAndTime.AutoSize = true;
+            this.labelDateAndTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDateAndTime.Location = new System.Drawing.Point(0, 90);
+            this.labelDateAndTime.Name = "labelDateAndTime";
+            this.labelDateAndTime.Size = new System.Drawing.Size(30, 20);
+            this.labelDateAndTime.TabIndex = 14;
+            this.labelDateAndTime.Text = "DateAndTime";
+            this.labelDateAndTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // textboxComment
+            // 
+            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxComment.Location = new System.Drawing.Point(4, 116);
+            this.textboxComment.Name = "textboxComment";
+            this.textboxComment.Size = new System.Drawing.Size(208, 20);
+            this.textboxComment.TabIndex = 31;
+            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
+            this.textboxComment.Enabled = true;
+                        // 
+            // labelComment
+            // 
+            this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelComment.AutoSize = true;
+            this.labelComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelComment.Location = new System.Drawing.Point(0, 116);
+            this.labelComment.Name = "labelComment";
+            this.labelComment.Size = new System.Drawing.Size(30, 20);
+            this.labelComment.TabIndex = 14;
+            this.labelComment.Text = "Comment";
+            this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             
             // 
             // FormContactHistoryEditor
@@ -615,16 +615,16 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowHistoryEvent);
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox textboxContactHistoryId;
 private System.Windows.Forms.Label labelContactHistoryId;
-private System.Windows.Forms.DateTimePicker datetimeDateAndTime;
-private System.Windows.Forms.Label labelDateAndTime;
-private System.Windows.Forms.TextBox textboxComment;
-private System.Windows.Forms.Label labelComment;
 private System.Windows.Forms.ComboBox listContact;
 private System.Windows.Forms.Button buttonShowContact;
 private System.Windows.Forms.Label labelContact;
 private System.Windows.Forms.ComboBox listHistoryEvent;
 private System.Windows.Forms.Button buttonShowHistoryEvent;
 private System.Windows.Forms.Label labelHistoryEvent;
+private System.Windows.Forms.DateTimePicker datetimeDateAndTime;
+private System.Windows.Forms.Label labelDateAndTime;
+private System.Windows.Forms.TextBox textboxComment;
+private System.Windows.Forms.Label labelComment;
 
         #endregion
     }

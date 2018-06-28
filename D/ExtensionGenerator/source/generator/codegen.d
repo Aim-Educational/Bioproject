@@ -490,6 +490,7 @@ void generateEditorStubs(const Model model, Path outputDir)
 
                 row.controls ~= new ObjectList(field.variableName.idup, field, bestKeyNameMatch);
                 row.controls ~= new ShowListButton(field.variableName.idup, field);
+                row.priority  = 50; // These should ideally be near the top, since they... look strange otherwise (there's probably some well known UI reason for why it looks odd)
             }
             else if(field.typeName == "DateTime")
             {

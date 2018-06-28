@@ -105,8 +105,6 @@ namespace DataUserInterface.Forms
                     if (obj != null)
                     {
                         this.textboxAlarmId.Text = Convert.ToString(obj.alarm_id);
-this.numericValue.Value = (decimal)obj.value;
-this.textboxComment.Text = obj.comment;
 foreach (var value in db.alarm_type.OrderBy(v => v.description))
 {
     this.listAlarmType.Items.Add(value.description);
@@ -125,6 +123,8 @@ foreach (var value in db.group_type.OrderBy(v => v.name))
     if (value.group_type_id == obj.group_type_id)
         this.listGroupType.SelectedIndex = this.listGroupType.Items.Count - 1;
 }
+this.numericValue.Value = (decimal)obj.value;
+this.textboxComment.Text = obj.comment;
 
 
                         this._cached  = obj;
@@ -218,14 +218,14 @@ foreach (var value in db.group_type.OrderBy(v => v.name))
                 var obj = db.alarms.SingleOrDefault(v => v.alarm_id == this.id);
 
                 
-obj.value = (double)this.numericValue.Value;
-obj.comment = this.textboxComment.Text;
 var selectedAlarmType = this.listAlarmType.Items[this.listAlarmType.SelectedIndex] as string;
 obj.alarm_type = db.alarm_type.Single(v => v.description == selectedAlarmType);
 var selectedDevice = this.listDevice.Items[this.listDevice.SelectedIndex] as string;
 obj.device = db.devices.Single(v => v.name == selectedDevice);
 var selectedGroupType = this.listGroupType.Items[this.listGroupType.SelectedIndex] as string;
 obj.group_type = db.group_type.Single(v => v.name == selectedGroupType);
+obj.value = (double)this.numericValue.Value;
+obj.comment = this.textboxComment.Text;
 
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
@@ -249,14 +249,14 @@ obj.group_type = db.group_type.Single(v => v.name == selectedGroupType);
                 var obj = new alarm();
 
                 
-obj.value = (double)this.numericValue.Value;
-obj.comment = this.textboxComment.Text;
 var selectedAlarmType = this.listAlarmType.Items[this.listAlarmType.SelectedIndex] as string;
 obj.alarm_type = db.alarm_type.Single(v => v.description == selectedAlarmType);
 var selectedDevice = this.listDevice.Items[this.listDevice.SelectedIndex] as string;
 obj.device = db.devices.Single(v => v.name == selectedDevice);
 var selectedGroupType = this.listGroupType.Items[this.listGroupType.SelectedIndex] as string;
 obj.group_type = db.group_type.Single(v => v.name == selectedGroupType);
+obj.value = (double)this.numericValue.Value;
+obj.comment = this.textboxComment.Text;
 
 
                 db.alarms.Add(obj);
@@ -291,24 +291,6 @@ obj.group_type = db.group_type.Single(v => v.name == selectedGroupType);
         {
             // The Convert.ToString is just in case the value we're comparing to is something like an int.
             if (this.textboxAlarmId.Text != Convert.ToString(this._cached.alarm_id))
-                this._isDirty = true;
-        }
-                private void numericValue_Enter(object sender, EventArgs e)
-        {
-            FormHelper.selectAllText(this.numericValue);
-        }
-        private void numericValue_ValueChanged(object sender, EventArgs e)
-        {
-            if(this._cached == null)
-                return;
-
-            if (Convert.ToDouble(this.numericValue.Value) != this._cached.value)
-                this._isDirty = true;
-        }
-        private void textboxComment_Leave(object sender, EventArgs e)
-        {
-            // The Convert.ToString is just in case the value we're comparing to is something like an int.
-            if (this.textboxComment.Text != Convert.ToString(this._cached.comment))
                 this._isDirty = true;
         }
                 private void listAlarmType_SelectionChangeCommitted(object sender, EventArgs e)
@@ -353,7 +335,25 @@ obj.group_type = db.group_type.Single(v => v.name == selectedGroupType);
     form.MdiParent = this.MdiParent;
     form.Show();
 }
+        private void numericValue_Enter(object sender, EventArgs e)
+        {
+            FormHelper.selectAllText(this.numericValue);
+        }
+        private void numericValue_ValueChanged(object sender, EventArgs e)
+        {
+            if(this._cached == null)
+                return;
 
+            if (Convert.ToDouble(this.numericValue.Value) != this._cached.value)
+                this._isDirty = true;
+        }
+        private void textboxComment_Leave(object sender, EventArgs e)
+        {
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxComment.Text != Convert.ToString(this._cached.comment))
+                this._isDirty = true;
+        }
+        
         #endregion
 
 
@@ -394,10 +394,6 @@ obj.group_type = db.group_type.Single(v => v.name == selectedGroupType);
             this.buttonAction = new System.Windows.Forms.Button();
             this.textboxAlarmId = new System.Windows.Forms.TextBox();
 this.labelAlarmId = new System.Windows.Forms.Label();
-this.numericValue = new System.Windows.Forms.NumericUpDown();
-this.labelValue = new System.Windows.Forms.Label();
-this.textboxComment = new System.Windows.Forms.TextBox();
-this.labelComment = new System.Windows.Forms.Label();
 this.listAlarmType = new System.Windows.Forms.ComboBox();
 this.buttonShowAlarmType = new System.Windows.Forms.Button();
 this.labelAlarmType = new System.Windows.Forms.Label();
@@ -407,6 +403,10 @@ this.labelDevice = new System.Windows.Forms.Label();
 this.listGroupType = new System.Windows.Forms.ComboBox();
 this.buttonShowGroupType = new System.Windows.Forms.Button();
 this.labelGroupType = new System.Windows.Forms.Label();
+this.numericValue = new System.Windows.Forms.NumericUpDown();
+this.labelValue = new System.Windows.Forms.Label();
+this.textboxComment = new System.Windows.Forms.TextBox();
+this.labelComment = new System.Windows.Forms.Label();
 
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -427,11 +427,11 @@ this.labelGroupType = new System.Windows.Forms.Label();
             this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.Controls.Add(this.labelDirty);
             this.splitContainer1.Panel1.Controls.Add(labelAlarmId);
-this.splitContainer1.Panel1.Controls.Add(labelValue);
-this.splitContainer1.Panel1.Controls.Add(labelComment);
 this.splitContainer1.Panel1.Controls.Add(labelAlarmType);
 this.splitContainer1.Panel1.Controls.Add(labelDevice);
 this.splitContainer1.Panel1.Controls.Add(labelGroupType);
+this.splitContainer1.Panel1.Controls.Add(labelValue);
+this.splitContainer1.Panel1.Controls.Add(labelComment);
 
             // 
             // splitContainer1.Panel2
@@ -441,14 +441,14 @@ this.splitContainer1.Panel1.Controls.Add(labelGroupType);
             this.splitContainer1.Panel2.Controls.Add(this.buttonReload);
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
             this.splitContainer1.Panel2.Controls.Add(textboxAlarmId);
-this.splitContainer1.Panel2.Controls.Add(numericValue);
-this.splitContainer1.Panel2.Controls.Add(textboxComment);
 this.splitContainer1.Panel2.Controls.Add(listAlarmType);
 this.splitContainer1.Panel2.Controls.Add(buttonShowAlarmType);
 this.splitContainer1.Panel2.Controls.Add(listDevice);
 this.splitContainer1.Panel2.Controls.Add(buttonShowDevice);
 this.splitContainer1.Panel2.Controls.Add(listGroupType);
 this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
+this.splitContainer1.Panel2.Controls.Add(numericValue);
+this.splitContainer1.Panel2.Controls.Add(textboxComment);
 
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
@@ -518,60 +518,13 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
             this.labelAlarmId.Text = "ID";
             this.labelAlarmId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
-            // numericValue
-            // 
-            this.numericValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericValue.Location = new System.Drawing.Point(4, 38);
-            this.numericValue.Name = "numericValue";
-            this.numericValue.Size = new System.Drawing.Size(211, 20);
-            this.numericValue.TabIndex = 32;
-            this.numericValue.ValueChanged += new System.EventHandler(this.numericValue_ValueChanged);
-            this.numericValue.Click += new System.EventHandler(this.numericValue_Enter);
-            this.numericValue.Enter += new System.EventHandler(this.numericValue_Enter);
-                        // 
-            // labelValue
-            // 
-            this.labelValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelValue.AutoSize = true;
-            this.labelValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelValue.Location = new System.Drawing.Point(0, 38);
-            this.labelValue.Name = "labelValue";
-            this.labelValue.Size = new System.Drawing.Size(30, 20);
-            this.labelValue.TabIndex = 14;
-            this.labelValue.Text = "Value";
-            this.labelValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
-            // textboxComment
-            // 
-            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxComment.Location = new System.Drawing.Point(4, 64);
-            this.textboxComment.Name = "textboxComment";
-            this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
-            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
-            this.textboxComment.Enabled = true;
-                        // 
-            // labelComment
-            // 
-            this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelComment.AutoSize = true;
-            this.labelComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelComment.Location = new System.Drawing.Point(0, 64);
-            this.labelComment.Name = "labelComment";
-            this.labelComment.Size = new System.Drawing.Size(30, 20);
-            this.labelComment.TabIndex = 14;
-            this.labelComment.Text = "Comment";
-            this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
             // listAlarmType
             // 
             this.listAlarmType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listAlarmType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.listAlarmType.FormattingEnabled = true;
-            this.listAlarmType.Location = new System.Drawing.Point(4, 90);
+            this.listAlarmType.Location = new System.Drawing.Point(4, 38);
             this.listAlarmType.Name = "listAlarmType";
             this.listAlarmType.Size = new System.Drawing.Size(165, 21);
             this.listAlarmType.TabIndex = 25;
@@ -579,7 +532,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
                         // 
             // buttonShowAlarmType
             // 
-            this.buttonShowAlarmType.Location = new System.Drawing.Point(174, 90);
+            this.buttonShowAlarmType.Location = new System.Drawing.Point(174, 38);
             this.buttonShowAlarmType.Name = "buttonShowAlarmType";
             this.buttonShowAlarmType.Size = new System.Drawing.Size(40, 23);
             this.buttonShowAlarmType.TabIndex = 10;
@@ -591,7 +544,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
             this.labelAlarmType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelAlarmType.AutoSize = true;
             this.labelAlarmType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAlarmType.Location = new System.Drawing.Point(0, 90);
+            this.labelAlarmType.Location = new System.Drawing.Point(0, 38);
             this.labelAlarmType.Name = "labelAlarmType";
             this.labelAlarmType.Size = new System.Drawing.Size(30, 20);
             this.labelAlarmType.TabIndex = 14;
@@ -604,7 +557,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.listDevice.FormattingEnabled = true;
-            this.listDevice.Location = new System.Drawing.Point(4, 116);
+            this.listDevice.Location = new System.Drawing.Point(4, 64);
             this.listDevice.Name = "listDevice";
             this.listDevice.Size = new System.Drawing.Size(165, 21);
             this.listDevice.TabIndex = 25;
@@ -612,7 +565,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
                         // 
             // buttonShowDevice
             // 
-            this.buttonShowDevice.Location = new System.Drawing.Point(174, 116);
+            this.buttonShowDevice.Location = new System.Drawing.Point(174, 64);
             this.buttonShowDevice.Name = "buttonShowDevice";
             this.buttonShowDevice.Size = new System.Drawing.Size(40, 23);
             this.buttonShowDevice.TabIndex = 10;
@@ -624,7 +577,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
             this.labelDevice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelDevice.AutoSize = true;
             this.labelDevice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDevice.Location = new System.Drawing.Point(0, 116);
+            this.labelDevice.Location = new System.Drawing.Point(0, 64);
             this.labelDevice.Name = "labelDevice";
             this.labelDevice.Size = new System.Drawing.Size(30, 20);
             this.labelDevice.TabIndex = 14;
@@ -637,7 +590,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listGroupType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.listGroupType.FormattingEnabled = true;
-            this.listGroupType.Location = new System.Drawing.Point(4, 142);
+            this.listGroupType.Location = new System.Drawing.Point(4, 90);
             this.listGroupType.Name = "listGroupType";
             this.listGroupType.Size = new System.Drawing.Size(165, 21);
             this.listGroupType.TabIndex = 25;
@@ -645,7 +598,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
                         // 
             // buttonShowGroupType
             // 
-            this.buttonShowGroupType.Location = new System.Drawing.Point(174, 142);
+            this.buttonShowGroupType.Location = new System.Drawing.Point(174, 90);
             this.buttonShowGroupType.Name = "buttonShowGroupType";
             this.buttonShowGroupType.Size = new System.Drawing.Size(40, 23);
             this.buttonShowGroupType.TabIndex = 10;
@@ -657,12 +610,59 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
             this.labelGroupType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelGroupType.AutoSize = true;
             this.labelGroupType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelGroupType.Location = new System.Drawing.Point(0, 142);
+            this.labelGroupType.Location = new System.Drawing.Point(0, 90);
             this.labelGroupType.Name = "labelGroupType";
             this.labelGroupType.Size = new System.Drawing.Size(30, 20);
             this.labelGroupType.TabIndex = 14;
             this.labelGroupType.Text = "GroupType";
             this.labelGroupType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // numericValue
+            // 
+            this.numericValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericValue.Location = new System.Drawing.Point(4, 116);
+            this.numericValue.Name = "numericValue";
+            this.numericValue.Size = new System.Drawing.Size(211, 20);
+            this.numericValue.TabIndex = 32;
+            this.numericValue.ValueChanged += new System.EventHandler(this.numericValue_ValueChanged);
+            this.numericValue.Click += new System.EventHandler(this.numericValue_Enter);
+            this.numericValue.Enter += new System.EventHandler(this.numericValue_Enter);
+                        // 
+            // labelValue
+            // 
+            this.labelValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelValue.AutoSize = true;
+            this.labelValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelValue.Location = new System.Drawing.Point(0, 116);
+            this.labelValue.Name = "labelValue";
+            this.labelValue.Size = new System.Drawing.Size(30, 20);
+            this.labelValue.TabIndex = 14;
+            this.labelValue.Text = "Value";
+            this.labelValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // textboxComment
+            // 
+            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxComment.Location = new System.Drawing.Point(4, 142);
+            this.textboxComment.Name = "textboxComment";
+            this.textboxComment.Size = new System.Drawing.Size(208, 20);
+            this.textboxComment.TabIndex = 31;
+            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
+            this.textboxComment.Enabled = true;
+                        // 
+            // labelComment
+            // 
+            this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelComment.AutoSize = true;
+            this.labelComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelComment.Location = new System.Drawing.Point(0, 142);
+            this.labelComment.Name = "labelComment";
+            this.labelComment.Size = new System.Drawing.Size(30, 20);
+            this.labelComment.TabIndex = 14;
+            this.labelComment.Text = "Comment";
+            this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             
             // 
             // FormAlarmEditor
@@ -695,10 +695,6 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox textboxAlarmId;
 private System.Windows.Forms.Label labelAlarmId;
-private System.Windows.Forms.NumericUpDown numericValue;
-private System.Windows.Forms.Label labelValue;
-private System.Windows.Forms.TextBox textboxComment;
-private System.Windows.Forms.Label labelComment;
 private System.Windows.Forms.ComboBox listAlarmType;
 private System.Windows.Forms.Button buttonShowAlarmType;
 private System.Windows.Forms.Label labelAlarmType;
@@ -708,6 +704,10 @@ private System.Windows.Forms.Label labelDevice;
 private System.Windows.Forms.ComboBox listGroupType;
 private System.Windows.Forms.Button buttonShowGroupType;
 private System.Windows.Forms.Label labelGroupType;
+private System.Windows.Forms.NumericUpDown numericValue;
+private System.Windows.Forms.Label labelValue;
+private System.Windows.Forms.TextBox textboxComment;
+private System.Windows.Forms.Label labelComment;
 
         #endregion
     }

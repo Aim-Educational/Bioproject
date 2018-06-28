@@ -103,7 +103,6 @@ namespace DataUserInterface.Forms
                     if (obj != null)
                     {
                         this.textboxGroupMemberId.Text = Convert.ToString(obj.group_member_id);
-this.textboxComment.Text = obj.comment;
 foreach (var value in db.contacts.OrderBy(v => v.comment))
 {
     this.listContact.Items.Add(value.comment);
@@ -116,6 +115,7 @@ foreach (var value in db.group_type.OrderBy(v => v.name))
     if (value.group_type_id == obj.group_type_id)
         this.listGroupType.SelectedIndex = this.listGroupType.Items.Count - 1;
 }
+this.textboxComment.Text = obj.comment;
 
 
                         this._cached  = obj;
@@ -208,11 +208,11 @@ foreach (var value in db.group_type.OrderBy(v => v.name))
                 var obj = db.group_member.SingleOrDefault(v => v.group_member_id == this.id);
 
                 
-obj.comment = this.textboxComment.Text;
 var selectedContact = this.listContact.Items[this.listContact.SelectedIndex] as string;
 obj.contact = db.contacts.Single(v => v.comment == selectedContact);
 var selectedGroupType = this.listGroupType.Items[this.listGroupType.SelectedIndex] as string;
 obj.group_type = db.group_type.Single(v => v.name == selectedGroupType);
+obj.comment = this.textboxComment.Text;
 
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
@@ -236,11 +236,11 @@ obj.group_type = db.group_type.Single(v => v.name == selectedGroupType);
                 var obj = new group_member();
 
                 
-obj.comment = this.textboxComment.Text;
 var selectedContact = this.listContact.Items[this.listContact.SelectedIndex] as string;
 obj.contact = db.contacts.Single(v => v.comment == selectedContact);
 var selectedGroupType = this.listGroupType.Items[this.listGroupType.SelectedIndex] as string;
 obj.group_type = db.group_type.Single(v => v.name == selectedGroupType);
+obj.comment = this.textboxComment.Text;
 
 
                 db.group_member.Add(obj);
@@ -277,12 +277,6 @@ obj.group_type = db.group_type.Single(v => v.name == selectedGroupType);
             if (this.textboxGroupMemberId.Text != Convert.ToString(this._cached.group_member_id))
                 this._isDirty = true;
         }
-                private void textboxComment_Leave(object sender, EventArgs e)
-        {
-            // The Convert.ToString is just in case the value we're comparing to is something like an int.
-            if (this.textboxComment.Text != Convert.ToString(this._cached.comment))
-                this._isDirty = true;
-        }
                 private void listContact_SelectionChangeCommitted(object sender, EventArgs e)
         {
             var index = this.listContact.SelectedIndex;
@@ -311,7 +305,13 @@ obj.group_type = db.group_type.Single(v => v.name == selectedGroupType);
     form.MdiParent = this.MdiParent;
     form.Show();
 }
-
+        private void textboxComment_Leave(object sender, EventArgs e)
+        {
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxComment.Text != Convert.ToString(this._cached.comment))
+                this._isDirty = true;
+        }
+        
         #endregion
 
 
@@ -352,14 +352,14 @@ obj.group_type = db.group_type.Single(v => v.name == selectedGroupType);
             this.buttonAction = new System.Windows.Forms.Button();
             this.textboxGroupMemberId = new System.Windows.Forms.TextBox();
 this.labelGroupMemberId = new System.Windows.Forms.Label();
-this.textboxComment = new System.Windows.Forms.TextBox();
-this.labelComment = new System.Windows.Forms.Label();
 this.listContact = new System.Windows.Forms.ComboBox();
 this.buttonShowContact = new System.Windows.Forms.Button();
 this.labelContact = new System.Windows.Forms.Label();
 this.listGroupType = new System.Windows.Forms.ComboBox();
 this.buttonShowGroupType = new System.Windows.Forms.Button();
 this.labelGroupType = new System.Windows.Forms.Label();
+this.textboxComment = new System.Windows.Forms.TextBox();
+this.labelComment = new System.Windows.Forms.Label();
 
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -379,9 +379,9 @@ this.labelGroupType = new System.Windows.Forms.Label();
             this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.Controls.Add(this.labelDirty);
             this.splitContainer1.Panel1.Controls.Add(labelGroupMemberId);
-this.splitContainer1.Panel1.Controls.Add(labelComment);
 this.splitContainer1.Panel1.Controls.Add(labelContact);
 this.splitContainer1.Panel1.Controls.Add(labelGroupType);
+this.splitContainer1.Panel1.Controls.Add(labelComment);
 
             // 
             // splitContainer1.Panel2
@@ -391,11 +391,11 @@ this.splitContainer1.Panel1.Controls.Add(labelGroupType);
             this.splitContainer1.Panel2.Controls.Add(this.buttonReload);
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
             this.splitContainer1.Panel2.Controls.Add(textboxGroupMemberId);
-this.splitContainer1.Panel2.Controls.Add(textboxComment);
 this.splitContainer1.Panel2.Controls.Add(listContact);
 this.splitContainer1.Panel2.Controls.Add(buttonShowContact);
 this.splitContainer1.Panel2.Controls.Add(listGroupType);
 this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
+this.splitContainer1.Panel2.Controls.Add(textboxComment);
 
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
@@ -465,36 +465,13 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
             this.labelGroupMemberId.Text = "ID";
             this.labelGroupMemberId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
-            // textboxComment
-            // 
-            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxComment.Location = new System.Drawing.Point(4, 38);
-            this.textboxComment.Name = "textboxComment";
-            this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
-            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
-            this.textboxComment.Enabled = true;
-                        // 
-            // labelComment
-            // 
-            this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelComment.AutoSize = true;
-            this.labelComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelComment.Location = new System.Drawing.Point(0, 38);
-            this.labelComment.Name = "labelComment";
-            this.labelComment.Size = new System.Drawing.Size(30, 20);
-            this.labelComment.TabIndex = 14;
-            this.labelComment.Text = "Comment";
-            this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
             // listContact
             // 
             this.listContact.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listContact.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.listContact.FormattingEnabled = true;
-            this.listContact.Location = new System.Drawing.Point(4, 64);
+            this.listContact.Location = new System.Drawing.Point(4, 38);
             this.listContact.Name = "listContact";
             this.listContact.Size = new System.Drawing.Size(165, 21);
             this.listContact.TabIndex = 25;
@@ -502,7 +479,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
                         // 
             // buttonShowContact
             // 
-            this.buttonShowContact.Location = new System.Drawing.Point(174, 64);
+            this.buttonShowContact.Location = new System.Drawing.Point(174, 38);
             this.buttonShowContact.Name = "buttonShowContact";
             this.buttonShowContact.Size = new System.Drawing.Size(40, 23);
             this.buttonShowContact.TabIndex = 10;
@@ -514,7 +491,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
             this.labelContact.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelContact.AutoSize = true;
             this.labelContact.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelContact.Location = new System.Drawing.Point(0, 64);
+            this.labelContact.Location = new System.Drawing.Point(0, 38);
             this.labelContact.Name = "labelContact";
             this.labelContact.Size = new System.Drawing.Size(30, 20);
             this.labelContact.TabIndex = 14;
@@ -527,7 +504,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listGroupType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.listGroupType.FormattingEnabled = true;
-            this.listGroupType.Location = new System.Drawing.Point(4, 90);
+            this.listGroupType.Location = new System.Drawing.Point(4, 64);
             this.listGroupType.Name = "listGroupType";
             this.listGroupType.Size = new System.Drawing.Size(165, 21);
             this.listGroupType.TabIndex = 25;
@@ -535,7 +512,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
                         // 
             // buttonShowGroupType
             // 
-            this.buttonShowGroupType.Location = new System.Drawing.Point(174, 90);
+            this.buttonShowGroupType.Location = new System.Drawing.Point(174, 64);
             this.buttonShowGroupType.Name = "buttonShowGroupType";
             this.buttonShowGroupType.Size = new System.Drawing.Size(40, 23);
             this.buttonShowGroupType.TabIndex = 10;
@@ -547,12 +524,35 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
             this.labelGroupType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelGroupType.AutoSize = true;
             this.labelGroupType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelGroupType.Location = new System.Drawing.Point(0, 90);
+            this.labelGroupType.Location = new System.Drawing.Point(0, 64);
             this.labelGroupType.Name = "labelGroupType";
             this.labelGroupType.Size = new System.Drawing.Size(30, 20);
             this.labelGroupType.TabIndex = 14;
             this.labelGroupType.Text = "GroupType";
             this.labelGroupType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // textboxComment
+            // 
+            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxComment.Location = new System.Drawing.Point(4, 90);
+            this.textboxComment.Name = "textboxComment";
+            this.textboxComment.Size = new System.Drawing.Size(208, 20);
+            this.textboxComment.TabIndex = 31;
+            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
+            this.textboxComment.Enabled = true;
+                        // 
+            // labelComment
+            // 
+            this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelComment.AutoSize = true;
+            this.labelComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelComment.Location = new System.Drawing.Point(0, 90);
+            this.labelComment.Name = "labelComment";
+            this.labelComment.Size = new System.Drawing.Size(30, 20);
+            this.labelComment.TabIndex = 14;
+            this.labelComment.Text = "Comment";
+            this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             
             // 
             // FormGroupMemberEditor
@@ -584,14 +584,14 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowGroupType);
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox textboxGroupMemberId;
 private System.Windows.Forms.Label labelGroupMemberId;
-private System.Windows.Forms.TextBox textboxComment;
-private System.Windows.Forms.Label labelComment;
 private System.Windows.Forms.ComboBox listContact;
 private System.Windows.Forms.Button buttonShowContact;
 private System.Windows.Forms.Label labelContact;
 private System.Windows.Forms.ComboBox listGroupType;
 private System.Windows.Forms.Button buttonShowGroupType;
 private System.Windows.Forms.Label labelGroupType;
+private System.Windows.Forms.TextBox textboxComment;
+private System.Windows.Forms.Label labelComment;
 
         #endregion
     }
