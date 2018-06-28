@@ -95,20 +95,14 @@ private
             return mixin(interp!TEMPLATE_CONTROL_TEXTBOX_EVENT_LEAVE);
         }
 
-        override string generateCtorInit()
-        {
-            return "";
-        }
+        override string generateCtorInit() { return "";}
 
         override string generateReloadCode(const Model model, const TableObject object)
         {
             return mixin(interp!TEMPLATE_CONTROL_TEXTBOX_RELOAD);
         }
 
-        override string generateCreateOnlyReloadCode(const Model model, const TableObject object)
-        {
-            return "";
-        }
+        override string generateCreateOnlyReloadCode(const Model model, const TableObject object) { return "";}
 
         override string generateObjectCreateCode(const Model model)
         {
@@ -141,35 +135,12 @@ private
             return mixin(interp!TEMPLATE_CONTROL_LABEL_DESIGN);
         }
 
-        override string generateEventCode()
-        {
-            return "";
-        }
-
-        override string generateCtorInit()
-        {
-            return "";
-        }
-
-        override string generateReloadCode(const Model model, const TableObject object)
-        {
-            return "";
-        }
-        
-        override string generateCreateOnlyReloadCode(const Model model, const TableObject object)
-        {
-            return "";
-        }
-
-        override string generateObjectCreateCode(const Model model)
-        {
-            return "";
-        }
-
-        override string generateObjectUpdateCode(const Model model)
-        {
-            return "";
-        }
+        override string generateEventCode() { return "";}
+        override string generateCtorInit() { return "";}
+        override string generateReloadCode(const Model model, const TableObject object) { return "";}        
+        override string generateCreateOnlyReloadCode(const Model model, const TableObject object) { return "";}
+        override string generateObjectCreateCode(const Model model) { return "";}
+        override string generateObjectUpdateCode(const Model model) { return "";}
 
         override string winFormTypeName()
         {
@@ -208,10 +179,7 @@ private
             return mixin(interp!TEMPLATE_CONTROL_NUMERIC_RELOAD);
         }
         
-        override string generateCreateOnlyReloadCode(const Model model, const TableObject object)
-        {
-            return "";
-        }
+        override string generateCreateOnlyReloadCode(const Model model, const TableObject object) { return "";}
 
         override string generateObjectCreateCode(const Model model)
         {
@@ -249,10 +217,7 @@ private
             return mixin(interp!TEMPLATE_CONTROL_OBJECTLIST_EVENT_SELECTIONCHANGED);
         }
 
-        override string generateCtorInit()
-        {
-            return "";
-        }
+        override string generateCtorInit() { return "";}
 
         override string generateReloadCode(const Model model, const TableObject object)
         {
@@ -311,30 +276,11 @@ private
             return mixin(interp!TEMPLATE_CONTROL_SHOWLIST_BUTTON_EVENT_CLICK);
         }
 
-        override string generateCtorInit()
-        {
-            return "";
-        }
-
-        override string generateReloadCode(const Model model, const TableObject object)
-        {
-            return "";
-        }
-        
-        override string generateCreateOnlyReloadCode(const Model model, const TableObject object)
-        {
-            return "";
-        }
-
-        override string generateObjectCreateCode(const Model model)
-        {
-            return "";
-        }
-
-        override string generateObjectUpdateCode(const Model model)
-        {
-            return "";
-        }
+        override string generateCtorInit() { return "";}
+        override string generateReloadCode(const Model model, const TableObject object) { return "";}        
+        override string generateCreateOnlyReloadCode(const Model model, const TableObject object) { return "";}
+        override string generateObjectCreateCode(const Model model) { return "";}
+        override string generateObjectUpdateCode(const Model model) { return "";}
 
         override string winFormTypeName()
         {
@@ -354,25 +300,15 @@ private
             return mixin(interp!TEMPLATE_CONTROL_DATETIME_DESIGN);
         }
 
-        override string generateEventCode()
-        {
-            return "";
-        }
-
-        override string generateCtorInit()
-        {
-            return "";
-        }
+        override string generateEventCode() { return "";}
+        override string generateCtorInit() { return "";}
 
         override string generateReloadCode(const Model model, const TableObject object)
         {
             return mixin(interp!TEMPLATE_CONTROL_DATETIME_RELOAD);
         }
         
-        override string generateCreateOnlyReloadCode(const Model model, const TableObject object)
-        {
-            return "";
-        }
+        override string generateCreateOnlyReloadCode(const Model model, const TableObject object) { return "";}
 
         override string generateObjectCreateCode(const Model model)
         {
