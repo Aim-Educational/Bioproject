@@ -1,7 +1,7 @@
 /// This module contains all of the functions that are used to generate code.
 module generator.codegen;
 import scriptlike;
-import generator.model;
+import generator.model, generator.config;
 import std.typecons;
 
 private
@@ -44,10 +44,8 @@ private
     //////////////
     /// Config ///
     //////////////
-    enum CONTROL_Y_PADDING              = 26;
-    enum CONTROL_STARTING_Y             = 12;
-    const WORDS_TO_CAPITALISE           = ["bbc", "rss", "url"]; // TODO: Move this to the config.
-    enum OBJECT_LIST_VAR_NAME_PRIORITY  = ["name": 3, "description": 2, "comment": 1];  // TODO: Move this to the config
+    enum CONTROL_Y_PADDING  = 26;
+    enum CONTROL_STARTING_Y = 12;
     // TODO: Add a config list of variable names to ignore across all objects
     // TODO: Add a config list of variable names to ignore for certain objects. (Only bother when needed)
     // TODO: Add a config list where you can add name override for the on-screen labels, e.g. "device.device2" "Parent Device" to change
@@ -539,7 +537,7 @@ void generateEditorStubs(const Model model, Path outputDir)
                 int bestMatchPriority;
                 foreach(listField; listObject.fields)
                 {
-                    auto priority = OBJECT_LIST_VAR_NAME_PRIORITY.get(listField.variableName, int.min);
+                    auto priority = appConfig.projUserInterface.objectListVariablePriority.get(listField.variableName, int.min);
                     if(priority > bestMatchPriority)
                     {
                         bestKeyNameMatch = listField.variableName;
@@ -665,7 +663,7 @@ char[] standardisedName(const char[] name)
     // Standardise the name. 'device_type' -> 'DeviceType'
     foreach(word; name.splitter('_'))
     {
-        if(WORDS_TO_CAPITALISE.canFind(word))
+        if(appConfig.wordsToCapitalise.canFind(word))
         {
             char[] copy = word.dup;
             copy.toUpperInPlace();

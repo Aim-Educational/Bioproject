@@ -39,6 +39,9 @@ struct Name
 struct Serialisable
 {}
 
+struct Ignore
+{}
+
 /++
  + Creates functions used for serialisation.
  + ++/
@@ -87,8 +90,9 @@ string fromSdlTagGenerator(ThisType)()
         enum  FieldTypeName = fullyQualifiedName!FieldType;
         enum  FieldTagName  = getFieldName!FieldAlias.name;
 
-        
-        static if(is(typeof({code.generateSDL!(FieldAlias, FieldType, FieldTypeName, FieldTagName, fieldName)(nameCounter);})))
+        static if(hasUDA!(FieldAlias, Ignore))
+            int dummy = 0;
+        else static if(is(typeof({code.generateSDL!(FieldAlias, FieldType, FieldTypeName, FieldTagName, fieldName)(nameCounter);})))
             code.generateSDL!(FieldAlias, FieldType, FieldTypeName, FieldTagName, "this." ~ fieldName)(nameCounter);
         else
             static assert(false, format("No Seraliser for field '%s' of type '%s'", fieldName, FieldType.stringof));

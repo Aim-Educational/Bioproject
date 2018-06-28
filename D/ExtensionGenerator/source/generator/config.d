@@ -16,6 +16,9 @@ struct Config
     ConfigDataManager projDataManager;
     ConfigDataUserInterface projUserInterface;
     Nullable!ConfigDebug debugOptions; // Notes: Will never be null, as 'loadConfig' will set it to a default value if it's not provided.
+
+    @Ignore
+    string[] wordsToCapitalise;
 }
 
 @Serialisable
@@ -37,6 +40,9 @@ struct ConfigDataUserInterface
     string searchExtensionOutputDir;
     string searchExtensionFilename;
     string formOutputDir;
+
+    @Ignore
+    int[string] objectListVariablePriority;
 }
 
 @Serialisable
@@ -65,6 +71,19 @@ void loadConfig()
     if(appConfig.debugOptions.isNull)
         appConfig.debugOptions = ConfigDebug.init;
 
+    // Read in the @Ignored stuff
+    auto tag = configSDL.expectTag("projUserInterface").expectTag("objectListVariablePriority");
+    foreach(subTag; tag.tags)
+    {
+        enforce(subTag.values.length == 2, "Expected 2 values"); // TODO: Better error message.
+        appConfig.projUserInterface.objectListVariablePriority[subTag.values[0].get!string] = subTag.values[1].get!int;
+    }
+
+    tag = configSDL.expectTag("wordsToCapitalise");
+    foreach(subTag; tag.tags)
+        appConfig.wordsToCapitalise ~= subTag.expectValue!string();
+
+    // Validation
     enforce(appConfig.projDataManager.rootDir.isAbsolute, 
             format("The root directory for the DataManager is not absolute. '%s'", appConfig.projDataManager.rootDir));
 
