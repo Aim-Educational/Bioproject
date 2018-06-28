@@ -99,9 +99,9 @@ namespace DataUserInterface.Forms
                     if (obj != null)
                     {
                         this.textboxBackupLogId.Text = Convert.ToString(obj.backup_log_id);
+this.textboxFilename.Text = obj.filename;
 this.datetimeDatetime.Value = obj.datetime;
 this.textboxComment.Text = obj.comment;
-this.textboxFilename.Text = obj.filename;
 
 
                         this._cached  = obj;
@@ -194,10 +194,10 @@ this.textboxFilename.Text = obj.filename;
                 var obj = db.backup_log.SingleOrDefault(v => v.backup_log_id == this.id);
 
                 
+obj.filename = this.textboxFilename.Text;
 this.datetimeDatetime.Value = DateTime.Now;
 obj.datetime = this.datetimeDatetime.Value;
 obj.comment = this.textboxComment.Text;
-obj.filename = this.textboxFilename.Text;
 
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
@@ -221,10 +221,10 @@ obj.filename = this.textboxFilename.Text;
                 var obj = new backup_log();
 
                 
+obj.filename = this.textboxFilename.Text;
 this.datetimeDatetime.Value = DateTime.Now;
 obj.datetime = this.datetimeDatetime.Value;
 obj.comment = this.textboxComment.Text;
-obj.filename = this.textboxFilename.Text;
 
 
                 db.backup_log.Add(obj);
@@ -261,16 +261,16 @@ obj.filename = this.textboxFilename.Text;
             if (this.textboxBackupLogId.Text != Convert.ToString(this._cached.backup_log_id))
                 this._isDirty = true;
         }
-                private void textboxComment_Leave(object sender, EventArgs e)
-        {
-            // The Convert.ToString is just in case the value we're comparing to is something like an int.
-            if (this.textboxComment.Text != Convert.ToString(this._cached.comment))
-                this._isDirty = true;
-        }
                 private void textboxFilename_Leave(object sender, EventArgs e)
         {
             // The Convert.ToString is just in case the value we're comparing to is something like an int.
             if (this.textboxFilename.Text != Convert.ToString(this._cached.filename))
+                this._isDirty = true;
+        }
+                private void textboxComment_Leave(object sender, EventArgs e)
+        {
+            // The Convert.ToString is just in case the value we're comparing to is something like an int.
+            if (this.textboxComment.Text != Convert.ToString(this._cached.comment))
                 this._isDirty = true;
         }
         
@@ -314,12 +314,12 @@ obj.filename = this.textboxFilename.Text;
             this.buttonAction = new System.Windows.Forms.Button();
             this.textboxBackupLogId = new System.Windows.Forms.TextBox();
 this.labelBackupLogId = new System.Windows.Forms.Label();
+this.textboxFilename = new System.Windows.Forms.TextBox();
+this.labelFilename = new System.Windows.Forms.Label();
 this.datetimeDatetime = new System.Windows.Forms.DateTimePicker();
 this.labelDatetime = new System.Windows.Forms.Label();
 this.textboxComment = new System.Windows.Forms.TextBox();
 this.labelComment = new System.Windows.Forms.Label();
-this.textboxFilename = new System.Windows.Forms.TextBox();
-this.labelFilename = new System.Windows.Forms.Label();
 
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -339,9 +339,9 @@ this.labelFilename = new System.Windows.Forms.Label();
             this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.Controls.Add(this.labelDirty);
             this.splitContainer1.Panel1.Controls.Add(labelBackupLogId);
+this.splitContainer1.Panel1.Controls.Add(labelFilename);
 this.splitContainer1.Panel1.Controls.Add(labelDatetime);
 this.splitContainer1.Panel1.Controls.Add(labelComment);
-this.splitContainer1.Panel1.Controls.Add(labelFilename);
 
             // 
             // splitContainer1.Panel2
@@ -351,9 +351,9 @@ this.splitContainer1.Panel1.Controls.Add(labelFilename);
             this.splitContainer1.Panel2.Controls.Add(this.buttonReload);
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
             this.splitContainer1.Panel2.Controls.Add(textboxBackupLogId);
+this.splitContainer1.Panel2.Controls.Add(textboxFilename);
 this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
 this.splitContainer1.Panel2.Controls.Add(textboxComment);
-this.splitContainer1.Panel2.Controls.Add(textboxFilename);
 
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
@@ -423,56 +423,11 @@ this.splitContainer1.Panel2.Controls.Add(textboxFilename);
             this.labelBackupLogId.Text = "ID";
             this.labelBackupLogId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
-            // datetimeDatetime
-            // 
-            this.datetimeDatetime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.datetimeDatetime.Enabled = false;
-            this.datetimeDatetime.Location = new System.Drawing.Point(4, 38);
-            this.datetimeDatetime.Name = "datetimeDatetime";
-            this.datetimeDatetime.Size = new System.Drawing.Size(208, 20);
-            this.datetimeDatetime.TabIndex = 34;
-            // 
-            // labelDatetime
-            // 
-            this.labelDatetime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelDatetime.AutoSize = true;
-            this.labelDatetime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDatetime.Location = new System.Drawing.Point(0, 38);
-            this.labelDatetime.Name = "labelDatetime";
-            this.labelDatetime.Size = new System.Drawing.Size(30, 20);
-            this.labelDatetime.TabIndex = 14;
-            this.labelDatetime.Text = "Datetime";
-            this.labelDatetime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
-            // textboxComment
-            // 
-            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxComment.Location = new System.Drawing.Point(4, 64);
-            this.textboxComment.Name = "textboxComment";
-            this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
-            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
-            this.textboxComment.Enabled = true;
-                        // 
-            // labelComment
-            // 
-            this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelComment.AutoSize = true;
-            this.labelComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelComment.Location = new System.Drawing.Point(0, 64);
-            this.labelComment.Name = "labelComment";
-            this.labelComment.Size = new System.Drawing.Size(30, 20);
-            this.labelComment.TabIndex = 14;
-            this.labelComment.Text = "Comment";
-            this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
             // textboxFilename
             // 
             this.textboxFilename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxFilename.Location = new System.Drawing.Point(4, 90);
+            this.textboxFilename.Location = new System.Drawing.Point(4, 38);
             this.textboxFilename.Name = "textboxFilename";
             this.textboxFilename.Size = new System.Drawing.Size(208, 20);
             this.textboxFilename.TabIndex = 31;
@@ -484,12 +439,57 @@ this.splitContainer1.Panel2.Controls.Add(textboxFilename);
             this.labelFilename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelFilename.AutoSize = true;
             this.labelFilename.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFilename.Location = new System.Drawing.Point(0, 90);
+            this.labelFilename.Location = new System.Drawing.Point(0, 38);
             this.labelFilename.Name = "labelFilename";
             this.labelFilename.Size = new System.Drawing.Size(30, 20);
             this.labelFilename.TabIndex = 14;
             this.labelFilename.Text = "Filename";
             this.labelFilename.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // datetimeDatetime
+            // 
+            this.datetimeDatetime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.datetimeDatetime.Enabled = false;
+            this.datetimeDatetime.Location = new System.Drawing.Point(4, 64);
+            this.datetimeDatetime.Name = "datetimeDatetime";
+            this.datetimeDatetime.Size = new System.Drawing.Size(208, 20);
+            this.datetimeDatetime.TabIndex = 34;
+            // 
+            // labelDatetime
+            // 
+            this.labelDatetime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelDatetime.AutoSize = true;
+            this.labelDatetime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDatetime.Location = new System.Drawing.Point(0, 64);
+            this.labelDatetime.Name = "labelDatetime";
+            this.labelDatetime.Size = new System.Drawing.Size(30, 20);
+            this.labelDatetime.TabIndex = 14;
+            this.labelDatetime.Text = "Datetime";
+            this.labelDatetime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // textboxComment
+            // 
+            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textboxComment.Location = new System.Drawing.Point(4, 90);
+            this.textboxComment.Name = "textboxComment";
+            this.textboxComment.Size = new System.Drawing.Size(208, 20);
+            this.textboxComment.TabIndex = 31;
+            this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
+            this.textboxComment.Enabled = true;
+                        // 
+            // labelComment
+            // 
+            this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelComment.AutoSize = true;
+            this.labelComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelComment.Location = new System.Drawing.Point(0, 90);
+            this.labelComment.Name = "labelComment";
+            this.labelComment.Size = new System.Drawing.Size(30, 20);
+            this.labelComment.TabIndex = 14;
+            this.labelComment.Text = "Comment";
+            this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             
             // 
             // FormBackupLogEditor
@@ -521,12 +521,12 @@ this.splitContainer1.Panel2.Controls.Add(textboxFilename);
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox textboxBackupLogId;
 private System.Windows.Forms.Label labelBackupLogId;
+private System.Windows.Forms.TextBox textboxFilename;
+private System.Windows.Forms.Label labelFilename;
 private System.Windows.Forms.DateTimePicker datetimeDatetime;
 private System.Windows.Forms.Label labelDatetime;
 private System.Windows.Forms.TextBox textboxComment;
 private System.Windows.Forms.Label labelComment;
-private System.Windows.Forms.TextBox textboxFilename;
-private System.Windows.Forms.Label labelFilename;
 
         #endregion
     }

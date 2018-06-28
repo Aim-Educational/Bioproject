@@ -416,6 +416,7 @@ void generateEditorStubs(const Model model, Path outputDir)
             Field field;
             string labelNameOverride; // If not null, then this name is used instead.
             int yPos;
+            int priority; // Higher priority = Nearerst to the top of the form.
             Control[] controls;
 
             Label makeLabel() 
@@ -428,42 +429,15 @@ void generateEditorStubs(const Model model, Path outputDir)
                 return obj;
             }
         }
-        struct SwapSet
-        {
-            size_t a;
-            size_t b;
-        }
 
         ControlRow[] controls;
-        int nextY() { return cast(int)((CONTROL_Y_PADDING * controls.length) + CONTROL_STARTING_Y); }
-
-        void swapRows(size_t rowAIndex, size_t rowBIndex)
-        {
-            assert(rowAIndex >= 0 && rowAIndex < controls.length);
-            assert(rowBIndex >= 0 && rowBIndex < controls.length);
-
-            if(rowAIndex == rowBIndex)
-                return;
-
-            // Swap the yPos
-            auto rowAPos = controls[rowAIndex].yPos;
-            controls[rowAIndex].yPos = controls[rowBIndex].yPos;
-            controls[rowBIndex].yPos = rowAPos;
-
-            // Then swap their positions
-            auto rowA = controls[rowAIndex];
-            controls[rowAIndex] = controls[rowBIndex];
-            controls[rowBIndex] = rowA;
-        }
-
         foreach(field; object.fields)
         {
             auto fieldFQN         = format("%s.%s", object.className, field.variableName);
             auto objectQuery      = model.objects.filter!(o => o.className == field.typeName);
             auto row              = ControlRow(cast(Field)field);
-            row.yPos              = nextY();
+            row.priority          = -1;
             row.labelNameOverride = appConfig.projUserInterface.labelTextOverrides.get(fieldFQN, null);
-            auto swapSet          = SwapSet(0, 0); // Swapping row 0 for row 0 does effectively nothing.
 
             if(appConfig.projUserInterface.variablesToIgnore.canFind(field.variableName))
             {
@@ -479,7 +453,7 @@ void generateEditorStubs(const Model model, Path outputDir)
                 if(field.variableName == object.keyName)
                 {
                     row.labelNameOverride = "ID";
-                    swapSet = SwapSet(0, controls.length); // We don't -1, since the row hasn't been added yet, so the length will be the correct index.
+                    row.priority = 100; // The ID should be at the top
                 }
             }
             else if(field.typeName == "int" || field.typeName == "float" || field.typeName == "double")
@@ -533,10 +507,7 @@ void generateEditorStubs(const Model model, Path outputDir)
             }
 
             if(row.controls.length > 0)
-            {
                 controls ~= row;
-                swapRows(swapSet.a, swapSet.b);
-            }
         }
 
         // Then, generate all of the controls and variables needed.
@@ -579,8 +550,9 @@ void generateEditorStubs(const Model model, Path outputDir)
                 custom_control_addToPanel2 ~= format("this.splitContainer1.Panel2.Controls.Add(%s);\n", control.name);
         }
 
-        foreach(row; controls)
+        foreach(i, row; controls.sort!("a.priority > b.priority", SwapStrategy.stable).enumerate)
         {
+            row.yPos = cast(int)((CONTROL_Y_PADDING * i) + CONTROL_STARTING_Y);
             foreach(control; row.controls)
             {
                 control.yPos = row.yPos;
