@@ -8,9 +8,6 @@ namespace DataManager.Model
 
     public partial class backup_log
     {
-        [Key]
-        public int backup_log_id { get; set; }
-
         [Required]
         [StringLength(255)]
         public string filename { get; set; }
@@ -22,6 +19,9 @@ namespace DataManager.Model
         public string comment { get; set; }
 
         public bool is_active { get; set; }
+
+        [Key]
+        public int backup_log_id { get; set; }
 
         [Column(TypeName = "timestamp")]
         [MaxLength(8)]

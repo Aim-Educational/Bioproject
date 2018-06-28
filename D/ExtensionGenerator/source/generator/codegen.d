@@ -58,11 +58,10 @@ private
         const(Field) objectField;
         NeedsDesignerInit designerInit = NeedsDesignerInit.no;
 
-        this(string name, const Field field, int yPos)
+        this(string name, const Field field)
         {
             this.name = name;
             this.objectField = field;
-            this.yPos = yPos;
         }
 
         abstract string generateDesignCode();
@@ -79,10 +78,10 @@ private
     {
         IsReadOnly readOnly;
 
-        this(string name, const Field field, int yPos, IsReadOnly readOnly)
+        this(string name, const Field field, IsReadOnly readOnly)
         {
             this.readOnly = readOnly;
-            super("textbox" ~ name.standardisedName.idup, field, yPos);
+            super("textbox" ~ name.standardisedName.idup, field);
         }
 
         override string generateDesignCode()
@@ -124,10 +123,10 @@ private
     {
         string text;
 
-        this(string name, const Field field, int yPos, string text)
+        this(string name, const Field field, string text)
         {
             this.text = text;
-            super("label" ~ name.standardisedName.idup, field, yPos);
+            super("label" ~ name.standardisedName.idup, field);
         }
 
         override string generateDesignCode()
@@ -152,11 +151,11 @@ private
     {
         IsInteger isInteger;
 
-        this(string name, const Field field, int yPos, IsInteger isInteger)
+        this(string name, const Field field, IsInteger isInteger)
         {
             this.isInteger = isInteger;
             super.designerInit = NeedsDesignerInit.yes;
-            super("numeric" ~ name.standardisedName.idup, field, yPos);
+            super("numeric" ~ name.standardisedName.idup, field);
         }
 
         override string generateDesignCode()
@@ -201,10 +200,10 @@ private
     {
         string keyVarName;
 
-        this(string name, const Field field, int yPos, string keyVarName)
+        this(string name, const Field field, string keyVarName)
         {
             this.keyVarName = keyVarName;
-            super("list" ~ name.standardisedName.idup, field, yPos);
+            super("list" ~ name.standardisedName.idup, field);
         }
 
         override string generateDesignCode()
@@ -261,9 +260,9 @@ private
 
     final class ShowListButton : Control
     {
-        this(string name, const Field field, int yPos)
+        this(string name, const Field field)
         {
-            super("buttonShow" ~ name.standardisedName.idup, field, yPos);
+            super("buttonShow" ~ name.standardisedName.idup, field);
         }
 
         override string generateDesignCode()
@@ -290,9 +289,9 @@ private
 
     final class DateTime : Control
     {
-        this(string name, const Field field, int yPos)
+        this(string name, const Field field)
         {
-            super("datetime" ~ name.standardisedName.idup, field, yPos);
+            super("datetime" ~ name.standardisedName.idup, field);
         }
 
         override string generateDesignCode()
@@ -414,31 +413,57 @@ void generateEditorStubs(const Model model, Path outputDir)
 
         struct ControlRow
         {
-            const(Field) field;
+            Field field;
             string labelNameOverride; // If not null, then this name is used instead.
             int yPos;
             Control[] controls;
 
             Label makeLabel() 
             { 
-                return new Label(this.field.variableName.idup, 
-                                 field,
-                                 this.yPos, 
-                                 (this.labelNameOverride !is null) ? this.labelNameOverride 
-                                                                   : this.field.variableName.standardisedName.idup); 
+                auto obj = new Label(this.field.variableName.idup, 
+                                     field,
+                                     (this.labelNameOverride !is null) ? this.labelNameOverride 
+                                                                       : this.field.variableName.standardisedName.idup);
+                obj.yPos = this.yPos;
+                return obj;
             }
+        }
+        struct SwapSet
+        {
+            size_t a;
+            size_t b;
         }
 
         ControlRow[] controls;
-        int nextY() { return cast(int)((CONTROL_Y_PADDING * controls.length) + CONTROL_STARTING_Y); }        
+        int nextY() { return cast(int)((CONTROL_Y_PADDING * controls.length) + CONTROL_STARTING_Y); }
+
+        void swapRows(size_t rowAIndex, size_t rowBIndex)
+        {
+            assert(rowAIndex >= 0 && rowAIndex < controls.length);
+            assert(rowBIndex >= 0 && rowBIndex < controls.length);
+
+            if(rowAIndex == rowBIndex)
+                return;
+
+            // Swap the yPos
+            auto rowAPos = controls[rowAIndex].yPos;
+            controls[rowAIndex].yPos = controls[rowBIndex].yPos;
+            controls[rowBIndex].yPos = rowAPos;
+
+            // Then swap their positions
+            auto rowA = controls[rowAIndex];
+            controls[rowAIndex] = controls[rowBIndex];
+            controls[rowBIndex] = rowA;
+        }
 
         foreach(field; object.fields)
         {
             auto fieldFQN         = format("%s.%s", object.className, field.variableName);
             auto objectQuery      = model.objects.filter!(o => o.className == field.typeName);
-            auto row              = ControlRow(field);
+            auto row              = ControlRow(cast(Field)field);
             row.yPos              = nextY();
             row.labelNameOverride = appConfig.projUserInterface.labelTextOverrides.get(fieldFQN, null);
+            auto swapSet          = SwapSet(0, 0); // Swapping row 0 for row 0 does effectively nothing.
 
             if(appConfig.projUserInterface.variablesToIgnore.canFind(field.variableName))
             {
@@ -448,11 +473,14 @@ void generateEditorStubs(const Model model, Path outputDir)
             {
                 writefln("Creating textbox for %s", fieldFQN);
 
-                if(field.variableName == object.keyName)
-                    row.labelNameOverride = "ID";
-
-                row.controls ~= new Textbox(field.variableName.idup, field, row.yPos, 
+                row.controls ~= new Textbox(field.variableName.idup, field, 
                                             field.variableName == object.keyName ? IsReadOnly.yes : IsReadOnly.no);
+
+                if(field.variableName == object.keyName)
+                {
+                    row.labelNameOverride = "ID";
+                    swapSet = SwapSet(0, controls.length); // We don't -1, since the row hasn't been added yet, so the length will be the correct index.
+                }
             }
             else if(field.typeName == "int" || field.typeName == "float" || field.typeName == "double")
             {
@@ -463,7 +491,7 @@ void generateEditorStubs(const Model model, Path outputDir)
                 }
 
                 writefln("Creating numeric for %s", fieldFQN);
-                row.controls ~= new Numeric(field.variableName.idup, field, row.yPos, 
+                row.controls ~= new Numeric(field.variableName.idup, field, 
                                             field.typeName == "int" ? IsInteger.yes : IsInteger.no);
             }
             else if(!objectQuery.empty)
@@ -486,13 +514,13 @@ void generateEditorStubs(const Model model, Path outputDir)
                 }
                 assert(bestMatchPriority != int.min);
 
-                row.controls ~= new ObjectList(field.variableName.idup, field, row.yPos, bestKeyNameMatch);
-                row.controls ~= new ShowListButton(field.variableName.idup, field, row.yPos);
+                row.controls ~= new ObjectList(field.variableName.idup, field, bestKeyNameMatch);
+                row.controls ~= new ShowListButton(field.variableName.idup, field);
             }
             else if(field.typeName == "DateTime")
             {
                 writefln("Creating DateTimePicker for %s", fieldFQN);
-                row.controls ~= new DateTime(field.variableName.idup, field, row.yPos);
+                row.controls ~= new DateTime(field.variableName.idup, field);
             }
             else if(field.typeName.startsWith("ICollection<"))
             {
@@ -501,11 +529,14 @@ void generateEditorStubs(const Model model, Path outputDir)
             else
             {
                 writefln("WARNING: The type '%s' for variable '%s.%s' is being skipped, as there is no handler for it.",
-                            field.typeName, object.className, field.variableName);
+                         field.typeName, object.className, field.variableName);
             }
 
             if(row.controls.length > 0)
+            {
                 controls ~= row;
+                swapRows(swapSet.a, swapSet.b);
+            }
         }
 
         // Then, generate all of the controls and variables needed.
@@ -551,7 +582,10 @@ void generateEditorStubs(const Model model, Path outputDir)
         foreach(row; controls)
         {
             foreach(control; row.controls)
+            {
+                control.yPos = row.yPos;
                 generateControlCode(control);
+            }
 
             generateControlCode(row.makeLabel());
         }
