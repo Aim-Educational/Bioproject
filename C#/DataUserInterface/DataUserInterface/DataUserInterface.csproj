@@ -63,41 +63,111 @@
     <Compile Include="Forms\SearchForm.Designer.cs">
       <DependentUpon>SearchForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generated\FormActionLevelEditor.cs" />
-    <Compile Include="Generated\FormActionTypeEditor.cs" />
-    <Compile Include="Generated\FormAlarmEditor.cs" />
-    <Compile Include="Generated\FormAlarmTypeEditor.cs" />
-    <Compile Include="Generated\FormApplicationEditor.cs" />
-    <Compile Include="Generated\FormApplicationLogEditor.cs" />
-    <Compile Include="Generated\FormBackupLogEditor.cs" />
-    <Compile Include="Generated\FormBBCRSSBarometricChangeEditor.cs" />
-    <Compile Include="Generated\FormBBCRSSGeneralEditor.cs" />
-    <Compile Include="Generated\FormBBCRSSVisibilityEditor.cs" />
-    <Compile Include="Generated\FormContactEditor.cs" />
-    <Compile Include="Generated\FormContactEmailEditor.cs" />
-    <Compile Include="Generated\FormContactHistoryEditor.cs" />
-    <Compile Include="Generated\FormContactTelephoneEditor.cs" />
-    <Compile Include="Generated\FormContactTypeEditor.cs" />
-    <Compile Include="Generated\FormDatabaseConfigEditor.cs" />
-    <Compile Include="Generated\FormDeviceAddressEditor.cs" />
-    <Compile Include="Generated\FormDeviceAddressTypeEditor.cs" />
-    <Compile Include="Generated\FormDeviceEditor.cs" />
-    <Compile Include="Generated\FormDeviceHistoryActionEditor.cs" />
-    <Compile Include="Generated\FormDeviceHistoryEditor.cs" />
-    <Compile Include="Generated\FormDeviceTypeEditor.cs" />
-    <Compile Include="Generated\FormDeviceURLEditor.cs" />
-    <Compile Include="Generated\FormDeviceValueEditor.cs" />
-    <Compile Include="Generated\FormGroupActionEditor.cs" />
-    <Compile Include="Generated\FormGroupMemberEditor.cs" />
-    <Compile Include="Generated\FormGroupTypeEditor.cs" />
-    <Compile Include="Generated\FormHistoryEventEditor.cs" />
-    <Compile Include="Generated\FormMessageTypeEditor.cs" />
-    <Compile Include="Generated\FormRSSConfigurationEditor.cs" />
-    <Compile Include="Generated\FormSupplierEditor.cs" />
-    <Compile Include="Generated\FormUnitEditor.cs" />
-    <Compile Include="Generated\FormUpdatePeriodEditor.cs" />
-    <Compile Include="Generated\FormUserEditor.cs" />
-    <Compile Include="Generated\SearchForm.cs" />
+    <Compile Include="Generated\FormActionLevelEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormActionTypeEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormAlarmEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormAlarmTypeEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormApplicationEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormApplicationLogEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormBackupLogEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormBBCRSSBarometricChangeEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormBBCRSSGeneralEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormBBCRSSVisibilityEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormContactEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormContactEmailEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormContactHistoryEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormContactTelephoneEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormContactTypeEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormDatabaseConfigEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormDeviceAddressEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormDeviceAddressTypeEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormDeviceEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormDeviceHistoryActionEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormDeviceHistoryEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormDeviceTypeEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormDeviceURLEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormDeviceValueEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormGroupActionEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormGroupMemberEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormGroupTypeEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormHistoryEventEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormMessageTypeEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormRSSConfigurationEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormSupplierEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormUnitEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormUpdatePeriodEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\FormUserEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generated\SearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
