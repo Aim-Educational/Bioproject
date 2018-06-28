@@ -102,7 +102,6 @@ namespace DataUserInterface.Forms
 this.textboxFilename.Text = obj.filename;
 this.datetimeDatetime.Value = obj.datetime;
 this.textboxComment.Text = obj.comment;
-this.numericVersion.Value = (decimal)obj.version;
 
 
                         this._cached  = obj;
@@ -116,8 +115,7 @@ this.numericVersion.Value = (decimal)obj.version;
         {
             InitializeComponent();
 
-            FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
-
+            
 
             this.mode = mode;
             if (mode != EnumEditorMode.Create)
@@ -200,7 +198,6 @@ obj.filename = this.textboxFilename.Text;
 this.datetimeDatetime.Value = DateTime.Now;
 obj.datetime = this.datetimeDatetime.Value;
 obj.comment = this.textboxComment.Text;
-obj.version = (int)this.numericVersion.Value;
 
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
@@ -228,7 +225,6 @@ obj.filename = this.textboxFilename.Text;
 this.datetimeDatetime.Value = DateTime.Now;
 obj.datetime = this.datetimeDatetime.Value;
 obj.comment = this.textboxComment.Text;
-obj.version = (int)this.numericVersion.Value;
 
 
                 db.backup_log.Add(obj);
@@ -277,19 +273,7 @@ obj.version = (int)this.numericVersion.Value;
             if (this.textboxComment.Text != Convert.ToString(this._cached.comment))
                 this._isDirty = true;
         }
-                private void numericVersion_Enter(object sender, EventArgs e)
-        {
-            FormHelper.selectAllText(this.numericVersion);
-        }
-        private void numericVersion_ValueChanged(object sender, EventArgs e)
-        {
-            if(this._cached == null)
-                return;
-
-            if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
-                this._isDirty = true;
-        }
-
+        
         #endregion
 
 
@@ -336,15 +320,12 @@ this.datetimeDatetime = new System.Windows.Forms.DateTimePicker();
 this.labelDatetime = new System.Windows.Forms.Label();
 this.textboxComment = new System.Windows.Forms.TextBox();
 this.labelComment = new System.Windows.Forms.Label();
-this.numericVersion = new System.Windows.Forms.NumericUpDown();
-this.labelVersion = new System.Windows.Forms.Label();
 
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).BeginInit();
-
+            
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -361,7 +342,6 @@ this.labelVersion = new System.Windows.Forms.Label();
 this.splitContainer1.Panel1.Controls.Add(labelFilename);
 this.splitContainer1.Panel1.Controls.Add(labelDatetime);
 this.splitContainer1.Panel1.Controls.Add(labelComment);
-this.splitContainer1.Panel1.Controls.Add(labelVersion);
 
             // 
             // splitContainer1.Panel2
@@ -374,7 +354,6 @@ this.splitContainer1.Panel1.Controls.Add(labelVersion);
 this.splitContainer1.Panel2.Controls.Add(textboxFilename);
 this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
 this.splitContainer1.Panel2.Controls.Add(textboxComment);
-this.splitContainer1.Panel2.Controls.Add(numericVersion);
 
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
@@ -393,7 +372,7 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(85, 156);
+            this.buttonDelete.Location = new System.Drawing.Point(85, 130);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Text = "[X]";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
@@ -403,7 +382,7 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(4, 156);
+            this.buttonReload.Location = new System.Drawing.Point(4, 130);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -413,7 +392,7 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             // 
             // buttonAction
             // 
-            this.buttonAction.Location = new System.Drawing.Point(141, 156);
+            this.buttonAction.Location = new System.Drawing.Point(141, 130);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
@@ -511,37 +490,13 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             this.labelComment.TabIndex = 14;
             this.labelComment.Text = "Comment";
             this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
-            // numericVersion
-            // 
-            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericVersion.Location = new System.Drawing.Point(4, 116);
-            this.numericVersion.Name = "numericVersion";
-            this.numericVersion.Size = new System.Drawing.Size(211, 20);
-            this.numericVersion.TabIndex = 32;
-            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
-            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
-            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
-                        // 
-            // labelVersion
-            // 
-            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelVersion.AutoSize = true;
-            this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelVersion.Location = new System.Drawing.Point(0, 116);
-            this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(30, 20);
-            this.labelVersion.TabIndex = 14;
-            this.labelVersion.Text = "Version";
-            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             
             // 
             // FormBackupLogEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 182);
+            this.ClientSize = new System.Drawing.Size(330, 156);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormBackupLogEditor";
             this.Text = "BackupLog Editor";
@@ -552,8 +507,7 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).EndInit();
-
+            
             this.ResumeLayout(false);
 
         }
@@ -573,8 +527,6 @@ private System.Windows.Forms.DateTimePicker datetimeDatetime;
 private System.Windows.Forms.Label labelDatetime;
 private System.Windows.Forms.TextBox textboxComment;
 private System.Windows.Forms.Label labelComment;
-private System.Windows.Forms.NumericUpDown numericVersion;
-private System.Windows.Forms.Label labelVersion;
 
         #endregion
     }

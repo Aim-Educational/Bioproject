@@ -104,7 +104,6 @@ namespace DataUserInterface.Forms
                     {
                         this.textboxRSSConfigurationId.Text = Convert.ToString(obj.rss_configuration_id);
 this.textboxDescription.Text = obj.description;
-this.numericVersion.Value = (decimal)obj.version;
 this.datetimeLastUpdate.Value = obj.last_update;
 this.numericUpdateFrequency.Value = (decimal)obj.update_frequency;
 this.textboxRSSURL.Text = obj.rss_url;
@@ -133,8 +132,7 @@ foreach (var value in db.update_period.OrderBy(v => v.description))
         {
             InitializeComponent();
 
-            FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
-FormHelper.unlimitNumericBox(this.numericUpdateFrequency, AllowDecimals.yes);
+            FormHelper.unlimitNumericBox(this.numericUpdateFrequency, AllowDecimals.yes);
 
 
             this.mode = mode;
@@ -215,7 +213,6 @@ FormHelper.unlimitNumericBox(this.numericUpdateFrequency, AllowDecimals.yes);
 
                 
 obj.description = this.textboxDescription.Text;
-obj.version = (int)this.numericVersion.Value;
 this.datetimeLastUpdate.Value = DateTime.Now;
 obj.last_update = this.datetimeLastUpdate.Value;
 obj.update_frequency = (double)this.numericUpdateFrequency.Value;
@@ -248,7 +245,6 @@ obj.update_period = db.update_period.Single(v => v.description == selectedUpdate
 
                 
 obj.description = this.textboxDescription.Text;
-obj.version = (int)this.numericVersion.Value;
 this.datetimeLastUpdate.Value = DateTime.Now;
 obj.last_update = this.datetimeLastUpdate.Value;
 obj.update_frequency = (double)this.numericUpdateFrequency.Value;
@@ -299,19 +295,7 @@ obj.update_period = db.update_period.Single(v => v.description == selectedUpdate
             if (this.textboxDescription.Text != Convert.ToString(this._cached.description))
                 this._isDirty = true;
         }
-                private void numericVersion_Enter(object sender, EventArgs e)
-        {
-            FormHelper.selectAllText(this.numericVersion);
-        }
-        private void numericVersion_ValueChanged(object sender, EventArgs e)
-        {
-            if(this._cached == null)
-                return;
-
-            if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
-                this._isDirty = true;
-        }
-        private void numericUpdateFrequency_Enter(object sender, EventArgs e)
+                private void numericUpdateFrequency_Enter(object sender, EventArgs e)
         {
             FormHelper.selectAllText(this.numericUpdateFrequency);
         }
@@ -400,8 +384,6 @@ obj.update_period = db.update_period.Single(v => v.description == selectedUpdate
 this.labelRSSConfigurationId = new System.Windows.Forms.Label();
 this.textboxDescription = new System.Windows.Forms.TextBox();
 this.labelDescription = new System.Windows.Forms.Label();
-this.numericVersion = new System.Windows.Forms.NumericUpDown();
-this.labelVersion = new System.Windows.Forms.Label();
 this.datetimeLastUpdate = new System.Windows.Forms.DateTimePicker();
 this.labelLastUpdate = new System.Windows.Forms.Label();
 this.numericUpdateFrequency = new System.Windows.Forms.NumericUpDown();
@@ -419,8 +401,7 @@ this.labelUpdatePeriod = new System.Windows.Forms.Label();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).BeginInit();
-((System.ComponentModel.ISupportInitialize)(this.numericUpdateFrequency)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpdateFrequency)).BeginInit();
 
             this.SuspendLayout();
             // 
@@ -436,7 +417,6 @@ this.labelUpdatePeriod = new System.Windows.Forms.Label();
             this.splitContainer1.Panel1.Controls.Add(this.labelDirty);
             this.splitContainer1.Panel1.Controls.Add(labelRSSConfigurationId);
 this.splitContainer1.Panel1.Controls.Add(labelDescription);
-this.splitContainer1.Panel1.Controls.Add(labelVersion);
 this.splitContainer1.Panel1.Controls.Add(labelLastUpdate);
 this.splitContainer1.Panel1.Controls.Add(labelUpdateFrequency);
 this.splitContainer1.Panel1.Controls.Add(labelRSSURL);
@@ -452,7 +432,6 @@ this.splitContainer1.Panel1.Controls.Add(labelUpdatePeriod);
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
             this.splitContainer1.Panel2.Controls.Add(textboxRSSConfigurationId);
 this.splitContainer1.Panel2.Controls.Add(textboxDescription);
-this.splitContainer1.Panel2.Controls.Add(numericVersion);
 this.splitContainer1.Panel2.Controls.Add(datetimeLastUpdate);
 this.splitContainer1.Panel2.Controls.Add(numericUpdateFrequency);
 this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
@@ -478,7 +457,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(85, 234);
+            this.buttonDelete.Location = new System.Drawing.Point(85, 208);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Text = "[X]";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
@@ -488,7 +467,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(4, 234);
+            this.buttonReload.Location = new System.Drawing.Point(4, 208);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -498,7 +477,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
             // 
             // buttonAction
             // 
-            this.buttonAction.Location = new System.Drawing.Point(141, 234);
+            this.buttonAction.Location = new System.Drawing.Point(141, 208);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
@@ -552,36 +531,12 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
             this.labelDescription.Text = "Description";
             this.labelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
-            // numericVersion
-            // 
-            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericVersion.Location = new System.Drawing.Point(4, 64);
-            this.numericVersion.Name = "numericVersion";
-            this.numericVersion.Size = new System.Drawing.Size(211, 20);
-            this.numericVersion.TabIndex = 32;
-            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
-            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
-            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
-                        // 
-            // labelVersion
-            // 
-            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelVersion.AutoSize = true;
-            this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelVersion.Location = new System.Drawing.Point(0, 64);
-            this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(30, 20);
-            this.labelVersion.TabIndex = 14;
-            this.labelVersion.Text = "Version";
-            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
             // datetimeLastUpdate
             // 
             this.datetimeLastUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.datetimeLastUpdate.Enabled = false;
-            this.datetimeLastUpdate.Location = new System.Drawing.Point(4, 90);
+            this.datetimeLastUpdate.Location = new System.Drawing.Point(4, 64);
             this.datetimeLastUpdate.Name = "datetimeLastUpdate";
             this.datetimeLastUpdate.Size = new System.Drawing.Size(208, 20);
             this.datetimeLastUpdate.TabIndex = 34;
@@ -591,7 +546,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
             this.labelLastUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelLastUpdate.AutoSize = true;
             this.labelLastUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelLastUpdate.Location = new System.Drawing.Point(0, 90);
+            this.labelLastUpdate.Location = new System.Drawing.Point(0, 64);
             this.labelLastUpdate.Name = "labelLastUpdate";
             this.labelLastUpdate.Size = new System.Drawing.Size(30, 20);
             this.labelLastUpdate.TabIndex = 14;
@@ -602,7 +557,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
             // 
             this.numericUpdateFrequency.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpdateFrequency.Location = new System.Drawing.Point(4, 116);
+            this.numericUpdateFrequency.Location = new System.Drawing.Point(4, 90);
             this.numericUpdateFrequency.Name = "numericUpdateFrequency";
             this.numericUpdateFrequency.Size = new System.Drawing.Size(211, 20);
             this.numericUpdateFrequency.TabIndex = 32;
@@ -615,7 +570,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
             this.labelUpdateFrequency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelUpdateFrequency.AutoSize = true;
             this.labelUpdateFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUpdateFrequency.Location = new System.Drawing.Point(0, 116);
+            this.labelUpdateFrequency.Location = new System.Drawing.Point(0, 90);
             this.labelUpdateFrequency.Name = "labelUpdateFrequency";
             this.labelUpdateFrequency.Size = new System.Drawing.Size(30, 20);
             this.labelUpdateFrequency.TabIndex = 14;
@@ -626,7 +581,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
             // 
             this.textboxRSSURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxRSSURL.Location = new System.Drawing.Point(4, 142);
+            this.textboxRSSURL.Location = new System.Drawing.Point(4, 116);
             this.textboxRSSURL.Name = "textboxRSSURL";
             this.textboxRSSURL.Size = new System.Drawing.Size(208, 20);
             this.textboxRSSURL.TabIndex = 31;
@@ -638,7 +593,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
             this.labelRSSURL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelRSSURL.AutoSize = true;
             this.labelRSSURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelRSSURL.Location = new System.Drawing.Point(0, 142);
+            this.labelRSSURL.Location = new System.Drawing.Point(0, 116);
             this.labelRSSURL.Name = "labelRSSURL";
             this.labelRSSURL.Size = new System.Drawing.Size(30, 20);
             this.labelRSSURL.TabIndex = 14;
@@ -651,7 +606,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.listDevice.FormattingEnabled = true;
-            this.listDevice.Location = new System.Drawing.Point(4, 168);
+            this.listDevice.Location = new System.Drawing.Point(4, 142);
             this.listDevice.Name = "listDevice";
             this.listDevice.Size = new System.Drawing.Size(165, 21);
             this.listDevice.TabIndex = 25;
@@ -659,7 +614,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
                         // 
             // buttonShowDevice
             // 
-            this.buttonShowDevice.Location = new System.Drawing.Point(174, 168);
+            this.buttonShowDevice.Location = new System.Drawing.Point(174, 142);
             this.buttonShowDevice.Name = "buttonShowDevice";
             this.buttonShowDevice.Size = new System.Drawing.Size(40, 23);
             this.buttonShowDevice.TabIndex = 10;
@@ -671,7 +626,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
             this.labelDevice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelDevice.AutoSize = true;
             this.labelDevice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDevice.Location = new System.Drawing.Point(0, 168);
+            this.labelDevice.Location = new System.Drawing.Point(0, 142);
             this.labelDevice.Name = "labelDevice";
             this.labelDevice.Size = new System.Drawing.Size(30, 20);
             this.labelDevice.TabIndex = 14;
@@ -684,7 +639,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listUpdatePeriod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.listUpdatePeriod.FormattingEnabled = true;
-            this.listUpdatePeriod.Location = new System.Drawing.Point(4, 194);
+            this.listUpdatePeriod.Location = new System.Drawing.Point(4, 168);
             this.listUpdatePeriod.Name = "listUpdatePeriod";
             this.listUpdatePeriod.Size = new System.Drawing.Size(165, 21);
             this.listUpdatePeriod.TabIndex = 25;
@@ -692,7 +647,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
                         // 
             // buttonShowUpdatePeriod
             // 
-            this.buttonShowUpdatePeriod.Location = new System.Drawing.Point(174, 194);
+            this.buttonShowUpdatePeriod.Location = new System.Drawing.Point(174, 168);
             this.buttonShowUpdatePeriod.Name = "buttonShowUpdatePeriod";
             this.buttonShowUpdatePeriod.Size = new System.Drawing.Size(40, 23);
             this.buttonShowUpdatePeriod.TabIndex = 10;
@@ -704,7 +659,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
             this.labelUpdatePeriod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelUpdatePeriod.AutoSize = true;
             this.labelUpdatePeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUpdatePeriod.Location = new System.Drawing.Point(0, 194);
+            this.labelUpdatePeriod.Location = new System.Drawing.Point(0, 168);
             this.labelUpdatePeriod.Name = "labelUpdatePeriod";
             this.labelUpdatePeriod.Size = new System.Drawing.Size(30, 20);
             this.labelUpdatePeriod.TabIndex = 14;
@@ -716,7 +671,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 260);
+            this.ClientSize = new System.Drawing.Size(330, 234);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormRSSConfigurationEditor";
             this.Text = "RSSConfiguration Editor";
@@ -727,8 +682,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).EndInit();
-((System.ComponentModel.ISupportInitialize)(this.numericUpdateFrequency)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpdateFrequency)).EndInit();
 
             this.ResumeLayout(false);
 
@@ -745,8 +699,6 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowUpdatePeriod);
 private System.Windows.Forms.Label labelRSSConfigurationId;
 private System.Windows.Forms.TextBox textboxDescription;
 private System.Windows.Forms.Label labelDescription;
-private System.Windows.Forms.NumericUpDown numericVersion;
-private System.Windows.Forms.Label labelVersion;
 private System.Windows.Forms.DateTimePicker datetimeLastUpdate;
 private System.Windows.Forms.Label labelLastUpdate;
 private System.Windows.Forms.NumericUpDown numericUpdateFrequency;

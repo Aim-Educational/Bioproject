@@ -103,7 +103,6 @@ this.textboxForename.Text = obj.forename;
 this.textboxSurname.Text = obj.surname;
 this.textboxUsername.Text = obj.username;
 this.textboxPassword.Text = obj.password;
-this.numericVersion.Value = (decimal)obj.version;
 this.textboxComment.Text = obj.comment;
 
 
@@ -118,8 +117,7 @@ this.textboxComment.Text = obj.comment;
         {
             InitializeComponent();
 
-            FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
-
+            
 
             this.mode = mode;
             if (mode != EnumEditorMode.Create)
@@ -202,7 +200,6 @@ obj.forename = this.textboxForename.Text;
 obj.surname = this.textboxSurname.Text;
 obj.username = this.textboxUsername.Text;
 obj.password = this.textboxPassword.Text;
-obj.version = (int)this.numericVersion.Value;
 obj.comment = this.textboxComment.Text;
 
 
@@ -231,7 +228,6 @@ obj.forename = this.textboxForename.Text;
 obj.surname = this.textboxSurname.Text;
 obj.username = this.textboxUsername.Text;
 obj.password = this.textboxPassword.Text;
-obj.version = (int)this.numericVersion.Value;
 obj.comment = this.textboxComment.Text;
 
 
@@ -293,19 +289,7 @@ obj.comment = this.textboxComment.Text;
             if (this.textboxPassword.Text != Convert.ToString(this._cached.password))
                 this._isDirty = true;
         }
-                private void numericVersion_Enter(object sender, EventArgs e)
-        {
-            FormHelper.selectAllText(this.numericVersion);
-        }
-        private void numericVersion_ValueChanged(object sender, EventArgs e)
-        {
-            if(this._cached == null)
-                return;
-
-            if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
-                this._isDirty = true;
-        }
-        private void textboxComment_Leave(object sender, EventArgs e)
+                private void textboxComment_Leave(object sender, EventArgs e)
         {
             // The Convert.ToString is just in case the value we're comparing to is something like an int.
             if (this.textboxComment.Text != Convert.ToString(this._cached.comment))
@@ -360,8 +344,6 @@ this.textboxUsername = new System.Windows.Forms.TextBox();
 this.labelUsername = new System.Windows.Forms.Label();
 this.textboxPassword = new System.Windows.Forms.TextBox();
 this.labelPassword = new System.Windows.Forms.Label();
-this.numericVersion = new System.Windows.Forms.NumericUpDown();
-this.labelVersion = new System.Windows.Forms.Label();
 this.textboxComment = new System.Windows.Forms.TextBox();
 this.labelComment = new System.Windows.Forms.Label();
 
@@ -369,8 +351,7 @@ this.labelComment = new System.Windows.Forms.Label();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).BeginInit();
-
+            
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -388,7 +369,6 @@ this.splitContainer1.Panel1.Controls.Add(labelForename);
 this.splitContainer1.Panel1.Controls.Add(labelSurname);
 this.splitContainer1.Panel1.Controls.Add(labelUsername);
 this.splitContainer1.Panel1.Controls.Add(labelPassword);
-this.splitContainer1.Panel1.Controls.Add(labelVersion);
 this.splitContainer1.Panel1.Controls.Add(labelComment);
 
             // 
@@ -403,7 +383,6 @@ this.splitContainer1.Panel2.Controls.Add(textboxForename);
 this.splitContainer1.Panel2.Controls.Add(textboxSurname);
 this.splitContainer1.Panel2.Controls.Add(textboxUsername);
 this.splitContainer1.Panel2.Controls.Add(textboxPassword);
-this.splitContainer1.Panel2.Controls.Add(numericVersion);
 this.splitContainer1.Panel2.Controls.Add(textboxComment);
 
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
@@ -423,7 +402,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(85, 208);
+            this.buttonDelete.Location = new System.Drawing.Point(85, 182);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Text = "[X]";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
@@ -433,7 +412,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(4, 208);
+            this.buttonReload.Location = new System.Drawing.Point(4, 182);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -443,7 +422,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             // 
             // buttonAction
             // 
-            this.buttonAction.Location = new System.Drawing.Point(141, 208);
+            this.buttonAction.Location = new System.Drawing.Point(141, 182);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
@@ -566,35 +545,11 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelPassword.Text = "Password";
             this.labelPassword.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
-            // numericVersion
-            // 
-            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericVersion.Location = new System.Drawing.Point(4, 142);
-            this.numericVersion.Name = "numericVersion";
-            this.numericVersion.Size = new System.Drawing.Size(211, 20);
-            this.numericVersion.TabIndex = 32;
-            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
-            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
-            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
-                        // 
-            // labelVersion
-            // 
-            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelVersion.AutoSize = true;
-            this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelVersion.Location = new System.Drawing.Point(0, 142);
-            this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(30, 20);
-            this.labelVersion.TabIndex = 14;
-            this.labelVersion.Text = "Version";
-            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
             // textboxComment
             // 
             this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxComment.Location = new System.Drawing.Point(4, 168);
+            this.textboxComment.Location = new System.Drawing.Point(4, 142);
             this.textboxComment.Name = "textboxComment";
             this.textboxComment.Size = new System.Drawing.Size(208, 20);
             this.textboxComment.TabIndex = 31;
@@ -606,7 +561,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelComment.AutoSize = true;
             this.labelComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelComment.Location = new System.Drawing.Point(0, 168);
+            this.labelComment.Location = new System.Drawing.Point(0, 142);
             this.labelComment.Name = "labelComment";
             this.labelComment.Size = new System.Drawing.Size(30, 20);
             this.labelComment.TabIndex = 14;
@@ -618,7 +573,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 234);
+            this.ClientSize = new System.Drawing.Size(330, 208);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormUserEditor";
             this.Text = "User Editor";
@@ -629,8 +584,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).EndInit();
-
+            
             this.ResumeLayout(false);
 
         }
@@ -652,8 +606,6 @@ private System.Windows.Forms.TextBox textboxUsername;
 private System.Windows.Forms.Label labelUsername;
 private System.Windows.Forms.TextBox textboxPassword;
 private System.Windows.Forms.Label labelPassword;
-private System.Windows.Forms.NumericUpDown numericVersion;
-private System.Windows.Forms.Label labelVersion;
 private System.Windows.Forms.TextBox textboxComment;
 private System.Windows.Forms.Label labelComment;
 

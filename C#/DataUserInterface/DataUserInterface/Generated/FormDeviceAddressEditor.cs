@@ -105,7 +105,6 @@ namespace DataUserInterface.Forms
                         this.textboxDeviceAddressId.Text = Convert.ToString(obj.device_address_id);
 this.textboxIpAddress.Text = obj.ip_address;
 this.textboxComment.Text = obj.comment;
-this.numericVersion.Value = (decimal)obj.version;
 foreach (var value in db.devices.OrderBy(v => v.name))
 {
     this.listDevice.Items.Add(value.name);
@@ -131,8 +130,7 @@ foreach (var value in db.device_address_type.OrderBy(v => v.description))
         {
             InitializeComponent();
 
-            FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
-
+            
 
             this.mode = mode;
             if (mode != EnumEditorMode.Create)
@@ -213,7 +211,6 @@ foreach (var value in db.device_address_type.OrderBy(v => v.description))
                 
 obj.ip_address = this.textboxIpAddress.Text;
 obj.comment = this.textboxComment.Text;
-obj.version = (int)this.numericVersion.Value;
 var selectedDevice = this.listDevice.Items[this.listDevice.SelectedIndex] as string;
 obj.device = db.devices.Single(v => v.name == selectedDevice);
 var selectedDeviceAddressType = this.listDeviceAddressType.Items[this.listDeviceAddressType.SelectedIndex] as string;
@@ -243,7 +240,6 @@ obj.device_address_type = db.device_address_type.Single(v => v.description == se
                 
 obj.ip_address = this.textboxIpAddress.Text;
 obj.comment = this.textboxComment.Text;
-obj.version = (int)this.numericVersion.Value;
 var selectedDevice = this.listDevice.Items[this.listDevice.SelectedIndex] as string;
 obj.device = db.devices.Single(v => v.name == selectedDevice);
 var selectedDeviceAddressType = this.listDeviceAddressType.Items[this.listDeviceAddressType.SelectedIndex] as string;
@@ -296,19 +292,7 @@ obj.device_address_type = db.device_address_type.Single(v => v.description == se
             if (this.textboxComment.Text != Convert.ToString(this._cached.comment))
                 this._isDirty = true;
         }
-                private void numericVersion_Enter(object sender, EventArgs e)
-        {
-            FormHelper.selectAllText(this.numericVersion);
-        }
-        private void numericVersion_ValueChanged(object sender, EventArgs e)
-        {
-            if(this._cached == null)
-                return;
-
-            if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
-                this._isDirty = true;
-        }
-        private void listDevice_SelectionChangeCommitted(object sender, EventArgs e)
+                private void listDevice_SelectionChangeCommitted(object sender, EventArgs e)
         {
             var index = this.listDevice.SelectedIndex;
             var value = this.listDevice.Items[index] as string;
@@ -381,8 +365,6 @@ this.textboxIpAddress = new System.Windows.Forms.TextBox();
 this.labelIpAddress = new System.Windows.Forms.Label();
 this.textboxComment = new System.Windows.Forms.TextBox();
 this.labelComment = new System.Windows.Forms.Label();
-this.numericVersion = new System.Windows.Forms.NumericUpDown();
-this.labelVersion = new System.Windows.Forms.Label();
 this.listDevice = new System.Windows.Forms.ComboBox();
 this.buttonShowDevice = new System.Windows.Forms.Button();
 this.labelDevice = new System.Windows.Forms.Label();
@@ -394,8 +376,7 @@ this.labelDeviceAddressType = new System.Windows.Forms.Label();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).BeginInit();
-
+            
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -411,7 +392,6 @@ this.labelDeviceAddressType = new System.Windows.Forms.Label();
             this.splitContainer1.Panel1.Controls.Add(labelDeviceAddressId);
 this.splitContainer1.Panel1.Controls.Add(labelIpAddress);
 this.splitContainer1.Panel1.Controls.Add(labelComment);
-this.splitContainer1.Panel1.Controls.Add(labelVersion);
 this.splitContainer1.Panel1.Controls.Add(labelDevice);
 this.splitContainer1.Panel1.Controls.Add(labelDeviceAddressType);
 
@@ -425,7 +405,6 @@ this.splitContainer1.Panel1.Controls.Add(labelDeviceAddressType);
             this.splitContainer1.Panel2.Controls.Add(textboxDeviceAddressId);
 this.splitContainer1.Panel2.Controls.Add(textboxIpAddress);
 this.splitContainer1.Panel2.Controls.Add(textboxComment);
-this.splitContainer1.Panel2.Controls.Add(numericVersion);
 this.splitContainer1.Panel2.Controls.Add(listDevice);
 this.splitContainer1.Panel2.Controls.Add(buttonShowDevice);
 this.splitContainer1.Panel2.Controls.Add(listDeviceAddressType);
@@ -448,7 +427,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowDeviceAddressType);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(85, 182);
+            this.buttonDelete.Location = new System.Drawing.Point(85, 156);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Text = "[X]";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
@@ -458,7 +437,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowDeviceAddressType);
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(4, 182);
+            this.buttonReload.Location = new System.Drawing.Point(4, 156);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -468,7 +447,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowDeviceAddressType);
             // 
             // buttonAction
             // 
-            this.buttonAction.Location = new System.Drawing.Point(141, 182);
+            this.buttonAction.Location = new System.Drawing.Point(141, 156);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
@@ -545,37 +524,13 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowDeviceAddressType);
             this.labelComment.Text = "Comment";
             this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
-            // numericVersion
-            // 
-            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericVersion.Location = new System.Drawing.Point(4, 90);
-            this.numericVersion.Name = "numericVersion";
-            this.numericVersion.Size = new System.Drawing.Size(211, 20);
-            this.numericVersion.TabIndex = 32;
-            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
-            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
-            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
-                        // 
-            // labelVersion
-            // 
-            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelVersion.AutoSize = true;
-            this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelVersion.Location = new System.Drawing.Point(0, 90);
-            this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(30, 20);
-            this.labelVersion.TabIndex = 14;
-            this.labelVersion.Text = "Version";
-            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
             // listDevice
             // 
             this.listDevice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.listDevice.FormattingEnabled = true;
-            this.listDevice.Location = new System.Drawing.Point(4, 116);
+            this.listDevice.Location = new System.Drawing.Point(4, 90);
             this.listDevice.Name = "listDevice";
             this.listDevice.Size = new System.Drawing.Size(165, 21);
             this.listDevice.TabIndex = 25;
@@ -583,7 +538,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowDeviceAddressType);
                         // 
             // buttonShowDevice
             // 
-            this.buttonShowDevice.Location = new System.Drawing.Point(174, 116);
+            this.buttonShowDevice.Location = new System.Drawing.Point(174, 90);
             this.buttonShowDevice.Name = "buttonShowDevice";
             this.buttonShowDevice.Size = new System.Drawing.Size(40, 23);
             this.buttonShowDevice.TabIndex = 10;
@@ -595,7 +550,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowDeviceAddressType);
             this.labelDevice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelDevice.AutoSize = true;
             this.labelDevice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDevice.Location = new System.Drawing.Point(0, 116);
+            this.labelDevice.Location = new System.Drawing.Point(0, 90);
             this.labelDevice.Name = "labelDevice";
             this.labelDevice.Size = new System.Drawing.Size(30, 20);
             this.labelDevice.TabIndex = 14;
@@ -608,7 +563,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowDeviceAddressType);
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listDeviceAddressType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.listDeviceAddressType.FormattingEnabled = true;
-            this.listDeviceAddressType.Location = new System.Drawing.Point(4, 142);
+            this.listDeviceAddressType.Location = new System.Drawing.Point(4, 116);
             this.listDeviceAddressType.Name = "listDeviceAddressType";
             this.listDeviceAddressType.Size = new System.Drawing.Size(165, 21);
             this.listDeviceAddressType.TabIndex = 25;
@@ -616,7 +571,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowDeviceAddressType);
                         // 
             // buttonShowDeviceAddressType
             // 
-            this.buttonShowDeviceAddressType.Location = new System.Drawing.Point(174, 142);
+            this.buttonShowDeviceAddressType.Location = new System.Drawing.Point(174, 116);
             this.buttonShowDeviceAddressType.Name = "buttonShowDeviceAddressType";
             this.buttonShowDeviceAddressType.Size = new System.Drawing.Size(40, 23);
             this.buttonShowDeviceAddressType.TabIndex = 10;
@@ -628,7 +583,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowDeviceAddressType);
             this.labelDeviceAddressType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelDeviceAddressType.AutoSize = true;
             this.labelDeviceAddressType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDeviceAddressType.Location = new System.Drawing.Point(0, 142);
+            this.labelDeviceAddressType.Location = new System.Drawing.Point(0, 116);
             this.labelDeviceAddressType.Name = "labelDeviceAddressType";
             this.labelDeviceAddressType.Size = new System.Drawing.Size(30, 20);
             this.labelDeviceAddressType.TabIndex = 14;
@@ -640,7 +595,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowDeviceAddressType);
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 208);
+            this.ClientSize = new System.Drawing.Size(330, 182);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormDeviceAddressEditor";
             this.Text = "DeviceAddress Editor";
@@ -651,8 +606,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowDeviceAddressType);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericVersion)).EndInit();
-
+            
             this.ResumeLayout(false);
 
         }
@@ -670,8 +624,6 @@ private System.Windows.Forms.TextBox textboxIpAddress;
 private System.Windows.Forms.Label labelIpAddress;
 private System.Windows.Forms.TextBox textboxComment;
 private System.Windows.Forms.Label labelComment;
-private System.Windows.Forms.NumericUpDown numericVersion;
-private System.Windows.Forms.Label labelVersion;
 private System.Windows.Forms.ComboBox listDevice;
 private System.Windows.Forms.Button buttonShowDevice;
 private System.Windows.Forms.Label labelDevice;

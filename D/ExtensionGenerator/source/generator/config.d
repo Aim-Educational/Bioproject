@@ -43,6 +43,9 @@ struct ConfigDataUserInterface
 
     @Ignore
     int[string] objectListVariablePriority;
+
+    @Ignore
+    string[] variablesToIgnore;
 }
 
 @Serialisable
@@ -82,6 +85,10 @@ void loadConfig()
     tag = configSDL.expectTag("wordsToCapitalise");
     foreach(subTag; tag.tags)
         appConfig.wordsToCapitalise ~= subTag.expectValue!string();
+
+    tag = configSDL.expectTag("projUserInterface").expectTag("variablesToIgnore");
+    foreach(subTag; tag.tags)
+        appConfig.projUserInterface.variablesToIgnore ~= subTag.expectValue!string();
 
     // Validation
     enforce(appConfig.projDataManager.rootDir.isAbsolute, 

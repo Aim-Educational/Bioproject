@@ -102,7 +102,6 @@ namespace DataUserInterface.Forms
 this.textboxName.Text = obj.name;
 this.textboxDescription.Text = obj.description;
 this.numericApplicationVersion.Value = (decimal)obj.application_version;
-this.numericVersion.Value = (decimal)obj.version;
 
 
                         this._cached  = obj;
@@ -117,7 +116,6 @@ this.numericVersion.Value = (decimal)obj.version;
             InitializeComponent();
 
             FormHelper.unlimitNumericBox(this.numericApplicationVersion, AllowDecimals.no);
-FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
 
 
             this.mode = mode;
@@ -200,7 +198,6 @@ FormHelper.unlimitNumericBox(this.numericVersion, AllowDecimals.no);
 obj.name = this.textboxName.Text;
 obj.description = this.textboxDescription.Text;
 obj.application_version = (int)this.numericApplicationVersion.Value;
-obj.version = (int)this.numericVersion.Value;
 
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
@@ -227,7 +224,6 @@ obj.version = (int)this.numericVersion.Value;
 obj.name = this.textboxName.Text;
 obj.description = this.textboxDescription.Text;
 obj.application_version = (int)this.numericApplicationVersion.Value;
-obj.version = (int)this.numericVersion.Value;
 
 
                 db.applications.Add(obj);
@@ -288,18 +284,6 @@ obj.version = (int)this.numericVersion.Value;
             if (Convert.ToDouble(this.numericApplicationVersion.Value) != this._cached.application_version)
                 this._isDirty = true;
         }
-        private void numericVersion_Enter(object sender, EventArgs e)
-        {
-            FormHelper.selectAllText(this.numericVersion);
-        }
-        private void numericVersion_ValueChanged(object sender, EventArgs e)
-        {
-            if(this._cached == null)
-                return;
-
-            if (Convert.ToDouble(this.numericVersion.Value) != this._cached.version)
-                this._isDirty = true;
-        }
 
         #endregion
 
@@ -347,15 +331,12 @@ this.textboxDescription = new System.Windows.Forms.TextBox();
 this.labelDescription = new System.Windows.Forms.Label();
 this.numericApplicationVersion = new System.Windows.Forms.NumericUpDown();
 this.labelApplicationVersion = new System.Windows.Forms.Label();
-this.numericVersion = new System.Windows.Forms.NumericUpDown();
-this.labelVersion = new System.Windows.Forms.Label();
 
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericApplicationVersion)).BeginInit();
-((System.ComponentModel.ISupportInitialize)(this.numericVersion)).BeginInit();
 
             this.SuspendLayout();
             // 
@@ -373,7 +354,6 @@ this.labelVersion = new System.Windows.Forms.Label();
 this.splitContainer1.Panel1.Controls.Add(labelName);
 this.splitContainer1.Panel1.Controls.Add(labelDescription);
 this.splitContainer1.Panel1.Controls.Add(labelApplicationVersion);
-this.splitContainer1.Panel1.Controls.Add(labelVersion);
 
             // 
             // splitContainer1.Panel2
@@ -386,7 +366,6 @@ this.splitContainer1.Panel1.Controls.Add(labelVersion);
 this.splitContainer1.Panel2.Controls.Add(textboxName);
 this.splitContainer1.Panel2.Controls.Add(textboxDescription);
 this.splitContainer1.Panel2.Controls.Add(numericApplicationVersion);
-this.splitContainer1.Panel2.Controls.Add(numericVersion);
 
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
@@ -405,7 +384,7 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(85, 156);
+            this.buttonDelete.Location = new System.Drawing.Point(85, 130);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Text = "[X]";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
@@ -415,7 +394,7 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(4, 156);
+            this.buttonReload.Location = new System.Drawing.Point(4, 130);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -425,7 +404,7 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             // 
             // buttonAction
             // 
-            this.buttonAction.Location = new System.Drawing.Point(141, 156);
+            this.buttonAction.Location = new System.Drawing.Point(141, 130);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
@@ -525,37 +504,13 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             this.labelApplicationVersion.TabIndex = 14;
             this.labelApplicationVersion.Text = "ApplicationVersion";
             this.labelApplicationVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
-            // numericVersion
-            // 
-            this.numericVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericVersion.Location = new System.Drawing.Point(4, 116);
-            this.numericVersion.Name = "numericVersion";
-            this.numericVersion.Size = new System.Drawing.Size(211, 20);
-            this.numericVersion.TabIndex = 32;
-            this.numericVersion.ValueChanged += new System.EventHandler(this.numericVersion_ValueChanged);
-            this.numericVersion.Click += new System.EventHandler(this.numericVersion_Enter);
-            this.numericVersion.Enter += new System.EventHandler(this.numericVersion_Enter);
-                        // 
-            // labelVersion
-            // 
-            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelVersion.AutoSize = true;
-            this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelVersion.Location = new System.Drawing.Point(0, 116);
-            this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(30, 20);
-            this.labelVersion.TabIndex = 14;
-            this.labelVersion.Text = "Version";
-            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             
             // 
             // FormApplicationEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 182);
+            this.ClientSize = new System.Drawing.Size(330, 156);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormApplicationEditor";
             this.Text = "Application Editor";
@@ -567,7 +522,6 @@ this.splitContainer1.Panel2.Controls.Add(numericVersion);
             this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericApplicationVersion)).EndInit();
-((System.ComponentModel.ISupportInitialize)(this.numericVersion)).EndInit();
 
             this.ResumeLayout(false);
 
@@ -588,8 +542,6 @@ private System.Windows.Forms.TextBox textboxDescription;
 private System.Windows.Forms.Label labelDescription;
 private System.Windows.Forms.NumericUpDown numericApplicationVersion;
 private System.Windows.Forms.Label labelApplicationVersion;
-private System.Windows.Forms.NumericUpDown numericVersion;
-private System.Windows.Forms.Label labelVersion;
 
         #endregion
     }

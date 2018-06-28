@@ -46,7 +46,6 @@ private
     //////////////
     enum CONTROL_Y_PADDING  = 26;
     enum CONTROL_STARTING_Y = 12;
-    // TODO: Add a config list of variable names to ignore across all objects
     // TODO: Add a config list of variable names to ignore for certain objects. (Only bother when needed)
     // TODO: Add a config list where you can add name override for the on-screen labels, e.g. "device.device2" "Parent Device" to change
     //       the label for the "device.device2" variable input.
@@ -506,14 +505,19 @@ void generateEditorStubs(const Model model, Path outputDir)
             auto fieldFQN = format("'%s.%s'", object.className, field.variableName);
             auto objectQuery = model.objects.filter!(o => o.className == field.typeName);
 
-            if(field.typeName == "string" || field.variableName == object.keyName)
+            if(appConfig.projUserInterface.variablesToIgnore.canFind(field.variableName))
+            {
+                writefln("Ignoring %s as it is listed in the variablesToIgnore list", fieldFQN);
+            }
+            else if(field.typeName == "string" || field.variableName == object.keyName)
             {
                 writefln("Creating textbox for %s", fieldFQN);
 
                 if(field.variableName == object.keyName)
                     row.labelNameOverride = "ID";
 
-                row.controls ~= new Textbox(field.variableName.idup, field, row.yPos, (field.variableName == object.keyName) ? IsReadOnly.yes : IsReadOnly.no);
+                row.controls ~= new Textbox(field.variableName.idup, field, row.yPos, 
+                                            field.variableName == object.keyName ? IsReadOnly.yes : IsReadOnly.no);
             }
             else if(field.typeName == "int" || field.typeName == "float" || field.typeName == "double")
             {
@@ -524,7 +528,8 @@ void generateEditorStubs(const Model model, Path outputDir)
                 }
 
                 writefln("Creating numeric for %s", fieldFQN);
-                row.controls ~= new Numeric(field.variableName.idup, field, row.yPos, field.typeName == "int" ? IsInteger.yes : IsInteger.no);
+                row.controls ~= new Numeric(field.variableName.idup, field, row.yPos, 
+                                            field.typeName == "int" ? IsInteger.yes : IsInteger.no);
             }
             else if(!objectQuery.empty)
             {
