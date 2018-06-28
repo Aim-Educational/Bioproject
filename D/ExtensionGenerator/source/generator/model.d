@@ -67,7 +67,7 @@ class Field
     string variableName;
     string[] attributes;
 
-    override string toString()
+    override string toString() const
     {
         import std.format;
         import std.algorithm;

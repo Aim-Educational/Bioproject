@@ -887,7 +887,7 @@ this.splitContainer1.Panel2.Controls.Add(buttonShowDeviceType);
             this.labelDevice2.Name = "labelDevice2";
             this.labelDevice2.Size = new System.Drawing.Size(30, 20);
             this.labelDevice2.TabIndex = 14;
-            this.labelDevice2.Text = "Device2";
+            this.labelDevice2.Text = "Parent Device";
             this.labelDevice2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
             // listDeviceType

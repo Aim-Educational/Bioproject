@@ -47,8 +47,6 @@ private
     enum CONTROL_Y_PADDING  = 26;
     enum CONTROL_STARTING_Y = 12;
     // TODO: Add a config list of variable names to ignore for certain objects. (Only bother when needed)
-    // TODO: Add a config list where you can add name override for the on-screen labels, e.g. "device.device2" "Parent Device" to change
-    //       the label for the "device.device2" variable input.
 
     ////////////////
     /// Controls ///
@@ -500,10 +498,11 @@ void generateEditorStubs(const Model model, Path outputDir)
 
         foreach(field; object.fields)
         {
-            auto row = ControlRow(field);
-            row.yPos = nextY();
-            auto fieldFQN = format("'%s.%s'", object.className, field.variableName);
-            auto objectQuery = model.objects.filter!(o => o.className == field.typeName);
+            auto fieldFQN         = format("%s.%s", object.className, field.variableName);
+            auto objectQuery      = model.objects.filter!(o => o.className == field.typeName);
+            auto row              = ControlRow(field);
+            row.yPos              = nextY();
+            row.labelNameOverride = appConfig.projUserInterface.labelTextOverrides.get(fieldFQN, null);
 
             if(appConfig.projUserInterface.variablesToIgnore.canFind(field.variableName))
             {

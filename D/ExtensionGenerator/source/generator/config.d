@@ -46,6 +46,9 @@ struct ConfigDataUserInterface
 
     @Ignore
     string[] variablesToIgnore;
+
+    @Ignore
+    string[string] labelTextOverrides;
 }
 
 @Serialisable
@@ -89,6 +92,13 @@ void loadConfig()
     tag = configSDL.expectTag("projUserInterface").expectTag("variablesToIgnore");
     foreach(subTag; tag.tags)
         appConfig.projUserInterface.variablesToIgnore ~= subTag.expectValue!string();
+
+    tag = configSDL.expectTag("projUserInterface").expectTag("labelTextOverrides");
+    foreach(subTag; tag.tags)
+    {
+        enforce(subTag.values.length == 2, "Expected 2 values"); // TODO: Better error message.
+        appConfig.projUserInterface.labelTextOverrides[subTag.values[0].get!string] = subTag.values[1].get!string;
+    }
 
     // Validation
     enforce(appConfig.projDataManager.rootDir.isAbsolute, 
