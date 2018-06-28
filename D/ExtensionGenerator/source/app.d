@@ -4,14 +4,6 @@ import generator.model, generator.codegen, generator.config;
 
 /+
 Next steps:
-	- Modify the Model parser, so it can read in the variables for all of the TableObjects.
-			- Use this information to automatically generate all of the editor forms.
-
-	- Use std.getopt to make a proper command line interface for this program.
-		- Alternativley/also use a config file for certain settings?
-			- The config file could store the input and output directories, as well
-			  as certain settings such as which words have to be made fully upper-case.
-
 	- When/if needed, add the ability to parse all of the editor forms (or just generate the forms first,
 	  and keep around whatever information is needed from the generation) so that the code generation
 	  for the SearchForm can be more generalised, and so we can perform certain kind of validation.
