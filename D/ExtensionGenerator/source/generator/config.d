@@ -2,8 +2,10 @@ module generator.config;
 
 private
 {
-    import generator.serialise;
     import std.typecons : Nullable;
+    import std.exception : enforce;
+    import sdlang;
+    import generator.serialise;
 
     const CONFIG_FILE = "config.sdl";
 }
@@ -69,9 +71,7 @@ __gshared Config appConfig;
 
 void loadConfig()
 {
-    import sdlang        : parseFile;
     import std.path      : isAbsolute;
-    import std.exception : enforce;
     import std.format    : format;
 
     auto configSDL = parseFile(CONFIG_FILE);
@@ -81,31 +81,11 @@ void loadConfig()
         appConfig.debugOptions = ConfigDebug.init;
 
     // Read in the @Ignored stuff
-    auto tag = configSDL.expectTag("projUserInterface").expectTag("objectListVariablePriority");
-    foreach(subTag; tag.tags)
-    {
-        enforce(subTag.values.length == 2, "Expected 2 values"); // TODO: Better error message.
-        appConfig.projUserInterface.objectListVariablePriority[subTag.values[0].get!string] = subTag.values[1].get!int;
-    }
-
-    tag = configSDL.expectTag("wordsToCapitalise");
-    foreach(subTag; tag.tags)
-        appConfig.wordsToCapitalise ~= subTag.expectValue!string();
-
-    tag = configSDL.expectTag("projUserInterface").expectTag("variablesToIgnore");
-    foreach(subTag; tag.tags)
-        appConfig.projUserInterface.variablesToIgnore ~= subTag.expectValue!string();
-
-    tag = configSDL.expectTag("projUserInterface").expectTag("labelTextOverrides");
-    foreach(subTag; tag.tags)
-    {
-        enforce(subTag.values.length == 2, "Expected 2 values"); // TODO: Better error message.
-        appConfig.projUserInterface.labelTextOverrides[subTag.values[0].get!string] = subTag.values[1].get!string;
-    }
-
-    tag = configSDL.expectTag("projDataManager").expectTag("mandatoryVariables");
-    foreach(subTag; tag.tags)
-        appConfig.projDataManager.mandatoryVariables ~= subTag.expectValue!string();
+    appConfig.projUserInterface.objectListVariablePriority = configSDL.asAssocArray!(string, int)("projUserInterface", "objectListVariablePriority");
+    appConfig.projUserInterface.labelTextOverrides         = configSDL.asAssocArray!(string, string)("projUserInterface", "labelTextOverrides");
+    appConfig.wordsToCapitalise                            = configSDL.asArray!string("wordsToCapitalise");
+    appConfig.projUserInterface.variablesToIgnore          = configSDL.asArray!string("projUserInterface", "variablesToIgnore");
+    appConfig.projDataManager.mandatoryVariables           = configSDL.asArray!string("projDataManager", "mandatoryVariables");
 
     // Validation
     enforce(appConfig.projDataManager.rootDir.isAbsolute, 
@@ -113,4 +93,46 @@ void loadConfig()
 
     enforce(appConfig.projUserInterface.rootDir.isAbsolute,
             format("The root directory for the DataUserInterface is not absolute. '%s'", appConfig.projUserInterface.rootDir));
+}
+
+private T[] asArray(T, S...)(Tag root, S names)
+{
+    // Get the tag.
+    auto tag = root.getTagEasy(names);
+
+    // Then read in it's data
+    T[] data;
+    foreach(subTag; tag.tags)
+        data ~= subTag.expectValue!T();
+
+    return data;
+}
+
+private V[K] asAssocArray(K, V, S...)(Tag root, S names)
+{
+    // Get the tag.
+    auto tag = root.getTagEasy(names);
+
+    // Then read in it's data
+    V[K] data;
+    foreach(subTag; tag.tags)
+    {
+        enforce(subTag.values.length == 2, "Expected 2 values"); // TODO: Better error message.
+        data[subTag.values[0].get!K] = subTag.values[1].get!V;
+    }
+
+    return data;
+}
+
+private Tag getTagEasy(S...)(Tag root, S names)
+if(S.length >= 1)
+{
+    auto tag = root.expectTag(names[0]);
+    static if(S.length > 1)
+    {
+        foreach(name; names[1..$])
+            tag = tag.expectTag(name);
+    }
+
+    return tag;
 }
