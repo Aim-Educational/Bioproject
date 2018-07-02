@@ -14,6 +14,13 @@ projDataManager {
     // The path (relative to the rootDir) to the directory where the generator should output
     // it's files. Note that everything the generator outputs will be put into subdirectories.
     generatorOutputDir "Generated/"
+
+    // A list of variables names that _every_ object in the EF model must contain.
+    mandatoryVariables {
+        "version"
+        "is_active"
+        "timestamp"
+    }
 }
 
 // Config for the DataUserInterface project.

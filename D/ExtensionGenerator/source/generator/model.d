@@ -6,6 +6,7 @@ import std.stdio, std.regex, std.experimental.logger, std.exception,
        std.format, std.algorithm;
 
 import scriptlike;
+import generator.config;
 
 /// Contains information about a DbSet from EF.
 ///
@@ -396,9 +397,6 @@ private void parseObjectFile(ref Model model, string content, string className, 
 
     assert(object.fields.length > 0, object.className);
     model.objects ~= object;
-
-    // QUESTION: Should the generator also check for 'version', 'is_active', 'comment', and 'timestamp'?
-    // This'd make sure that all of our objects have them.
 }
 
 void validateModel(const Model model)
@@ -414,4 +412,14 @@ void validateModel(const Model model)
 		enforce(found, format("The DbContext '%s' has no DbSet for the table object '%s",
 							  model.context.className, object.className));
 	}
+
+    // #2, make sure that all of the table objects contains the mandatory variables specified in the config.
+    foreach(object; model.objects)
+    {
+        foreach(mandatoryVar; appConfig.projDataManager.mandatoryVariables)
+        {
+            enforce(object.fields.canFind!(f => f.variableName == mandatoryVar),
+                    format("The object '%s' is missing the mandatory variable '%s'.", object.className, mandatoryVar));
+        }
+    }
 }

@@ -29,6 +29,9 @@ struct ConfigDataManager
     string rootDir;
     string efModelDir;
     string generatorOutputDir;
+
+    @Ignore
+    string[] mandatoryVariables;
 }
 
 @Serialisable
@@ -99,6 +102,10 @@ void loadConfig()
         enforce(subTag.values.length == 2, "Expected 2 values"); // TODO: Better error message.
         appConfig.projUserInterface.labelTextOverrides[subTag.values[0].get!string] = subTag.values[1].get!string;
     }
+
+    tag = configSDL.expectTag("projDataManager").expectTag("mandatoryVariables");
+    foreach(subTag; tag.tags)
+        appConfig.projDataManager.mandatoryVariables ~= subTag.expectValue!string();
 
     // Validation
     enforce(appConfig.projDataManager.rootDir.isAbsolute, 

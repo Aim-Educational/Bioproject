@@ -16,6 +16,7 @@ namespace DataManager.Model
         public string database_backup_directory { get; set; }
 
         public int version { get; set; }
+        public bool is_active { get; set; }
 
         [Column(TypeName = "timestamp")]
         [MaxLength(8)]
