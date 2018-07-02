@@ -116,13 +116,18 @@ class TableObject
 
     inout(Field) getKey() inout
     {
+        return this.getFieldByName(this.keyName, "Could not find the primary key field.");
+    }
+
+    inout(Field) getFieldByName(string name, lazy string notFoundErrorMsg = "No additional info") inout
+    {
         foreach(field; this.fields)
         {
-            if(field.variableName == this.keyName)
+            if(field.variableName == name)
                 return field;
         }
 
-        assert(false);
+        throw new Exception(format("Could not find field with name '%s' in object '%s'. Additional Info: %s", notFoundErrorMsg));
     }
 }
 
@@ -239,12 +244,10 @@ private void finaliseModel(Model model)
             if(match.length == 2)
             {
                 auto dependantTypeName = match[1];
-                auto query = model.objects.filter!(o => o.className == dependantTypeName);
-                if(query.empty)
-                    assert(false, dependantTypeName);
+                auto query = model.getObjectByType(dependantTypeName);
 
                 Dependant info;
-                info.dependant = query.front;
+                info.dependant = query;
                 
                 // Figure out the FK's variable name.
                 if(info.dependant == object) // Special case: The object has an FK of another object with the same type (device for example)
@@ -252,18 +255,16 @@ private void finaliseModel(Model model)
                     // Solution: Follow the convention of naming the FK 'parent_[type name]_id'
                     // Future Solution: Read in a file that can provide an FK name for special cases like this
                     auto fkName = "parent_" ~ info.dependant.className ~ "_id";
-                    auto fkQuery = info.dependant.fields.filter!(f => f.variableName == fkName);
-                    assert(!fkQuery.empty, "Special case failed for " ~ object.className);
-                    info.dependantFK = fkQuery.front;
+                    auto fkQuery = info.dependant.getFieldByName(fkName, "Special FK case failed");
+                    info.dependantFK = fkQuery;
                 }
                 else // Non-special cases
                 {
                     // Naming convention: Simply slap "_id" after the type name and it makes a foreign key
                     // If this is violated, or EF generates special cases, then this logic fails.
                     auto fkName = object.className ~ "_id";
-                    auto fkQuery = info.dependant.fields.filter!(f => f.variableName == fkName);
-                    assert(!fkQuery.empty, "Could not find the FK for " ~ info.dependant.className ~ " in " ~ object.className);
-                    info.dependantFK = fkQuery.front;
+                    auto fkQuery = info.dependant.getFieldByName(fkName, "Could not find foreign key, are you following the naming convention?");
+                    info.dependantFK = fkQuery;
                 }
 
                 object.dependants ~= info;
