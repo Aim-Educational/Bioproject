@@ -403,21 +403,14 @@ private void parseObjectFile(ref Model model, string content, string className, 
 
 void validateModel(const Model model)
 {
+    import std.algorithm : canFind;
+
 	writeln("\n> Validating Model");
 
 	// #1, make sure that for each table object, that there's a corresponding DbSet inside the DbContext.
 	foreach(object; model.objects)
 	{
-		bool found = false;
-		foreach(set; model.context.tables)
-		{
-			if(set.typeName == object.className)
-			{
-				found = true;
-				break;
-			}
-		}
-
+		bool found = model.context.tables.canFind!(t => t.typeName == object.className);
 		enforce(found, format("The DbContext '%s' has no DbSet for the table object '%s",
 							  model.context.className, object.className));
 	}
