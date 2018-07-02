@@ -210,6 +210,8 @@ Model parseModelDirectory(Path dirPath)
 		auto matches = matchFirst(content, dbModelNameRegex);
 		if(matches.length > 1)
 		{
+            enforce(model.context is null, "The EF model contains multiple DbContext classes. There is no support for this in the generator.");
+
             // Reminder: [0] is always the fully matched string.
             //           The actual capture groups start at [1]
             parseDbContext(model, content, matches[1]);
@@ -237,7 +239,7 @@ private void finaliseModel(Model model)
     foreach(object; model.objects)
     {
         // If a field is of the form "ICollection<SomeTableObject>" then that means
-        // 'this' object is a dependant of 'SomeTableObject'.
+        // 'this' object is a dependency of 'SomeTableObject'.
         foreach(field; object.fields)
         {
             auto match = matchFirst(field.typeName, iCollectionRegex);
@@ -398,6 +400,7 @@ private void parseObjectFile(ref Model model, string content, string className, 
 void validateModel(const Model model)
 {
 	writeln("Validating model");
+    
 	// #1, make sure that for each table object, there's a corresponding DbSet inside the DbContext.
 	foreach(object; model.objects)
 	{

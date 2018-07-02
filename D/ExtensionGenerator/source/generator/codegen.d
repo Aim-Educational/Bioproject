@@ -434,7 +434,7 @@ void generateEditorStubs(const Model model, Path outputDir)
         foreach(field; object.fields)
         {
             auto fieldFQN         = format("%s.%s", object.className, field.variableName);
-            auto objectQuery      = model.getObjectByType(field.typeName);
+            auto objectQuery      = model.objects.filter!(f => f.className == field.typeName);
             auto row              = ControlRow(cast(Field)field);
             row.priority          = -1;
             row.labelNameOverride = appConfig.projUserInterface.labelTextOverrides.get(fieldFQN, null);
