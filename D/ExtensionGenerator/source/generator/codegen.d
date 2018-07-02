@@ -361,8 +361,8 @@ void generateModelExtensions(Model model, Path outputDir)
         else
         {
             custom_isDeletableCode ~= format("            return %s;",
-                                            iota(0, queries).map!(i => format("query%s.Count() == 0", i))
-                                                            .joiner("\n                && ")
+                                             iota(0, queries).map!(i => format("query%s.Count() == 0", i))
+                                                             .joiner("\n                && ")
                                             );
         }
 		
