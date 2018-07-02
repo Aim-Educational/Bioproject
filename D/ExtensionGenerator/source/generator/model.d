@@ -187,7 +187,7 @@ class Model
  + ++/
 Model parseModelDirectory(Path dirPath)
 {
-	writefln("Looking through directory for files '%s'", dirPath);
+	writefln("> Parsing EntityFramework Model in directory '%s'", dirPath);
 	enforce(dirPath.exists, "The path '%s' doesn't exist.".format(dirPath));
 	enforce(dirPath.isDir, "The path '%s' doesn't point to a directory".format(dirPath));
 
@@ -203,7 +203,7 @@ Model parseModelDirectory(Path dirPath)
 		if(entry.isDir || entry.extension != ".cs")
 			continue;
 
-		writefln("Processing %s...", entry.baseName);
+		writef("Processing %s... ", entry.baseName); // The appropriate parse function will finish the line off
 		auto content = readText(entry);
 
 		// Check if it's the DbContext file
@@ -233,6 +233,7 @@ Model parseModelDirectory(Path dirPath)
 
 private void finaliseModel(Model model)
 {
+    writeln("\n> Finalising Model");
     auto iCollectionRegex = regex(`ICollection<([a-zA-Z_0-9]+)>`);
 
     // Go over all the table objects, and find their dependants.
@@ -277,6 +278,8 @@ private void finaliseModel(Model model)
 
 private void parseDbContext(ref Model model, string content, string className)
 {
+    writeln("[DbContext]");
+
     // Contains two matches, [1] is the class name of the DbSet, [2] is the variable name of the DbSet
 	auto dbModelDbSetRegex = regex(`public\svirtual\sDbSet<([a-zA-Z_]+)>\s([a-zA-Z_]+)\s`);
 
@@ -308,6 +311,7 @@ private void parseDbContext(ref Model model, string content, string className)
 private void parseObjectFile(ref Model model, string content, string className, string filePath)
 {
     // This function is called multiple times, so ctRegex is being used instead of the normal regex.
+    writeln("[TableObject]");
 
     // Only has one match, which is the name of the object's key variable.
 	auto dbObjectKeyNameRegex = ctRegex!(`\[Key\]\s*\[?[^\]]+\]?\s*public\sint\s([a-zA-Z_0-1]+)\s\{\sget;\sset;\s\}`);
@@ -399,9 +403,9 @@ private void parseObjectFile(ref Model model, string content, string className, 
 
 void validateModel(const Model model)
 {
-	writeln("Validating model");
-    
-	// #1, make sure that for each table object, there's a corresponding DbSet inside the DbContext.
+	writeln("\n> Validating Model");
+
+	// #1, make sure that for each table object, that there's a corresponding DbSet inside the DbContext.
 	foreach(object; model.objects)
 	{
 		bool found = false;

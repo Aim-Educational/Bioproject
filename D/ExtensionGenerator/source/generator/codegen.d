@@ -332,7 +332,7 @@ void generateModelExtensions(Model model, Path outputDir)
     import std.range;
     import std.algorithm;
 
-	writefln("Generating model extensions, outputted to directory '%s'", outputDir);
+	writefln("\n> Generating Model extensions, outputted to directory '%s'", outputDir);
 
 	if(!outputDir.exists)
 		mkdirRecurse(outputDir);
@@ -374,8 +374,7 @@ void generateModelExtensions(Model model, Path outputDir)
 
 void generateCustomModelExtensions(const Model model, Path outputDir)
 {
-    writefln("Generating model custom extensions, outputted to directory '%s'", outputDir);
-
+    writefln("\n> Generating model custom extension stubs, outputted to directory '%s'", outputDir);
     tryMkdirRecurse(outputDir);
 
     foreach(object; model.objects)
@@ -398,18 +397,18 @@ void generateEditorStubs(const Model model, Path outputDir)
     import std.algorithm;
     import std.format;
 
-    writefln("Generating Editor Form stubs, outputted to directory '%s'", outputDir);
+    writefln("\n> Generating Editor Form stubs, outputted to directory '%s'", outputDir);
     tryMkdirRecurse(outputDir);
 
     foreach(object; model.objects)
     {
         auto custom_fixedName     = object.className.standardisedName;
-        auto custom_baseTypeTable = model.context.tables.filter!(t => t.typeName == object.className).front.variableName;
+        auto custom_baseTypeTable = model.context.getTableForType(object.className).variableName;
         auto fileName             = format("Form%sEditor", custom_fixedName);
 
         // Then, create all of the controls it needs.
         // TODO: Move this into a function because it's gonna get _massive_
-        writeln("Generating controls for ", fileName);
+        writeln("\n>> Generating controls for ", fileName);
 
         struct ControlRow
         {
@@ -441,11 +440,11 @@ void generateEditorStubs(const Model model, Path outputDir)
 
             if(appConfig.projUserInterface.variablesToIgnore.canFind(field.variableName))
             {
-                writefln("Ignoring %s as it is listed in the variablesToIgnore list", fieldFQN);
+                writefln("\tIgnoring %s as it is listed in the variablesToIgnore list", fieldFQN);
             }
             else if(field.typeName == "string" || field.variableName == object.keyName)
             {
-                writefln("Creating textbox for %s", fieldFQN);
+                writefln("\tCreating textbox for %s", fieldFQN);
 
                 row.controls ~= new Textbox(field.variableName.idup, field, 
                                             field.variableName == object.keyName ? IsReadOnly.yes : IsReadOnly.no);
@@ -460,17 +459,17 @@ void generateEditorStubs(const Model model, Path outputDir)
             {
                 if(field.typeName == "int" && field.variableName.endsWith("_id"))
                 {
-                    writefln("Ignoring %s because it's a foriegn key", fieldFQN);
+                    writefln("\tIgnoring %s because it's a foriegn key", fieldFQN);
                     continue;
                 }
 
-                writefln("Creating numeric for %s", fieldFQN);
+                writefln("\tCreating numeric for %s", fieldFQN);
                 row.controls ~= new Numeric(field.variableName.idup, field, 
                                             field.typeName == "int" ? IsInteger.yes : IsInteger.no);
             }
             else if(!objectQuery.empty)
             {
-                writefln("Creating object list('%s') for %s", field.typeName, fieldFQN);
+                writefln("\tCreating object list('%s') for %s", field.typeName, fieldFQN);
 
                 auto listObject = objectQuery.front;
                 assert(listObject.className == field.typeName);
@@ -494,16 +493,16 @@ void generateEditorStubs(const Model model, Path outputDir)
             }
             else if(field.typeName == "DateTime")
             {
-                writefln("Creating DateTimePicker for %s", fieldFQN);
+                writefln("\tCreating DateTimePicker for %s", fieldFQN);
                 row.controls ~= new DateTime(field.variableName.idup, field);
             }
             else if(field.typeName.startsWith("ICollection<"))
             {
-                writefln("Ignoring %s, as it is a list of dependants", fieldFQN);
+                writefln("\tIgnoring %s, as it is a list of dependants", fieldFQN);
             }
             else
             {
-                writefln("WARNING: The type '%s' for variable '%s.%s' is being skipped, as there is no handler for it.",
+                writefln("\tWARNING: The type '%s' for variable '%s.%s' is being skipped, as there is no handler for it.",
                          field.typeName, object.className, field.variableName);
             }
 
@@ -567,7 +566,7 @@ void generateEditorStubs(const Model model, Path outputDir)
         auto codeFile = buildNormalizedPath(outputDir.raw, fileName ~ ".cs");
         if(!codeFile.exists)
         {
-            writeln("Generating ", fileName);
+            writeln("> Generating ", fileName);
             writeFile(codeFile, mixin(interp!TEMPLATE_EDITOR_CODE));
         }
     }
@@ -579,7 +578,7 @@ void generateSearchExtensions(const Model model, Path outputFile)
     import std.array : array;
     import std.algorithm : splitter, canFind, map;
 
-    writefln("Generating Search Form extensions, outputted to file '%s'", outputFile);
+    writefln("\n> Generating Search Form extensions, outputted to file '%s'", outputFile);
 
     if(!outputFile.exists)
 		mkdirRecurse(outputFile.dirName);
