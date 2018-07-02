@@ -71,12 +71,14 @@ __gshared Config appConfig;
 
 void loadConfig()
 {
-    import std.path      : isAbsolute;
-    import std.format    : format;
+    import std.path   : isAbsolute;
+    import std.format : format;
 
+    // Load the Config
     auto configSDL = parseFile(CONFIG_FILE);
     appConfig.updateFromSdlTag(configSDL);
 
+    // Setup defaults for stuff that weren't loaded in
     if(appConfig.debugOptions.isNull)
         appConfig.debugOptions = ConfigDebug.init;
 
