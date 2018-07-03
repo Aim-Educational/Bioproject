@@ -449,7 +449,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxGroupActionId.Location = new System.Drawing.Point(4, 12);
             this.textboxGroupActionId.Name = "textboxGroupActionId";
             this.textboxGroupActionId.Size = new System.Drawing.Size(208, 20);
-            this.textboxGroupActionId.TabIndex = 31;
+            this.textboxGroupActionId.TabIndex = 0;
             this.textboxGroupActionId.Leave += new System.EventHandler(this.textboxGroupActionId_Leave);
             this.textboxGroupActionId.Enabled = false;
                         // 
@@ -461,7 +461,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelGroupActionId.Location = new System.Drawing.Point(0, 12);
             this.labelGroupActionId.Name = "labelGroupActionId";
             this.labelGroupActionId.Size = new System.Drawing.Size(30, 20);
-            this.labelGroupActionId.TabIndex = 14;
+            this.labelGroupActionId.TabIndex = 0;
             this.labelGroupActionId.Text = "ID";
             this.labelGroupActionId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -474,7 +474,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.listActionType.Location = new System.Drawing.Point(4, 38);
             this.listActionType.Name = "listActionType";
             this.listActionType.Size = new System.Drawing.Size(165, 21);
-            this.listActionType.TabIndex = 25;
+            this.listActionType.TabIndex = 1;
             this.listActionType.SelectionChangeCommitted += new System.EventHandler(this.listActionType_SelectionChangeCommitted);
                         // 
             // buttonShowActionType
@@ -482,7 +482,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.buttonShowActionType.Location = new System.Drawing.Point(174, 38);
             this.buttonShowActionType.Name = "buttonShowActionType";
             this.buttonShowActionType.Size = new System.Drawing.Size(40, 23);
-            this.buttonShowActionType.TabIndex = 10;
+            this.buttonShowActionType.TabIndex = 2;
             this.buttonShowActionType.Text = "...";
             this.buttonShowActionType.Click += new System.EventHandler(this.buttonShowActionType_Click);
             // 
@@ -494,7 +494,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelActionType.Location = new System.Drawing.Point(0, 38);
             this.labelActionType.Name = "labelActionType";
             this.labelActionType.Size = new System.Drawing.Size(30, 20);
-            this.labelActionType.TabIndex = 14;
+            this.labelActionType.TabIndex = 0;
             this.labelActionType.Text = "ActionType";
             this.labelActionType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -507,7 +507,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.listGroupType.Location = new System.Drawing.Point(4, 64);
             this.listGroupType.Name = "listGroupType";
             this.listGroupType.Size = new System.Drawing.Size(165, 21);
-            this.listGroupType.TabIndex = 25;
+            this.listGroupType.TabIndex = 3;
             this.listGroupType.SelectionChangeCommitted += new System.EventHandler(this.listGroupType_SelectionChangeCommitted);
                         // 
             // buttonShowGroupType
@@ -515,7 +515,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.buttonShowGroupType.Location = new System.Drawing.Point(174, 64);
             this.buttonShowGroupType.Name = "buttonShowGroupType";
             this.buttonShowGroupType.Size = new System.Drawing.Size(40, 23);
-            this.buttonShowGroupType.TabIndex = 10;
+            this.buttonShowGroupType.TabIndex = 4;
             this.buttonShowGroupType.Text = "...";
             this.buttonShowGroupType.Click += new System.EventHandler(this.buttonShowGroupType_Click);
             // 
@@ -527,7 +527,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelGroupType.Location = new System.Drawing.Point(0, 64);
             this.labelGroupType.Name = "labelGroupType";
             this.labelGroupType.Size = new System.Drawing.Size(30, 20);
-            this.labelGroupType.TabIndex = 14;
+            this.labelGroupType.TabIndex = 0;
             this.labelGroupType.Text = "GroupType";
             this.labelGroupType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -538,7 +538,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxComment.Location = new System.Drawing.Point(4, 90);
             this.textboxComment.Name = "textboxComment";
             this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
+            this.textboxComment.TabIndex = 5;
             this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
             this.textboxComment.Enabled = true;
                         // 
@@ -550,7 +550,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelComment.Location = new System.Drawing.Point(0, 90);
             this.labelComment.Name = "labelComment";
             this.labelComment.Size = new System.Drawing.Size(30, 20);
-            this.labelComment.TabIndex = 14;
+            this.labelComment.TabIndex = 0;
             this.labelComment.Text = "Comment";
             this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             

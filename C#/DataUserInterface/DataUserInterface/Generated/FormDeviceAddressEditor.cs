@@ -462,7 +462,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxDeviceAddressId.Location = new System.Drawing.Point(4, 12);
             this.textboxDeviceAddressId.Name = "textboxDeviceAddressId";
             this.textboxDeviceAddressId.Size = new System.Drawing.Size(208, 20);
-            this.textboxDeviceAddressId.TabIndex = 31;
+            this.textboxDeviceAddressId.TabIndex = 0;
             this.textboxDeviceAddressId.Leave += new System.EventHandler(this.textboxDeviceAddressId_Leave);
             this.textboxDeviceAddressId.Enabled = false;
                         // 
@@ -474,7 +474,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelDeviceAddressId.Location = new System.Drawing.Point(0, 12);
             this.labelDeviceAddressId.Name = "labelDeviceAddressId";
             this.labelDeviceAddressId.Size = new System.Drawing.Size(30, 20);
-            this.labelDeviceAddressId.TabIndex = 14;
+            this.labelDeviceAddressId.TabIndex = 0;
             this.labelDeviceAddressId.Text = "ID";
             this.labelDeviceAddressId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -487,7 +487,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.listDevice.Location = new System.Drawing.Point(4, 38);
             this.listDevice.Name = "listDevice";
             this.listDevice.Size = new System.Drawing.Size(165, 21);
-            this.listDevice.TabIndex = 25;
+            this.listDevice.TabIndex = 1;
             this.listDevice.SelectionChangeCommitted += new System.EventHandler(this.listDevice_SelectionChangeCommitted);
                         // 
             // buttonShowDevice
@@ -495,7 +495,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.buttonShowDevice.Location = new System.Drawing.Point(174, 38);
             this.buttonShowDevice.Name = "buttonShowDevice";
             this.buttonShowDevice.Size = new System.Drawing.Size(40, 23);
-            this.buttonShowDevice.TabIndex = 10;
+            this.buttonShowDevice.TabIndex = 2;
             this.buttonShowDevice.Text = "...";
             this.buttonShowDevice.Click += new System.EventHandler(this.buttonShowDevice_Click);
             // 
@@ -507,7 +507,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelDevice.Location = new System.Drawing.Point(0, 38);
             this.labelDevice.Name = "labelDevice";
             this.labelDevice.Size = new System.Drawing.Size(30, 20);
-            this.labelDevice.TabIndex = 14;
+            this.labelDevice.TabIndex = 0;
             this.labelDevice.Text = "Device";
             this.labelDevice.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -520,7 +520,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.listDeviceAddressType.Location = new System.Drawing.Point(4, 64);
             this.listDeviceAddressType.Name = "listDeviceAddressType";
             this.listDeviceAddressType.Size = new System.Drawing.Size(165, 21);
-            this.listDeviceAddressType.TabIndex = 25;
+            this.listDeviceAddressType.TabIndex = 3;
             this.listDeviceAddressType.SelectionChangeCommitted += new System.EventHandler(this.listDeviceAddressType_SelectionChangeCommitted);
                         // 
             // buttonShowDeviceAddressType
@@ -528,7 +528,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.buttonShowDeviceAddressType.Location = new System.Drawing.Point(174, 64);
             this.buttonShowDeviceAddressType.Name = "buttonShowDeviceAddressType";
             this.buttonShowDeviceAddressType.Size = new System.Drawing.Size(40, 23);
-            this.buttonShowDeviceAddressType.TabIndex = 10;
+            this.buttonShowDeviceAddressType.TabIndex = 4;
             this.buttonShowDeviceAddressType.Text = "...";
             this.buttonShowDeviceAddressType.Click += new System.EventHandler(this.buttonShowDeviceAddressType_Click);
             // 
@@ -540,7 +540,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelDeviceAddressType.Location = new System.Drawing.Point(0, 64);
             this.labelDeviceAddressType.Name = "labelDeviceAddressType";
             this.labelDeviceAddressType.Size = new System.Drawing.Size(30, 20);
-            this.labelDeviceAddressType.TabIndex = 14;
+            this.labelDeviceAddressType.TabIndex = 0;
             this.labelDeviceAddressType.Text = "DeviceAddressType";
             this.labelDeviceAddressType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -551,7 +551,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxIpAddress.Location = new System.Drawing.Point(4, 90);
             this.textboxIpAddress.Name = "textboxIpAddress";
             this.textboxIpAddress.Size = new System.Drawing.Size(208, 20);
-            this.textboxIpAddress.TabIndex = 31;
+            this.textboxIpAddress.TabIndex = 5;
             this.textboxIpAddress.Leave += new System.EventHandler(this.textboxIpAddress_Leave);
             this.textboxIpAddress.Enabled = true;
                         // 
@@ -563,7 +563,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelIpAddress.Location = new System.Drawing.Point(0, 90);
             this.labelIpAddress.Name = "labelIpAddress";
             this.labelIpAddress.Size = new System.Drawing.Size(30, 20);
-            this.labelIpAddress.TabIndex = 14;
+            this.labelIpAddress.TabIndex = 0;
             this.labelIpAddress.Text = "IpAddress";
             this.labelIpAddress.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -574,7 +574,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxComment.Location = new System.Drawing.Point(4, 116);
             this.textboxComment.Name = "textboxComment";
             this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
+            this.textboxComment.TabIndex = 6;
             this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
             this.textboxComment.Enabled = true;
                         // 
@@ -586,7 +586,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelComment.Location = new System.Drawing.Point(0, 116);
             this.labelComment.Name = "labelComment";
             this.labelComment.Size = new System.Drawing.Size(30, 20);
-            this.labelComment.TabIndex = 14;
+            this.labelComment.TabIndex = 0;
             this.labelComment.Text = "Comment";
             this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             

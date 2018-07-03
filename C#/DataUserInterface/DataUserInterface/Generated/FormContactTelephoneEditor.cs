@@ -430,7 +430,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxContactTelephoneId.Location = new System.Drawing.Point(4, 12);
             this.textboxContactTelephoneId.Name = "textboxContactTelephoneId";
             this.textboxContactTelephoneId.Size = new System.Drawing.Size(208, 20);
-            this.textboxContactTelephoneId.TabIndex = 31;
+            this.textboxContactTelephoneId.TabIndex = 0;
             this.textboxContactTelephoneId.Leave += new System.EventHandler(this.textboxContactTelephoneId_Leave);
             this.textboxContactTelephoneId.Enabled = false;
                         // 
@@ -442,7 +442,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelContactTelephoneId.Location = new System.Drawing.Point(0, 12);
             this.labelContactTelephoneId.Name = "labelContactTelephoneId";
             this.labelContactTelephoneId.Size = new System.Drawing.Size(30, 20);
-            this.labelContactTelephoneId.TabIndex = 14;
+            this.labelContactTelephoneId.TabIndex = 0;
             this.labelContactTelephoneId.Text = "ID";
             this.labelContactTelephoneId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -455,7 +455,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.listContact.Location = new System.Drawing.Point(4, 38);
             this.listContact.Name = "listContact";
             this.listContact.Size = new System.Drawing.Size(165, 21);
-            this.listContact.TabIndex = 25;
+            this.listContact.TabIndex = 1;
             this.listContact.SelectionChangeCommitted += new System.EventHandler(this.listContact_SelectionChangeCommitted);
                         // 
             // buttonShowContact
@@ -463,7 +463,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.buttonShowContact.Location = new System.Drawing.Point(174, 38);
             this.buttonShowContact.Name = "buttonShowContact";
             this.buttonShowContact.Size = new System.Drawing.Size(40, 23);
-            this.buttonShowContact.TabIndex = 10;
+            this.buttonShowContact.TabIndex = 2;
             this.buttonShowContact.Text = "...";
             this.buttonShowContact.Click += new System.EventHandler(this.buttonShowContact_Click);
             // 
@@ -475,7 +475,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelContact.Location = new System.Drawing.Point(0, 38);
             this.labelContact.Name = "labelContact";
             this.labelContact.Size = new System.Drawing.Size(30, 20);
-            this.labelContact.TabIndex = 14;
+            this.labelContact.TabIndex = 0;
             this.labelContact.Text = "Contact";
             this.labelContact.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -486,7 +486,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxTelephoneNumber.Location = new System.Drawing.Point(4, 64);
             this.textboxTelephoneNumber.Name = "textboxTelephoneNumber";
             this.textboxTelephoneNumber.Size = new System.Drawing.Size(208, 20);
-            this.textboxTelephoneNumber.TabIndex = 31;
+            this.textboxTelephoneNumber.TabIndex = 3;
             this.textboxTelephoneNumber.Leave += new System.EventHandler(this.textboxTelephoneNumber_Leave);
             this.textboxTelephoneNumber.Enabled = true;
                         // 
@@ -498,7 +498,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelTelephoneNumber.Location = new System.Drawing.Point(0, 64);
             this.labelTelephoneNumber.Name = "labelTelephoneNumber";
             this.labelTelephoneNumber.Size = new System.Drawing.Size(30, 20);
-            this.labelTelephoneNumber.TabIndex = 14;
+            this.labelTelephoneNumber.TabIndex = 0;
             this.labelTelephoneNumber.Text = "TelephoneNumber";
             this.labelTelephoneNumber.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -509,7 +509,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxComment.Location = new System.Drawing.Point(4, 90);
             this.textboxComment.Name = "textboxComment";
             this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
+            this.textboxComment.TabIndex = 4;
             this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
             this.textboxComment.Enabled = true;
                         // 
@@ -521,7 +521,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelComment.Location = new System.Drawing.Point(0, 90);
             this.labelComment.Name = "labelComment";
             this.labelComment.Size = new System.Drawing.Size(30, 20);
-            this.labelComment.TabIndex = 14;
+            this.labelComment.TabIndex = 0;
             this.labelComment.Text = "Comment";
             this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             

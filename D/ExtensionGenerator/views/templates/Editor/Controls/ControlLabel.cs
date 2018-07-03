@@ -7,7 +7,7 @@
             this.${this.name}.Location = new System.Drawing.Point(0, ${this.yPos});
             this.${this.name}.Name = "${this.name}";
             this.${this.name}.Size = new System.Drawing.Size(30, 20);
-            this.${this.name}.TabIndex = 14;
+            this.${this.name}.TabIndex = ${this.tabIndex};
             this.${this.name}.Text = "${this.text}";
             this.${this.name}.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             

@@ -492,7 +492,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
             this.textboxRSSConfigurationId.Location = new System.Drawing.Point(4, 12);
             this.textboxRSSConfigurationId.Name = "textboxRSSConfigurationId";
             this.textboxRSSConfigurationId.Size = new System.Drawing.Size(208, 20);
-            this.textboxRSSConfigurationId.TabIndex = 31;
+            this.textboxRSSConfigurationId.TabIndex = 0;
             this.textboxRSSConfigurationId.Leave += new System.EventHandler(this.textboxRSSConfigurationId_Leave);
             this.textboxRSSConfigurationId.Enabled = false;
                         // 
@@ -504,7 +504,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
             this.labelRSSConfigurationId.Location = new System.Drawing.Point(0, 12);
             this.labelRSSConfigurationId.Name = "labelRSSConfigurationId";
             this.labelRSSConfigurationId.Size = new System.Drawing.Size(30, 20);
-            this.labelRSSConfigurationId.TabIndex = 14;
+            this.labelRSSConfigurationId.TabIndex = 0;
             this.labelRSSConfigurationId.Text = "ID";
             this.labelRSSConfigurationId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -517,7 +517,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
             this.listDevice.Location = new System.Drawing.Point(4, 38);
             this.listDevice.Name = "listDevice";
             this.listDevice.Size = new System.Drawing.Size(165, 21);
-            this.listDevice.TabIndex = 25;
+            this.listDevice.TabIndex = 1;
             this.listDevice.SelectionChangeCommitted += new System.EventHandler(this.listDevice_SelectionChangeCommitted);
                         // 
             // buttonShowDevice
@@ -525,7 +525,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
             this.buttonShowDevice.Location = new System.Drawing.Point(174, 38);
             this.buttonShowDevice.Name = "buttonShowDevice";
             this.buttonShowDevice.Size = new System.Drawing.Size(40, 23);
-            this.buttonShowDevice.TabIndex = 10;
+            this.buttonShowDevice.TabIndex = 2;
             this.buttonShowDevice.Text = "...";
             this.buttonShowDevice.Click += new System.EventHandler(this.buttonShowDevice_Click);
             // 
@@ -537,7 +537,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
             this.labelDevice.Location = new System.Drawing.Point(0, 38);
             this.labelDevice.Name = "labelDevice";
             this.labelDevice.Size = new System.Drawing.Size(30, 20);
-            this.labelDevice.TabIndex = 14;
+            this.labelDevice.TabIndex = 0;
             this.labelDevice.Text = "Device";
             this.labelDevice.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -550,7 +550,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
             this.listUpdatePeriod.Location = new System.Drawing.Point(4, 64);
             this.listUpdatePeriod.Name = "listUpdatePeriod";
             this.listUpdatePeriod.Size = new System.Drawing.Size(165, 21);
-            this.listUpdatePeriod.TabIndex = 25;
+            this.listUpdatePeriod.TabIndex = 3;
             this.listUpdatePeriod.SelectionChangeCommitted += new System.EventHandler(this.listUpdatePeriod_SelectionChangeCommitted);
                         // 
             // buttonShowUpdatePeriod
@@ -558,7 +558,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
             this.buttonShowUpdatePeriod.Location = new System.Drawing.Point(174, 64);
             this.buttonShowUpdatePeriod.Name = "buttonShowUpdatePeriod";
             this.buttonShowUpdatePeriod.Size = new System.Drawing.Size(40, 23);
-            this.buttonShowUpdatePeriod.TabIndex = 10;
+            this.buttonShowUpdatePeriod.TabIndex = 4;
             this.buttonShowUpdatePeriod.Text = "...";
             this.buttonShowUpdatePeriod.Click += new System.EventHandler(this.buttonShowUpdatePeriod_Click);
             // 
@@ -570,7 +570,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
             this.labelUpdatePeriod.Location = new System.Drawing.Point(0, 64);
             this.labelUpdatePeriod.Name = "labelUpdatePeriod";
             this.labelUpdatePeriod.Size = new System.Drawing.Size(30, 20);
-            this.labelUpdatePeriod.TabIndex = 14;
+            this.labelUpdatePeriod.TabIndex = 0;
             this.labelUpdatePeriod.Text = "UpdatePeriod";
             this.labelUpdatePeriod.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -581,7 +581,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
             this.textboxDescription.Location = new System.Drawing.Point(4, 90);
             this.textboxDescription.Name = "textboxDescription";
             this.textboxDescription.Size = new System.Drawing.Size(208, 20);
-            this.textboxDescription.TabIndex = 31;
+            this.textboxDescription.TabIndex = 5;
             this.textboxDescription.Leave += new System.EventHandler(this.textboxDescription_Leave);
             this.textboxDescription.Enabled = true;
                         // 
@@ -593,7 +593,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
             this.labelDescription.Location = new System.Drawing.Point(0, 90);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(30, 20);
-            this.labelDescription.TabIndex = 14;
+            this.labelDescription.TabIndex = 0;
             this.labelDescription.Text = "Description";
             this.labelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -605,7 +605,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
             this.datetimeLastUpdate.Location = new System.Drawing.Point(4, 116);
             this.datetimeLastUpdate.Name = "datetimeLastUpdate";
             this.datetimeLastUpdate.Size = new System.Drawing.Size(208, 20);
-            this.datetimeLastUpdate.TabIndex = 34;
+            this.datetimeLastUpdate.TabIndex = 6;
             // 
             // labelLastUpdate
             // 
@@ -615,7 +615,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
             this.labelLastUpdate.Location = new System.Drawing.Point(0, 116);
             this.labelLastUpdate.Name = "labelLastUpdate";
             this.labelLastUpdate.Size = new System.Drawing.Size(30, 20);
-            this.labelLastUpdate.TabIndex = 14;
+            this.labelLastUpdate.TabIndex = 0;
             this.labelLastUpdate.Text = "LastUpdate";
             this.labelLastUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -626,7 +626,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
             this.numericUpdateFrequency.Location = new System.Drawing.Point(4, 142);
             this.numericUpdateFrequency.Name = "numericUpdateFrequency";
             this.numericUpdateFrequency.Size = new System.Drawing.Size(211, 20);
-            this.numericUpdateFrequency.TabIndex = 32;
+            this.numericUpdateFrequency.TabIndex = 7;
             this.numericUpdateFrequency.ValueChanged += new System.EventHandler(this.numericUpdateFrequency_ValueChanged);
             this.numericUpdateFrequency.Click += new System.EventHandler(this.numericUpdateFrequency_Enter);
             this.numericUpdateFrequency.Enter += new System.EventHandler(this.numericUpdateFrequency_Enter);
@@ -639,7 +639,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
             this.labelUpdateFrequency.Location = new System.Drawing.Point(0, 142);
             this.labelUpdateFrequency.Name = "labelUpdateFrequency";
             this.labelUpdateFrequency.Size = new System.Drawing.Size(30, 20);
-            this.labelUpdateFrequency.TabIndex = 14;
+            this.labelUpdateFrequency.TabIndex = 0;
             this.labelUpdateFrequency.Text = "UpdateFrequency";
             this.labelUpdateFrequency.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -650,7 +650,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
             this.textboxRSSURL.Location = new System.Drawing.Point(4, 168);
             this.textboxRSSURL.Name = "textboxRSSURL";
             this.textboxRSSURL.Size = new System.Drawing.Size(208, 20);
-            this.textboxRSSURL.TabIndex = 31;
+            this.textboxRSSURL.TabIndex = 8;
             this.textboxRSSURL.Leave += new System.EventHandler(this.textboxRSSURL_Leave);
             this.textboxRSSURL.Enabled = true;
                         // 
@@ -662,7 +662,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxRSSURL);
             this.labelRSSURL.Location = new System.Drawing.Point(0, 168);
             this.labelRSSURL.Name = "labelRSSURL";
             this.labelRSSURL.Size = new System.Drawing.Size(30, 20);
-            this.labelRSSURL.TabIndex = 14;
+            this.labelRSSURL.TabIndex = 0;
             this.labelRSSURL.Text = "RSSURL";
             this.labelRSSURL.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             

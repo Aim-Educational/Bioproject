@@ -407,7 +407,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxBackupLogId.Location = new System.Drawing.Point(4, 12);
             this.textboxBackupLogId.Name = "textboxBackupLogId";
             this.textboxBackupLogId.Size = new System.Drawing.Size(208, 20);
-            this.textboxBackupLogId.TabIndex = 31;
+            this.textboxBackupLogId.TabIndex = 0;
             this.textboxBackupLogId.Leave += new System.EventHandler(this.textboxBackupLogId_Leave);
             this.textboxBackupLogId.Enabled = false;
                         // 
@@ -419,7 +419,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelBackupLogId.Location = new System.Drawing.Point(0, 12);
             this.labelBackupLogId.Name = "labelBackupLogId";
             this.labelBackupLogId.Size = new System.Drawing.Size(30, 20);
-            this.labelBackupLogId.TabIndex = 14;
+            this.labelBackupLogId.TabIndex = 0;
             this.labelBackupLogId.Text = "ID";
             this.labelBackupLogId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -430,7 +430,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxFilename.Location = new System.Drawing.Point(4, 38);
             this.textboxFilename.Name = "textboxFilename";
             this.textboxFilename.Size = new System.Drawing.Size(208, 20);
-            this.textboxFilename.TabIndex = 31;
+            this.textboxFilename.TabIndex = 1;
             this.textboxFilename.Leave += new System.EventHandler(this.textboxFilename_Leave);
             this.textboxFilename.Enabled = true;
                         // 
@@ -442,7 +442,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelFilename.Location = new System.Drawing.Point(0, 38);
             this.labelFilename.Name = "labelFilename";
             this.labelFilename.Size = new System.Drawing.Size(30, 20);
-            this.labelFilename.TabIndex = 14;
+            this.labelFilename.TabIndex = 0;
             this.labelFilename.Text = "Filename";
             this.labelFilename.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -454,7 +454,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.datetimeDatetime.Location = new System.Drawing.Point(4, 64);
             this.datetimeDatetime.Name = "datetimeDatetime";
             this.datetimeDatetime.Size = new System.Drawing.Size(208, 20);
-            this.datetimeDatetime.TabIndex = 34;
+            this.datetimeDatetime.TabIndex = 2;
             // 
             // labelDatetime
             // 
@@ -464,7 +464,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelDatetime.Location = new System.Drawing.Point(0, 64);
             this.labelDatetime.Name = "labelDatetime";
             this.labelDatetime.Size = new System.Drawing.Size(30, 20);
-            this.labelDatetime.TabIndex = 14;
+            this.labelDatetime.TabIndex = 0;
             this.labelDatetime.Text = "Datetime";
             this.labelDatetime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -475,7 +475,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxComment.Location = new System.Drawing.Point(4, 90);
             this.textboxComment.Name = "textboxComment";
             this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
+            this.textboxComment.TabIndex = 3;
             this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
             this.textboxComment.Enabled = true;
                         // 
@@ -487,7 +487,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelComment.Location = new System.Drawing.Point(0, 90);
             this.labelComment.Name = "labelComment";
             this.labelComment.Size = new System.Drawing.Size(30, 20);
-            this.labelComment.TabIndex = 14;
+            this.labelComment.TabIndex = 0;
             this.labelComment.Text = "Comment";
             this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             

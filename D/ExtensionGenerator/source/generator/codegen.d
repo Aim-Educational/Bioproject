@@ -59,6 +59,7 @@ private
     {
         string name;
         int yPos;
+        int tabIndex;
         const(Field) objectField;
         NeedsDesignerInit designerInit = NeedsDesignerInit.no;
 
@@ -601,12 +602,14 @@ void generateEditorStubs(const Model model, Path outputDir)
                 custom_control_addToPanel2 ~= format("this.splitContainer1.Panel2.Controls.Add(%s);\n", control.name);
         }
 
+        auto tabIndex = 0;
         foreach(i, row; controls.sort!("a.priority > b.priority", SwapStrategy.stable).enumerate)
         {
             row.yPos = cast(int)((CONTROL_Y_PADDING * i) + CONTROL_STARTING_Y);
             foreach(control; row.controls)
             {
-                control.yPos = row.yPos;
+                control.yPos     = row.yPos;
+                control.tabIndex = tabIndex++;
                 generateControlCode(control);
             }
 

@@ -385,7 +385,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxDatabaseBackupDirectory);
             this.textboxDatabaseConfigId.Location = new System.Drawing.Point(4, 12);
             this.textboxDatabaseConfigId.Name = "textboxDatabaseConfigId";
             this.textboxDatabaseConfigId.Size = new System.Drawing.Size(208, 20);
-            this.textboxDatabaseConfigId.TabIndex = 31;
+            this.textboxDatabaseConfigId.TabIndex = 0;
             this.textboxDatabaseConfigId.Leave += new System.EventHandler(this.textboxDatabaseConfigId_Leave);
             this.textboxDatabaseConfigId.Enabled = false;
                         // 
@@ -397,7 +397,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxDatabaseBackupDirectory);
             this.labelDatabaseConfigId.Location = new System.Drawing.Point(0, 12);
             this.labelDatabaseConfigId.Name = "labelDatabaseConfigId";
             this.labelDatabaseConfigId.Size = new System.Drawing.Size(30, 20);
-            this.labelDatabaseConfigId.TabIndex = 14;
+            this.labelDatabaseConfigId.TabIndex = 0;
             this.labelDatabaseConfigId.Text = "ID";
             this.labelDatabaseConfigId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -408,7 +408,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxDatabaseBackupDirectory);
             this.textboxDatabaseBackupDirectory.Location = new System.Drawing.Point(4, 38);
             this.textboxDatabaseBackupDirectory.Name = "textboxDatabaseBackupDirectory";
             this.textboxDatabaseBackupDirectory.Size = new System.Drawing.Size(208, 20);
-            this.textboxDatabaseBackupDirectory.TabIndex = 31;
+            this.textboxDatabaseBackupDirectory.TabIndex = 1;
             this.textboxDatabaseBackupDirectory.Leave += new System.EventHandler(this.textboxDatabaseBackupDirectory_Leave);
             this.textboxDatabaseBackupDirectory.Enabled = true;
                         // 
@@ -420,7 +420,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxDatabaseBackupDirectory);
             this.labelDatabaseBackupDirectory.Location = new System.Drawing.Point(0, 38);
             this.labelDatabaseBackupDirectory.Name = "labelDatabaseBackupDirectory";
             this.labelDatabaseBackupDirectory.Size = new System.Drawing.Size(30, 20);
-            this.labelDatabaseBackupDirectory.TabIndex = 14;
+            this.labelDatabaseBackupDirectory.TabIndex = 0;
             this.labelDatabaseBackupDirectory.Text = "DatabaseBackupDirectory";
             this.labelDatabaseBackupDirectory.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             

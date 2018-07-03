@@ -419,7 +419,7 @@ this.splitContainer1.Panel2.Controls.Add(numericApplicationVersion);
             this.textboxApplicationId.Location = new System.Drawing.Point(4, 12);
             this.textboxApplicationId.Name = "textboxApplicationId";
             this.textboxApplicationId.Size = new System.Drawing.Size(208, 20);
-            this.textboxApplicationId.TabIndex = 31;
+            this.textboxApplicationId.TabIndex = 0;
             this.textboxApplicationId.Leave += new System.EventHandler(this.textboxApplicationId_Leave);
             this.textboxApplicationId.Enabled = false;
                         // 
@@ -431,7 +431,7 @@ this.splitContainer1.Panel2.Controls.Add(numericApplicationVersion);
             this.labelApplicationId.Location = new System.Drawing.Point(0, 12);
             this.labelApplicationId.Name = "labelApplicationId";
             this.labelApplicationId.Size = new System.Drawing.Size(30, 20);
-            this.labelApplicationId.TabIndex = 14;
+            this.labelApplicationId.TabIndex = 0;
             this.labelApplicationId.Text = "ID";
             this.labelApplicationId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -442,7 +442,7 @@ this.splitContainer1.Panel2.Controls.Add(numericApplicationVersion);
             this.textboxName.Location = new System.Drawing.Point(4, 38);
             this.textboxName.Name = "textboxName";
             this.textboxName.Size = new System.Drawing.Size(208, 20);
-            this.textboxName.TabIndex = 31;
+            this.textboxName.TabIndex = 1;
             this.textboxName.Leave += new System.EventHandler(this.textboxName_Leave);
             this.textboxName.Enabled = true;
                         // 
@@ -454,7 +454,7 @@ this.splitContainer1.Panel2.Controls.Add(numericApplicationVersion);
             this.labelName.Location = new System.Drawing.Point(0, 38);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(30, 20);
-            this.labelName.TabIndex = 14;
+            this.labelName.TabIndex = 0;
             this.labelName.Text = "Name";
             this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -465,7 +465,7 @@ this.splitContainer1.Panel2.Controls.Add(numericApplicationVersion);
             this.textboxDescription.Location = new System.Drawing.Point(4, 64);
             this.textboxDescription.Name = "textboxDescription";
             this.textboxDescription.Size = new System.Drawing.Size(208, 20);
-            this.textboxDescription.TabIndex = 31;
+            this.textboxDescription.TabIndex = 2;
             this.textboxDescription.Leave += new System.EventHandler(this.textboxDescription_Leave);
             this.textboxDescription.Enabled = true;
                         // 
@@ -477,7 +477,7 @@ this.splitContainer1.Panel2.Controls.Add(numericApplicationVersion);
             this.labelDescription.Location = new System.Drawing.Point(0, 64);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(30, 20);
-            this.labelDescription.TabIndex = 14;
+            this.labelDescription.TabIndex = 0;
             this.labelDescription.Text = "Description";
             this.labelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -488,7 +488,7 @@ this.splitContainer1.Panel2.Controls.Add(numericApplicationVersion);
             this.numericApplicationVersion.Location = new System.Drawing.Point(4, 90);
             this.numericApplicationVersion.Name = "numericApplicationVersion";
             this.numericApplicationVersion.Size = new System.Drawing.Size(211, 20);
-            this.numericApplicationVersion.TabIndex = 32;
+            this.numericApplicationVersion.TabIndex = 3;
             this.numericApplicationVersion.ValueChanged += new System.EventHandler(this.numericApplicationVersion_ValueChanged);
             this.numericApplicationVersion.Click += new System.EventHandler(this.numericApplicationVersion_Enter);
             this.numericApplicationVersion.Enter += new System.EventHandler(this.numericApplicationVersion_Enter);
@@ -501,7 +501,7 @@ this.splitContainer1.Panel2.Controls.Add(numericApplicationVersion);
             this.labelApplicationVersion.Location = new System.Drawing.Point(0, 90);
             this.labelApplicationVersion.Name = "labelApplicationVersion";
             this.labelApplicationVersion.Size = new System.Drawing.Size(30, 20);
-            this.labelApplicationVersion.TabIndex = 14;
+            this.labelApplicationVersion.TabIndex = 0;
             this.labelApplicationVersion.Text = "ApplicationVersion";
             this.labelApplicationVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             

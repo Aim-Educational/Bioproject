@@ -411,7 +411,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxUnitId.Location = new System.Drawing.Point(4, 12);
             this.textboxUnitId.Name = "textboxUnitId";
             this.textboxUnitId.Size = new System.Drawing.Size(208, 20);
-            this.textboxUnitId.TabIndex = 31;
+            this.textboxUnitId.TabIndex = 0;
             this.textboxUnitId.Leave += new System.EventHandler(this.textboxUnitId_Leave);
             this.textboxUnitId.Enabled = false;
                         // 
@@ -423,7 +423,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelUnitId.Location = new System.Drawing.Point(0, 12);
             this.labelUnitId.Name = "labelUnitId";
             this.labelUnitId.Size = new System.Drawing.Size(30, 20);
-            this.labelUnitId.TabIndex = 14;
+            this.labelUnitId.TabIndex = 0;
             this.labelUnitId.Text = "ID";
             this.labelUnitId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -434,7 +434,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxDescription.Location = new System.Drawing.Point(4, 38);
             this.textboxDescription.Name = "textboxDescription";
             this.textboxDescription.Size = new System.Drawing.Size(208, 20);
-            this.textboxDescription.TabIndex = 31;
+            this.textboxDescription.TabIndex = 1;
             this.textboxDescription.Leave += new System.EventHandler(this.textboxDescription_Leave);
             this.textboxDescription.Enabled = true;
                         // 
@@ -446,7 +446,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelDescription.Location = new System.Drawing.Point(0, 38);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(30, 20);
-            this.labelDescription.TabIndex = 14;
+            this.labelDescription.TabIndex = 0;
             this.labelDescription.Text = "Description";
             this.labelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -457,7 +457,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxAbbreviation.Location = new System.Drawing.Point(4, 64);
             this.textboxAbbreviation.Name = "textboxAbbreviation";
             this.textboxAbbreviation.Size = new System.Drawing.Size(208, 20);
-            this.textboxAbbreviation.TabIndex = 31;
+            this.textboxAbbreviation.TabIndex = 2;
             this.textboxAbbreviation.Leave += new System.EventHandler(this.textboxAbbreviation_Leave);
             this.textboxAbbreviation.Enabled = true;
                         // 
@@ -469,7 +469,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelAbbreviation.Location = new System.Drawing.Point(0, 64);
             this.labelAbbreviation.Name = "labelAbbreviation";
             this.labelAbbreviation.Size = new System.Drawing.Size(30, 20);
-            this.labelAbbreviation.TabIndex = 14;
+            this.labelAbbreviation.TabIndex = 0;
             this.labelAbbreviation.Text = "Abbreviation";
             this.labelAbbreviation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -480,7 +480,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxComment.Location = new System.Drawing.Point(4, 90);
             this.textboxComment.Name = "textboxComment";
             this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
+            this.textboxComment.TabIndex = 3;
             this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
             this.textboxComment.Enabled = true;
                         // 
@@ -492,7 +492,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelComment.Location = new System.Drawing.Point(0, 90);
             this.labelComment.Name = "labelComment";
             this.labelComment.Size = new System.Drawing.Size(30, 20);
-            this.labelComment.TabIndex = 14;
+            this.labelComment.TabIndex = 0;
             this.labelComment.Text = "Comment";
             this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             

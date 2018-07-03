@@ -437,7 +437,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxUserId.Location = new System.Drawing.Point(4, 12);
             this.textboxUserId.Name = "textboxUserId";
             this.textboxUserId.Size = new System.Drawing.Size(208, 20);
-            this.textboxUserId.TabIndex = 31;
+            this.textboxUserId.TabIndex = 0;
             this.textboxUserId.Leave += new System.EventHandler(this.textboxUserId_Leave);
             this.textboxUserId.Enabled = false;
                         // 
@@ -449,7 +449,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelUserId.Location = new System.Drawing.Point(0, 12);
             this.labelUserId.Name = "labelUserId";
             this.labelUserId.Size = new System.Drawing.Size(30, 20);
-            this.labelUserId.TabIndex = 14;
+            this.labelUserId.TabIndex = 0;
             this.labelUserId.Text = "ID";
             this.labelUserId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -460,7 +460,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxForename.Location = new System.Drawing.Point(4, 38);
             this.textboxForename.Name = "textboxForename";
             this.textboxForename.Size = new System.Drawing.Size(208, 20);
-            this.textboxForename.TabIndex = 31;
+            this.textboxForename.TabIndex = 1;
             this.textboxForename.Leave += new System.EventHandler(this.textboxForename_Leave);
             this.textboxForename.Enabled = true;
                         // 
@@ -472,7 +472,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelForename.Location = new System.Drawing.Point(0, 38);
             this.labelForename.Name = "labelForename";
             this.labelForename.Size = new System.Drawing.Size(30, 20);
-            this.labelForename.TabIndex = 14;
+            this.labelForename.TabIndex = 0;
             this.labelForename.Text = "Forename";
             this.labelForename.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -483,7 +483,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxSurname.Location = new System.Drawing.Point(4, 64);
             this.textboxSurname.Name = "textboxSurname";
             this.textboxSurname.Size = new System.Drawing.Size(208, 20);
-            this.textboxSurname.TabIndex = 31;
+            this.textboxSurname.TabIndex = 2;
             this.textboxSurname.Leave += new System.EventHandler(this.textboxSurname_Leave);
             this.textboxSurname.Enabled = true;
                         // 
@@ -495,7 +495,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelSurname.Location = new System.Drawing.Point(0, 64);
             this.labelSurname.Name = "labelSurname";
             this.labelSurname.Size = new System.Drawing.Size(30, 20);
-            this.labelSurname.TabIndex = 14;
+            this.labelSurname.TabIndex = 0;
             this.labelSurname.Text = "Surname";
             this.labelSurname.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -506,7 +506,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxUsername.Location = new System.Drawing.Point(4, 90);
             this.textboxUsername.Name = "textboxUsername";
             this.textboxUsername.Size = new System.Drawing.Size(208, 20);
-            this.textboxUsername.TabIndex = 31;
+            this.textboxUsername.TabIndex = 3;
             this.textboxUsername.Leave += new System.EventHandler(this.textboxUsername_Leave);
             this.textboxUsername.Enabled = true;
                         // 
@@ -518,7 +518,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelUsername.Location = new System.Drawing.Point(0, 90);
             this.labelUsername.Name = "labelUsername";
             this.labelUsername.Size = new System.Drawing.Size(30, 20);
-            this.labelUsername.TabIndex = 14;
+            this.labelUsername.TabIndex = 0;
             this.labelUsername.Text = "Username";
             this.labelUsername.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -529,7 +529,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxPassword.Location = new System.Drawing.Point(4, 116);
             this.textboxPassword.Name = "textboxPassword";
             this.textboxPassword.Size = new System.Drawing.Size(208, 20);
-            this.textboxPassword.TabIndex = 31;
+            this.textboxPassword.TabIndex = 4;
             this.textboxPassword.Leave += new System.EventHandler(this.textboxPassword_Leave);
             this.textboxPassword.Enabled = true;
                         // 
@@ -541,7 +541,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelPassword.Location = new System.Drawing.Point(0, 116);
             this.labelPassword.Name = "labelPassword";
             this.labelPassword.Size = new System.Drawing.Size(30, 20);
-            this.labelPassword.TabIndex = 14;
+            this.labelPassword.TabIndex = 0;
             this.labelPassword.Text = "Password";
             this.labelPassword.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -552,7 +552,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxComment.Location = new System.Drawing.Point(4, 142);
             this.textboxComment.Name = "textboxComment";
             this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
+            this.textboxComment.TabIndex = 5;
             this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
             this.textboxComment.Enabled = true;
                         // 
@@ -564,7 +564,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelComment.Location = new System.Drawing.Point(0, 142);
             this.labelComment.Name = "labelComment";
             this.labelComment.Size = new System.Drawing.Size(30, 20);
-            this.labelComment.TabIndex = 14;
+            this.labelComment.TabIndex = 0;
             this.labelComment.Text = "Comment";
             this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             

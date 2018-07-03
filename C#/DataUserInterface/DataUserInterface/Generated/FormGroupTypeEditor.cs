@@ -443,7 +443,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxGroupTypeId.Location = new System.Drawing.Point(4, 12);
             this.textboxGroupTypeId.Name = "textboxGroupTypeId";
             this.textboxGroupTypeId.Size = new System.Drawing.Size(208, 20);
-            this.textboxGroupTypeId.TabIndex = 31;
+            this.textboxGroupTypeId.TabIndex = 0;
             this.textboxGroupTypeId.Leave += new System.EventHandler(this.textboxGroupTypeId_Leave);
             this.textboxGroupTypeId.Enabled = false;
                         // 
@@ -455,7 +455,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelGroupTypeId.Location = new System.Drawing.Point(0, 12);
             this.labelGroupTypeId.Name = "labelGroupTypeId";
             this.labelGroupTypeId.Size = new System.Drawing.Size(30, 20);
-            this.labelGroupTypeId.TabIndex = 14;
+            this.labelGroupTypeId.TabIndex = 0;
             this.labelGroupTypeId.Text = "ID";
             this.labelGroupTypeId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -468,7 +468,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.listGroupType2.Location = new System.Drawing.Point(4, 38);
             this.listGroupType2.Name = "listGroupType2";
             this.listGroupType2.Size = new System.Drawing.Size(165, 21);
-            this.listGroupType2.TabIndex = 25;
+            this.listGroupType2.TabIndex = 1;
             this.listGroupType2.SelectionChangeCommitted += new System.EventHandler(this.listGroupType2_SelectionChangeCommitted);
                         // 
             // buttonShowGroupType2
@@ -476,7 +476,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.buttonShowGroupType2.Location = new System.Drawing.Point(174, 38);
             this.buttonShowGroupType2.Name = "buttonShowGroupType2";
             this.buttonShowGroupType2.Size = new System.Drawing.Size(40, 23);
-            this.buttonShowGroupType2.TabIndex = 10;
+            this.buttonShowGroupType2.TabIndex = 2;
             this.buttonShowGroupType2.Text = "...";
             this.buttonShowGroupType2.Click += new System.EventHandler(this.buttonShowGroupType2_Click);
             // 
@@ -488,7 +488,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelGroupType2.Location = new System.Drawing.Point(0, 38);
             this.labelGroupType2.Name = "labelGroupType2";
             this.labelGroupType2.Size = new System.Drawing.Size(30, 20);
-            this.labelGroupType2.TabIndex = 14;
+            this.labelGroupType2.TabIndex = 0;
             this.labelGroupType2.Text = "GroupType2";
             this.labelGroupType2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -499,7 +499,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxName.Location = new System.Drawing.Point(4, 64);
             this.textboxName.Name = "textboxName";
             this.textboxName.Size = new System.Drawing.Size(208, 20);
-            this.textboxName.TabIndex = 31;
+            this.textboxName.TabIndex = 3;
             this.textboxName.Leave += new System.EventHandler(this.textboxName_Leave);
             this.textboxName.Enabled = true;
                         // 
@@ -511,7 +511,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelName.Location = new System.Drawing.Point(0, 64);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(30, 20);
-            this.labelName.TabIndex = 14;
+            this.labelName.TabIndex = 0;
             this.labelName.Text = "Name";
             this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -522,7 +522,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxDescription.Location = new System.Drawing.Point(4, 90);
             this.textboxDescription.Name = "textboxDescription";
             this.textboxDescription.Size = new System.Drawing.Size(208, 20);
-            this.textboxDescription.TabIndex = 31;
+            this.textboxDescription.TabIndex = 4;
             this.textboxDescription.Leave += new System.EventHandler(this.textboxDescription_Leave);
             this.textboxDescription.Enabled = true;
                         // 
@@ -534,7 +534,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelDescription.Location = new System.Drawing.Point(0, 90);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(30, 20);
-            this.labelDescription.TabIndex = 14;
+            this.labelDescription.TabIndex = 0;
             this.labelDescription.Text = "Description";
             this.labelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -545,7 +545,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.textboxComment.Location = new System.Drawing.Point(4, 116);
             this.textboxComment.Name = "textboxComment";
             this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
+            this.textboxComment.TabIndex = 5;
             this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
             this.textboxComment.Enabled = true;
                         // 
@@ -557,7 +557,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelComment.Location = new System.Drawing.Point(0, 116);
             this.labelComment.Name = "labelComment";
             this.labelComment.Size = new System.Drawing.Size(30, 20);
-            this.labelComment.TabIndex = 14;
+            this.labelComment.TabIndex = 0;
             this.labelComment.Text = "Comment";
             this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             

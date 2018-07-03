@@ -55,7 +55,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
-            this.splitContainer1.TabIndex = 0;
+            this.splitContainer1.TabIndex = 2000000;
             // 
             // labelDirty
             // 
@@ -64,7 +64,7 @@
             this.labelDirty.Location = new System.Drawing.Point(3, 9);
             this.labelDirty.Name = "labelDirty";
             this.labelDirty.Size = new System.Drawing.Size(50, 13);
-            this.labelDirty.TabIndex = 3;
+            this.labelDirty.TabIndex = 2000000;
             this.labelDirty.Text = "Changed";
             this.labelDirty.Visible = false;
             // 
@@ -76,7 +76,7 @@
             this.buttonDelete.Location = new System.Drawing.Point(85, 313);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
-            this.buttonDelete.TabIndex = 11;
+            this.buttonDelete.TabIndex = 1999999;
             this.buttonDelete.UseVisualStyleBackColor = false;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
@@ -85,7 +85,7 @@
             this.buttonReload.Location = new System.Drawing.Point(4, 314);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
-            this.buttonReload.TabIndex = 6;
+            this.buttonReload.TabIndex = 1999998;
             this.buttonReload.Text = "Reload";
             this.buttonReload.UseVisualStyleBackColor = true;
             this.buttonReload.Click += new System.EventHandler(this.buttonReload_Click);
@@ -96,7 +96,7 @@
             this.buttonAction.Location = new System.Drawing.Point(141, 313);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
-            this.buttonAction.TabIndex = 2;
+            this.buttonAction.TabIndex = 1999997;
             this.buttonAction.Text = "Save";
             this.buttonAction.UseVisualStyleBackColor = true;
             this.buttonAction.Click += new System.EventHandler(this.buttonSave_Click);

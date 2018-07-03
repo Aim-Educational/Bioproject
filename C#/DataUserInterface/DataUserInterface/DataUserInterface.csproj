@@ -117,9 +117,7 @@
     <Compile Include="Generated\FormDeviceAddressTypeEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generated\FormDeviceEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Generated\FormDeviceEditor.cs" />
     <Compile Include="Generated\FormDeviceHistoryActionEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,9 +176,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\SearchForm.resx">
       <DependentUpon>SearchForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Generated\FormDeviceEditor.resx">
-      <DependentUpon>FormDeviceEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

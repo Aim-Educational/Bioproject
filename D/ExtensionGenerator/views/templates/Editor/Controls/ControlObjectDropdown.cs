@@ -8,6 +8,6 @@
             this.${this.name}.Location = new System.Drawing.Point(4, ${this.yPos});
             this.${this.name}.Name = "${this.name}";
             this.${this.name}.Size = new System.Drawing.Size(165, 21);
-            this.${this.name}.TabIndex = 25;
+            this.${this.name}.TabIndex = ${this.tabIndex};
             this.${this.name}.SelectionChangeCommitted += new System.EventHandler(this.${this.name}_SelectionChangeCommitted);
             

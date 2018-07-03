@@ -458,7 +458,7 @@ this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
             this.textboxApplicationLogId.Location = new System.Drawing.Point(4, 12);
             this.textboxApplicationLogId.Name = "textboxApplicationLogId";
             this.textboxApplicationLogId.Size = new System.Drawing.Size(208, 20);
-            this.textboxApplicationLogId.TabIndex = 31;
+            this.textboxApplicationLogId.TabIndex = 0;
             this.textboxApplicationLogId.Leave += new System.EventHandler(this.textboxApplicationLogId_Leave);
             this.textboxApplicationLogId.Enabled = false;
                         // 
@@ -470,7 +470,7 @@ this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
             this.labelApplicationLogId.Location = new System.Drawing.Point(0, 12);
             this.labelApplicationLogId.Name = "labelApplicationLogId";
             this.labelApplicationLogId.Size = new System.Drawing.Size(30, 20);
-            this.labelApplicationLogId.TabIndex = 14;
+            this.labelApplicationLogId.TabIndex = 0;
             this.labelApplicationLogId.Text = "ID";
             this.labelApplicationLogId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -483,7 +483,7 @@ this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
             this.listApplication.Location = new System.Drawing.Point(4, 38);
             this.listApplication.Name = "listApplication";
             this.listApplication.Size = new System.Drawing.Size(165, 21);
-            this.listApplication.TabIndex = 25;
+            this.listApplication.TabIndex = 1;
             this.listApplication.SelectionChangeCommitted += new System.EventHandler(this.listApplication_SelectionChangeCommitted);
                         // 
             // buttonShowApplication
@@ -491,7 +491,7 @@ this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
             this.buttonShowApplication.Location = new System.Drawing.Point(174, 38);
             this.buttonShowApplication.Name = "buttonShowApplication";
             this.buttonShowApplication.Size = new System.Drawing.Size(40, 23);
-            this.buttonShowApplication.TabIndex = 10;
+            this.buttonShowApplication.TabIndex = 2;
             this.buttonShowApplication.Text = "...";
             this.buttonShowApplication.Click += new System.EventHandler(this.buttonShowApplication_Click);
             // 
@@ -503,7 +503,7 @@ this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
             this.labelApplication.Location = new System.Drawing.Point(0, 38);
             this.labelApplication.Name = "labelApplication";
             this.labelApplication.Size = new System.Drawing.Size(30, 20);
-            this.labelApplication.TabIndex = 14;
+            this.labelApplication.TabIndex = 0;
             this.labelApplication.Text = "Application";
             this.labelApplication.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -516,7 +516,7 @@ this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
             this.listMessageType.Location = new System.Drawing.Point(4, 64);
             this.listMessageType.Name = "listMessageType";
             this.listMessageType.Size = new System.Drawing.Size(165, 21);
-            this.listMessageType.TabIndex = 25;
+            this.listMessageType.TabIndex = 3;
             this.listMessageType.SelectionChangeCommitted += new System.EventHandler(this.listMessageType_SelectionChangeCommitted);
                         // 
             // buttonShowMessageType
@@ -524,7 +524,7 @@ this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
             this.buttonShowMessageType.Location = new System.Drawing.Point(174, 64);
             this.buttonShowMessageType.Name = "buttonShowMessageType";
             this.buttonShowMessageType.Size = new System.Drawing.Size(40, 23);
-            this.buttonShowMessageType.TabIndex = 10;
+            this.buttonShowMessageType.TabIndex = 4;
             this.buttonShowMessageType.Text = "...";
             this.buttonShowMessageType.Click += new System.EventHandler(this.buttonShowMessageType_Click);
             // 
@@ -536,7 +536,7 @@ this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
             this.labelMessageType.Location = new System.Drawing.Point(0, 64);
             this.labelMessageType.Name = "labelMessageType";
             this.labelMessageType.Size = new System.Drawing.Size(30, 20);
-            this.labelMessageType.TabIndex = 14;
+            this.labelMessageType.TabIndex = 0;
             this.labelMessageType.Text = "MessageType";
             this.labelMessageType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -547,7 +547,7 @@ this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
             this.textboxMessage.Location = new System.Drawing.Point(4, 90);
             this.textboxMessage.Name = "textboxMessage";
             this.textboxMessage.Size = new System.Drawing.Size(208, 20);
-            this.textboxMessage.TabIndex = 31;
+            this.textboxMessage.TabIndex = 5;
             this.textboxMessage.Leave += new System.EventHandler(this.textboxMessage_Leave);
             this.textboxMessage.Enabled = true;
                         // 
@@ -559,7 +559,7 @@ this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
             this.labelMessage.Location = new System.Drawing.Point(0, 90);
             this.labelMessage.Name = "labelMessage";
             this.labelMessage.Size = new System.Drawing.Size(30, 20);
-            this.labelMessage.TabIndex = 14;
+            this.labelMessage.TabIndex = 0;
             this.labelMessage.Text = "Message";
             this.labelMessage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -571,7 +571,7 @@ this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
             this.datetimeDatetime.Location = new System.Drawing.Point(4, 116);
             this.datetimeDatetime.Name = "datetimeDatetime";
             this.datetimeDatetime.Size = new System.Drawing.Size(208, 20);
-            this.datetimeDatetime.TabIndex = 34;
+            this.datetimeDatetime.TabIndex = 6;
             // 
             // labelDatetime
             // 
@@ -581,7 +581,7 @@ this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
             this.labelDatetime.Location = new System.Drawing.Point(0, 116);
             this.labelDatetime.Name = "labelDatetime";
             this.labelDatetime.Size = new System.Drawing.Size(30, 20);
-            this.labelDatetime.TabIndex = 14;
+            this.labelDatetime.TabIndex = 0;
             this.labelDatetime.Text = "Datetime";
             this.labelDatetime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             

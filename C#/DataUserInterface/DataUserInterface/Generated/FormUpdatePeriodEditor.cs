@@ -385,7 +385,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxDescription);
             this.textboxUpdatePeriodId.Location = new System.Drawing.Point(4, 12);
             this.textboxUpdatePeriodId.Name = "textboxUpdatePeriodId";
             this.textboxUpdatePeriodId.Size = new System.Drawing.Size(208, 20);
-            this.textboxUpdatePeriodId.TabIndex = 31;
+            this.textboxUpdatePeriodId.TabIndex = 0;
             this.textboxUpdatePeriodId.Leave += new System.EventHandler(this.textboxUpdatePeriodId_Leave);
             this.textboxUpdatePeriodId.Enabled = false;
                         // 
@@ -397,7 +397,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxDescription);
             this.labelUpdatePeriodId.Location = new System.Drawing.Point(0, 12);
             this.labelUpdatePeriodId.Name = "labelUpdatePeriodId";
             this.labelUpdatePeriodId.Size = new System.Drawing.Size(30, 20);
-            this.labelUpdatePeriodId.TabIndex = 14;
+            this.labelUpdatePeriodId.TabIndex = 0;
             this.labelUpdatePeriodId.Text = "ID";
             this.labelUpdatePeriodId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
@@ -408,7 +408,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxDescription);
             this.textboxDescription.Location = new System.Drawing.Point(4, 38);
             this.textboxDescription.Name = "textboxDescription";
             this.textboxDescription.Size = new System.Drawing.Size(208, 20);
-            this.textboxDescription.TabIndex = 31;
+            this.textboxDescription.TabIndex = 1;
             this.textboxDescription.Leave += new System.EventHandler(this.textboxDescription_Leave);
             this.textboxDescription.Enabled = true;
                         // 
@@ -420,7 +420,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxDescription);
             this.labelDescription.Location = new System.Drawing.Point(0, 38);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(30, 20);
-            this.labelDescription.TabIndex = 14;
+            this.labelDescription.TabIndex = 0;
             this.labelDescription.Text = "Description";
             this.labelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             

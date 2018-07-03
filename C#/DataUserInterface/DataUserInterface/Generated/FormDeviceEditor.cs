@@ -29,9 +29,9 @@ namespace DataUserInterface.Forms
 
             set
             {
-                labelDirty.Visible   = value;
+                labelDirty.Visible = value;
                 buttonAction.Enabled = value;
-                this._isDirty_value  = value;
+                this._isDirty_value = value;
             }
         }
 
@@ -41,7 +41,7 @@ namespace DataUserInterface.Forms
             set
             {
                 this._mode_value = value;
-                switch(value)
+                switch (value)
                 {
                     case EnumEditorMode.Delete:
                         // Disable all controls except the Reload
@@ -55,7 +55,7 @@ namespace DataUserInterface.Forms
                         this.buttonDelete.Visible = true;
                         this.buttonAction.Visible = false;
                         break;
-                        
+
                     case EnumEditorMode.Create:
                         // The button's onClick event will now perform a create instead of a save.
                         // Change the button's text to 'create'
@@ -91,10 +91,10 @@ namespace DataUserInterface.Forms
                 if (this.mode == EnumEditorMode.Create)
                 {
                     foreach (var val in db.devices.OrderBy(v => v.name))
-    this.listDevice2.Items.Add(val.name);
-    foreach (var val in db.device_type.OrderBy(v => v.description))
-    this.listDeviceType.Items.Add(val.description);
-    
+                        this.listDevice2.Items.Add(val.name);
+                    foreach (var val in db.device_type.OrderBy(v => v.description))
+                        this.listDeviceType.Items.Add(val.description);
+
                 }
 
                 if (this.mode != EnumEditorMode.Create)
@@ -103,48 +103,48 @@ namespace DataUserInterface.Forms
                     if (obj != null)
                     {
                         this.textboxDeviceId.Text = Convert.ToString(obj.device_id);
-foreach (var value in db.devices.OrderBy(v => v.name))
-{
-    this.listDevice2.Items.Add(value.name);
-    if (value.device_id == obj.parent_device_id)
-        this.listDevice2.SelectedIndex = this.listDevice2.Items.Count - 1;
-}
-foreach (var value in db.device_type.OrderBy(v => v.description))
-{
-    this.listDeviceType.Items.Add(value.description);
-    if (value.device_type_id == obj.device_type_id)
-        this.listDeviceType.SelectedIndex = this.listDeviceType.Items.Count - 1;
-}
-this.textboxName.Text = obj.name;
-this.textboxDescription.Text = obj.description;
-this.textboxLocation.Text = obj.location;
-this.numericMinValue.Value = (decimal)obj.min_value;
-this.numericMaxValue.Value = (decimal)obj.max_value;
-this.numericAccuracy.Value = (decimal)obj.accuracy;
-this.textboxSerialNumber.Text = obj.serial_number;
-this.numericCost.Value = (decimal)obj.cost;
-this.numericReliability.Value = (decimal)obj.reliability;
-this.numericStrikes.Value = (decimal)obj.strikes;
-this.textboxComment.Text = obj.comment;
-this.checkboxIsAllowedForUse.Checked = obj.is_allowed_for_use;
+                        foreach (var value in db.devices.OrderBy(v => v.name))
+                        {
+                            this.listDevice2.Items.Add(value.name);
+                            if (value.device_id == obj.parent_device_id)
+                                this.listDevice2.SelectedIndex = this.listDevice2.Items.Count - 1;
+                        }
+                        foreach (var value in db.device_type.OrderBy(v => v.description))
+                        {
+                            this.listDeviceType.Items.Add(value.description);
+                            if (value.device_type_id == obj.device_type_id)
+                                this.listDeviceType.SelectedIndex = this.listDeviceType.Items.Count - 1;
+                        }
+                        this.textboxName.Text = obj.name;
+                        this.textboxDescription.Text = obj.description;
+                        this.textboxLocation.Text = obj.location;
+                        this.numericMinValue.Value = (decimal)obj.min_value;
+                        this.numericMaxValue.Value = (decimal)obj.max_value;
+                        this.numericAccuracy.Value = (decimal)obj.accuracy;
+                        this.textboxSerialNumber.Text = obj.serial_number;
+                        this.numericCost.Value = (decimal)obj.cost;
+                        this.numericReliability.Value = (decimal)obj.reliability;
+                        this.numericStrikes.Value = (decimal)obj.strikes;
+                        this.textboxComment.Text = obj.comment;
+                        this.checkboxIsAllowedForUse.Checked = obj.is_allowed_for_use;
 
-                        this._cached  = obj;
+                        this._cached = obj;
                         this._isDirty = false;
                     }
                 }
             }
         }
-        
+
         public FormDeviceEditor(EnumEditorMode mode, int id = -1) // ID isn't always needed, e.g. Create
         {
             InitializeComponent();
 
             FormHelper.unlimitNumericBox(this.numericMinValue, AllowDecimals.yes);
-FormHelper.unlimitNumericBox(this.numericMaxValue, AllowDecimals.yes);
-FormHelper.unlimitNumericBox(this.numericAccuracy, AllowDecimals.yes);
-FormHelper.unlimitNumericBox(this.numericCost, AllowDecimals.yes);
-FormHelper.unlimitNumericBox(this.numericReliability, AllowDecimals.no);
-FormHelper.unlimitNumericBox(this.numericStrikes, AllowDecimals.no);
+            FormHelper.unlimitNumericBox(this.numericMaxValue, AllowDecimals.yes);
+            FormHelper.unlimitNumericBox(this.numericAccuracy, AllowDecimals.yes);
+            FormHelper.unlimitNumericBox(this.numericCost, AllowDecimals.yes);
+            FormHelper.unlimitNumericBox(this.numericReliability, AllowDecimals.no);
+            FormHelper.unlimitNumericBox(this.numericStrikes, AllowDecimals.no);
 
 
             this.mode = mode;
@@ -179,7 +179,7 @@ FormHelper.unlimitNumericBox(this.numericStrikes, AllowDecimals.no);
 
                 if (!obj.isDeletable(db))
                 {
-                    MessageBox.Show("Cannot delete this record as other records are still linked to it.", 
+                    MessageBox.Show("Cannot delete this record as other records are still linked to it.",
                                     "Unable to delete", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -196,7 +196,7 @@ FormHelper.unlimitNumericBox(this.numericStrikes, AllowDecimals.no);
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            switch(this.mode)
+            switch (this.mode)
             {
                 case EnumEditorMode.Modify:
                     this.modifyOnClick();
@@ -223,28 +223,28 @@ FormHelper.unlimitNumericBox(this.numericStrikes, AllowDecimals.no);
             {
                 var obj = db.devices.SingleOrDefault(v => v.device_id == this.id);
 
-                
-var selectedDevice2 = this.listDevice2.Items[this.listDevice2.SelectedIndex] as string;
-obj.device2 = db.devices.Single(v => v.name == selectedDevice2);
-var selectedDeviceType = this.listDeviceType.Items[this.listDeviceType.SelectedIndex] as string;
-obj.device_type = db.device_type.Single(v => v.description == selectedDeviceType);
-obj.name = this.textboxName.Text;
-obj.description = this.textboxDescription.Text;
-obj.location = this.textboxLocation.Text;
-obj.min_value = (double)this.numericMinValue.Value;
-obj.max_value = (double)this.numericMaxValue.Value;
-obj.accuracy = (double)this.numericAccuracy.Value;
-obj.serial_number = this.textboxSerialNumber.Text;
-obj.cost = (decimal)this.numericCost.Value;
-obj.reliability = (int)this.numericReliability.Value;
-obj.strikes = (int)this.numericStrikes.Value;
-obj.comment = this.textboxComment.Text;
-obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
+
+                var selectedDevice2 = this.listDevice2.Items[this.listDevice2.SelectedIndex] as string;
+                obj.device2 = db.devices.Single(v => v.name == selectedDevice2);
+                var selectedDeviceType = this.listDeviceType.Items[this.listDeviceType.SelectedIndex] as string;
+                obj.device_type = db.device_type.Single(v => v.description == selectedDeviceType);
+                obj.name = this.textboxName.Text;
+                obj.description = this.textboxDescription.Text;
+                obj.location = this.textboxLocation.Text;
+                obj.min_value = (double)this.numericMinValue.Value;
+                obj.max_value = (double)this.numericMaxValue.Value;
+                obj.accuracy = (double)this.numericAccuracy.Value;
+                obj.serial_number = this.textboxSerialNumber.Text;
+                obj.cost = (decimal)this.numericCost.Value;
+                obj.reliability = (int)this.numericReliability.Value;
+                obj.strikes = (int)this.numericStrikes.Value;
+                obj.comment = this.textboxComment.Text;
+                obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
                     db.SaveChanges();
-                    this._cached  = obj;
+                    this._cached = obj;
                     this._isDirty = false;
                 }
                 else
@@ -261,30 +261,30 @@ obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
             {
                 var obj = new device();
 
-                
-var selectedDevice2 = this.listDevice2.Items[this.listDevice2.SelectedIndex] as string;
-obj.device2 = db.devices.Single(v => v.name == selectedDevice2);
-var selectedDeviceType = this.listDeviceType.Items[this.listDeviceType.SelectedIndex] as string;
-obj.device_type = db.device_type.Single(v => v.description == selectedDeviceType);
-obj.name = this.textboxName.Text;
-obj.description = this.textboxDescription.Text;
-obj.location = this.textboxLocation.Text;
-obj.min_value = (double)this.numericMinValue.Value;
-obj.max_value = (double)this.numericMaxValue.Value;
-obj.accuracy = (double)this.numericAccuracy.Value;
-obj.serial_number = this.textboxSerialNumber.Text;
-obj.cost = (decimal)this.numericCost.Value;
-obj.reliability = (int)this.numericReliability.Value;
-obj.strikes = (int)this.numericStrikes.Value;
-obj.comment = this.textboxComment.Text;
-obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
+
+                var selectedDevice2 = this.listDevice2.Items[this.listDevice2.SelectedIndex] as string;
+                obj.device2 = db.devices.Single(v => v.name == selectedDevice2);
+                var selectedDeviceType = this.listDeviceType.Items[this.listDeviceType.SelectedIndex] as string;
+                obj.device_type = db.device_type.Single(v => v.description == selectedDeviceType);
+                obj.name = this.textboxName.Text;
+                obj.description = this.textboxDescription.Text;
+                obj.location = this.textboxLocation.Text;
+                obj.min_value = (double)this.numericMinValue.Value;
+                obj.max_value = (double)this.numericMaxValue.Value;
+                obj.accuracy = (double)this.numericAccuracy.Value;
+                obj.serial_number = this.textboxSerialNumber.Text;
+                obj.cost = (decimal)this.numericCost.Value;
+                obj.reliability = (int)this.numericReliability.Value;
+                obj.strikes = (int)this.numericStrikes.Value;
+                obj.comment = this.textboxComment.Text;
+                obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
 
                 db.devices.Add(obj);
                 db.SaveChanges();
-                this._cached  = obj;
-                this.id       = obj.device_id;
+                this._cached = obj;
+                this.id = obj.device_id;
                 this._isDirty = false;
-                this.mode     = EnumEditorMode.Modify;
+                this.mode = EnumEditorMode.Modify;
                 this.reload();
             }
         }
@@ -299,21 +299,21 @@ obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
             DialogResult result = DialogResult.No;
             if (this._isDirty)
             {
-                result = MessageBox.Show("Reloading the form will cause your changes to be lost, continue?", "Confirmation", 
+                result = MessageBox.Show("Reloading the form will cause your changes to be lost, continue?", "Confirmation",
                                          MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             }
 
-            if(result == DialogResult.Yes)
+            if (result == DialogResult.Yes)
                 this.reload();
         }
 
-                private void textboxDeviceId_Leave(object sender, EventArgs e)
+        private void textboxDeviceId_Leave(object sender, EventArgs e)
         {
             // The Convert.ToString is just in case the value we're comparing to is something like an int.
             if (this.textboxDeviceId.Text != Convert.ToString(this._cached.device_id))
                 this._isDirty = true;
         }
-                private void listDevice2_SelectionChangeCommitted(object sender, EventArgs e)
+        private void listDevice2_SelectionChangeCommitted(object sender, EventArgs e)
         {
             var index = this.listDevice2.SelectedIndex;
             var value = this.listDevice2.Items[index] as string;
@@ -322,11 +322,11 @@ obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
                 this._isDirty = true;
         }
         private void buttonShowDevice2_Click(object sender, EventArgs e)
-{
-    var form = new SearchForm(EnumSearchFormType.Device);
-    form.MdiParent = this.MdiParent;
-    form.Show();
-}
+        {
+            var form = new SearchForm(EnumSearchFormType.Device);
+            form.MdiParent = this.MdiParent;
+            form.Show();
+        }
         private void listDeviceType_SelectionChangeCommitted(object sender, EventArgs e)
         {
             var index = this.listDeviceType.SelectedIndex;
@@ -336,36 +336,36 @@ obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
                 this._isDirty = true;
         }
         private void buttonShowDeviceType_Click(object sender, EventArgs e)
-{
-    var form = new SearchForm(EnumSearchFormType.DeviceType);
-    form.MdiParent = this.MdiParent;
-    form.Show();
-}
+        {
+            var form = new SearchForm(EnumSearchFormType.DeviceType);
+            form.MdiParent = this.MdiParent;
+            form.Show();
+        }
         private void textboxName_Leave(object sender, EventArgs e)
         {
             // The Convert.ToString is just in case the value we're comparing to is something like an int.
             if (this.textboxName.Text != Convert.ToString(this._cached.name))
                 this._isDirty = true;
         }
-                private void textboxDescription_Leave(object sender, EventArgs e)
+        private void textboxDescription_Leave(object sender, EventArgs e)
         {
             // The Convert.ToString is just in case the value we're comparing to is something like an int.
             if (this.textboxDescription.Text != Convert.ToString(this._cached.description))
                 this._isDirty = true;
         }
-                private void textboxLocation_Leave(object sender, EventArgs e)
+        private void textboxLocation_Leave(object sender, EventArgs e)
         {
             // The Convert.ToString is just in case the value we're comparing to is something like an int.
             if (this.textboxLocation.Text != Convert.ToString(this._cached.location))
                 this._isDirty = true;
         }
-                private void numericMinValue_Enter(object sender, EventArgs e)
+        private void numericMinValue_Enter(object sender, EventArgs e)
         {
             FormHelper.selectAllText(this.numericMinValue);
         }
         private void numericMinValue_ValueChanged(object sender, EventArgs e)
         {
-            if(this._cached == null)
+            if (this._cached == null)
                 return;
 
             if (Convert.ToDouble(this.numericMinValue.Value) != this._cached.min_value)
@@ -377,7 +377,7 @@ obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
         }
         private void numericMaxValue_ValueChanged(object sender, EventArgs e)
         {
-            if(this._cached == null)
+            if (this._cached == null)
                 return;
 
             if (Convert.ToDouble(this.numericMaxValue.Value) != this._cached.max_value)
@@ -389,7 +389,7 @@ obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
         }
         private void numericAccuracy_ValueChanged(object sender, EventArgs e)
         {
-            if(this._cached == null)
+            if (this._cached == null)
                 return;
 
             if (Convert.ToDouble(this.numericAccuracy.Value) != this._cached.accuracy)
@@ -401,16 +401,16 @@ obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
             if (this.textboxSerialNumber.Text != Convert.ToString(this._cached.serial_number))
                 this._isDirty = true;
         }
-                private void numericCost_Enter(object sender, EventArgs e)
+        private void numericCost_Enter(object sender, EventArgs e)
         {
             FormHelper.selectAllText(this.numericCost);
         }
         private void numericCost_ValueChanged(object sender, EventArgs e)
         {
-            if(this._cached == null)
+            if (this._cached == null)
                 return;
 
-            if (Convert.ToDouble(this.numericCost.Value) != this._cached.cost)
+            if (Convert.ToDecimal(this.numericCost.Value) != this._cached.cost)
                 this._isDirty = true;
         }
         private void numericReliability_Enter(object sender, EventArgs e)
@@ -419,7 +419,7 @@ obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
         }
         private void numericReliability_ValueChanged(object sender, EventArgs e)
         {
-            if(this._cached == null)
+            if (this._cached == null)
                 return;
 
             if (Convert.ToDouble(this.numericReliability.Value) != this._cached.reliability)
@@ -431,7 +431,7 @@ obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
         }
         private void numericStrikes_ValueChanged(object sender, EventArgs e)
         {
-            if(this._cached == null)
+            if (this._cached == null)
                 return;
 
             if (Convert.ToDouble(this.numericStrikes.Value) != this._cached.strikes)
@@ -444,10 +444,10 @@ obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
                 this._isDirty = true;
         }
         private void checkboxIsAllowedForUse_CheckedChanged(object sender, EventArgs e)
-{
-    if (this._cached != null && this.checkboxIsAllowedForUse.Checked != this._cached.is_allowed_for_use)
-        this._isDirty = true;
-}
+        {
+            if (this._cached != null && this.checkboxIsAllowedForUse.Checked != this._cached.is_allowed_for_use)
+                this._isDirty = true;
+        }
         #endregion
 
 
@@ -487,48 +487,48 @@ obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
             this.buttonReload = new System.Windows.Forms.Button();
             this.buttonAction = new System.Windows.Forms.Button();
             this.textboxDeviceId = new System.Windows.Forms.TextBox();
-this.labelDeviceId = new System.Windows.Forms.Label();
-this.listDevice2 = new System.Windows.Forms.ComboBox();
-this.buttonShowDevice2 = new System.Windows.Forms.Button();
-this.labelDevice2 = new System.Windows.Forms.Label();
-this.listDeviceType = new System.Windows.Forms.ComboBox();
-this.buttonShowDeviceType = new System.Windows.Forms.Button();
-this.labelDeviceType = new System.Windows.Forms.Label();
-this.textboxName = new System.Windows.Forms.TextBox();
-this.labelName = new System.Windows.Forms.Label();
-this.textboxDescription = new System.Windows.Forms.TextBox();
-this.labelDescription = new System.Windows.Forms.Label();
-this.textboxLocation = new System.Windows.Forms.TextBox();
-this.labelLocation = new System.Windows.Forms.Label();
-this.numericMinValue = new System.Windows.Forms.NumericUpDown();
-this.labelMinValue = new System.Windows.Forms.Label();
-this.numericMaxValue = new System.Windows.Forms.NumericUpDown();
-this.labelMaxValue = new System.Windows.Forms.Label();
-this.numericAccuracy = new System.Windows.Forms.NumericUpDown();
-this.labelAccuracy = new System.Windows.Forms.Label();
-this.textboxSerialNumber = new System.Windows.Forms.TextBox();
-this.labelSerialNumber = new System.Windows.Forms.Label();
-this.numericCost = new System.Windows.Forms.NumericUpDown();
-this.labelCost = new System.Windows.Forms.Label();
-this.numericReliability = new System.Windows.Forms.NumericUpDown();
-this.labelReliability = new System.Windows.Forms.Label();
-this.numericStrikes = new System.Windows.Forms.NumericUpDown();
-this.labelStrikes = new System.Windows.Forms.Label();
-this.textboxComment = new System.Windows.Forms.TextBox();
-this.labelComment = new System.Windows.Forms.Label();
-this.checkboxIsAllowedForUse = new System.Windows.Forms.CheckBox();
-this.labelIsAllowedForUse = new System.Windows.Forms.Label();
+            this.labelDeviceId = new System.Windows.Forms.Label();
+            this.listDevice2 = new System.Windows.Forms.ComboBox();
+            this.buttonShowDevice2 = new System.Windows.Forms.Button();
+            this.labelDevice2 = new System.Windows.Forms.Label();
+            this.listDeviceType = new System.Windows.Forms.ComboBox();
+            this.buttonShowDeviceType = new System.Windows.Forms.Button();
+            this.labelDeviceType = new System.Windows.Forms.Label();
+            this.textboxName = new System.Windows.Forms.TextBox();
+            this.labelName = new System.Windows.Forms.Label();
+            this.textboxDescription = new System.Windows.Forms.TextBox();
+            this.labelDescription = new System.Windows.Forms.Label();
+            this.textboxLocation = new System.Windows.Forms.TextBox();
+            this.labelLocation = new System.Windows.Forms.Label();
+            this.numericMinValue = new System.Windows.Forms.NumericUpDown();
+            this.labelMinValue = new System.Windows.Forms.Label();
+            this.numericMaxValue = new System.Windows.Forms.NumericUpDown();
+            this.labelMaxValue = new System.Windows.Forms.Label();
+            this.numericAccuracy = new System.Windows.Forms.NumericUpDown();
+            this.labelAccuracy = new System.Windows.Forms.Label();
+            this.textboxSerialNumber = new System.Windows.Forms.TextBox();
+            this.labelSerialNumber = new System.Windows.Forms.Label();
+            this.numericCost = new System.Windows.Forms.NumericUpDown();
+            this.labelCost = new System.Windows.Forms.Label();
+            this.numericReliability = new System.Windows.Forms.NumericUpDown();
+            this.labelReliability = new System.Windows.Forms.Label();
+            this.numericStrikes = new System.Windows.Forms.NumericUpDown();
+            this.labelStrikes = new System.Windows.Forms.Label();
+            this.textboxComment = new System.Windows.Forms.TextBox();
+            this.labelComment = new System.Windows.Forms.Label();
+            this.checkboxIsAllowedForUse = new System.Windows.Forms.CheckBox();
+            this.labelIsAllowedForUse = new System.Windows.Forms.Label();
 
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericMinValue)).BeginInit();
-((System.ComponentModel.ISupportInitialize)(this.numericMaxValue)).BeginInit();
-((System.ComponentModel.ISupportInitialize)(this.numericAccuracy)).BeginInit();
-((System.ComponentModel.ISupportInitialize)(this.numericCost)).BeginInit();
-((System.ComponentModel.ISupportInitialize)(this.numericReliability)).BeginInit();
-((System.ComponentModel.ISupportInitialize)(this.numericStrikes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMaxValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericAccuracy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericReliability)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericStrikes)).BeginInit();
 
             this.SuspendLayout();
             // 
@@ -543,20 +543,20 @@ this.labelIsAllowedForUse = new System.Windows.Forms.Label();
             this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.Controls.Add(this.labelDirty);
             this.splitContainer1.Panel1.Controls.Add(labelDeviceId);
-this.splitContainer1.Panel1.Controls.Add(labelDevice2);
-this.splitContainer1.Panel1.Controls.Add(labelDeviceType);
-this.splitContainer1.Panel1.Controls.Add(labelName);
-this.splitContainer1.Panel1.Controls.Add(labelDescription);
-this.splitContainer1.Panel1.Controls.Add(labelLocation);
-this.splitContainer1.Panel1.Controls.Add(labelMinValue);
-this.splitContainer1.Panel1.Controls.Add(labelMaxValue);
-this.splitContainer1.Panel1.Controls.Add(labelAccuracy);
-this.splitContainer1.Panel1.Controls.Add(labelSerialNumber);
-this.splitContainer1.Panel1.Controls.Add(labelCost);
-this.splitContainer1.Panel1.Controls.Add(labelReliability);
-this.splitContainer1.Panel1.Controls.Add(labelStrikes);
-this.splitContainer1.Panel1.Controls.Add(labelComment);
-this.splitContainer1.Panel1.Controls.Add(labelIsAllowedForUse);
+            this.splitContainer1.Panel1.Controls.Add(labelDevice2);
+            this.splitContainer1.Panel1.Controls.Add(labelDeviceType);
+            this.splitContainer1.Panel1.Controls.Add(labelName);
+            this.splitContainer1.Panel1.Controls.Add(labelDescription);
+            this.splitContainer1.Panel1.Controls.Add(labelLocation);
+            this.splitContainer1.Panel1.Controls.Add(labelMinValue);
+            this.splitContainer1.Panel1.Controls.Add(labelMaxValue);
+            this.splitContainer1.Panel1.Controls.Add(labelAccuracy);
+            this.splitContainer1.Panel1.Controls.Add(labelSerialNumber);
+            this.splitContainer1.Panel1.Controls.Add(labelCost);
+            this.splitContainer1.Panel1.Controls.Add(labelReliability);
+            this.splitContainer1.Panel1.Controls.Add(labelStrikes);
+            this.splitContainer1.Panel1.Controls.Add(labelComment);
+            this.splitContainer1.Panel1.Controls.Add(labelIsAllowedForUse);
 
             // 
             // splitContainer1.Panel2
@@ -566,22 +566,22 @@ this.splitContainer1.Panel1.Controls.Add(labelIsAllowedForUse);
             this.splitContainer1.Panel2.Controls.Add(this.buttonReload);
             this.splitContainer1.Panel2.Controls.Add(this.buttonAction);
             this.splitContainer1.Panel2.Controls.Add(textboxDeviceId);
-this.splitContainer1.Panel2.Controls.Add(listDevice2);
-this.splitContainer1.Panel2.Controls.Add(buttonShowDevice2);
-this.splitContainer1.Panel2.Controls.Add(listDeviceType);
-this.splitContainer1.Panel2.Controls.Add(buttonShowDeviceType);
-this.splitContainer1.Panel2.Controls.Add(textboxName);
-this.splitContainer1.Panel2.Controls.Add(textboxDescription);
-this.splitContainer1.Panel2.Controls.Add(textboxLocation);
-this.splitContainer1.Panel2.Controls.Add(numericMinValue);
-this.splitContainer1.Panel2.Controls.Add(numericMaxValue);
-this.splitContainer1.Panel2.Controls.Add(numericAccuracy);
-this.splitContainer1.Panel2.Controls.Add(textboxSerialNumber);
-this.splitContainer1.Panel2.Controls.Add(numericCost);
-this.splitContainer1.Panel2.Controls.Add(numericReliability);
-this.splitContainer1.Panel2.Controls.Add(numericStrikes);
-this.splitContainer1.Panel2.Controls.Add(textboxComment);
-this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
+            this.splitContainer1.Panel2.Controls.Add(listDevice2);
+            this.splitContainer1.Panel2.Controls.Add(buttonShowDevice2);
+            this.splitContainer1.Panel2.Controls.Add(listDeviceType);
+            this.splitContainer1.Panel2.Controls.Add(buttonShowDeviceType);
+            this.splitContainer1.Panel2.Controls.Add(textboxName);
+            this.splitContainer1.Panel2.Controls.Add(textboxDescription);
+            this.splitContainer1.Panel2.Controls.Add(textboxLocation);
+            this.splitContainer1.Panel2.Controls.Add(numericMinValue);
+            this.splitContainer1.Panel2.Controls.Add(numericMaxValue);
+            this.splitContainer1.Panel2.Controls.Add(numericAccuracy);
+            this.splitContainer1.Panel2.Controls.Add(textboxSerialNumber);
+            this.splitContainer1.Panel2.Controls.Add(numericCost);
+            this.splitContainer1.Panel2.Controls.Add(numericReliability);
+            this.splitContainer1.Panel2.Controls.Add(numericStrikes);
+            this.splitContainer1.Panel2.Controls.Add(textboxComment);
+            this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
 
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
@@ -627,18 +627,18 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.buttonAction.Text = "Save";
             this.buttonAction.UseVisualStyleBackColor = true;
             this.buttonAction.Click += new System.EventHandler(this.buttonSave_Click);
-                        // 
+            // 
             // textboxDeviceId
             // 
-            this.textboxDeviceId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textboxDeviceId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textboxDeviceId.Location = new System.Drawing.Point(4, 12);
             this.textboxDeviceId.Name = "textboxDeviceId";
             this.textboxDeviceId.Size = new System.Drawing.Size(208, 20);
-            this.textboxDeviceId.TabIndex = 31;
+            this.textboxDeviceId.TabIndex = 0;
             this.textboxDeviceId.Leave += new System.EventHandler(this.textboxDeviceId_Leave);
             this.textboxDeviceId.Enabled = false;
-                        // 
+            // 
             // labelDeviceId
             // 
             this.labelDeviceId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -647,10 +647,10 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelDeviceId.Location = new System.Drawing.Point(0, 12);
             this.labelDeviceId.Name = "labelDeviceId";
             this.labelDeviceId.Size = new System.Drawing.Size(30, 20);
-            this.labelDeviceId.TabIndex = 14;
+            this.labelDeviceId.TabIndex = 0;
             this.labelDeviceId.Text = "ID";
             this.labelDeviceId.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
+            // 
             // listDevice2
             // 
             this.listDevice2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -660,15 +660,15 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.listDevice2.Location = new System.Drawing.Point(4, 38);
             this.listDevice2.Name = "listDevice2";
             this.listDevice2.Size = new System.Drawing.Size(165, 21);
-            this.listDevice2.TabIndex = 25;
+            this.listDevice2.TabIndex = 1;
             this.listDevice2.SelectionChangeCommitted += new System.EventHandler(this.listDevice2_SelectionChangeCommitted);
-                        // 
+            // 
             // buttonShowDevice2
             // 
             this.buttonShowDevice2.Location = new System.Drawing.Point(174, 38);
             this.buttonShowDevice2.Name = "buttonShowDevice2";
             this.buttonShowDevice2.Size = new System.Drawing.Size(40, 23);
-            this.buttonShowDevice2.TabIndex = 10;
+            this.buttonShowDevice2.TabIndex = 2;
             this.buttonShowDevice2.Text = "...";
             this.buttonShowDevice2.Click += new System.EventHandler(this.buttonShowDevice2_Click);
             // 
@@ -680,10 +680,10 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelDevice2.Location = new System.Drawing.Point(0, 38);
             this.labelDevice2.Name = "labelDevice2";
             this.labelDevice2.Size = new System.Drawing.Size(30, 20);
-            this.labelDevice2.TabIndex = 14;
+            this.labelDevice2.TabIndex = 0;
             this.labelDevice2.Text = "Parent Device";
             this.labelDevice2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
+            // 
             // listDeviceType
             // 
             this.listDeviceType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -693,15 +693,15 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.listDeviceType.Location = new System.Drawing.Point(4, 64);
             this.listDeviceType.Name = "listDeviceType";
             this.listDeviceType.Size = new System.Drawing.Size(165, 21);
-            this.listDeviceType.TabIndex = 25;
+            this.listDeviceType.TabIndex = 3;
             this.listDeviceType.SelectionChangeCommitted += new System.EventHandler(this.listDeviceType_SelectionChangeCommitted);
-                        // 
+            // 
             // buttonShowDeviceType
             // 
             this.buttonShowDeviceType.Location = new System.Drawing.Point(174, 64);
             this.buttonShowDeviceType.Name = "buttonShowDeviceType";
             this.buttonShowDeviceType.Size = new System.Drawing.Size(40, 23);
-            this.buttonShowDeviceType.TabIndex = 10;
+            this.buttonShowDeviceType.TabIndex = 4;
             this.buttonShowDeviceType.Text = "...";
             this.buttonShowDeviceType.Click += new System.EventHandler(this.buttonShowDeviceType_Click);
             // 
@@ -713,21 +713,21 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelDeviceType.Location = new System.Drawing.Point(0, 64);
             this.labelDeviceType.Name = "labelDeviceType";
             this.labelDeviceType.Size = new System.Drawing.Size(30, 20);
-            this.labelDeviceType.TabIndex = 14;
+            this.labelDeviceType.TabIndex = 0;
             this.labelDeviceType.Text = "DeviceType";
             this.labelDeviceType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
+            // 
             // textboxName
             // 
-            this.textboxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textboxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textboxName.Location = new System.Drawing.Point(4, 90);
             this.textboxName.Name = "textboxName";
             this.textboxName.Size = new System.Drawing.Size(208, 20);
-            this.textboxName.TabIndex = 31;
+            this.textboxName.TabIndex = 5;
             this.textboxName.Leave += new System.EventHandler(this.textboxName_Leave);
             this.textboxName.Enabled = true;
-                        // 
+            // 
             // labelName
             // 
             this.labelName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -736,21 +736,21 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelName.Location = new System.Drawing.Point(0, 90);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(30, 20);
-            this.labelName.TabIndex = 14;
+            this.labelName.TabIndex = 0;
             this.labelName.Text = "Name";
             this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
+            // 
             // textboxDescription
             // 
-            this.textboxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textboxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textboxDescription.Location = new System.Drawing.Point(4, 116);
             this.textboxDescription.Name = "textboxDescription";
             this.textboxDescription.Size = new System.Drawing.Size(208, 20);
-            this.textboxDescription.TabIndex = 31;
+            this.textboxDescription.TabIndex = 6;
             this.textboxDescription.Leave += new System.EventHandler(this.textboxDescription_Leave);
             this.textboxDescription.Enabled = true;
-                        // 
+            // 
             // labelDescription
             // 
             this.labelDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -759,21 +759,21 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelDescription.Location = new System.Drawing.Point(0, 116);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(30, 20);
-            this.labelDescription.TabIndex = 14;
+            this.labelDescription.TabIndex = 0;
             this.labelDescription.Text = "Description";
             this.labelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
+            // 
             // textboxLocation
             // 
-            this.textboxLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textboxLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textboxLocation.Location = new System.Drawing.Point(4, 142);
             this.textboxLocation.Name = "textboxLocation";
             this.textboxLocation.Size = new System.Drawing.Size(208, 20);
-            this.textboxLocation.TabIndex = 31;
+            this.textboxLocation.TabIndex = 7;
             this.textboxLocation.Leave += new System.EventHandler(this.textboxLocation_Leave);
             this.textboxLocation.Enabled = true;
-                        // 
+            // 
             // labelLocation
             // 
             this.labelLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -782,22 +782,22 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelLocation.Location = new System.Drawing.Point(0, 142);
             this.labelLocation.Name = "labelLocation";
             this.labelLocation.Size = new System.Drawing.Size(30, 20);
-            this.labelLocation.TabIndex = 14;
+            this.labelLocation.TabIndex = 0;
             this.labelLocation.Text = "Location";
             this.labelLocation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
+            // 
             // numericMinValue
             // 
-            this.numericMinValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.numericMinValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.numericMinValue.Location = new System.Drawing.Point(4, 168);
             this.numericMinValue.Name = "numericMinValue";
             this.numericMinValue.Size = new System.Drawing.Size(211, 20);
-            this.numericMinValue.TabIndex = 32;
+            this.numericMinValue.TabIndex = 8;
             this.numericMinValue.ValueChanged += new System.EventHandler(this.numericMinValue_ValueChanged);
             this.numericMinValue.Click += new System.EventHandler(this.numericMinValue_Enter);
             this.numericMinValue.Enter += new System.EventHandler(this.numericMinValue_Enter);
-                        // 
+            // 
             // labelMinValue
             // 
             this.labelMinValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -806,22 +806,22 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelMinValue.Location = new System.Drawing.Point(0, 168);
             this.labelMinValue.Name = "labelMinValue";
             this.labelMinValue.Size = new System.Drawing.Size(30, 20);
-            this.labelMinValue.TabIndex = 14;
+            this.labelMinValue.TabIndex = 0;
             this.labelMinValue.Text = "MinValue";
             this.labelMinValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
+            // 
             // numericMaxValue
             // 
-            this.numericMaxValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.numericMaxValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.numericMaxValue.Location = new System.Drawing.Point(4, 194);
             this.numericMaxValue.Name = "numericMaxValue";
             this.numericMaxValue.Size = new System.Drawing.Size(211, 20);
-            this.numericMaxValue.TabIndex = 32;
+            this.numericMaxValue.TabIndex = 9;
             this.numericMaxValue.ValueChanged += new System.EventHandler(this.numericMaxValue_ValueChanged);
             this.numericMaxValue.Click += new System.EventHandler(this.numericMaxValue_Enter);
             this.numericMaxValue.Enter += new System.EventHandler(this.numericMaxValue_Enter);
-                        // 
+            // 
             // labelMaxValue
             // 
             this.labelMaxValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -830,22 +830,22 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelMaxValue.Location = new System.Drawing.Point(0, 194);
             this.labelMaxValue.Name = "labelMaxValue";
             this.labelMaxValue.Size = new System.Drawing.Size(30, 20);
-            this.labelMaxValue.TabIndex = 14;
+            this.labelMaxValue.TabIndex = 0;
             this.labelMaxValue.Text = "MaxValue";
             this.labelMaxValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
+            // 
             // numericAccuracy
             // 
-            this.numericAccuracy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.numericAccuracy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.numericAccuracy.Location = new System.Drawing.Point(4, 220);
             this.numericAccuracy.Name = "numericAccuracy";
             this.numericAccuracy.Size = new System.Drawing.Size(211, 20);
-            this.numericAccuracy.TabIndex = 32;
+            this.numericAccuracy.TabIndex = 10;
             this.numericAccuracy.ValueChanged += new System.EventHandler(this.numericAccuracy_ValueChanged);
             this.numericAccuracy.Click += new System.EventHandler(this.numericAccuracy_Enter);
             this.numericAccuracy.Enter += new System.EventHandler(this.numericAccuracy_Enter);
-                        // 
+            // 
             // labelAccuracy
             // 
             this.labelAccuracy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -854,21 +854,21 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelAccuracy.Location = new System.Drawing.Point(0, 220);
             this.labelAccuracy.Name = "labelAccuracy";
             this.labelAccuracy.Size = new System.Drawing.Size(30, 20);
-            this.labelAccuracy.TabIndex = 14;
+            this.labelAccuracy.TabIndex = 0;
             this.labelAccuracy.Text = "Accuracy";
             this.labelAccuracy.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
+            // 
             // textboxSerialNumber
             // 
-            this.textboxSerialNumber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textboxSerialNumber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textboxSerialNumber.Location = new System.Drawing.Point(4, 246);
             this.textboxSerialNumber.Name = "textboxSerialNumber";
             this.textboxSerialNumber.Size = new System.Drawing.Size(208, 20);
-            this.textboxSerialNumber.TabIndex = 31;
+            this.textboxSerialNumber.TabIndex = 11;
             this.textboxSerialNumber.Leave += new System.EventHandler(this.textboxSerialNumber_Leave);
             this.textboxSerialNumber.Enabled = true;
-                        // 
+            // 
             // labelSerialNumber
             // 
             this.labelSerialNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -877,22 +877,22 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelSerialNumber.Location = new System.Drawing.Point(0, 246);
             this.labelSerialNumber.Name = "labelSerialNumber";
             this.labelSerialNumber.Size = new System.Drawing.Size(30, 20);
-            this.labelSerialNumber.TabIndex = 14;
+            this.labelSerialNumber.TabIndex = 0;
             this.labelSerialNumber.Text = "SerialNumber";
             this.labelSerialNumber.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
+            // 
             // numericCost
             // 
-            this.numericCost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.numericCost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.numericCost.Location = new System.Drawing.Point(4, 272);
             this.numericCost.Name = "numericCost";
             this.numericCost.Size = new System.Drawing.Size(211, 20);
-            this.numericCost.TabIndex = 32;
+            this.numericCost.TabIndex = 12;
             this.numericCost.ValueChanged += new System.EventHandler(this.numericCost_ValueChanged);
             this.numericCost.Click += new System.EventHandler(this.numericCost_Enter);
             this.numericCost.Enter += new System.EventHandler(this.numericCost_Enter);
-                        // 
+            // 
             // labelCost
             // 
             this.labelCost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -901,22 +901,22 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelCost.Location = new System.Drawing.Point(0, 272);
             this.labelCost.Name = "labelCost";
             this.labelCost.Size = new System.Drawing.Size(30, 20);
-            this.labelCost.TabIndex = 14;
+            this.labelCost.TabIndex = 0;
             this.labelCost.Text = "Cost";
             this.labelCost.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
+            // 
             // numericReliability
             // 
-            this.numericReliability.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.numericReliability.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.numericReliability.Location = new System.Drawing.Point(4, 298);
             this.numericReliability.Name = "numericReliability";
             this.numericReliability.Size = new System.Drawing.Size(211, 20);
-            this.numericReliability.TabIndex = 32;
+            this.numericReliability.TabIndex = 13;
             this.numericReliability.ValueChanged += new System.EventHandler(this.numericReliability_ValueChanged);
             this.numericReliability.Click += new System.EventHandler(this.numericReliability_Enter);
             this.numericReliability.Enter += new System.EventHandler(this.numericReliability_Enter);
-                        // 
+            // 
             // labelReliability
             // 
             this.labelReliability.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -925,22 +925,22 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelReliability.Location = new System.Drawing.Point(0, 298);
             this.labelReliability.Name = "labelReliability";
             this.labelReliability.Size = new System.Drawing.Size(30, 20);
-            this.labelReliability.TabIndex = 14;
+            this.labelReliability.TabIndex = 0;
             this.labelReliability.Text = "Reliability";
             this.labelReliability.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
+            // 
             // numericStrikes
             // 
-            this.numericStrikes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.numericStrikes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.numericStrikes.Location = new System.Drawing.Point(4, 324);
             this.numericStrikes.Name = "numericStrikes";
             this.numericStrikes.Size = new System.Drawing.Size(211, 20);
-            this.numericStrikes.TabIndex = 32;
+            this.numericStrikes.TabIndex = 14;
             this.numericStrikes.ValueChanged += new System.EventHandler(this.numericStrikes_ValueChanged);
             this.numericStrikes.Click += new System.EventHandler(this.numericStrikes_Enter);
             this.numericStrikes.Enter += new System.EventHandler(this.numericStrikes_Enter);
-                        // 
+            // 
             // labelStrikes
             // 
             this.labelStrikes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -949,21 +949,21 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelStrikes.Location = new System.Drawing.Point(0, 324);
             this.labelStrikes.Name = "labelStrikes";
             this.labelStrikes.Size = new System.Drawing.Size(30, 20);
-            this.labelStrikes.TabIndex = 14;
+            this.labelStrikes.TabIndex = 0;
             this.labelStrikes.Text = "Strikes";
             this.labelStrikes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
+            // 
             // textboxComment
             // 
-            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textboxComment.Location = new System.Drawing.Point(4, 350);
             this.textboxComment.Name = "textboxComment";
             this.textboxComment.Size = new System.Drawing.Size(208, 20);
-            this.textboxComment.TabIndex = 31;
+            this.textboxComment.TabIndex = 15;
             this.textboxComment.Leave += new System.EventHandler(this.textboxComment_Leave);
             this.textboxComment.Enabled = true;
-                        // 
+            // 
             // labelComment
             // 
             this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -972,17 +972,17 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelComment.Location = new System.Drawing.Point(0, 350);
             this.labelComment.Name = "labelComment";
             this.labelComment.Size = new System.Drawing.Size(30, 20);
-            this.labelComment.TabIndex = 14;
+            this.labelComment.TabIndex = 0;
             this.labelComment.Text = "Comment";
             this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-                        // 
+            // 
             // checkboxIsAllowedForUse
             // 
             this.checkboxIsAllowedForUse.AutoSize = true;
             this.checkboxIsAllowedForUse.Location = new System.Drawing.Point(4, 378);
             this.checkboxIsAllowedForUse.Name = "checkboxIsAllowedForUse";
             this.checkboxIsAllowedForUse.Size = new System.Drawing.Size(53, 17);
-            this.checkboxIsAllowedForUse.TabIndex = 33;
+            this.checkboxIsAllowedForUse.TabIndex = 16;
             this.checkboxIsAllowedForUse.Text = "IsAllowedForUse";
             this.checkboxIsAllowedForUse.UseVisualStyleBackColor = true;
             this.checkboxIsAllowedForUse.CheckedChanged += new System.EventHandler(this.checkboxIsAllowedForUse_CheckedChanged);            // 
@@ -994,10 +994,10 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelIsAllowedForUse.Location = new System.Drawing.Point(0, 376);
             this.labelIsAllowedForUse.Name = "labelIsAllowedForUse";
             this.labelIsAllowedForUse.Size = new System.Drawing.Size(30, 20);
-            this.labelIsAllowedForUse.TabIndex = 14;
+            this.labelIsAllowedForUse.TabIndex = 0;
             this.labelIsAllowedForUse.Text = "IsAllowedForUse";
             this.labelIsAllowedForUse.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            
+
             // 
             // FormDeviceEditor
             // 
@@ -1015,11 +1015,11 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericMinValue)).EndInit();
-((System.ComponentModel.ISupportInitialize)(this.numericMaxValue)).EndInit();
-((System.ComponentModel.ISupportInitialize)(this.numericAccuracy)).EndInit();
-((System.ComponentModel.ISupportInitialize)(this.numericCost)).EndInit();
-((System.ComponentModel.ISupportInitialize)(this.numericReliability)).EndInit();
-((System.ComponentModel.ISupportInitialize)(this.numericStrikes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMaxValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericAccuracy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericReliability)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericStrikes)).EndInit();
 
             this.ResumeLayout(false);
 
@@ -1033,37 +1033,37 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
         private System.Windows.Forms.Button buttonReload;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox textboxDeviceId;
-private System.Windows.Forms.Label labelDeviceId;
-private System.Windows.Forms.ComboBox listDevice2;
-private System.Windows.Forms.Button buttonShowDevice2;
-private System.Windows.Forms.Label labelDevice2;
-private System.Windows.Forms.ComboBox listDeviceType;
-private System.Windows.Forms.Button buttonShowDeviceType;
-private System.Windows.Forms.Label labelDeviceType;
-private System.Windows.Forms.TextBox textboxName;
-private System.Windows.Forms.Label labelName;
-private System.Windows.Forms.TextBox textboxDescription;
-private System.Windows.Forms.Label labelDescription;
-private System.Windows.Forms.TextBox textboxLocation;
-private System.Windows.Forms.Label labelLocation;
-private System.Windows.Forms.NumericUpDown numericMinValue;
-private System.Windows.Forms.Label labelMinValue;
-private System.Windows.Forms.NumericUpDown numericMaxValue;
-private System.Windows.Forms.Label labelMaxValue;
-private System.Windows.Forms.NumericUpDown numericAccuracy;
-private System.Windows.Forms.Label labelAccuracy;
-private System.Windows.Forms.TextBox textboxSerialNumber;
-private System.Windows.Forms.Label labelSerialNumber;
-private System.Windows.Forms.NumericUpDown numericCost;
-private System.Windows.Forms.Label labelCost;
-private System.Windows.Forms.NumericUpDown numericReliability;
-private System.Windows.Forms.Label labelReliability;
-private System.Windows.Forms.NumericUpDown numericStrikes;
-private System.Windows.Forms.Label labelStrikes;
-private System.Windows.Forms.TextBox textboxComment;
-private System.Windows.Forms.Label labelComment;
-private System.Windows.Forms.CheckBox checkboxIsAllowedForUse;
-private System.Windows.Forms.Label labelIsAllowedForUse;
+        private System.Windows.Forms.Label labelDeviceId;
+        private System.Windows.Forms.ComboBox listDevice2;
+        private System.Windows.Forms.Button buttonShowDevice2;
+        private System.Windows.Forms.Label labelDevice2;
+        private System.Windows.Forms.ComboBox listDeviceType;
+        private System.Windows.Forms.Button buttonShowDeviceType;
+        private System.Windows.Forms.Label labelDeviceType;
+        private System.Windows.Forms.TextBox textboxName;
+        private System.Windows.Forms.Label labelName;
+        private System.Windows.Forms.TextBox textboxDescription;
+        private System.Windows.Forms.Label labelDescription;
+        private System.Windows.Forms.TextBox textboxLocation;
+        private System.Windows.Forms.Label labelLocation;
+        private System.Windows.Forms.NumericUpDown numericMinValue;
+        private System.Windows.Forms.Label labelMinValue;
+        private System.Windows.Forms.NumericUpDown numericMaxValue;
+        private System.Windows.Forms.Label labelMaxValue;
+        private System.Windows.Forms.NumericUpDown numericAccuracy;
+        private System.Windows.Forms.Label labelAccuracy;
+        private System.Windows.Forms.TextBox textboxSerialNumber;
+        private System.Windows.Forms.Label labelSerialNumber;
+        private System.Windows.Forms.NumericUpDown numericCost;
+        private System.Windows.Forms.Label labelCost;
+        private System.Windows.Forms.NumericUpDown numericReliability;
+        private System.Windows.Forms.Label labelReliability;
+        private System.Windows.Forms.NumericUpDown numericStrikes;
+        private System.Windows.Forms.Label labelStrikes;
+        private System.Windows.Forms.TextBox textboxComment;
+        private System.Windows.Forms.Label labelComment;
+        private System.Windows.Forms.CheckBox checkboxIsAllowedForUse;
+        private System.Windows.Forms.Label labelIsAllowedForUse;
 
         #endregion
     }
