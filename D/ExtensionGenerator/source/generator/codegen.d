@@ -57,11 +57,11 @@ private
     ////////////////
     abstract class Control 
     {
-        string name;
-        int yPos;
-        int tabIndex;
-        const(Field) objectField;
-        NeedsDesignerInit designerInit = NeedsDesignerInit.no;
+        string name; // The name of the control
+        int yPos; // The position on the y-axis to place this control
+        int tabIndex; // The tab index to assing this control
+        const(Field) objectField; // The field that this control is being created for
+        NeedsDesignerInit designerInit = NeedsDesignerInit.no; // Whether or not this control needs special initialisation in the designer function
 
         this(string name, const Field field)
         {
@@ -69,14 +69,14 @@ private
             this.objectField = field;
         }
 
-        abstract string generateDesignCode();
-        abstract string generateEventCode();
-        abstract string generateCtorInit();
-        abstract string generateReloadCode(const Model model, const TableObject object);
-        abstract string generateCreateOnlyReloadCode(const Model model, const TableObject object);
-        abstract string generateObjectCreateCode(const Model model);
-        abstract string generateObjectUpdateCode(const Model model);
-        abstract string winFormTypeName();
+        abstract string generateDesignCode(); // Code for the visual aspect of the control
+        abstract string generateEventCode(); // Code for all of the control's events
+        abstract string generateCtorInit(); // Code to be placed inside the forms ctor for controls that need it
+        abstract string generateReloadCode(const Model model, const TableObject object); // Code to update the control's data from the database
+        abstract string generateCreateOnlyReloadCode(const Model model, const TableObject object); // Code to update the control's data from the database, specific to 'Create' editor mode
+        abstract string generateObjectCreateCode(const Model model); // Code to create an object from the control
+        abstract string generateObjectUpdateCode(const Model model); // Code to update an object from the control
+        abstract string winFormTypeName(); // The fully qualiified name of the WinForm control this class represents
     }
 
     final class Textbox : Control
