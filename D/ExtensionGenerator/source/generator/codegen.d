@@ -440,11 +440,11 @@ void generateEditorStubs(const Model model, Path outputDir)
 
             if(appConfig.projUserInterface.variablesToIgnore.canFind(field.variableName))
             {
-                writefln("\tIgnoring %s as it is listed in the variablesToIgnore list", fieldFQN);
+                writefln("\tIGNORE: %s as it is listed in the variablesToIgnore list", fieldFQN);
             }
             else if(field.typeName == "string" || field.variableName == object.keyName)
             {
-                writefln("\tCreating textbox for %s", fieldFQN);
+                writefln("\tMAKE: textbox for %s", fieldFQN);
 
                 row.controls ~= new Textbox(field.variableName.idup, field, 
                                             field.variableName == object.keyName ? IsReadOnly.yes : IsReadOnly.no);
@@ -459,17 +459,17 @@ void generateEditorStubs(const Model model, Path outputDir)
             {
                 if(field.typeName == "int" && field.variableName.endsWith("_id"))
                 {
-                    writefln("\tIgnoring %s because it's a foriegn key", fieldFQN);
+                    writefln("\tIGNORE: %s because it's a foriegn key", fieldFQN);
                     continue;
                 }
 
-                writefln("\tCreating numeric for %s", fieldFQN);
+                writefln("\tMAKE: numeric for %s", fieldFQN);
                 row.controls ~= new Numeric(field.variableName.idup, field, 
                                             field.typeName == "int" ? IsInteger.yes : IsInteger.no);
             }
             else if(!objectQuery.empty)
             {
-                writefln("\tCreating object list('%s') for %s", field.typeName, fieldFQN);
+                writefln("\tMAKE: object list('%s') for %s", field.typeName, fieldFQN);
 
                 auto listObject = objectQuery.front;
                 assert(listObject.className == field.typeName);
@@ -493,16 +493,16 @@ void generateEditorStubs(const Model model, Path outputDir)
             }
             else if(field.typeName == "DateTime")
             {
-                writefln("\tCreating DateTimePicker for %s", fieldFQN);
+                writefln("\tMAKE: DateTimePicker for %s", fieldFQN);
                 row.controls ~= new DateTime(field.variableName.idup, field);
             }
             else if(field.typeName.startsWith("ICollection<"))
             {
-                writefln("\tIgnoring %s, as it is a list of dependants", fieldFQN);
+                writefln("\tIGNORE: %s, as it is a list of dependants", fieldFQN);
             }
             else
             {
-                writefln("\tWARNING: The type '%s' for variable '%s.%s' is being skipped, as there is no handler for it.",
+                writefln("\tWARN: The type '%s' for variable '%s.%s' is being skipped, as there is no handler for it.",
                          field.typeName, object.className, field.variableName);
             }
 
