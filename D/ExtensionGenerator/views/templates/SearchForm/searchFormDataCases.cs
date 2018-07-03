@@ -1,17 +1,17 @@
 case EnumSearchFormType.${custom_FixedObjectName}:
     var ${custom_FixedObjectName}Query = from value in db.${custom_objectTableName}
-                orderby value.${custom_objectKeyField.variableName}
+                orderby value.${custom_objectDisplayField.variableName}
                 select value;
 
     this.list.Columns.Add("ID");
-    this.list.Columns.Add("${custom_objectKeyField.variableName.standardisedName}");
-    foreach (var value in alQuery)
+    this.list.Columns.Add("${custom_objectDisplayField.variableName.standardisedName}");
+    foreach (var value in ${custom_FixedObjectName}Query)
     {
         var item = new ListViewItem(
             new string[]
             {
-                Convert.ToString(value.${object.getKey().variableName}),
-                value.custom_objectKeyField.variableName
+                                    Convert.ToString(value.${object.getKey().variableName}),
+                                    value.${custom_objectDisplayField.variableName}
             }
         );
         item.Tag = value.${object.getKey().variableName};
@@ -20,3 +20,4 @@ case EnumSearchFormType.${custom_FixedObjectName}:
 
     this.list.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
     break;
+    

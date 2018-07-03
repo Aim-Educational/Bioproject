@@ -117,7 +117,9 @@
     <Compile Include="Generated\FormDeviceAddressTypeEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generated\FormDeviceEditor.cs" />
+    <Compile Include="Generated\FormDeviceEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Generated\FormDeviceHistoryActionEditor.cs">
       <SubType>Form</SubType>
     </Compile>

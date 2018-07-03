@@ -18,6 +18,7 @@ private
     const TEMPLATE_MODEL_CUSTOM_EXTENSION_IS_DELETABLE_QUERY = import("templates/Model/custom_isDeletable_query.cs");
     const TEMPLATE_SEARCHFORM_MAIN                           = import("templates/SearchForm/searchFormMain.cs");
     const TEMPLATE_SEARCHFORM_EDITOR_CASES                   = import("templates/SearchForm/searchFormEditorCases.cs");
+    const TEMPLATE_SEARCHFORM_DATA_CASES                     = import("templates/SearchForm/searchFormDataCases.cs");
     const TEMPLATE_EDITOR_CODE                               = import("templates/Editor/FormEditorCode.cs");
     const TEMPLATE_CONTROL_TEXTBOX_DESIGN                    = import("templates/Editor/Controls/ControlTextbox.cs");
     const TEMPLATE_CONTROL_TEXTBOX_CREATE_UPDATE             = import("templates/Editor/Controls/ControlTextbox_CreateUpdate.cs");
@@ -641,7 +642,7 @@ void generateSearchExtensions(const Model model, Path outputFile)
 {
     import std.uni : toUpperInPlace, toUpper;
     import std.array : array;
-    import std.algorithm : splitter, canFind, map;
+    import std.algorithm : splitter, canFind, map, joiner;
 
     writefln("\n> Generating Search Form extensions, outputted to file '%s'", outputFile);
 
@@ -650,11 +651,22 @@ void generateSearchExtensions(const Model model, Path outputFile)
 
     // First, generate the cases
     char[] custom_EditorCaseStatements;
+    char[] custom_DataCaseStatements;
     foreach(object; model.objects)
     {
-        char[] custom_FixedObjectName = object.className.standardisedName;
-        custom_EditorCaseStatements ~= mixin(interp!TEMPLATE_SEARCHFORM_EDITOR_CASES);
+        char[] custom_FixedObjectName  = object.className.standardisedName;
+        auto custom_objectDisplayField = object.fields.findBestDisplayVar(object.className);
+        auto custom_objectTableName    = model.context.getTableForType(object.className).variableName;
+        custom_EditorCaseStatements   ~= mixin(interp!TEMPLATE_SEARCHFORM_EDITOR_CASES);
+        custom_DataCaseStatements     ~= mixin(interp!TEMPLATE_SEARCHFORM_DATA_CASES);
     }
+
+    // Then generate the enum
+    auto objects = (cast(TableObject[])model.objects).dup; // So we can sort it without messing up the actual order.
+    auto custom_EnumValues = objects.sort!"a.className < b.className"
+                                    .map!(o => o.className.standardisedName)
+                                    .joiner(",\n")
+                                    .array;
 
     // And then, generate the main file
     auto text = mixin(interp!TEMPLATE_SEARCHFORM_MAIN);
@@ -704,7 +716,7 @@ char[] standardisedName(const char[] name)
 }
 
 // Returns: The field from the given list of `fields` which has the highest priority to be displayed (based on the configuration file)
-const(Field) findBestDisplayVar(const Field[] fields)
+const(Field) findBestDisplayVar(const Field[] fields, lazy string debugName = "[UNKNOWN OBJECT]")
 {
     Field bestKeyMatch;
     int bestMatchPriority = int.min;
@@ -717,7 +729,11 @@ const(Field) findBestDisplayVar(const Field[] fields)
             bestMatchPriority = priority;
         }
     }
-    assert(bestMatchPriority != int.min);
+
+    enforce(bestMatchPriority != int.min, 
+            format("The object '%s' doesn't contain any variables from the 'objectListVariablePriority' list from the configuration file.\n%s", 
+                   debugName, fields)
+           );
 
     return bestKeyMatch;
 }

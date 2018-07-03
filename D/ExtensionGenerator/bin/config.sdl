@@ -55,6 +55,10 @@ projUserInterface {
         "name"              3
         "description"       2
         "comment"           1
+
+        // Object-specific
+        "message"           0
+        "database_backup_directory" 0
     }
 
     // Some objects may have variables that the user has no need to see, so any variables that have a name from this list
