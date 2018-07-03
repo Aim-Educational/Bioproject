@@ -501,7 +501,7 @@ void generateEditorStubs(const Model model, Path outputDir)
                     row.priority = 100; // The ID should be at the top
                 }
             }
-            else if(field.typeName == "int" || field.typeName == "float" || field.typeName == "double")
+            else if(field.typeName == "int" || field.typeName == "float" || field.typeName == "double" || field.typeName == "decimal")
             {
                 if(field.typeName == "int" && field.variableName.endsWith("_id"))
                 {

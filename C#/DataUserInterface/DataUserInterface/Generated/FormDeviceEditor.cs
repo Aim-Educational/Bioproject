@@ -122,6 +122,7 @@ this.numericMinValue.Value = (decimal)obj.min_value;
 this.numericMaxValue.Value = (decimal)obj.max_value;
 this.numericAccuracy.Value = (decimal)obj.accuracy;
 this.textboxSerialNumber.Text = obj.serial_number;
+this.numericCost.Value = (decimal)obj.cost;
 this.numericReliability.Value = (decimal)obj.reliability;
 this.numericStrikes.Value = (decimal)obj.strikes;
 this.textboxComment.Text = obj.comment;
@@ -141,6 +142,7 @@ this.checkboxIsAllowedForUse.Checked = obj.is_allowed_for_use;
             FormHelper.unlimitNumericBox(this.numericMinValue, AllowDecimals.yes);
 FormHelper.unlimitNumericBox(this.numericMaxValue, AllowDecimals.yes);
 FormHelper.unlimitNumericBox(this.numericAccuracy, AllowDecimals.yes);
+FormHelper.unlimitNumericBox(this.numericCost, AllowDecimals.yes);
 FormHelper.unlimitNumericBox(this.numericReliability, AllowDecimals.no);
 FormHelper.unlimitNumericBox(this.numericStrikes, AllowDecimals.no);
 
@@ -233,6 +235,7 @@ obj.min_value = (double)this.numericMinValue.Value;
 obj.max_value = (double)this.numericMaxValue.Value;
 obj.accuracy = (double)this.numericAccuracy.Value;
 obj.serial_number = this.textboxSerialNumber.Text;
+obj.cost = (decimal)this.numericCost.Value;
 obj.reliability = (int)this.numericReliability.Value;
 obj.strikes = (int)this.numericStrikes.Value;
 obj.comment = this.textboxComment.Text;
@@ -270,6 +273,7 @@ obj.min_value = (double)this.numericMinValue.Value;
 obj.max_value = (double)this.numericMaxValue.Value;
 obj.accuracy = (double)this.numericAccuracy.Value;
 obj.serial_number = this.textboxSerialNumber.Text;
+obj.cost = (decimal)this.numericCost.Value;
 obj.reliability = (int)this.numericReliability.Value;
 obj.strikes = (int)this.numericStrikes.Value;
 obj.comment = this.textboxComment.Text;
@@ -397,7 +401,19 @@ obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
             if (this.textboxSerialNumber.Text != Convert.ToString(this._cached.serial_number))
                 this._isDirty = true;
         }
-                private void numericReliability_Enter(object sender, EventArgs e)
+                private void numericCost_Enter(object sender, EventArgs e)
+        {
+            FormHelper.selectAllText(this.numericCost);
+        }
+        private void numericCost_ValueChanged(object sender, EventArgs e)
+        {
+            if(this._cached == null)
+                return;
+
+            if (Convert.ToDouble(this.numericCost.Value) != this._cached.cost)
+                this._isDirty = true;
+        }
+        private void numericReliability_Enter(object sender, EventArgs e)
         {
             FormHelper.selectAllText(this.numericReliability);
         }
@@ -492,6 +508,8 @@ this.numericAccuracy = new System.Windows.Forms.NumericUpDown();
 this.labelAccuracy = new System.Windows.Forms.Label();
 this.textboxSerialNumber = new System.Windows.Forms.TextBox();
 this.labelSerialNumber = new System.Windows.Forms.Label();
+this.numericCost = new System.Windows.Forms.NumericUpDown();
+this.labelCost = new System.Windows.Forms.Label();
 this.numericReliability = new System.Windows.Forms.NumericUpDown();
 this.labelReliability = new System.Windows.Forms.Label();
 this.numericStrikes = new System.Windows.Forms.NumericUpDown();
@@ -508,6 +526,7 @@ this.labelIsAllowedForUse = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericMinValue)).BeginInit();
 ((System.ComponentModel.ISupportInitialize)(this.numericMaxValue)).BeginInit();
 ((System.ComponentModel.ISupportInitialize)(this.numericAccuracy)).BeginInit();
+((System.ComponentModel.ISupportInitialize)(this.numericCost)).BeginInit();
 ((System.ComponentModel.ISupportInitialize)(this.numericReliability)).BeginInit();
 ((System.ComponentModel.ISupportInitialize)(this.numericStrikes)).BeginInit();
 
@@ -533,6 +552,7 @@ this.splitContainer1.Panel1.Controls.Add(labelMinValue);
 this.splitContainer1.Panel1.Controls.Add(labelMaxValue);
 this.splitContainer1.Panel1.Controls.Add(labelAccuracy);
 this.splitContainer1.Panel1.Controls.Add(labelSerialNumber);
+this.splitContainer1.Panel1.Controls.Add(labelCost);
 this.splitContainer1.Panel1.Controls.Add(labelReliability);
 this.splitContainer1.Panel1.Controls.Add(labelStrikes);
 this.splitContainer1.Panel1.Controls.Add(labelComment);
@@ -557,6 +577,7 @@ this.splitContainer1.Panel2.Controls.Add(numericMinValue);
 this.splitContainer1.Panel2.Controls.Add(numericMaxValue);
 this.splitContainer1.Panel2.Controls.Add(numericAccuracy);
 this.splitContainer1.Panel2.Controls.Add(textboxSerialNumber);
+this.splitContainer1.Panel2.Controls.Add(numericCost);
 this.splitContainer1.Panel2.Controls.Add(numericReliability);
 this.splitContainer1.Panel2.Controls.Add(numericStrikes);
 this.splitContainer1.Panel2.Controls.Add(textboxComment);
@@ -579,7 +600,7 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(85, 390);
+            this.buttonDelete.Location = new System.Drawing.Point(85, 416);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Text = "[X]";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
@@ -589,7 +610,7 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(4, 390);
+            this.buttonReload.Location = new System.Drawing.Point(4, 416);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -599,7 +620,7 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             // 
             // buttonAction
             // 
-            this.buttonAction.Location = new System.Drawing.Point(141, 390);
+            this.buttonAction.Location = new System.Drawing.Point(141, 416);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
@@ -860,11 +881,35 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelSerialNumber.Text = "SerialNumber";
             this.labelSerialNumber.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // numericCost
+            // 
+            this.numericCost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericCost.Location = new System.Drawing.Point(4, 272);
+            this.numericCost.Name = "numericCost";
+            this.numericCost.Size = new System.Drawing.Size(211, 20);
+            this.numericCost.TabIndex = 32;
+            this.numericCost.ValueChanged += new System.EventHandler(this.numericCost_ValueChanged);
+            this.numericCost.Click += new System.EventHandler(this.numericCost_Enter);
+            this.numericCost.Enter += new System.EventHandler(this.numericCost_Enter);
+                        // 
+            // labelCost
+            // 
+            this.labelCost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelCost.AutoSize = true;
+            this.labelCost.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCost.Location = new System.Drawing.Point(0, 272);
+            this.labelCost.Name = "labelCost";
+            this.labelCost.Size = new System.Drawing.Size(30, 20);
+            this.labelCost.TabIndex = 14;
+            this.labelCost.Text = "Cost";
+            this.labelCost.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
             // numericReliability
             // 
             this.numericReliability.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericReliability.Location = new System.Drawing.Point(4, 272);
+            this.numericReliability.Location = new System.Drawing.Point(4, 298);
             this.numericReliability.Name = "numericReliability";
             this.numericReliability.Size = new System.Drawing.Size(211, 20);
             this.numericReliability.TabIndex = 32;
@@ -877,7 +922,7 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelReliability.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelReliability.AutoSize = true;
             this.labelReliability.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelReliability.Location = new System.Drawing.Point(0, 272);
+            this.labelReliability.Location = new System.Drawing.Point(0, 298);
             this.labelReliability.Name = "labelReliability";
             this.labelReliability.Size = new System.Drawing.Size(30, 20);
             this.labelReliability.TabIndex = 14;
@@ -888,7 +933,7 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             // 
             this.numericStrikes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericStrikes.Location = new System.Drawing.Point(4, 298);
+            this.numericStrikes.Location = new System.Drawing.Point(4, 324);
             this.numericStrikes.Name = "numericStrikes";
             this.numericStrikes.Size = new System.Drawing.Size(211, 20);
             this.numericStrikes.TabIndex = 32;
@@ -901,7 +946,7 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelStrikes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelStrikes.AutoSize = true;
             this.labelStrikes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelStrikes.Location = new System.Drawing.Point(0, 298);
+            this.labelStrikes.Location = new System.Drawing.Point(0, 324);
             this.labelStrikes.Name = "labelStrikes";
             this.labelStrikes.Size = new System.Drawing.Size(30, 20);
             this.labelStrikes.TabIndex = 14;
@@ -912,7 +957,7 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             // 
             this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxComment.Location = new System.Drawing.Point(4, 324);
+            this.textboxComment.Location = new System.Drawing.Point(4, 350);
             this.textboxComment.Name = "textboxComment";
             this.textboxComment.Size = new System.Drawing.Size(208, 20);
             this.textboxComment.TabIndex = 31;
@@ -924,7 +969,7 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelComment.AutoSize = true;
             this.labelComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelComment.Location = new System.Drawing.Point(0, 324);
+            this.labelComment.Location = new System.Drawing.Point(0, 350);
             this.labelComment.Name = "labelComment";
             this.labelComment.Size = new System.Drawing.Size(30, 20);
             this.labelComment.TabIndex = 14;
@@ -934,7 +979,7 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             // checkboxIsAllowedForUse
             // 
             this.checkboxIsAllowedForUse.AutoSize = true;
-            this.checkboxIsAllowedForUse.Location = new System.Drawing.Point(4, 352);
+            this.checkboxIsAllowedForUse.Location = new System.Drawing.Point(4, 378);
             this.checkboxIsAllowedForUse.Name = "checkboxIsAllowedForUse";
             this.checkboxIsAllowedForUse.Size = new System.Drawing.Size(53, 17);
             this.checkboxIsAllowedForUse.TabIndex = 33;
@@ -946,7 +991,7 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             this.labelIsAllowedForUse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelIsAllowedForUse.AutoSize = true;
             this.labelIsAllowedForUse.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelIsAllowedForUse.Location = new System.Drawing.Point(0, 350);
+            this.labelIsAllowedForUse.Location = new System.Drawing.Point(0, 376);
             this.labelIsAllowedForUse.Name = "labelIsAllowedForUse";
             this.labelIsAllowedForUse.Size = new System.Drawing.Size(30, 20);
             this.labelIsAllowedForUse.TabIndex = 14;
@@ -958,7 +1003,7 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 416);
+            this.ClientSize = new System.Drawing.Size(330, 442);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormDeviceEditor";
             this.Text = "Device Editor";
@@ -972,6 +1017,7 @@ this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
             ((System.ComponentModel.ISupportInitialize)(this.numericMinValue)).EndInit();
 ((System.ComponentModel.ISupportInitialize)(this.numericMaxValue)).EndInit();
 ((System.ComponentModel.ISupportInitialize)(this.numericAccuracy)).EndInit();
+((System.ComponentModel.ISupportInitialize)(this.numericCost)).EndInit();
 ((System.ComponentModel.ISupportInitialize)(this.numericReliability)).EndInit();
 ((System.ComponentModel.ISupportInitialize)(this.numericStrikes)).EndInit();
 
@@ -1008,6 +1054,8 @@ private System.Windows.Forms.NumericUpDown numericAccuracy;
 private System.Windows.Forms.Label labelAccuracy;
 private System.Windows.Forms.TextBox textboxSerialNumber;
 private System.Windows.Forms.Label labelSerialNumber;
+private System.Windows.Forms.NumericUpDown numericCost;
+private System.Windows.Forms.Label labelCost;
 private System.Windows.Forms.NumericUpDown numericReliability;
 private System.Windows.Forms.Label labelReliability;
 private System.Windows.Forms.NumericUpDown numericStrikes;
