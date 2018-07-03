@@ -2,15 +2,6 @@ import std.stdio;
 import scriptlike;
 import generator.model, generator.codegen, generator.config;
 
-/+
-Next steps:
-	- When/if needed, add the ability to parse all of the editor forms (or just generate the forms first,
-	  and keep around whatever information is needed from the generation) so that the code generation
-	  for the SearchForm can be more generalised, and so we can perform certain kind of validation.
-	  	- Maybe also parse the EnumSearchFormType enum as well, to make sure all object names have a
-		  corresponding enum value (after their names are standardised).
-+/
-
 void main()
 {
 	try
