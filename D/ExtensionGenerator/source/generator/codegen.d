@@ -534,18 +534,7 @@ void generateEditorForms(const Model model, Path outputDir)
                 assert(listObject.className == field.typeName);
 
                 // Find out which variable takes the highest priority to be displayed.
-                string bestKeyNameMatch;
-                int bestMatchPriority;
-                foreach(listField; listObject.fields)
-                {
-                    auto priority = appConfig.projUserInterface.objectListVariablePriority.get(listField.variableName, int.min);
-                    if(priority > bestMatchPriority)
-                    {
-                        bestKeyNameMatch = listField.variableName;
-                        bestMatchPriority = priority;
-                    }
-                }
-                assert(bestMatchPriority != int.min);
+                string bestKeyNameMatch = listObject.fields.findBestDisplayVar().variableName;
 
                 row.controls ~= new ObjectList(field.variableName.idup, field, bestKeyNameMatch);
                 row.controls ~= new ShowListButton(field.variableName.idup, field);
@@ -712,4 +701,23 @@ char[] standardisedName(const char[] name)
     }
 
     return fixed;
+}
+
+// Returns: The field from the given list of `fields` which has the highest priority to be displayed (based on the configuration file)
+const(Field) findBestDisplayVar(const Field[] fields)
+{
+    Field bestKeyMatch;
+    int bestMatchPriority = int.min;
+    foreach(listField; fields)
+    {
+        auto priority = appConfig.projUserInterface.objectListVariablePriority.get(listField.variableName, int.min);
+        if(priority > bestMatchPriority)
+        {
+            bestKeyMatch      = cast(Field)listField;
+            bestMatchPriority = priority;
+        }
+    }
+    assert(bestMatchPriority != int.min);
+
+    return bestKeyMatch;
 }

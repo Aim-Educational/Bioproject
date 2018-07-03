@@ -49,6 +49,8 @@ projUserInterface {
     // the names of each device.
     // Another example is a 'backup_log' class, which only has the 'id' and 'filepath' variables. In this case, we could have add the
     // 'filepath' name into this list, with any priority, and the generator will populate the drop down with the filepaths of all the backup logs.
+    //
+    // There are also other places in the generator will use this priority list, such as to decide which variable to display in the search form results.
     objectListVariablePriority {
         "name"              3
         "description"       2
