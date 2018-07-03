@@ -714,6 +714,13 @@ char[] standardisedName(const char[] name)
 
     return fixed;
 }
+///
+unittest
+{
+    assert(standardisedName("DeviceType") == "DeviceType");  // Shouldn't modify already standard names.
+    assert(standardisedName("devicetype") == "Devicetype");  // Should only capitlaise the 'D'
+    assert(standardisedName("device_type") == "DeviceType"); // Should capitalise both the 'D' and 'T', and join them up.
+}
 
 // Returns: The field from the given list of `fields` which has the highest priority to be displayed (based on the configuration file)
 const(Field) findBestDisplayVar(const Field[] fields, lazy string debugName = "[UNKNOWN OBJECT]")
@@ -736,4 +743,32 @@ const(Field) findBestDisplayVar(const Field[] fields, lazy string debugName = "[
            );
 
     return bestKeyMatch;
+}
+///
+unittest
+{
+    import std.exception : assertThrown;
+
+    // Setup a dummy config.
+    appConfig.projUserInterface = ConfigDataUserInterface.init;
+    appConfig.projUserInterface.objectListVariablePriority = 
+    [
+        "name": 3,
+        "description": 2,
+        "comment": 1
+    ];
+
+    // To make it easier to make a field. 
+    Field easyField(string name) { Field f = new Field(); f.variableName = name; return f; }
+
+    // Create some example fields.
+    auto name        = easyField("name");
+    auto description = easyField("description");
+    auto comment     = easyField("comment");
+    auto yes         = easyField("yes");
+
+    // Tests.
+    assert([name, description, comment, yes].findBestDisplayVar() == name); // Should correctly pick from a list of multiple fields
+    assert([comment].findBestDisplayVar() == comment);                      // Should correclty pick from a list with a single field (that's in the config)
+    assertThrown([yes].findBestDisplayVar());                               // Should throw if the list only contains fields that aren't in the config.
 }
