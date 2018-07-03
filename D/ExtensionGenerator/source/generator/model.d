@@ -62,10 +62,16 @@ class DatabaseContext
     }
 }
 
+/// Contains information about a specific field/variable.
 class Field
 {
+    /// The name of the field's type. (e.g. "device", "int", etc.)
     string typeName;
+
+    /// The name of the field.
     string variableName;
+
+    /// The attributes applied to the field.
     string[] attributes;
 
     override string toString() const
@@ -92,8 +98,10 @@ class TableObject
     /// The name of the file the object is stored in.
 	string fileName;
 
+    /// All of the fields/variables that make up the object.
     Field[] fields;
 
+    /// All the `TableObject`s that depend on this object.
     Dependant[] dependants;
 
     override string toString()
@@ -115,11 +123,18 @@ class TableObject
                       this.fields.map!(f => f.toString()).joiner("\n\n"));
     }
 
+    /// Returns: The primary key field.
     inout(Field) getKey() inout
     {
         return this.getFieldByName(this.keyName, "Could not find the primary key field.");
     }
 
+    /// Notes:
+    ///  If a field with `name` doesn't exist then an exception is thrown, using `notFoundErrorMsg`
+    ///  as additional information about why the field was needed (e.g. It's the key field, it's a foreign key, it's a generic value, etc.)
+    ///
+    /// Returns:
+    ///   A `Field` with the given `name`.
     inout(Field) getFieldByName(string name, lazy string notFoundErrorMsg = "No additional info") inout
     {
         foreach(field; this.fields)
@@ -132,9 +147,13 @@ class TableObject
     }
 }
 
+/// Contains information about a 'TableObject' that's dependent on another type.
 struct Dependant
 {
+    /// The object that's dependent on another.
     TableObject dependant;
+
+    /// The field that acts as the foreign key for the dependency.
     Field dependantFK;
 }
 
@@ -165,6 +184,7 @@ class Model
                       this.objects.map!(o => o.toString()).joiner("\n\n"));
     }
 
+    /// Returns: The `TableObject` with the given `type`.
     inout(TableObject) getObjectByType(string type) inout
     {
         foreach(obj; this.objects)
@@ -198,6 +218,8 @@ Model parseModelDirectory(Path dirPath)
 	// Only has one match, which is the name of the table object class.
 	auto dbObjectNameRegex = regex(`public\spartial\sclass\s([a-zA-Z_]+)\s`);
 
+    // Go over all of the files, and check what kind of data it contains, then pass it to the right function
+    // to parse it.
 	Model model = new Model();
 	foreach(entry; dirEntries(dirPath, SpanMode.breadth))
 	{
@@ -232,6 +254,7 @@ Model parseModelDirectory(Path dirPath)
 	return model;
 }
 
+// Performs steps of the model parsing that can only be done after the entire model is read in.
 private void finaliseModel(Model model)
 {
     writeln("\n> Finalising Model");
@@ -247,11 +270,8 @@ private void finaliseModel(Model model)
             auto match = matchFirst(field.typeName, iCollectionRegex);
             if(match.length == 2)
             {
-                auto dependantTypeName = match[1];
-                auto query = model.getObjectByType(dependantTypeName);
-
                 Dependant info;
-                info.dependant = query;
+                info.dependant = model.getObjectByType(match[1]);
                 
                 // Figure out the FK's variable name.
                 if(info.dependant == object) // Special case: The object has an FK of another object with the same type (device for example)
@@ -267,7 +287,7 @@ private void finaliseModel(Model model)
                     // Naming convention: Simply slap "_id" after the type name and it makes a foreign key
                     // If this is violated, or EF generates special cases, then this logic fails.
                     auto fkName = object.className ~ "_id";
-                    auto fkQuery = info.dependant.getFieldByName(fkName, "Could not find foreign key, are you following the naming convention?");
+                    auto fkQuery = info.dependant.getFieldByName(fkName, "Could not find the foreign key, are you following the naming convention?");
                     info.dependantFK = fkQuery;
                 }
 
@@ -277,6 +297,7 @@ private void finaliseModel(Model model)
     }
 }
 
+// Parses a file describing the class that inherits from DbContext
 private void parseDbContext(ref Model model, string content, string className)
 {
     writeln("[DbContext]");
@@ -290,7 +311,7 @@ private void parseDbContext(ref Model model, string content, string className)
     model.context = new DatabaseContext();
     model.context.className = className;
 
-    // Figure out which namespace this is in.
+    // Figure out which namespace this class is in.
     auto matches = matchFirst(content, dbModelNamespaceRegex);
     enforce(matches.length == 2, "Could not determine the namespace for the model.");
     model.namespace = matches[1];   
@@ -309,6 +330,7 @@ private void parseDbContext(ref Model model, string content, string className)
     }
 }
 
+// Parses a file that represents a record of a table from the database (I call them TableObjects in the generator's codebase)
 private void parseObjectFile(ref Model model, string content, string className, string filePath)
 {
     // This function is called multiple times, so ctRegex is being used instead of the normal regex.
@@ -317,8 +339,10 @@ private void parseObjectFile(ref Model model, string content, string className, 
     // Only has one match, which is the name of the object's key variable.
 	auto dbObjectKeyNameRegex = ctRegex!(`\[Key\]\s*\[?[^\]]+\]?\s*public\sint\s([a-zA-Z_0-1]+)\s\{\sget;\sset;\s\}`);
 
+    // Used to check for a ctor
     auto dbObjectCtorRegex = regex(format(`public (%s)\(\)`, className));
 
+    // Used to check for a '}'
     auto dbObjectEndCurlyRegex = ctRegex!`\s*(\})\s*`;
 
     // [1] = Whatever's inside the attribute brackets
@@ -365,18 +389,18 @@ private void parseObjectFile(ref Model model, string content, string className, 
         // Repeat until the end of the contents.
 
         auto atribMatches = matchFirst(line, dbObjectAttributeRegex);
-        if(atribMatches.length > 1)
+        if(atribMatches.length > 1) // Attribute found
         {
             attributes ~= atribMatches[1];
             continue;
         }
 
         auto fieldMatches = matchFirst(line, dbObjectFieldRegex);
-        if(fieldMatches.length > 1)
+        if(fieldMatches.length > 1) // Field found
         {
-            //assert(false, "This part is broken still, future me. The regex isn't working");
             assert(fieldMatches.length == 3);
 
+            // Setup the field.
             Field field = new Field();
             field.typeName = fieldMatches[1];
             field.variableName = fieldMatches[2];
@@ -390,6 +414,7 @@ private void parseObjectFile(ref Model model, string content, string className, 
             if(!query.empty)
                 object.keyName = field.variableName;
 
+            // Then reset the attribute list.
             attributes = null;
             continue;
         }
@@ -399,6 +424,7 @@ private void parseObjectFile(ref Model model, string content, string className, 
     model.objects ~= object;
 }
 
+// Performs certain validation steps to ensure that the model is formed correctly.
 void validateModel(const Model model)
 {
     import std.algorithm : canFind;
@@ -422,4 +448,8 @@ void validateModel(const Model model)
                     format("The object '%s' is missing the mandatory variable '%s'.", object.className, mandatoryVar));
         }
     }
+
+    // #3, make sure all objects have a primary key field.
+    foreach(object; model.objects)
+        object.getKey(); // This will throw if it can't find the key
 }

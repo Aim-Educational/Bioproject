@@ -25,7 +25,7 @@ void main()
 		generateModelExtensions(model, Path(buildPath(appConfig.projDataManager.rootDir, appConfig.projDataManager.generatorOutputDir, "ModelExtension/Generated")));
 		generateCustomModelExtensions(model, Path(buildPath(appConfig.projDataManager.rootDir, appConfig.projDataManager.generatorOutputDir, "ModelExtension/Custom")));
 		generateSearchExtensions(model, Path(buildPath(appConfig.projUserInterface.rootDir, appConfig.projUserInterface.searchExtensionOutputDir, appConfig.projUserInterface.searchExtensionFilename)));
-		generateEditorStubs(model, Path(buildPath(appConfig.projUserInterface.rootDir, appConfig.projUserInterface.formOutputDir)));
+		generateEditorForms(model, Path(buildPath(appConfig.projUserInterface.rootDir, appConfig.projUserInterface.formOutputDir)));
 	}
 	catch(Exception ex)
 	{

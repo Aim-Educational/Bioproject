@@ -373,6 +373,8 @@ private
     }
 }
 
+// Creates extension classes for all of the model's TableObjects which implements as much of the 'IDataModel'
+// as we can generate.
 void generateModelExtensions(Model model, Path outputDir)
 {
     import std.format;
@@ -415,10 +417,15 @@ void generateModelExtensions(Model model, Path outputDir)
 		
         // Generate an extension for this object.
 		auto text = mixin(interp!TEMPLATE_MODEL_EXTENSION);
+        writeln("Generating ", object.fileName);
 		writeFile(buildNormalizedPath(outputDir.raw, object.fileName), text);
 	}
 }
 
+// Creates extension classes for all of the model's TableObjects which provides dummy implementations of all
+// of the 'IDataModel' interface that couldn't be generated.
+// 
+// This also serves as the class that the user can modify to manually extend each class.
 void generateCustomModelExtensions(const Model model, Path outputDir)
 {
     writefln("\n> Generating model custom extension stubs, outputted to directory '%s'", outputDir);
@@ -439,16 +446,18 @@ void generateCustomModelExtensions(const Model model, Path outputDir)
     }
 }
 
-void generateEditorStubs(const Model model, Path outputDir)
+// Generates an editor form for every TableObject in the model.
+void generateEditorForms(const Model model, Path outputDir)
 {
     import std.algorithm;
     import std.format;
 
-    writefln("\n> Generating Editor Form stubs, outputted to directory '%s'", outputDir);
+    writefln("\n> Generating Editor Forms, outputted to directory '%s'", outputDir);
     tryMkdirRecurse(outputDir);
 
     foreach(object; model.objects)
     {
+        // Create some basic variables that are needed.
         auto custom_fixedName     = object.className.standardisedName;
         auto custom_baseTypeTable = model.context.getTableForType(object.className).variableName;
         auto fileName             = format("Form%sEditor", custom_fixedName);
@@ -457,6 +466,7 @@ void generateEditorStubs(const Model model, Path outputDir)
         // TODO: Move this into a function because it's gonna get _massive_
         writeln("\n>> Generating controls for ", fileName);
 
+        // Contains information about a single row of controls.
         struct ControlRow
         {
             Field field;
@@ -476,6 +486,7 @@ void generateEditorStubs(const Model model, Path outputDir)
             }
         }
 
+        // Go over each field in the object, and create the appropriate controls for them.
         ControlRow[] controls;
         foreach(field; object.fields)
         {
@@ -485,24 +496,25 @@ void generateEditorStubs(const Model model, Path outputDir)
             row.priority          = -1;
             row.labelNameOverride = appConfig.projUserInterface.labelTextOverrides.get(fieldFQN, null);
 
-            if(appConfig.projUserInterface.variablesToIgnore.canFind(field.variableName))
+            if(appConfig.projUserInterface.variablesToIgnore.canFind(field.variableName)) // Ingore specified variables.
             {
                 writefln("\tIGNORE: %s as it is listed in the variablesToIgnore list", fieldFQN);
             }
-            else if(field.typeName == "string" || field.variableName == object.keyName)
+            else if(field.typeName == "string" || field.variableName == object.keyName) // Strings and the Primary key get a textbox.
             {
                 writefln("\tMAKE: textbox for %s", fieldFQN);
 
                 row.controls ~= new Textbox(field.variableName.idup, field, 
                                             field.variableName == object.keyName ? IsReadOnly.yes : IsReadOnly.no);
 
+                // The primary key is a special case, and is placed at the top of the form.
                 if(field.variableName == object.keyName)
                 {
                     row.labelNameOverride = "ID";
-                    row.priority = 100; // The ID should be at the top
+                    row.priority = 100;
                 }
             }
-            else if(field.typeName == "int" || field.typeName == "float" || field.typeName == "double" || field.typeName == "decimal")
+            else if(field.typeName == "int" || field.typeName == "float" || field.typeName == "double" || field.typeName == "decimal") // Numbers get a numeric input.
             {
                 if(field.typeName == "int" && field.variableName.endsWith("_id"))
                 {
@@ -514,13 +526,14 @@ void generateEditorStubs(const Model model, Path outputDir)
                 row.controls ~= new Numeric(field.variableName.idup, field, 
                                             field.typeName == "int" ? IsInteger.yes : IsInteger.no);
             }
-            else if(!objectQuery.empty)
+            else if(!objectQuery.empty) // Other table objects get a drop down list
             {
                 writefln("\tMAKE: object list('%s') for %s", field.typeName, fieldFQN);
 
                 auto listObject = objectQuery.front;
                 assert(listObject.className == field.typeName);
 
+                // Find out which variable takes the highest priority to be displayed.
                 string bestKeyNameMatch;
                 int bestMatchPriority;
                 foreach(listField; listObject.fields)
@@ -538,12 +551,12 @@ void generateEditorStubs(const Model model, Path outputDir)
                 row.controls ~= new ShowListButton(field.variableName.idup, field);
                 row.priority  = 50; // These should ideally be near the top, since they... look strange otherwise (there's probably some well known UI reason for why it looks odd)
             }
-            else if(field.typeName == "DateTime")
+            else if(field.typeName == "DateTime") // DateTime gets a date time picker
             {
                 writefln("\tMAKE: DateTimePicker for %s", fieldFQN);
                 row.controls ~= new DateTime(field.variableName.idup, field);
             }
-            else if(field.typeName == "bool")
+            else if(field.typeName == "bool") // Bools get a checkbox
             {
                 writefln("\tMAKE: checkbox for %s", fieldFQN);
                 row.controls ~= new Checkbox(field.variableName.idup, field);
@@ -563,6 +576,7 @@ void generateEditorStubs(const Model model, Path outputDir)
         }
 
         // Then, generate all of the controls and variables needed.
+        // All of these variables are needed for the template...
         char[] custom_control_events;
         char[] custom_control_initialisers;
         char[] custom_control_designs;
@@ -579,6 +593,7 @@ void generateEditorStubs(const Model model, Path outputDir)
         auto   custom_buttonYPad = (controls.length + 1) * CONTROL_Y_PADDING;
         void generateControlCode(Control control)
         {
+            // Allow the control to generate it's code.
             custom_control_events            ~= control.generateEventCode();
             custom_control_designs           ~= control.generateDesignCode();
             custom_control_ctorInit          ~= control.generateCtorInit();
@@ -589,6 +604,7 @@ void generateEditorStubs(const Model model, Path outputDir)
             custom_control_variables         ~= format("private %s %s;\n", control.winFormTypeName, control.name);
             custom_control_initialisers      ~= format("this.%s = new %s();\n", control.name, control.winFormTypeName);
 
+            // Some controls need additional code in the designer's function.
             if(control.designerInit == NeedsDesignerInit.yes)
             {
                 custom_control_designerInitBegin ~= format("((System.ComponentModel.ISupportInitialize)(this.%s)).BeginInit();\n", control.name);
@@ -602,9 +618,11 @@ void generateEditorStubs(const Model model, Path outputDir)
                 custom_control_addToPanel2 ~= format("this.splitContainer1.Panel2.Controls.Add(%s);\n", control.name);
         }
 
+        // Go through all of the controls (in order of priority)
         auto tabIndex = 0;
         foreach(i, row; controls.sort!("a.priority > b.priority", SwapStrategy.stable).enumerate)
         {
+            // Figure out the Y-axis position for the controls on the row, as well as assign them a tabIndex.
             row.yPos = cast(int)((CONTROL_Y_PADDING * i) + CONTROL_STARTING_Y);
             foreach(control; row.controls)
             {
@@ -613,6 +631,7 @@ void generateEditorStubs(const Model model, Path outputDir)
                 generateControlCode(control);
             }
 
+            // Add on the label.
             generateControlCode(row.makeLabel());
         }
 
@@ -620,12 +639,15 @@ void generateEditorStubs(const Model model, Path outputDir)
         auto codeFile = buildNormalizedPath(outputDir.raw, fileName ~ ".cs");
         if(!codeFile.exists)
         {
-            writeln("> Generating ", fileName);
+            writeln(">> Generating file ", fileName);
             writeFile(codeFile, mixin(interp!TEMPLATE_EDITOR_CODE));
         }
+        else
+            writeln(">> Skipping file generation, as it already exists.");
     }
 }
 
+// Generates the extension code for the search form.
 void generateSearchExtensions(const Model model, Path outputFile)
 {
     import std.uni : toUpperInPlace, toUpper;
@@ -642,8 +664,6 @@ void generateSearchExtensions(const Model model, Path outputFile)
     foreach(object; model.objects)
     {
         char[] custom_FixedObjectName = object.className.standardisedName;
-
-        // Then generate a case from the template
         custom_EditorCaseStatements ~= mixin(interp!TEMPLATE_SEARCHFORM_EDITOR_CASES);
     }
 
@@ -652,15 +672,29 @@ void generateSearchExtensions(const Model model, Path outputFile)
     writeFile(outputFile.raw, text);
 }
 
+/++
+ + Standardises the given name.
+ +
+ + Convention:
+ +  The standard naming convention is as follows.
+ +
+ +  Split up the name by underscores ('device_type' -> ['device', 'type']).
+ +
+ +  Then, for each word; if the word is in the `wordsToCapitalise` list (from the configuration file) then
+ +  completely capitalise the word ('device' -> 'DEVICE'); otherwise, only capitliase the first letter ('type' -> 'Type').
+ +
+ +  Finally, join the words up without any kind of spacing or padding (['DEVICE', 'Type'] -> 'DEVICEType')
+ +
+ + Returns:
+ +  The standardised version of `name`.
+ + ++/
 char[] standardisedName(const char[] name)
 {
-    import std.uni : toUpperInPlace, toUpper;
-    import std.array : array;
+    import std.uni       : toUpperInPlace, toUpper;
+    import std.array     : array;
     import std.algorithm : splitter, canFind, map;
 
     char[] fixed;
-
-    // Standardise the name. 'device_type' -> 'DeviceType'
     foreach(word; name.splitter('_'))
     {
         if(appConfig.wordsToCapitalise.canFind(word))
