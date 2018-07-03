@@ -40,6 +40,10 @@ private
     const TEMPLATE_CONTROL_DATETIME_DESIGN                   = import("templates/Editor/Controls/ControlDateTime.cs");
     const TEMPLATE_CONTROL_DATETIME_CREATE_UPDATE            = import("templates/Editor/Controls/ControlDateTime_CreateUpdate.cs");
     const TEMPLATE_CONTROL_DATETIME_RELOAD                   = import("templates/Editor/Controls/ControlDateTime_Reload.cs");
+    const TEMPLATE_CONTROL_CHECKBOX_DESIGN                   = import("templates/Editor/Controls/ControlCheckbox.cs");
+    const TEMPALTE_CONTROL_CHECKBOX_RELOAD                   = import("templates/Editor/Controls/ControlCheckbox_Reload.cs");
+    const TEMPLATE_CONTROL_CHECKBOX_CREATE_UPDATE            = import("templates/Editor/Controls/ControlCheckbox_CreateUpdate.cs");
+    const TEMPLATE_CONTROL_CHECKBOX_EVENT_CHECKEDCHANGED     = import("templates/Editor/Controls/ControlCheckbox_CheckedChanged.cs");
 
     //////////////
     /// Config ///
@@ -324,6 +328,48 @@ private
             return "System.Windows.Forms.DateTimePicker";
         }
     }
+
+    final class Checkbox : Control
+    {
+        this(string name, const Field field)
+        {
+            this.text = text;
+            super("checkbox" ~ name.standardisedName.idup, field);
+        }
+
+        override string generateDesignCode()
+        {
+            return mixin(interp!TEMPLATE_CONTROL_CHECKBOX_DESIGN);
+        }
+
+        override string generateReloadCode(const Model model, const TableObject object) 
+        { 
+            return mixin(interp!TEMPALTE_CONTROL_CHECKBOX_RELOAD);
+        }  
+
+        override string generateObjectCreateCode(const Model model) 
+        {
+            return mixin(interp!TEMPLATE_CONTROL_CHECKBOX_CREATE_UPDATE);
+        }
+
+        override string generateObjectUpdateCode(const Model model)
+        {
+            return this.generateObjectCreateCode(model);
+        }
+
+        override string generateEventCode()
+        {
+            return mixin(interp!TEMPLATE_CONTROL_CHECKBOX_EVENT_CHECKEDCHANGED);
+        }
+
+        override string generateCtorInit() { return "";}
+        override string generateCreateOnlyReloadCode(const Model model, const TableObject object) { return "";}
+
+        override string winFormTypeName()
+        {
+            return "System.Windows.Forms.CheckBox";
+        }
+    }
 }
 
 void generateModelExtensions(Model model, Path outputDir)
@@ -495,6 +541,11 @@ void generateEditorStubs(const Model model, Path outputDir)
             {
                 writefln("\tMAKE: DateTimePicker for %s", fieldFQN);
                 row.controls ~= new DateTime(field.variableName.idup, field);
+            }
+            else if(field.typeName == "bool")
+            {
+                writefln("\tMAKE: checkbox for %s", fieldFQN);
+                row.controls ~= new Checkbox(field.variableName.idup, field);
             }
             else if(field.typeName.startsWith("ICollection<"))
             {

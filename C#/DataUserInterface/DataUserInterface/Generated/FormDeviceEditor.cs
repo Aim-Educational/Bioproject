@@ -125,7 +125,7 @@ this.textboxSerialNumber.Text = obj.serial_number;
 this.numericReliability.Value = (decimal)obj.reliability;
 this.numericStrikes.Value = (decimal)obj.strikes;
 this.textboxComment.Text = obj.comment;
-
+this.checkboxIsAllowedForUse.Checked = obj.is_allowed_for_use;
 
                         this._cached  = obj;
                         this._isDirty = false;
@@ -236,7 +236,7 @@ obj.serial_number = this.textboxSerialNumber.Text;
 obj.reliability = (int)this.numericReliability.Value;
 obj.strikes = (int)this.numericStrikes.Value;
 obj.comment = this.textboxComment.Text;
-
+obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
 
                 if (obj.isValidForUpdate(IncrementVersion.yes))
                 {
@@ -273,7 +273,7 @@ obj.serial_number = this.textboxSerialNumber.Text;
 obj.reliability = (int)this.numericReliability.Value;
 obj.strikes = (int)this.numericStrikes.Value;
 obj.comment = this.textboxComment.Text;
-
+obj.is_allowed_for_use = this.checkboxIsAllowedForUse.Checked;
 
                 db.devices.Add(obj);
                 db.SaveChanges();
@@ -427,7 +427,11 @@ obj.comment = this.textboxComment.Text;
             if (this.textboxComment.Text != Convert.ToString(this._cached.comment))
                 this._isDirty = true;
         }
-        
+        private void checkboxIsAllowedForUse_CheckedChanged(object sender, EventArgs e)
+{
+    if (this._cached != null && this.checkboxIsAllowedForUse.Checked != this._cached.is_allowed_for_use)
+        this._isDirty = true;
+}
         #endregion
 
 
@@ -494,6 +498,8 @@ this.numericStrikes = new System.Windows.Forms.NumericUpDown();
 this.labelStrikes = new System.Windows.Forms.Label();
 this.textboxComment = new System.Windows.Forms.TextBox();
 this.labelComment = new System.Windows.Forms.Label();
+this.checkboxIsAllowedForUse = new System.Windows.Forms.CheckBox();
+this.labelIsAllowedForUse = new System.Windows.Forms.Label();
 
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -530,6 +536,7 @@ this.splitContainer1.Panel1.Controls.Add(labelSerialNumber);
 this.splitContainer1.Panel1.Controls.Add(labelReliability);
 this.splitContainer1.Panel1.Controls.Add(labelStrikes);
 this.splitContainer1.Panel1.Controls.Add(labelComment);
+this.splitContainer1.Panel1.Controls.Add(labelIsAllowedForUse);
 
             // 
             // splitContainer1.Panel2
@@ -553,6 +560,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxSerialNumber);
 this.splitContainer1.Panel2.Controls.Add(numericReliability);
 this.splitContainer1.Panel2.Controls.Add(numericStrikes);
 this.splitContainer1.Panel2.Controls.Add(textboxComment);
+this.splitContainer1.Panel2.Controls.Add(checkboxIsAllowedForUse);
 
             this.splitContainer1.Size = new System.Drawing.Size(330, 341);
             this.splitContainer1.SplitterDistance = 109;
@@ -571,7 +579,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(85, 364);
+            this.buttonDelete.Location = new System.Drawing.Point(85, 390);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Text = "[X]";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
@@ -581,7 +589,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(4, 364);
+            this.buttonReload.Location = new System.Drawing.Point(4, 390);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -591,7 +599,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             // 
             // buttonAction
             // 
-            this.buttonAction.Location = new System.Drawing.Point(141, 364);
+            this.buttonAction.Location = new System.Drawing.Point(141, 390);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
@@ -922,13 +930,35 @@ this.splitContainer1.Panel2.Controls.Add(textboxComment);
             this.labelComment.TabIndex = 14;
             this.labelComment.Text = "Comment";
             this.labelComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+            // checkboxIsAllowedForUse
+            // 
+            this.checkboxIsAllowedForUse.AutoSize = true;
+            this.checkboxIsAllowedForUse.Location = new System.Drawing.Point(4, 352);
+            this.checkboxIsAllowedForUse.Name = "checkboxIsAllowedForUse";
+            this.checkboxIsAllowedForUse.Size = new System.Drawing.Size(53, 17);
+            this.checkboxIsAllowedForUse.TabIndex = 33;
+            this.checkboxIsAllowedForUse.Text = "IsAllowedForUse";
+            this.checkboxIsAllowedForUse.UseVisualStyleBackColor = true;
+            this.checkboxIsAllowedForUse.CheckedChanged += new System.EventHandler(this.checkboxIsAllowedForUse_CheckedChanged);            // 
+            // labelIsAllowedForUse
+            // 
+            this.labelIsAllowedForUse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelIsAllowedForUse.AutoSize = true;
+            this.labelIsAllowedForUse.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelIsAllowedForUse.Location = new System.Drawing.Point(0, 350);
+            this.labelIsAllowedForUse.Name = "labelIsAllowedForUse";
+            this.labelIsAllowedForUse.Size = new System.Drawing.Size(30, 20);
+            this.labelIsAllowedForUse.TabIndex = 14;
+            this.labelIsAllowedForUse.Text = "IsAllowedForUse";
+            this.labelIsAllowedForUse.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             
             // 
             // FormDeviceEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 390);
+            this.ClientSize = new System.Drawing.Size(330, 416);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormDeviceEditor";
             this.Text = "Device Editor";
@@ -984,6 +1014,8 @@ private System.Windows.Forms.NumericUpDown numericStrikes;
 private System.Windows.Forms.Label labelStrikes;
 private System.Windows.Forms.TextBox textboxComment;
 private System.Windows.Forms.Label labelComment;
+private System.Windows.Forms.CheckBox checkboxIsAllowedForUse;
+private System.Windows.Forms.Label labelIsAllowedForUse;
 
         #endregion
     }

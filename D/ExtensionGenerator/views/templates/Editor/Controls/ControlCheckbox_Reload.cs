@@ -1,0 +1,1 @@
+this.${this.name}.Checked = obj.${this.objectField.variableName};

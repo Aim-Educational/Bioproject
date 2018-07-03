@@ -109,7 +109,7 @@ foreach (var value in db.devices.OrderBy(v => v.name))
 }
 this.numericValue.Value = (decimal)obj.value;
 this.datetimeDatetime.Value = obj.datetime;
-this.textboxComment.Text = obj.comment;
+this.checkboxResponseRecieved.Checked = obj.response_recieved;this.textboxComment.Text = obj.comment;
 this.textboxExtraData.Text = obj.extra_data;
 
 
@@ -209,7 +209,7 @@ obj.device = db.devices.Single(v => v.name == selectedDevice);
 obj.value = (double)this.numericValue.Value;
 this.datetimeDatetime.Value = DateTime.Now;
 obj.datetime = this.datetimeDatetime.Value;
-obj.comment = this.textboxComment.Text;
+obj.response_recieved = this.checkboxResponseRecieved.Checked;obj.comment = this.textboxComment.Text;
 obj.extra_data = this.textboxExtraData.Text;
 
 
@@ -239,7 +239,7 @@ obj.device = db.devices.Single(v => v.name == selectedDevice);
 obj.value = (double)this.numericValue.Value;
 this.datetimeDatetime.Value = DateTime.Now;
 obj.datetime = this.datetimeDatetime.Value;
-obj.comment = this.textboxComment.Text;
+obj.response_recieved = this.checkboxResponseRecieved.Checked;obj.comment = this.textboxComment.Text;
 obj.extra_data = this.textboxExtraData.Text;
 
 
@@ -303,7 +303,11 @@ obj.extra_data = this.textboxExtraData.Text;
             if (Convert.ToDouble(this.numericValue.Value) != this._cached.value)
                 this._isDirty = true;
         }
-        private void textboxComment_Leave(object sender, EventArgs e)
+private void checkboxResponseRecieved_CheckedChanged(object sender, EventArgs e)
+{
+    if (this._cached != null && this.checkboxResponseRecieved.Checked != this._cached.response_recieved)
+        this._isDirty = true;
+}        private void textboxComment_Leave(object sender, EventArgs e)
         {
             // The Convert.ToString is just in case the value we're comparing to is something like an int.
             if (this.textboxComment.Text != Convert.ToString(this._cached.comment))
@@ -363,6 +367,8 @@ this.numericValue = new System.Windows.Forms.NumericUpDown();
 this.labelValue = new System.Windows.Forms.Label();
 this.datetimeDatetime = new System.Windows.Forms.DateTimePicker();
 this.labelDatetime = new System.Windows.Forms.Label();
+this.checkboxResponseRecieved = new System.Windows.Forms.CheckBox();
+this.labelResponseRecieved = new System.Windows.Forms.Label();
 this.textboxComment = new System.Windows.Forms.TextBox();
 this.labelComment = new System.Windows.Forms.Label();
 this.textboxExtraData = new System.Windows.Forms.TextBox();
@@ -390,6 +396,7 @@ this.labelExtraData = new System.Windows.Forms.Label();
 this.splitContainer1.Panel1.Controls.Add(labelDevice);
 this.splitContainer1.Panel1.Controls.Add(labelValue);
 this.splitContainer1.Panel1.Controls.Add(labelDatetime);
+this.splitContainer1.Panel1.Controls.Add(labelResponseRecieved);
 this.splitContainer1.Panel1.Controls.Add(labelComment);
 this.splitContainer1.Panel1.Controls.Add(labelExtraData);
 
@@ -405,6 +412,7 @@ this.splitContainer1.Panel2.Controls.Add(listDevice);
 this.splitContainer1.Panel2.Controls.Add(buttonShowDevice);
 this.splitContainer1.Panel2.Controls.Add(numericValue);
 this.splitContainer1.Panel2.Controls.Add(datetimeDatetime);
+this.splitContainer1.Panel2.Controls.Add(checkboxResponseRecieved);
 this.splitContainer1.Panel2.Controls.Add(textboxComment);
 this.splitContainer1.Panel2.Controls.Add(textboxExtraData);
 
@@ -425,7 +433,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxExtraData);
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(85, 182);
+            this.buttonDelete.Location = new System.Drawing.Point(85, 208);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Text = "[X]";
             this.buttonDelete.Size = new System.Drawing.Size(50, 23);
@@ -435,7 +443,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxExtraData);
             // 
             // buttonReload
             // 
-            this.buttonReload.Location = new System.Drawing.Point(4, 182);
+            this.buttonReload.Location = new System.Drawing.Point(4, 208);
             this.buttonReload.Name = "buttonReload";
             this.buttonReload.Size = new System.Drawing.Size(75, 23);
             this.buttonReload.TabIndex = 6;
@@ -445,7 +453,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxExtraData);
             // 
             // buttonAction
             // 
-            this.buttonAction.Location = new System.Drawing.Point(141, 182);
+            this.buttonAction.Location = new System.Drawing.Point(141, 208);
             this.buttonAction.Name = "buttonAction";
             this.buttonAction.Size = new System.Drawing.Size(75, 23);
             this.buttonAction.TabIndex = 2;
@@ -555,11 +563,33 @@ this.splitContainer1.Panel2.Controls.Add(textboxExtraData);
             this.labelDatetime.Text = "Datetime";
             this.labelDatetime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                         // 
+            // checkboxResponseRecieved
+            // 
+            this.checkboxResponseRecieved.AutoSize = true;
+            this.checkboxResponseRecieved.Location = new System.Drawing.Point(4, 118);
+            this.checkboxResponseRecieved.Name = "checkboxResponseRecieved";
+            this.checkboxResponseRecieved.Size = new System.Drawing.Size(53, 17);
+            this.checkboxResponseRecieved.TabIndex = 33;
+            this.checkboxResponseRecieved.Text = "ResponseRecieved";
+            this.checkboxResponseRecieved.UseVisualStyleBackColor = true;
+            this.checkboxResponseRecieved.CheckedChanged += new System.EventHandler(this.checkboxResponseRecieved_CheckedChanged);            // 
+            // labelResponseRecieved
+            // 
+            this.labelResponseRecieved.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelResponseRecieved.AutoSize = true;
+            this.labelResponseRecieved.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelResponseRecieved.Location = new System.Drawing.Point(0, 116);
+            this.labelResponseRecieved.Name = "labelResponseRecieved";
+            this.labelResponseRecieved.Size = new System.Drawing.Size(30, 20);
+            this.labelResponseRecieved.TabIndex = 14;
+            this.labelResponseRecieved.Text = "ResponseRecieved";
+            this.labelResponseRecieved.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
             // textboxComment
             // 
             this.textboxComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxComment.Location = new System.Drawing.Point(4, 116);
+            this.textboxComment.Location = new System.Drawing.Point(4, 142);
             this.textboxComment.Name = "textboxComment";
             this.textboxComment.Size = new System.Drawing.Size(208, 20);
             this.textboxComment.TabIndex = 31;
@@ -571,7 +601,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxExtraData);
             this.labelComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelComment.AutoSize = true;
             this.labelComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelComment.Location = new System.Drawing.Point(0, 116);
+            this.labelComment.Location = new System.Drawing.Point(0, 142);
             this.labelComment.Name = "labelComment";
             this.labelComment.Size = new System.Drawing.Size(30, 20);
             this.labelComment.TabIndex = 14;
@@ -582,7 +612,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxExtraData);
             // 
             this.textboxExtraData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxExtraData.Location = new System.Drawing.Point(4, 142);
+            this.textboxExtraData.Location = new System.Drawing.Point(4, 168);
             this.textboxExtraData.Name = "textboxExtraData";
             this.textboxExtraData.Size = new System.Drawing.Size(208, 20);
             this.textboxExtraData.TabIndex = 31;
@@ -594,7 +624,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxExtraData);
             this.labelExtraData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelExtraData.AutoSize = true;
             this.labelExtraData.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelExtraData.Location = new System.Drawing.Point(0, 142);
+            this.labelExtraData.Location = new System.Drawing.Point(0, 168);
             this.labelExtraData.Name = "labelExtraData";
             this.labelExtraData.Size = new System.Drawing.Size(30, 20);
             this.labelExtraData.TabIndex = 14;
@@ -606,7 +636,7 @@ this.splitContainer1.Panel2.Controls.Add(textboxExtraData);
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 208);
+            this.ClientSize = new System.Drawing.Size(330, 234);
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormDeviceValueEditor";
             this.Text = "DeviceValue Editor";
@@ -639,6 +669,8 @@ private System.Windows.Forms.NumericUpDown numericValue;
 private System.Windows.Forms.Label labelValue;
 private System.Windows.Forms.DateTimePicker datetimeDatetime;
 private System.Windows.Forms.Label labelDatetime;
+private System.Windows.Forms.CheckBox checkboxResponseRecieved;
+private System.Windows.Forms.Label labelResponseRecieved;
 private System.Windows.Forms.TextBox textboxComment;
 private System.Windows.Forms.Label labelComment;
 private System.Windows.Forms.TextBox textboxExtraData;
