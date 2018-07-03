@@ -57,8 +57,8 @@ projUserInterface {
         "comment"           1
 
         // Object-specific
-        "message"           0
-        "database_backup_directory" 0
+        "message"           0           // Application log
+        "database_backup_directory" 0   // Database Backup log
     }
 
     // Some objects may have variables that the user has no need to see, so any variables that have a name from this list
