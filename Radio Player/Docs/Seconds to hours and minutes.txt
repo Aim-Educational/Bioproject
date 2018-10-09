@@ -1,0 +1,3 @@
+  TotalSeconds / 3600 as Hours, 
+  (TotalSeconds % 3600) / 60 as Minutes, 
+  TotalSeconds % 60 as Seconds

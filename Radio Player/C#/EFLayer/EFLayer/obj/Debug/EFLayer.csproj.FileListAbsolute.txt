@@ -1,0 +1,10 @@
+C:\Users\user\Desktop\Brad's Projects\Radio Player\C#\EFLayer\EFLayer\bin\Debug\EFLayer.dll.config
+C:\Users\user\Desktop\Brad's Projects\Radio Player\C#\EFLayer\EFLayer\bin\Debug\EFLayer.dll
+C:\Users\user\Desktop\Brad's Projects\Radio Player\C#\EFLayer\EFLayer\bin\Debug\EFLayer.pdb
+C:\Users\user\Desktop\Brad's Projects\Radio Player\C#\EFLayer\EFLayer\bin\Debug\EntityFramework.dll
+C:\Users\user\Desktop\Brad's Projects\Radio Player\C#\EFLayer\EFLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\user\Desktop\Brad's Projects\Radio Player\C#\EFLayer\EFLayer\bin\Debug\EntityFramework.xml
+C:\Users\user\Desktop\Brad's Projects\Radio Player\C#\EFLayer\EFLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\user\Desktop\Brad's Projects\Radio Player\C#\EFLayer\EFLayer\obj\Debug\EFLayer.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\Brad's Projects\Radio Player\C#\EFLayer\EFLayer\obj\Debug\EFLayer.dll
+C:\Users\user\Desktop\Brad's Projects\Radio Player\C#\EFLayer\EFLayer\obj\Debug\EFLayer.pdb
