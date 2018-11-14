@@ -61,11 +61,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Forms\EditorMood.xaml">
+    <Compile Include="Controls\EditorGenre.xaml.cs">
+      <DependentUpon>EditorGenre.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IEditor.cs" />
+    <Compile Include="Interfaces\ISearchAction.cs" />
+    <Compile Include="SearchProviders\SearchProviderGenre.cs" />
+    <Page Include="Controls\EditorGenre.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\SearchForm.xaml">
+    <Page Include="Controls\SearchControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\MainInterface.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -77,14 +87,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Forms\Common.cs" />
-    <Compile Include="Forms\IEditor.cs" />
-    <Compile Include="Forms\EditorMood.xaml.cs">
-      <DependentUpon>EditorMood.xaml</DependentUpon>
+    <Compile Include="Controls\SearchControl.xaml.cs">
+      <DependentUpon>SearchControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SearchForm.xaml.cs">
-      <DependentUpon>SearchForm.xaml</DependentUpon>
+    <Compile Include="Forms\MainInterface.xaml.cs">
+      <DependentUpon>MainInterface.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\ISearchProvider.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -123,5 +132,6 @@
       <Name>EFLayer</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

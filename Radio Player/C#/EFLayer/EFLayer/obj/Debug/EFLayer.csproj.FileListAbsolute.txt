@@ -8,3 +8,14 @@ C:\Users\user\Desktop\Brad's Projects\Radio Player\C#\EFLayer\EFLayer\bin\Debug\
 C:\Users\user\Desktop\Brad's Projects\Radio Player\C#\EFLayer\EFLayer\obj\Debug\EFLayer.csproj.CoreCompileInputs.cache
 C:\Users\user\Desktop\Brad's Projects\Radio Player\C#\EFLayer\EFLayer\obj\Debug\EFLayer.dll
 C:\Users\user\Desktop\Brad's Projects\Radio Player\C#\EFLayer\EFLayer\obj\Debug\EFLayer.pdb
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\EFLayer\EFLayer\bin\Debug\EFLayer.dll.config
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\EFLayer\EFLayer\bin\Debug\EFLayer.dll
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\EFLayer\EFLayer\bin\Debug\EFLayer.pdb
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\EFLayer\EFLayer\bin\Debug\EntityFramework.dll
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\EFLayer\EFLayer\bin\Debug\EntityFramework.SqlServer.dll
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\EFLayer\EFLayer\bin\Debug\EntityFramework.xml
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\EFLayer\EFLayer\bin\Debug\EntityFramework.SqlServer.xml
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\EFLayer\EFLayer\obj\Debug\EFLayer.csprojResolveAssemblyReference.cache
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\EFLayer\EFLayer\obj\Debug\EFLayer.csproj.CoreCompileInputs.cache
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\EFLayer\EFLayer\obj\Debug\EFLayer.dll
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\EFLayer\EFLayer\obj\Debug\EFLayer.pdb

@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Maintainer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Closed="Window_Closed">
+        Title="Maintainer" Height="350" Width="525">
     <Grid x:Name="grid">
-        <Button Content="Button" HorizontalAlignment="Left" Margin="172,110,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="172,149,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
-        <TextBox x:Name="txt_id" HorizontalAlignment="Left" Height="23" Margin="47,149,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="263,149,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="399,236,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_3"/>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ToolBar Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <ContentControl x:Name="content" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     </Grid>
 </Window>

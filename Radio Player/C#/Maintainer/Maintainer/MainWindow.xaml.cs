@@ -22,42 +22,14 @@ namespace Maintainer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainInterface _mainInterface;
+
         public MainWindow()
         {
             InitializeComponent();
-        }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var window = new EditorMood(EditorType.Create);
-            window.Show();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            (new EditorMood(EditorType.Delete, Convert.ToInt32(this.txt_id.Text))).Show();
-        }
-
-        // Close all other windows when this one is closed.
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            foreach (Window window in App.Current.Windows)
-            {
-                if (window == this)
-                    continue;
-
-                window.Close();
-            }
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            (new EditorMood(EditorType.Update, Convert.ToInt32(this.txt_id.Text))).Show();
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-            (new SearchForm()).Show();
+            this._mainInterface = new MainInterface();
+            this.content.Content = this._mainInterface;
         }
     }
 }

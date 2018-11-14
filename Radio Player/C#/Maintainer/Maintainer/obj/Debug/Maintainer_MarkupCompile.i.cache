@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\user\Desktop\Brad's Projects\Radio Player\C#\Maintainer\Maintainer\obj\Debug\
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\obj\Debug\
 Maintainer
 none
 false
 DEBUG;TRACE
-C:\Users\user\Desktop\Brad's Projects\Radio Player\C#\Maintainer\Maintainer\App.xaml
-31569915627
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\App.xaml
+4-1497340617
 
-131674789015
-171964248498
-Forms\EditorMood.xaml;Forms\SearchForm.xaml;MainWindow.xaml;
+1648348931
+171342669227
+Controls\EditorGenre.xaml;Controls\SearchControl.xaml;Forms\MainInterface.xaml;MainWindow.xaml;
 
-False
+True
 
