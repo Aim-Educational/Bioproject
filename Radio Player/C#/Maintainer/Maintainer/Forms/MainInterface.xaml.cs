@@ -28,6 +28,11 @@ namespace Maintainer.Forms
             get => this.searchContent.Content as SearchControl;
         }
 
+        private SearchControl selectorControl
+        {
+            get => this.selectorContent.Content as SearchControl;
+        }
+
         private IEditor editorControl
         {
             get => this.editorContent.Content as IEditor;
@@ -38,11 +43,11 @@ namespace Maintainer.Forms
             InitializeComponent();
 
             this.searchContent.Content = new SearchControl();
-
-            this.openEditor(new SearchProviderGenre(), new EditorGenre(this));
+            this.selectorContent.Content = new SearchControl();
+            this.selectorContent.Visibility = Visibility.Hidden;
         }
 
-        void openEditor(ISearchProvider provider, UserControl editor)
+        public void openEditor(ISearchProvider provider, UserControl editor)
         {
             if((editor as IEditor) == null)
                 throw new ArgumentException("The Editor given does not implement the IEditor interface.", "editor");
@@ -52,6 +57,14 @@ namespace Maintainer.Forms
             this.editorContent.Content = editor;
         }
 
+        public void openSelector(ISearchProvider provider, Action<Object> onSelect)
+        {
+            this.selectorContent.Visibility = Visibility.Visible;
+            this.selectorControl.provider = provider;
+            this.selectorControl.action = new SelectorSearchAction(this, onSelect);
+        }
+
+        // Apply
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if(this.editorControl == null)
@@ -64,12 +77,50 @@ namespace Maintainer.Forms
             }
         }
 
+        // Create
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             if(this.editorControl == null)
                 return;
 
             this.editorControl.flagAsCreateMode();
+        }
+
+        // Delete
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if(this.searchControl == null || this.searchControl.provider == null || this.searchControl.dataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Please select an item from the 'Search' grid.", "Invalid operation", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                return;
+            }
+
+            var result = MessageBox.Show("Are you sure you want to delete this item?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if(result == MessageBoxResult.No)
+                return;
+
+            this.searchControl.provider.deleteItem(this.searchControl.dataGrid.SelectedItem);
+            this.searchControl.provider = this.searchControl.provider; // This refreshes the data.
+        }
+    }
+
+    public class SelectorSearchAction : ISearchAction
+    {
+        private MainInterface _mi;
+        private Action<Object> _onSelect;
+
+        public SelectorSearchAction(MainInterface mi, Action<Object> onSelect)
+        {
+            this._mi = mi;
+            this._onSelect = onSelect;
+        }
+
+        public RefreshSearchList onSearchAction(object selectedItem)
+        {
+            this._mi.selectorContent.Visibility = Visibility.Hidden;
+            this._onSelect(selectedItem);
+
+            return RefreshSearchList.no;
         }
     }
 }

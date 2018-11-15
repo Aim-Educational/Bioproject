@@ -12,8 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Maintainer.Controls;
 using Maintainer.Forms;
+using Maintainer.Interfaces;
+using Maintainer.SearchProviders;
 
 namespace Maintainer
 {
@@ -30,6 +32,19 @@ namespace Maintainer
 
             this._mainInterface = new MainInterface();
             this.content.Content = this._mainInterface;
+
+            this.addEditorButton("Genre",   new SearchProviderGenre(),  new EditorGenre(this._mainInterface));
+            this.addEditorButton("Mood",    new SearchProviderMood(),   new EditorMood(this._mainInterface));
+            this.addEditorButton("Format",  new SearchProviderFormat(), new EditorFormat(this._mainInterface));
+            this.addEditorButton("Track",   new SearchProviderTrack(),  new EditorTrack(this._mainInterface));
+        }
+
+        private void addEditorButton(string name, ISearchProvider provider, UserControl editor)
+        {
+            var button = new Button();
+            button.Content = name;
+            button.Click += (sender, e) => this._mainInterface.openEditor(provider, editor);
+            this.toolbar.Items.Add(button);
         }
     }
 }

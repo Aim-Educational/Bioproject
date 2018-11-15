@@ -54,7 +54,11 @@ namespace Maintainer.Controls
             if (row == null) return;
 
             if(this.action != null)
-                this.action.onSearchAction(row.Item);
+            { 
+                var result = this.action.onSearchAction(row.Item);
+                if(result == RefreshSearchList.yes)
+                    this.provider = this.provider;
+            }
         }
     }
 }

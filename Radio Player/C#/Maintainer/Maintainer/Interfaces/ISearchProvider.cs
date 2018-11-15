@@ -11,5 +11,8 @@ namespace Maintainer.Interfaces
     public interface ISearchProvider
     {
         void populateDataGrid(DataGrid grid);
+        void deleteItem(Object item);
+        string getDisplayStringForItem(Object item);
+        bool areSameItems(Object item1, Object item2);
     }
 }

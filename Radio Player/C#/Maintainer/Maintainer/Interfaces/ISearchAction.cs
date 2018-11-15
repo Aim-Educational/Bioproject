@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Maintainer.Interfaces
 {
+    public enum RefreshSearchList
+    {
+        yes,
+        no
+    }
+
     public interface ISearchAction
     {
-        void onSearchAction(Object selectedItem);
+        RefreshSearchList onSearchAction(Object selectedItem);
     }
 }

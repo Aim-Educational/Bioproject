@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\App.xaml
-4-1497340617
+101577564204
 
-12-136956513
-171342669227
-Controls\EditorGenre.xaml;Controls\SearchControl.xaml;Forms\MainInterface.xaml;MainWindow.xaml;
+21683710942
+18226916896
+Controls\EditorGenre.xaml;Controls\EditorFormat.xaml;Controls\EditorMood.xaml;Controls\EditorTrack.xaml;Controls\ListboxEditorControl.xaml;Controls\ListboxSelectorEditorControl.xaml;Controls\SearchControl.xaml;Controls\SelectorEditorControl.xaml;Forms\MainInterface.xaml;MainWindow.xaml;
 
 False
 

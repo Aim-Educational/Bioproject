@@ -37,8 +37,12 @@ namespace Maintainer.Controls
             this._mainInterface = mainInterface;
         }
 
-        public void onSearchAction(object selectedItem)
+        public RefreshSearchList onSearchAction(object selectedItem)
         {
+            var saveResult = this.askToSave();
+            if(saveResult == MessageBoxResult.Cancel)
+                return RefreshSearchList.no;
+
             this._isCreateMode = false;
             var genre = selectedItem as tbl_genre;
             if(genre == null)
@@ -46,6 +50,8 @@ namespace Maintainer.Controls
 
             this.id.Text          = $"{genre.genre_id}";
             this.description.Text = genre.description;
+
+            return (saveResult == MessageBoxResult.Yes) ? RefreshSearchList.yes : RefreshSearchList.no;
         }
 
         public void saveChanges()

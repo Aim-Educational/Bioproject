@@ -13,6 +13,32 @@ namespace Maintainer.SearchProviders
 {
     public class SearchProviderGenre : ISearchProvider
     {
+        public bool areSameItems(object item1, object item2)
+        {
+            return (item1 as tbl_genre).genre_id == (item2 as tbl_genre).genre_id;
+        }
+
+        public void deleteItem(object item)
+        {
+            if(item == null)
+                return;
+
+            tbl_genre genre = item as tbl_genre;
+            if(genre == null)
+                return;
+
+            using (var db = new RadioPlayer())
+            {
+                db.tbl_genre.Remove(db.tbl_genre.Where(g => g.genre_id == genre.genre_id).First());
+                db.SaveChanges();
+            }
+        }
+
+        public string getDisplayStringForItem(object item)
+        {
+            return (item as tbl_genre).description;
+        }
+
         public void populateDataGrid(DataGrid grid)
         {
             using (var db = new RadioPlayer())

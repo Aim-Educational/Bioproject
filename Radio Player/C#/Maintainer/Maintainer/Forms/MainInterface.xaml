@@ -25,15 +25,18 @@
             <ContentControl x:Name="searchContent"/>
         </GroupBox>
         <GroupBox Grid.Column="2" Header="Editor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="3">
-            <ContentControl x:Name="editorContent"/>
+            <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ContentControl x:Name="editorContent"/>
+            </ScrollViewer>
         </GroupBox>
         <GroupBox Grid.Column="0" Grid.Row="2" Header="Selector" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <ContentControl x:Name="selectorContent"/>
         </GroupBox>
-        <StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3">
+        <StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Background="#FF999595">
             <Label x:Name="labelStatus" Content="No status to report" FontSize="14" />
         </StatusBar>
-        <Button Content="Apply" Grid.Column="2" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" Width="75" Click="Button_Click" IsDefault="True"/>
+        <Button Content="Apply" Grid.Column="2" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" Width="75" Click="Button_Click"/>
         <Button Content="Create" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Grid.Row="3" Grid.Column="2" Click="Button_Click_1"/>
+        <Button Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Grid.Row="3" Click="Button_Click_2"/>
     </Grid>
 </UserControl>

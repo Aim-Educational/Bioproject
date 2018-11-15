@@ -40,6 +40,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -64,14 +67,59 @@
     <Compile Include="Controls\EditorGenre.xaml.cs">
       <DependentUpon>EditorGenre.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\EditorFormat.xaml.cs">
+      <DependentUpon>EditorFormat.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EditorMood.xaml.cs">
+      <DependentUpon>EditorMood.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EditorTrack.xaml.cs">
+      <DependentUpon>EditorTrack.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListboxEditorControl.xaml.cs">
+      <DependentUpon>ListboxEditorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListboxSelectorEditorControl.xaml.cs">
+      <DependentUpon>ListboxSelectorEditorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SelectorEditorControl.xaml.cs">
+      <DependentUpon>SelectorEditorControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IEditor.cs" />
     <Compile Include="Interfaces\ISearchAction.cs" />
+    <Compile Include="SearchProviders\SearchProviderFormat.cs" />
+    <Compile Include="SearchProviders\SearchProviderTrack.cs" />
+    <Compile Include="SearchProviders\SearchProviderMood.cs" />
     <Compile Include="SearchProviders\SearchProviderGenre.cs" />
     <Page Include="Controls\EditorGenre.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\EditorFormat.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\EditorMood.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\EditorTrack.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ListboxEditorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ListboxSelectorEditorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\SearchControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SelectorEditorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

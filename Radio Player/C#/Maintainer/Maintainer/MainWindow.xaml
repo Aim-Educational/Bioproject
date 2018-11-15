@@ -11,7 +11,7 @@
             <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ToolBar Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <ToolBar x:Name="toolbar" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         <ContentControl x:Name="content" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     </Grid>
 </Window>
