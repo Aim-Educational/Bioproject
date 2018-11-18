@@ -120,6 +120,9 @@ namespace Maintainer.Controls
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
+            if(this.provider == null)
+                return;
+
             this.provider = this.provider;
         }
     }

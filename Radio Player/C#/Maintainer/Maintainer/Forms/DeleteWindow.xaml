@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Maintainer.Forms"
         mc:Ignorable="d"
-        Title="Confirm deletion" Height="509.658" Width="364.588" 
+        Title="Confirm deletion" Height="509.658" Width="374.601" 
         ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -24,7 +24,7 @@
                 <ContentControl x:Name="content"/>
             </ScrollViewer>
         </GroupBox>
-        <Label Content="Are you sure that you want to delete this item?" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.ColumnSpan="3" FontSize="16"/>
+        <Label Content="Are you sure that you want to delete this item?" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.ColumnSpan="3" FontSize="16" FontWeight="Bold"/>
         <Button x:Name="btnYes" Content="Yes" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Center" Grid.Column="2" Click="btnYes_Click"/>
         <Button x:Name="btnNo" Content="No" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1" Click="btnNo_Click"/>
 

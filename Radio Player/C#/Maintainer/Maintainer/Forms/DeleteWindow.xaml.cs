@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,7 +26,7 @@ namespace Maintainer.Forms
             InitializeComponent();
         }
 
-        new public static MessageBoxResult Show(IEditor editor, object value)
+        public static MessageBoxResult Show(IEditor editor, object value)
         {
             var window = new DeleteWindow();
             window.content.Content = editor;

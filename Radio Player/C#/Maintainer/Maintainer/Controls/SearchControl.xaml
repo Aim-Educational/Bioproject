@@ -6,6 +6,9 @@
              xmlns:local="clr-namespace:Maintainer.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <BitmapImage x:Key="IconRefresh" UriSource="/Refresh_16x.png"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="23"/>
@@ -16,7 +19,9 @@
             <ColumnDefinition Width="19*"/>
             <ColumnDefinition Width="25*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnRefresh" Content="R" ToolTip="Refresh the data list." Click="btnRefresh_Click"/>
+        <Button x:Name="btnRefresh" ToolTip="Refresh the data list." Click="btnRefresh_Click">
+            <Image Source="{StaticResource IconRefresh}"/>
+        </Button>
         <ComboBox x:Name="dropdownColumn" Grid.Column="1"/>
         <TextBox x:Name="txtSearch" Grid.Column="2" VerticalAlignment="Center" TextChanged="txtSearch_TextChanged" Margin="0,3,0,2"/>
 
