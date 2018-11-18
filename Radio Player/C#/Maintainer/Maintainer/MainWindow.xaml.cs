@@ -33,13 +33,17 @@ namespace Maintainer
             this._mainInterface = new MainInterface();
             this.content.Content = this._mainInterface;
 
-            // TODO: Put in alphabetical order.
+            this.addEditorButton("Collection",  new SearchProviderCollection(), new EditorCollection(this._mainInterface));
+            this.addEditorButton("Format",      new SearchProviderFormat(),     new EditorFormat(this._mainInterface));
             this.addEditorButton("Genre",       new SearchProviderGenre(),      new EditorGenre(this._mainInterface));
             this.addEditorButton("Mood",        new SearchProviderMood(),       new EditorMood(this._mainInterface));
-            this.addEditorButton("Format",      new SearchProviderFormat(),     new EditorFormat(this._mainInterface));
-            this.addEditorButton("Track",       new SearchProviderTrack(),      new EditorTrack(this._mainInterface));
-            this.addEditorButton("Collection",  new SearchProviderCollection(), new EditorCollection(this._mainInterface));
             this.addEditorButton("Playlist",    new SearchProviderPlaylist(),   new EditorPlaylist(this._mainInterface));
+            this.addEditorButton("Track",       new SearchProviderTrack(),      new EditorTrack(this._mainInterface));
+
+            var button = new Button();
+            button.Content = "[New Window]";
+            button.Click += (sender, e) => (new MainWindow()).Show();
+            this.toolbar.Items.Add(button);
         }
 
         private void addEditorButton(string name, ISearchProvider provider, UserControl editor)

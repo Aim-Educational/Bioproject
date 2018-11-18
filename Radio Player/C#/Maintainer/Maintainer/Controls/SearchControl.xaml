@@ -12,14 +12,16 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="19*"/>
+            <ColumnDefinition Width="25*"/>
         </Grid.ColumnDefinitions>
-        <ComboBox x:Name="dropdownColumn"/>
-        <TextBox x:Name="txtSearch" Grid.Column="1" VerticalAlignment="Center" TextChanged="txtSearch_TextChanged"/>
+        <Button x:Name="btnRefresh" Content="R" ToolTip="Refresh the data list." Click="btnRefresh_Click"/>
+        <ComboBox x:Name="dropdownColumn" Grid.Column="1"/>
+        <TextBox x:Name="txtSearch" Grid.Column="2" VerticalAlignment="Center" TextChanged="txtSearch_TextChanged" Margin="0,3,0,2"/>
 
         <DataGrid x:Name="dataGrid" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                   IsReadOnly="True" MouseDoubleClick="dataGrid_MouseDoubleClick" SelectionMode="Single"
-                  Grid.ColumnSpan="2"/>
+                  Grid.ColumnSpan="3"/>
     </Grid>
 </UserControl>

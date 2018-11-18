@@ -71,3 +71,5 @@ D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\obj\Debug\C
 D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\obj\Debug\Controls\EditorCollection.baml
 D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\obj\Debug\Controls\EditorPlaylist.g.cs
 D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\obj\Debug\Controls\EditorPlaylist.baml
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\obj\Debug\Forms\DeleteWindow.g.cs
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\obj\Debug\Forms\DeleteWindow.baml

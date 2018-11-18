@@ -117,5 +117,10 @@ namespace Maintainer.Controls
                     swapItems(cursor++, itemIndex);
             }
         }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            this.provider = this.provider;
+        }
     }
 }

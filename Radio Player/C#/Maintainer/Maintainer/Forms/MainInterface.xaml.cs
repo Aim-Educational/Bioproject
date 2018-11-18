@@ -95,7 +95,7 @@ namespace Maintainer.Forms
                 return;
             }
 
-            var result = MessageBox.Show("Are you sure you want to delete this item?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = DeleteWindow.Show(this.editorControl, this.searchControl.dataGrid.SelectedItem);
             if(result == MessageBoxResult.No)
                 return;
 

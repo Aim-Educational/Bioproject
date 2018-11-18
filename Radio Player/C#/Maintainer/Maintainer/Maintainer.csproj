@@ -91,6 +91,9 @@
     <Compile Include="Controls\SelectorEditorControl.xaml.cs">
       <DependentUpon>SelectorEditorControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DeleteWindow.xaml.cs">
+      <DependentUpon>DeleteWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IEditor.cs" />
     <Compile Include="Interfaces\ISearchAction.cs" />
     <Compile Include="SearchProviders\SearchProviderCollection.cs" />
@@ -136,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\SelectorEditorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\DeleteWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

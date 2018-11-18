@@ -1,0 +1,32 @@
+﻿<Window x:Class="Maintainer.Forms.DeleteWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maintainer.Forms"
+        mc:Ignorable="d"
+        Title="Confirm deletion" Height="509.658" Width="364.588" 
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="75"/>
+            <ColumnDefinition Width="75"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="410"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Data" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="3">
+            <ScrollViewer>
+                <ContentControl x:Name="content"/>
+            </ScrollViewer>
+        </GroupBox>
+        <Label Content="Are you sure that you want to delete this item?" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.ColumnSpan="3" FontSize="16"/>
+        <Button x:Name="btnYes" Content="Yes" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Center" Grid.Column="2" Click="btnYes_Click"/>
+        <Button x:Name="btnNo" Content="No" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1" Click="btnNo_Click"/>
+
+    </Grid>
+</Window>
