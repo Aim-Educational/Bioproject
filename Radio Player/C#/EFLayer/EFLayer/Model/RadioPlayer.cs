@@ -37,6 +37,10 @@ namespace EFLayer.Model
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<tbl_genre>()
+                .Property(e => e.description)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<tbl_genre>()
                 .HasMany(e => e.tbl_genremap)
                 .WithRequired(e => e.tbl_genre)
                 .WillCascadeOnDelete(false);

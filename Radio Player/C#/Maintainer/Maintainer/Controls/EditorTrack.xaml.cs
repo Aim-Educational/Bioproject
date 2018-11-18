@@ -147,7 +147,7 @@ namespace Maintainer.Controls
                 // Sort out the genre mappings.
                 List<tbl_genremap> genresToUnmap;
                 List<tbl_genre> genresToMap;
-                this.getMappings<tbl_genremap, tbl_genre>(
+                IEditorHelper.getMappings<tbl_genremap, tbl_genre>(
                     out genresToUnmap, out genresToMap, this.listGenres.items,
                     track.tbl_genremap, (map, value) => map.genre_id == value.genre_id
                 );
@@ -164,7 +164,7 @@ namespace Maintainer.Controls
                 // Sort out the mood mappings.
                 List<tbl_moodmap> moodsToUnmap;
                 List<tbl_mood>    moodsToMap;
-                this.getMappings<tbl_moodmap, tbl_mood>(
+                IEditorHelper.getMappings<tbl_moodmap, tbl_mood>(
                     out moodsToUnmap, out moodsToMap, this.listMoods.items,
                     track.tbl_moodmap, (map, value) => map.mood_id == value.mood_id
                 );
@@ -192,32 +192,6 @@ namespace Maintainer.Controls
                 output += value + ",";
 
             return output;
-        }
-
-        private void getMappings<MapT, MapValueT>(out List<MapT>      toUnmap, 
-                                                  out List<MapValueT> toMap, 
-                                                  IEnumerable<Object> cachedItems,
-                                                  ICollection<MapT>   mapSet,
-                                                  Func<MapT, MapValueT, bool> isSameTest) where MapT : class where MapValueT : class
-        {
-            toUnmap = new List<MapT>();
-            toMap   = cachedItems.Select(obj => obj as MapValueT).ToList();
-            foreach (var mapping in mapSet)
-            {
-                bool shouldUnmap = true;
-                foreach (var selectedMapValue in cachedItems.Select(obj => obj as MapValueT))
-                {
-                    if (isSameTest(mapping, selectedMapValue))
-                    {
-                        toMap.Remove(selectedMapValue);
-                        shouldUnmap = false;
-                        break;
-                    }
-                }
-
-                if (shouldUnmap)
-                    toUnmap.Add(mapping);
-            }
         }
 
         private void populateList(ListboxEditorControl list, string csv)

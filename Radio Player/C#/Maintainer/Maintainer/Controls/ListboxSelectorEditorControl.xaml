@@ -14,11 +14,17 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="inputBox" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=selectedItemName}" VerticalAlignment="Center" IsReadOnly="True"/>
-        <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Column="1" Click="btnAdd_Click"/>
-        <Button x:Name="btnSelect" Content="..." HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Column="2" Click="btnSelect_Click"/>
-        <ListBox x:Name="list" HorizontalAlignment="Stretch" Grid.Row="1" ItemsSource="{Binding Path=itemNames}" VerticalAlignment="Stretch" Grid.ColumnSpan="3" PreviewKeyDown="list_PreviewKeyDown"/>
+        <TextBox x:Name="inputBox" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=selectedItemName}" VerticalAlignment="Center" IsReadOnly="True" Margin="0,6"/>
+        <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Column="1" Click="btnAdd_Click" Margin="0,5"/>
+        <Button x:Name="btnSelect" Content="..." HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Column="2" Click="btnSelect_Click" Margin="0,5"/>
+        <ListBox x:Name="list" HorizontalAlignment="Stretch" Grid.Row="1" ItemsSource="{Binding Path=itemNames}" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Grid.RowSpan="4" PreviewKeyDown="list_PreviewKeyDown"/>
+        <Button x:Name="btnUp" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" Content="^^" Click="btnUp_Click"/>
+        <Button x:Name="btnDown" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="2" VerticalAlignment="Top" Content="vv" Click="btnDown_Click"/>
+        <Button x:Name="btnRemove" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" Content="X" Click="btnRemove_Click"/>
     </Grid>
 </UserControl>

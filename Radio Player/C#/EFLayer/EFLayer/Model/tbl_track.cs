@@ -37,7 +37,7 @@ namespace EFLayer.Model
         [StringLength(50)]
         public string publisher { get; set; }
 
-        public int parental_advisory { get; set; }
+        public bool parental_advisory { get; set; }
 
         [Required]
         [StringLength(50)]

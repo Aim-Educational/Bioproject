@@ -7,6 +7,19 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsReadOnly="True" MouseDoubleClick="dataGrid_MouseDoubleClick" SelectionMode="Single"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ComboBox x:Name="dropdownColumn"/>
+        <TextBox x:Name="txtSearch" Grid.Column="1" VerticalAlignment="Center" TextChanged="txtSearch_TextChanged"/>
+
+        <DataGrid x:Name="dataGrid" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                  IsReadOnly="True" MouseDoubleClick="dataGrid_MouseDoubleClick" SelectionMode="Single"
+                  Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>

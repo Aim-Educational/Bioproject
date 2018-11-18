@@ -67,3 +67,7 @@ D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\obj\Debug\C
 D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\obj\Debug\Controls\EditorTrack.baml
 D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\obj\Debug\Controls\ListboxSelectorEditorControl.g.cs
 D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\obj\Debug\Controls\ListboxSelectorEditorControl.baml
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\obj\Debug\Controls\EditorCollection.g.cs
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\obj\Debug\Controls\EditorCollection.baml
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\obj\Debug\Controls\EditorPlaylist.g.cs
+D:\Coding\D\For Fun\Bioproject\Radio Player\C#\Maintainer\Maintainer\obj\Debug\Controls\EditorPlaylist.baml

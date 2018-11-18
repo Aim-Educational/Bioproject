@@ -34,5 +34,31 @@ namespace Maintainer.Interfaces
 
             return MessageBoxResult.No;
         }
+
+        public static void getMappings<MapT, MapValueT>(out List<MapT> toUnmap,
+                                                        out List<MapValueT> toMap,
+                                                        IEnumerable<Object> cachedItems,
+                                                        ICollection<MapT> mapSet,
+                                                        Func<MapT, MapValueT, bool> isSameTest) where MapT : class where MapValueT : class
+        {
+            toUnmap = new List<MapT>();
+            toMap = cachedItems.Select(obj => obj as MapValueT).ToList();
+            foreach (var mapping in mapSet)
+            {
+                bool shouldUnmap = true;
+                foreach (var selectedMapValue in cachedItems.Select(obj => obj as MapValueT))
+                {
+                    if (isSameTest(mapping, selectedMapValue))
+                    {
+                        toMap.Remove(selectedMapValue);
+                        shouldUnmap = false;
+                        break;
+                    }
+                }
+
+                if (shouldUnmap)
+                    toUnmap.Add(mapping);
+            }
+        }
     }
 }

@@ -64,6 +64,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\EditorCollection.xaml.cs">
+      <DependentUpon>EditorCollection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\EditorGenre.xaml.cs">
       <DependentUpon>EditorGenre.xaml</DependentUpon>
     </Compile>
@@ -72,6 +75,9 @@
     </Compile>
     <Compile Include="Controls\EditorMood.xaml.cs">
       <DependentUpon>EditorMood.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EditorPlaylist.xaml.cs">
+      <DependentUpon>EditorPlaylist.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EditorTrack.xaml.cs">
       <DependentUpon>EditorTrack.xaml</DependentUpon>
@@ -87,10 +93,16 @@
     </Compile>
     <Compile Include="Interfaces\IEditor.cs" />
     <Compile Include="Interfaces\ISearchAction.cs" />
+    <Compile Include="SearchProviders\SearchProviderCollection.cs" />
     <Compile Include="SearchProviders\SearchProviderFormat.cs" />
+    <Compile Include="SearchProviders\SearchProviderPlaylist.cs" />
     <Compile Include="SearchProviders\SearchProviderTrack.cs" />
     <Compile Include="SearchProviders\SearchProviderMood.cs" />
     <Compile Include="SearchProviders\SearchProviderGenre.cs" />
+    <Page Include="Controls\EditorCollection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\EditorGenre.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -100,6 +112,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\EditorMood.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\EditorPlaylist.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

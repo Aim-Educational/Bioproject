@@ -78,6 +78,15 @@ namespace Maintainer.Controls
             this.itemNames.Add(this.provider.getDisplayStringForItem(item));
         }
 
+        private void removeItemAt(int index)
+        {
+            if(index < 0 || index >= this.list.Items.Count)
+                return;
+
+            this.items.RemoveAt(index);
+            this.itemNames.RemoveAt(index);
+        }
+
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             if(this.selectedItem == null)
@@ -102,14 +111,49 @@ namespace Maintainer.Controls
             {
                 e.Handled = true;
 
-                this.items.RemoveAt(this.list.SelectedIndex);
-                this.itemNames.RemoveAt(this.list.SelectedIndex);
+                this.removeItemAt(this.list.SelectedIndex);
             }
         }
 
         private void btnSelect_Click(object sender, RoutedEventArgs e)
         {
             this.mainInterface.openSelector(this.provider, (obj) => this.selectedItem = obj);
+        }
+
+        private void btnUp_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.list.SelectedIndex == -1 || this.list.SelectedIndex == 0)
+                return;
+
+            this.moveLists(this.list.SelectedIndex - 1, false);
+        }
+
+        private void btnDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.list.SelectedIndex == -1 || this.list.SelectedIndex == this.items.Count() - 1)
+                return;
+
+            this.moveLists(this.list.SelectedIndex, true);
+        }
+
+        private void moveLists(int leftIndex, bool selectRight)
+        {
+            var rightIndex = leftIndex + 1;
+
+            var left1 = this.items[leftIndex];
+            this.items[leftIndex] = this.items[rightIndex];
+            this.items[rightIndex] = left1;
+
+            var left2 = this.itemNames[leftIndex];
+            this.itemNames[leftIndex] = this.itemNames[rightIndex];
+            this.itemNames[rightIndex] = left2;
+
+            this.list.SelectedIndex = (selectRight) ? rightIndex : leftIndex;
+        }
+
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            this.removeItemAt(this.list.SelectedIndex);
         }
     }
 }
