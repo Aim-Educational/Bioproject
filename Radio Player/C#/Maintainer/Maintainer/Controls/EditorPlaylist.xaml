@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Maintainer.Controls"
+             xmlns:aim="clr-namespace:Aim.DatabaseInterface.Controls;assembly=AimDatabaseInterface"
              mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -35,6 +36,6 @@
         <TextBox x:Name="txtDislikes" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
         <TextBox x:Name="txtCreator" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"/>
         <CheckBox x:Name="checkboxRandomise" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5"/>
-        <local:ListboxSelectorEditorControl x:Name="listTracks" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="6"/>
+        <aim:ListboxSelectorEditorControl x:Name="listTracks" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="6"/>
     </Grid>
 </UserControl>

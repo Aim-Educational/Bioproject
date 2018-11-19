@@ -1,21 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Aim.DatabaseInterface.Controls;
+using Aim.DatabaseInterface.Interfaces;
+using Aim.DatabaseInterface.Windows;
 using EFLayer.Model;
-using Maintainer.Forms;
-using Maintainer.Interfaces;
 using Maintainer.SearchProviders;
 
 namespace Maintainer.Controls
@@ -62,9 +53,9 @@ namespace Maintainer.Controls
             this.selectorFormat.item = null;
             this.dateRecorded.SelectedDate = null;
             this.dateReleased.SelectedDate = null;
-            this.listArtists.list.Items.Clear();
-            this.listComposers.list.Items.Clear();
-            this.listKeywords.list.Items.Clear();
+            this.listArtists.clear();
+            this.listComposers.clear();
+            this.listKeywords.clear();
             this.listMoods.clear();
             this.listGenres.clear();
             this.checkboxPAL.IsChecked = false;
@@ -119,7 +110,7 @@ namespace Maintainer.Controls
                     track = db.tbl_track.Where(t => t.track_id == id).FirstOrDefault();
                     if (track == null)
                     {
-                        this._mainInterface.labelStatus.Content = $"ERROR: ID '{this.txtID.Text}' does not exist.";
+                        this._mainInterface.statusText = $"ERROR: ID '{this.txtID.Text}' does not exist.";
                         return;
                     }
                 }
@@ -149,7 +140,7 @@ namespace Maintainer.Controls
                 List<tbl_genremap> genresToUnmap;
                 List<tbl_genre> genresToMap;
                 IEditorHelper.getMappings<tbl_genremap, tbl_genre>(
-                    out genresToUnmap, out genresToMap, this.listGenres.items,
+                    out genresToUnmap, out genresToMap, this.listGenres.items.Select(i => i as tbl_genre),
                     track.tbl_genremap, (map, value) => map.genre_id == value.genre_id
                 );
                 foreach (var toUnmap in genresToUnmap)
@@ -166,7 +157,7 @@ namespace Maintainer.Controls
                 List<tbl_moodmap> moodsToUnmap;
                 List<tbl_mood>    moodsToMap;
                 IEditorHelper.getMappings<tbl_moodmap, tbl_mood>(
-                    out moodsToUnmap, out moodsToMap, this.listMoods.items,
+                    out moodsToUnmap, out moodsToMap, this.listMoods.items.Select(i => i as tbl_mood),
                     track.tbl_moodmap, (map, value) => map.mood_id == value.mood_id
                 );
                 foreach (var toUnmap in moodsToUnmap)
@@ -197,10 +188,9 @@ namespace Maintainer.Controls
 
         private void populateList(ListboxEditorControl list, string csv)
         {
-            list.list.Items.Clear();
-            list.inputBox.Text = "";
+            list.clear();
 
-            foreach(var value in csv.Split(','))
+            foreach (var value in csv.Split(','))
                 list.list.Items.Add(value);
         }
 

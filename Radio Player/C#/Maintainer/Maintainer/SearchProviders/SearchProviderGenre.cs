@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows.Controls;
-using Maintainer.Interfaces;
-using EFLayer.Model;
 using System.Windows.Data;
-using System.Windows;
+using Aim.DatabaseInterface.Interfaces;
+using EFLayer.Model;
 
 namespace Maintainer.SearchProviders
 {

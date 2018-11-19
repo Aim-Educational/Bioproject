@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Aim.DatabaseInterface.Interfaces;
+using Aim.DatabaseInterface.Windows;
 using EFLayer.Model;
-using Maintainer.Forms;
-using Maintainer.Interfaces;
 
 namespace Maintainer.Controls
 {
@@ -67,7 +57,7 @@ namespace Maintainer.Controls
                         genre = db.tbl_genre.Where(g => g.genre_id == id).FirstOrDefault();
                     if(genre == null)
                     {
-                        this._mainInterface.labelStatus.Content = $"ERROR: ID '{this.id.Text}' does not exist.";
+                        this._mainInterface.statusText = $"ERROR: ID '{this.id.Text}' does not exist.";
                         return;
                     }
                 }

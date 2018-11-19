@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Maintainer.Controls"
+             xmlns:aim="clr-namespace:Aim.DatabaseInterface.Controls;assembly=AimDatabaseInterface"
              mc:Ignorable="d">
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
@@ -60,23 +61,23 @@
         <TextBox x:Name="txtID" Grid.Column="1"             Grid.Row="0" VerticalAlignment="Center" IsReadOnly="True"/>
         <TextBox x:Name="txtTitle" Grid.Column="1"          Grid.Row="1" VerticalAlignment="Center"/>
         <TextBox x:Name="txtSubtitle" Grid.Column="1"       Grid.Row="2" VerticalAlignment="Center"/>
-        <local:ListboxEditorControl x:Name="listArtists"    Grid.Column="1" Grid.Row="3"/>
+        <aim:ListboxEditorControl x:Name="listArtists"      Grid.Column="1" Grid.Row="3"/>
         <TextBox x:Name="txtBitrate"                        Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"/>
         <TextBox x:Name="txtPublisher"                      Grid.Column="1" Grid.Row="5" VerticalAlignment="Center"/>
         <CheckBox x:Name="checkboxPAL"                      Grid.Column="1" Grid.Row="6" VerticalAlignment="Center"/>
         <TextBox x:Name="txtServerName"                     Grid.Column="1" Grid.Row="7" VerticalAlignment="Center"/>
         <TextBox x:Name="txtFolder"                         Grid.Column="1" Grid.Row="8" VerticalAlignment="Center"/>
         <TextBox x:Name="txtFileName"                       Grid.Column="1" Grid.Row="9" VerticalAlignment="Center"/>
-        <local:ListboxEditorControl x:Name="listComposers"  Grid.Column="1" Grid.Row="10"/>
+        <aim:ListboxEditorControl x:Name="listComposers"    Grid.Column="1" Grid.Row="10"/>
         <TextBox x:Name="txtDuration"                       Grid.Column="1" Grid.Row="11" VerticalAlignment="Center"/>
-        <local:SelectorEditorControl x:Name="selectorFormat" Grid.Column="1" Grid.Row="12"/>
+        <aim:SelectorEditorControl x:Name="selectorFormat"  Grid.Column="1" Grid.Row="12"/>
         <TextBox x:Name="txtFileSize"                       Grid.Column="1" Grid.Row="13" VerticalAlignment="Center"/>
         <DatePicker x:Name="dateRecorded"                   Grid.Column="1" Grid.Row="14" VerticalAlignment="Center"/>
         <DatePicker x:Name="dateReleased"                   Grid.Column="1" Grid.Row="15" VerticalAlignment="Center"/>
         <TextBox x:Name="txtLikes"                          Grid.Column="1" Grid.Row="16" VerticalAlignment="Center"/>
         <TextBox x:Name="txtDislikes"                       Grid.Column="1" Grid.Row="17" VerticalAlignment="Center"/>
-        <local:ListboxEditorControl x:Name="listKeywords"   Grid.Column="1" Grid.Row="18"/>
-        <local:ListboxSelectorEditorControl x:Name="listGenres" Grid.Column="1" Grid.Row="19"/>
-        <local:ListboxSelectorEditorControl x:Name="listMoods" Grid.Column="1" Grid.Row="20"/>
+        <aim:ListboxEditorControl x:Name="listKeywords"     Grid.Column="1" Grid.Row="18"/>
+        <aim:ListboxSelectorEditorControl x:Name="listGenres" Grid.Column="1" Grid.Row="19"/>
+        <aim:ListboxSelectorEditorControl x:Name="listMoods" Grid.Column="1" Grid.Row="20"/>
     </Grid>
 </UserControl>

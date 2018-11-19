@@ -82,20 +82,6 @@
     <Compile Include="Controls\EditorTrack.xaml.cs">
       <DependentUpon>EditorTrack.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ListboxEditorControl.xaml.cs">
-      <DependentUpon>ListboxEditorControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ListboxSelectorEditorControl.xaml.cs">
-      <DependentUpon>ListboxSelectorEditorControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SelectorEditorControl.xaml.cs">
-      <DependentUpon>SelectorEditorControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\DeleteWindow.xaml.cs">
-      <DependentUpon>DeleteWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\IEditor.cs" />
-    <Compile Include="Interfaces\ISearchAction.cs" />
     <Compile Include="SearchProviders\SearchProviderCollection.cs" />
     <Compile Include="SearchProviders\SearchProviderFormat.cs" />
     <Compile Include="SearchProviders\SearchProviderPlaylist.cs" />
@@ -126,30 +112,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ListboxEditorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ListboxSelectorEditorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\SearchControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\SelectorEditorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\DeleteWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\MainInterface.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -158,13 +120,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controls\SearchControl.xaml.cs">
-      <DependentUpon>SearchControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\MainInterface.xaml.cs">
-      <DependentUpon>MainInterface.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\ISearchProvider.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -198,6 +153,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Libraries\AimDatabaseInterface\AimDatabaseInterface\AimDatabaseInterface.csproj">
+      <Project>{0edf0969-dc7d-4940-9f71-0f54c19de99e}</Project>
+      <Name>AimDatabaseInterface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\EFLayer\EFLayer\EFLayer.csproj">
       <Project>{0219d0db-7ed2-409e-abfa-e544c26c5016}</Project>
       <Name>EFLayer</Name>
