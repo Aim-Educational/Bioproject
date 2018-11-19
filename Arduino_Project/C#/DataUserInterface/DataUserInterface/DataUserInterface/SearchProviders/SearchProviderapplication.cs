@@ -22,7 +22,7 @@ namespace DataUserInterface.SearchProviders
             if(data == null)
                 return;
 
-            using (var db = new RadioPlayer())
+            using (var db = new PlanningContext())
             {
                 db.application.Remove(db.application.Where(d => d.application_id == data.application_id).First());
                 db.SaveChanges();
@@ -36,7 +36,7 @@ namespace DataUserInterface.SearchProviders
 
         public void populateDataGrid(DataGrid grid)
         {
-            using (var db = new RadioPlayer())
+            using (var db = new PlanningContext())
             {
                 grid.Columns.Add(new DataGridTextColumn()
                 {

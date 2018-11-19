@@ -1,0 +1,12 @@
+$PLACEHOLDERS
+    $XAMLFILE
+    $XAMLFOLDER
+$END
+$FINISH_CONFIG
+<Compile Include="$XAMLFOLDER\$XAMLFILE.cs">
+    <DependentUpon>$XAMLFILE</DependentUpon>
+</Compile>
+<Page Include="$XAMLFOLDER\$XAMLFILE">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>

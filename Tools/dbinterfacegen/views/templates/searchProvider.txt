@@ -7,6 +7,7 @@ $PLACEHOLDERS
     $TABLE_DISPLAY_NAME     The variable to use as the display name.
     $COLUMN_DEFINITIONS     Column definitions for the data grid.
     $CACHE_CODE             Code to cache certain values.
+    $CONTEXTNAME
 $END
 $FINISH_CONFIG
 using System.Linq;
@@ -33,7 +34,7 @@ namespace $PROVIDER_NAMESPACE
             if(data == null)
                 return;
 
-            using (var db = new RadioPlayer())
+            using (var db = new $CONTEXTNAME())
             {
                 db.$TABLE_NAME.Remove(db.$TABLE_NAME.Where(d => d.$PRIMARY_KEY == data.$PRIMARY_KEY).First());
                 db.SaveChanges();
@@ -47,7 +48,7 @@ namespace $PROVIDER_NAMESPACE
 
         public void populateDataGrid(DataGrid grid)
         {
-            using (var db = new RadioPlayer())
+            using (var db = new $CONTEXTNAME())
             {
                 grid.Columns.Add(new DataGridTextColumn()
                 {

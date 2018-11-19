@@ -36,12 +36,9 @@
 
 
         <!--
-        <TextBox x:Name="txtID" Grid.Column="1"             Grid.Row="0" VerticalAlignment="Center" IsReadOnly="True"/>
-        <aim:ListboxEditorControl x:Name="listArtists"      Grid.Column="1" Grid.Row="3"/>
         <CheckBox x:Name="checkboxPAL"                      Grid.Column="1" Grid.Row="6" VerticalAlignment="Center"/>
         <aim:SelectorEditorControl x:Name="selectorFormat"  Grid.Column="1" Grid.Row="12"/>
         <DatePicker x:Name="dateReleased"                   Grid.Column="1" Grid.Row="15" VerticalAlignment="Center"/>
-        <aim:ListboxSelectorEditorControl x:Name="listMoods" Grid.Column="1" Grid.Row="20"/>
         !-->
     </Grid>
 </UserControl>

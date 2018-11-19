@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataUserInterface", "DataUs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManager", "..\DataManager\DataManager\DataManager.csproj", "{A5CACA5C-B79B-477E-B9CA-630923EF565C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AimDatabaseInterface", "..\..\..\Libraries\C#\AimDatabaseInterface\AimDatabaseInterface\AimDatabaseInterface.csproj", "{0EDF0969-DC7D-4940-9F71-0F54C19DE99E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A5CACA5C-B79B-477E-B9CA-630923EF565C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5CACA5C-B79B-477E-B9CA-630923EF565C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5CACA5C-B79B-477E-B9CA-630923EF565C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EDF0969-DC7D-4940-9F71-0F54C19DE99E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EDF0969-DC7D-4940-9F71-0F54C19DE99E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EDF0969-DC7D-4940-9F71-0F54C19DE99E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EDF0969-DC7D-4940-9F71-0F54C19DE99E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -102,10 +102,260 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Libraries\C#\AimDatabaseInterface\AimDatabaseInterface\AimDatabaseInterface.csproj">
+      <Project>{0edf0969-dc7d-4940-9f71-0f54c19de99e}</Project>
+      <Name>AimDatabaseInterface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\DataManager\DataManager\DataManager.csproj">
       <Project>{a5caca5c-b79b-477e-b9ca-630923ef565c}</Project>
       <Name>DataManager</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+<ItemGroup>
+<Compile Include="DataUserInterface\SearchProviders\SearchProvideraction_level.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvideraction_type.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvideralarm.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvideralarm_type.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderapplication.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderapplication_log.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderbackup_log.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderbbc_rss_barometric_change.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderbbc_rss_general.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderbbc_rss_visibility.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidercontact.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidercontact_email.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidercontact_history.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidercontact_telephone.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidercontact_type.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdatabase_config.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_address.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_address_type.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_history.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_history_action.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_type.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_url.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_value.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidergroup_action.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidergroup_member.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidergroup_type.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderhistory_event.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidermessage_type.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderrss_configuration.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidersupplier.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderunit.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderupdate_period.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvideruser.cs" /></ItemGroup>
+<ItemGroup>
+<Compile Include="DataUserInterface\Editors\Editoraction_level.xaml.cs">
+    <DependentUpon>Editoraction_level.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editoraction_level.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editoraction_type.xaml.cs">
+    <DependentUpon>Editoraction_type.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editoraction_type.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editoralarm.xaml.cs">
+    <DependentUpon>Editoralarm.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editoralarm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editoralarm_type.xaml.cs">
+    <DependentUpon>Editoralarm_type.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editoralarm_type.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorapplication.xaml.cs">
+    <DependentUpon>Editorapplication.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorapplication.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorapplication_log.xaml.cs">
+    <DependentUpon>Editorapplication_log.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorapplication_log.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorbackup_log.xaml.cs">
+    <DependentUpon>Editorbackup_log.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorbackup_log.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorbbc_rss_barometric_change.xaml.cs">
+    <DependentUpon>Editorbbc_rss_barometric_change.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorbbc_rss_barometric_change.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorbbc_rss_general.xaml.cs">
+    <DependentUpon>Editorbbc_rss_general.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorbbc_rss_general.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorbbc_rss_visibility.xaml.cs">
+    <DependentUpon>Editorbbc_rss_visibility.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorbbc_rss_visibility.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorcontact.xaml.cs">
+    <DependentUpon>Editorcontact.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorcontact.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorcontact_email.xaml.cs">
+    <DependentUpon>Editorcontact_email.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorcontact_email.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorcontact_history.xaml.cs">
+    <DependentUpon>Editorcontact_history.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorcontact_history.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorcontact_telephone.xaml.cs">
+    <DependentUpon>Editorcontact_telephone.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorcontact_telephone.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorcontact_type.xaml.cs">
+    <DependentUpon>Editorcontact_type.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorcontact_type.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editordatabase_config.xaml.cs">
+    <DependentUpon>Editordatabase_config.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editordatabase_config.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editordevice.xaml.cs">
+    <DependentUpon>Editordevice.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editordevice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editordevice_address.xaml.cs">
+    <DependentUpon>Editordevice_address.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editordevice_address.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editordevice_address_type.xaml.cs">
+    <DependentUpon>Editordevice_address_type.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editordevice_address_type.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editordevice_history.xaml.cs">
+    <DependentUpon>Editordevice_history.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editordevice_history.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editordevice_history_action.xaml.cs">
+    <DependentUpon>Editordevice_history_action.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editordevice_history_action.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editordevice_type.xaml.cs">
+    <DependentUpon>Editordevice_type.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editordevice_type.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editordevice_url.xaml.cs">
+    <DependentUpon>Editordevice_url.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editordevice_url.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editordevice_value.xaml.cs">
+    <DependentUpon>Editordevice_value.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editordevice_value.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorgroup_action.xaml.cs">
+    <DependentUpon>Editorgroup_action.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorgroup_action.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorgroup_member.xaml.cs">
+    <DependentUpon>Editorgroup_member.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorgroup_member.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorgroup_type.xaml.cs">
+    <DependentUpon>Editorgroup_type.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorgroup_type.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorhistory_event.xaml.cs">
+    <DependentUpon>Editorhistory_event.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorhistory_event.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editormessage_type.xaml.cs">
+    <DependentUpon>Editormessage_type.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editormessage_type.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorrss_configuration.xaml.cs">
+    <DependentUpon>Editorrss_configuration.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorrss_configuration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorsupplier.xaml.cs">
+    <DependentUpon>Editorsupplier.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorsupplier.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorunit.xaml.cs">
+    <DependentUpon>Editorunit.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorunit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editorupdate_period.xaml.cs">
+    <DependentUpon>Editorupdate_period.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editorupdate_period.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+<Compile Include="DataUserInterface\Editors\Editoruser.xaml.cs">
+    <DependentUpon>Editoruser.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editoruser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+</ItemGroup>
+<ItemGroup>
+</ItemGroup>
+<ItemGroup>
+</ItemGroup>
 </Project>

@@ -10,6 +10,8 @@ private
     const TEMPLATE_COLUMN_DEFINITION    = import("templates/column.txt");
     const TEMPLATE_LABEL_XAML           = import("templates/editor_label.xaml");
     const TEMPLATE_EDITOR_XAML          = import("templates/editor/editor.xaml");
+    const TEMPLATE_CSPROJ_XAML          = import("templates/csproj_entry_xaml.xml");
+    const TEMPLATE_CSPROJ_CODE          = import("templates/csproj_entry_code.xml");
     
     const TEMPLATE_TEXTBOX_XAML = import("templates/textbox/textbox.xaml");
 
@@ -37,12 +39,15 @@ private void generateEditorsXAML(Model model, Config config)
     if(!outPath.exists)
         mkdirRecurse(outPath);
 
+    string[] xamlFiles;
+
     foreach(object; model.objects)
     {
         // Create the XAML definitions.
         string rowDefs;
         string labels;
         string controls;
+        int row = 0;
         foreach(i, field; object.fields)
         {
             if(shouldIgnoreField(model, object, field))
@@ -50,14 +55,14 @@ private void generateEditorsXAML(Model model, Config config)
 
             labels ~= Templater.resolveTemplate(
                 [
-                    "$GRID_ROW": i.to!string,
+                    "$GRID_ROW": row.to!string,
                     "$CONTENT": field.variableName
                 ], 
                 TEMPLATE_LABEL_XAML
             );
 
             rowDefs ~= getRowDef(model, field);
-            controls ~= getControlInfo(model, object, field, i).xaml;
+            controls ~= getControlInfo(model, object, field, row++).xaml;
         }
 
         // Resolve the template.
@@ -68,8 +73,28 @@ private void generateEditorsXAML(Model model, Config config)
         placeholders["$LABELS"]             = labels;
         placeholders["$CONTROLS"]           = controls;
 
-        write(buildNormalizedPath(outPath, getEditorName(object)~".xaml"), Templater.resolveTemplate(placeholders, TEMPLATE_EDITOR_XAML));
+        auto file = buildNormalizedPath(outPath, getEditorName(object)~".xaml");
+        xamlFiles ~= file;
+        write(file, Templater.resolveTemplate(placeholders, TEMPLATE_EDITOR_XAML));
     }
+
+    // Modify the .csproj file
+    import std.path;
+    auto csproj = readText(config.csproj);
+    csproj.length -= "</Project>".length;
+    
+    csproj ~= "<ItemGroup>\n";
+    foreach(file; xamlFiles)
+    {
+        import std.algorithm : canFind;
+        auto code = Templater.resolveTemplate(["$XAMLFILE":file.baseName, "$XAMLFOLDER":file.dirName], TEMPLATE_CSPROJ_XAML);
+
+        if(!csproj.canFind(code))
+            csproj ~= code;
+    }
+    csproj ~= "</ItemGroup>\n</Project>";
+
+    write(config.csproj, csproj);
 }
 
 private void generateProviders(Model model, Config config)
@@ -79,6 +104,7 @@ private void generateProviders(Model model, Config config)
     if(!outPath.exists)
         mkdirRecurse(outPath);
 
+    string[] files;
     foreach(object; model.objects)
     {
         // Find the display name.
@@ -128,9 +154,28 @@ private void generateProviders(Model model, Config config)
         placeholders["$TABLE_DISPLAY_NAME"] = displayName;
         placeholders["$COLUMN_DEFINITIONS"] = definitions;
         placeholders["$CACHE_CODE"]         = cache;
+        placeholders["$CONTEXTNAME"]        = model.context.className;
 
-        write(buildNormalizedPath(outPath, getProviderName(object)~".cs"), Templater.resolveTemplate(placeholders, TEMPLATE_SEARCH_PROVIDER));
+        files ~= buildNormalizedPath(outPath, getProviderName(object)~".cs");
+        write(files[$-1], Templater.resolveTemplate(placeholders, TEMPLATE_SEARCH_PROVIDER));
     }
+
+    // Modify the .csproj file
+    auto csproj = readText(config.csproj);
+    csproj.length -= "</Project>".length;
+    
+    csproj ~= "<ItemGroup>\n";
+    foreach(file; files)
+    {
+        import std.algorithm : canFind;
+        auto code = Templater.resolveTemplate(["$FILE": file], TEMPLATE_CSPROJ_CODE);
+
+        if(!csproj.canFind(code))
+            csproj ~= code;
+    }
+    csproj ~= "</ItemGroup>\n</Project>";
+
+    write(config.csproj, csproj);
 }
 
 private string cacheObject(Model model, TableObject object, ref string code, int loopDepth = 0, string valName = "data", bool isFirst = true)

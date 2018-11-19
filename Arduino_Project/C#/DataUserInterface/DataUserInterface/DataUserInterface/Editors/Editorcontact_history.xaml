@@ -25,26 +25,23 @@
         </Grid.RowDefinitions>
 
         <Label Content="contact_history_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
-<Label Content="date_and_time:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
-<Label Content="version:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
-<Label Content="timestamp:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
-<Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7"/>
-<Label Content="contact:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="8"/>
-<Label Content="history_event:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="9"/>
+<Label Content="date_and_time:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
+<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
+<Label Content="version:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
+<Label Content="timestamp:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+<Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
+<Label Content="contact:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
+<Label Content="history_event:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7"/>
 
         <TextBox x:Name="contact_history_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
-<TextBox x:Name="version" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" IsReadOnly="false"/>
-<TextBox x:Name="comment" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center" IsReadOnly="false"/>
+<TextBox x:Name="version" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" IsReadOnly="false"/>
+<TextBox x:Name="comment" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" IsReadOnly="false"/>
 
 
         <!--
-        <TextBox x:Name="txtID" Grid.Column="1"             Grid.Row="0" VerticalAlignment="Center" IsReadOnly="True"/>
-        <aim:ListboxEditorControl x:Name="listArtists"      Grid.Column="1" Grid.Row="3"/>
         <CheckBox x:Name="checkboxPAL"                      Grid.Column="1" Grid.Row="6" VerticalAlignment="Center"/>
         <aim:SelectorEditorControl x:Name="selectorFormat"  Grid.Column="1" Grid.Row="12"/>
         <DatePicker x:Name="dateReleased"                   Grid.Column="1" Grid.Row="15" VerticalAlignment="Center"/>
-        <aim:ListboxSelectorEditorControl x:Name="listMoods" Grid.Column="1" Grid.Row="20"/>
         !-->
     </Grid>
 </UserControl>

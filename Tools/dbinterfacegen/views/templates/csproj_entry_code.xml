@@ -1,0 +1,5 @@
+$PLACEHOLDERS
+    $FILE
+$END
+$FINISH_CONFIG
+<Compile Include="$FILE" />
