@@ -1,0 +1,142 @@
+\hypertarget{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface}{}\section{Aim.\+Database\+Interface.\+Windows.\+Main\+Interface Class Reference}
+\label{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface}\index{Aim.\+Database\+Interface.\+Windows.\+Main\+Interface@{Aim.\+Database\+Interface.\+Windows.\+Main\+Interface}}
+
+
+The main interface.  
+
+
+Inheritance diagram for Aim.\+Database\+Interface.\+Windows.\+Main\+Interface\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface_a2cfee9030c39c4d8a79c0c218d1e6a60}{open\+Editor}} (\mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider}{I\+Search\+Provider}} provider, User\+Control editor)
+\begin{DoxyCompactList}\small\item\em Opens the \textquotesingle{}search\textquotesingle{} search form, as well as an editor for the user to make use of. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface_a847da5c5a3132847df23e9bbd3118ac1}{open\+Selector}} (\mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider}{I\+Search\+Provider}} provider, Action$<$ Object $>$ on\+Select)
+\begin{DoxyCompactList}\small\item\em Opens the \textquotesingle{}selection\textquotesingle{} search form to allow the user to select a specific item, which is then passed to the given action. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface_af58ec09a0ee270884c6428192ea96347}{protected\+Execute}} (Action func)
+\begin{DoxyCompactList}\small\item\em A special helper function that will call the given {\itshape func} , and if an exception is caught it will update the \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface_ab2ea5e6fe7f1a5f7691ae78883bc384e}{status\+Text}} to the exception\textquotesingle{}s message. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface_ab2ea5e6fe7f1a5f7691ae78883bc384e}{status\+Text}}\hspace{0.3cm}{\ttfamily  \mbox{[}set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Sets the status text in the status bar. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The main interface. 
+
+This control contains the following\+:
+\begin{DoxyItemize}
+\item A Search\+Control to allow the user to select an item to modify.
+\item An I\+Editor to provide the actual functionality to create/modify data.
+\item A Search\+Control to allow the user to select a data for controls such as Listbox\+Selector\+Editor\+Control.
+\item A delete button that should \textquotesingle{}just work\textquotesingle{}.
+\item A create button that should \textquotesingle{}just work\textquotesingle{}.
+\item An apply/save button that should \textquotesingle{}just work\textquotesingle{}.
+\item The ability to resize parts of the interface, to allow the user to customise what they\textquotesingle{}re seeing.
+\item A status bar. 
+\end{DoxyItemize}
+
+Definition at line 33 of file Main\+Interface.\+xaml.\+cs.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface_a2cfee9030c39c4d8a79c0c218d1e6a60}\label{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface_a2cfee9030c39c4d8a79c0c218d1e6a60}} 
+\index{Aim\+::\+Database\+Interface\+::\+Windows\+::\+Main\+Interface@{Aim\+::\+Database\+Interface\+::\+Windows\+::\+Main\+Interface}!open\+Editor@{open\+Editor}}
+\index{open\+Editor@{open\+Editor}!Aim\+::\+Database\+Interface\+::\+Windows\+::\+Main\+Interface@{Aim\+::\+Database\+Interface\+::\+Windows\+::\+Main\+Interface}}
+\subsubsection{\texorpdfstring{open\+Editor()}{openEditor()}}
+{\footnotesize\ttfamily void Aim.\+Database\+Interface.\+Windows.\+Main\+Interface.\+open\+Editor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider}{I\+Search\+Provider}}}]{provider,  }\item[{User\+Control}]{editor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Opens the \textquotesingle{}search\textquotesingle{} search form, as well as an editor for the user to make use of. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em provider} & This provider will provide the data for both the user and {\itshape editor}  to use, as well as the ability to delete items. \\
+\hline
+{\em editor} & This editor will provide the ability to for a user save/create data. This class {\itshape must} implement I\+Editor \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 67 of file Main\+Interface.\+xaml.\+cs.
+
+
+
+References Aim.\+Database\+Interface.\+Controls.\+Search\+Control.\+action, and Aim.\+Database\+Interface.\+Controls.\+Search\+Control.\+provider.
+
+\mbox{\Hypertarget{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface_a847da5c5a3132847df23e9bbd3118ac1}\label{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface_a847da5c5a3132847df23e9bbd3118ac1}} 
+\index{Aim\+::\+Database\+Interface\+::\+Windows\+::\+Main\+Interface@{Aim\+::\+Database\+Interface\+::\+Windows\+::\+Main\+Interface}!open\+Selector@{open\+Selector}}
+\index{open\+Selector@{open\+Selector}!Aim\+::\+Database\+Interface\+::\+Windows\+::\+Main\+Interface@{Aim\+::\+Database\+Interface\+::\+Windows\+::\+Main\+Interface}}
+\subsubsection{\texorpdfstring{open\+Selector()}{openSelector()}}
+{\footnotesize\ttfamily void Aim.\+Database\+Interface.\+Windows.\+Main\+Interface.\+open\+Selector (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider}{I\+Search\+Provider}}}]{provider,  }\item[{Action$<$ Object $>$}]{on\+Select }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Opens the \textquotesingle{}selection\textquotesingle{} search form to allow the user to select a specific item, which is then passed to the given action. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em provider} & The provider used to provide the data that the user can select.\\
+\hline
+{\em on\+Select} & An action to be performed on the item that the user selects.\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 84 of file Main\+Interface.\+xaml.\+cs.
+
+
+
+References Aim.\+Database\+Interface.\+Controls.\+Search\+Control.\+action, and Aim.\+Database\+Interface.\+Controls.\+Search\+Control.\+provider.
+
+\mbox{\Hypertarget{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface_af58ec09a0ee270884c6428192ea96347}\label{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface_af58ec09a0ee270884c6428192ea96347}} 
+\index{Aim\+::\+Database\+Interface\+::\+Windows\+::\+Main\+Interface@{Aim\+::\+Database\+Interface\+::\+Windows\+::\+Main\+Interface}!protected\+Execute@{protected\+Execute}}
+\index{protected\+Execute@{protected\+Execute}!Aim\+::\+Database\+Interface\+::\+Windows\+::\+Main\+Interface@{Aim\+::\+Database\+Interface\+::\+Windows\+::\+Main\+Interface}}
+\subsubsection{\texorpdfstring{protected\+Execute()}{protectedExecute()}}
+{\footnotesize\ttfamily void Aim.\+Database\+Interface.\+Windows.\+Main\+Interface.\+protected\+Execute (\begin{DoxyParamCaption}\item[{Action}]{func }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A special helper function that will call the given {\itshape func} , and if an exception is caught it will update the \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface_ab2ea5e6fe7f1a5f7691ae78883bc384e}{status\+Text}} to the exception\textquotesingle{}s message. 
+
+Note that if \textquotesingle{}D\+E\+B\+UG\textquotesingle{} is defined, then this function won\textquotesingle{}t catch exceptions (to make debugging easier). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em func} & The function to execute.\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 98 of file Main\+Interface.\+xaml.\+cs.
+
+
+
+\subsection{Property Documentation}
+\mbox{\Hypertarget{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface_ab2ea5e6fe7f1a5f7691ae78883bc384e}\label{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface_ab2ea5e6fe7f1a5f7691ae78883bc384e}} 
+\index{Aim\+::\+Database\+Interface\+::\+Windows\+::\+Main\+Interface@{Aim\+::\+Database\+Interface\+::\+Windows\+::\+Main\+Interface}!status\+Text@{status\+Text}}
+\index{status\+Text@{status\+Text}!Aim\+::\+Database\+Interface\+::\+Windows\+::\+Main\+Interface@{Aim\+::\+Database\+Interface\+::\+Windows\+::\+Main\+Interface}}
+\subsubsection{\texorpdfstring{status\+Text}{statusText}}
+{\footnotesize\ttfamily string Aim.\+Database\+Interface.\+Windows.\+Main\+Interface.\+status\+Text\hspace{0.3cm}{\ttfamily [set]}}
+
+
+
+Sets the status text in the status bar. 
+
+
+
+Definition at line 43 of file Main\+Interface.\+xaml.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Main\+Interface.\+xaml.\+cs\end{DoxyCompactItemize}

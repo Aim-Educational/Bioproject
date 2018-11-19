@@ -1,0 +1,70 @@
+\hypertarget{class_aim_1_1_database_interface_1_1_windows_1_1_delete_box}{}\section{Aim.\+Database\+Interface.\+Windows.\+Delete\+Box Class Reference}
+\label{class_aim_1_1_database_interface_1_1_windows_1_1_delete_box}\index{Aim.\+Database\+Interface.\+Windows.\+Delete\+Box@{Aim.\+Database\+Interface.\+Windows.\+Delete\+Box}}
+
+
+A dialog window used to confirm to the user that they want to delete a certain item.  
+
+
+Inheritance diagram for Aim.\+Database\+Interface.\+Windows.\+Delete\+Box\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_aim_1_1_database_interface_1_1_windows_1_1_delete_box}
+\end{center}
+\end{figure}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Message\+Box\+Result \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_windows_1_1_delete_box_a41800b41805d59141dcf13d89aa3cea2}{Show}} (\mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_editor}{I\+Editor}} editor, object value)
+\begin{DoxyCompactList}\small\item\em Shows a new deletion dialog box. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A dialog window used to confirm to the user that they want to delete a certain item. 
+
+
+
+Definition at line 21 of file Delete\+Window.\+xaml.\+cs.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_aim_1_1_database_interface_1_1_windows_1_1_delete_box_a41800b41805d59141dcf13d89aa3cea2}\label{class_aim_1_1_database_interface_1_1_windows_1_1_delete_box_a41800b41805d59141dcf13d89aa3cea2}} 
+\index{Aim\+::\+Database\+Interface\+::\+Windows\+::\+Delete\+Box@{Aim\+::\+Database\+Interface\+::\+Windows\+::\+Delete\+Box}!Show@{Show}}
+\index{Show@{Show}!Aim\+::\+Database\+Interface\+::\+Windows\+::\+Delete\+Box@{Aim\+::\+Database\+Interface\+::\+Windows\+::\+Delete\+Box}}
+\subsubsection{\texorpdfstring{Show()}{Show()}}
+{\footnotesize\ttfamily static Message\+Box\+Result Aim.\+Database\+Interface.\+Windows.\+Delete\+Box.\+Show (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_editor}{I\+Editor}}}]{editor,  }\item[{object}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Shows a new deletion dialog box. 
+
+This function doesn\textquotesingle{}t actually do any form of deletion, that is up to the caller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em editor} & An editor which can display to the user what data is inside of the given {\itshape value} .\\
+\hline
+\end{DoxyParams}
+This allows the user to visibly see what item they are trying to delete. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The value to be deleted, this is simply passed to the given {\itshape editor}  and isn\textquotesingle{}t modified by this class \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether the user wants to delete the item or not. So Message\+Box\+Result.\+Yes or Message\+Box\+Result.\+No
+\end{DoxyReturn}
+
+
+Definition at line 43 of file Delete\+Window.\+xaml.\+cs.
+
+
+
+References Aim.\+Database\+Interface.\+Interfaces.\+I\+Search\+Action.\+on\+Search\+Action().
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Delete\+Window.\+xaml.\+cs\end{DoxyCompactItemize}

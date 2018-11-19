@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Aim.DatabaseInterface.Controls.SearchControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Aim.DatabaseInterface.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <BitmapImage x:Key="IconRefresh" UriSource="/Refresh_16x.png"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="19*"/>
+            <ColumnDefinition Width="25*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btnRefresh" ToolTip="Refresh the data list." Click="btnRefresh_Click">
+            <Image Source="{StaticResource IconRefresh}"/>
+        </Button>
+        <ComboBox x:Name="dropdownColumn" Grid.Column="1"/>
+        <TextBox x:Name="txtSearch" Grid.Column="2" VerticalAlignment="Center" TextChanged="txtSearch_TextChanged" Margin="0,3,0,2"/>
+
+        <DataGrid x:Name="dataGrid" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                  IsReadOnly="True" MouseDoubleClick="dataGrid_MouseDoubleClick" SelectionMode="Single"
+                  Grid.ColumnSpan="3"/>
+    </Grid>
+</UserControl>

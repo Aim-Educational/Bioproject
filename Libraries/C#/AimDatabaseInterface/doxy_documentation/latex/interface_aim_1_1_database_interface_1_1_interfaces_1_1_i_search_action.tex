@@ -1,0 +1,61 @@
+\hypertarget{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_action}{}\section{Aim.\+Database\+Interface.\+Interfaces.\+I\+Search\+Action Interface Reference}
+\label{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_action}\index{Aim.\+Database\+Interface.\+Interfaces.\+I\+Search\+Action@{Aim.\+Database\+Interface.\+Interfaces.\+I\+Search\+Action}}
+
+
+An interface which is used by the \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_controls_1_1_search_control}{Aim.\+Database\+Interface.\+Controls.\+Search\+Control}} to perform an action when an item has been selected(double clicked).  
+
+
+Inheritance diagram for Aim.\+Database\+Interface.\+Interfaces.\+I\+Search\+Action\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_action}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_aim_1_1_database_interface_1_1_interfaces_aafb04e83cb5c64ff04eaca9a548186eb}{Refresh\+Search\+List}} \mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_action_ab23ff488687e962a6806ee8d0f91560c}{on\+Search\+Action}} (Object selected\+Item)
+\begin{DoxyCompactList}\small\item\em Performs an action on the selected item. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+An interface which is used by the \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_controls_1_1_search_control}{Aim.\+Database\+Interface.\+Controls.\+Search\+Control}} to perform an action when an item has been selected(double clicked). 
+
+
+
+Definition at line 25 of file I\+Search\+Action.\+cs.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_action_ab23ff488687e962a6806ee8d0f91560c}\label{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_action_ab23ff488687e962a6806ee8d0f91560c}} 
+\index{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Action@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Action}!on\+Search\+Action@{on\+Search\+Action}}
+\index{on\+Search\+Action@{on\+Search\+Action}!Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Action@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Action}}
+\subsubsection{\texorpdfstring{on\+Search\+Action()}{onSearchAction()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_aim_1_1_database_interface_1_1_interfaces_aafb04e83cb5c64ff04eaca9a548186eb}{Refresh\+Search\+List}} Aim.\+Database\+Interface.\+Interfaces.\+I\+Search\+Action.\+on\+Search\+Action (\begin{DoxyParamCaption}\item[{Object}]{selected\+Item }\end{DoxyParamCaption})}
+
+
+
+Performs an action on the selected item. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em selected\+Item} & The item that was selected, the actual type of this item depends on what item type the \mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider}{I\+Search\+Provider}} populated the \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_controls_1_1_search_control}{Aim.\+Database\+Interface.\+Controls.\+Search\+Control}} with.\\
+\hline
+\end{DoxyParams}
+In general, this function should throw an System.\+Argument\+Exception if {\itshape selected\+Item}  is of a type that isn\textquotesingle{}t supported.
+
+System.\+Argument\+Null\+Exception should be thrown if {\itshape selected\+Item}  is null. 
+
+\begin{DoxyReturn}{Returns}
+Whether the \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_controls_1_1_search_control}{Aim.\+Database\+Interface.\+Controls.\+Search\+Control}} should refresh it\textquotesingle{}s data.
+\end{DoxyReturn}
+
+
+Referenced by Aim.\+Database\+Interface.\+Windows.\+Delete\+Box.\+Show().
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+I\+Search\+Action.\+cs\end{DoxyCompactItemize}

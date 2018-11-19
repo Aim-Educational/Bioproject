@@ -1,0 +1,116 @@
+\hypertarget{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_editor}{}\section{Aim.\+Database\+Interface.\+Interfaces.\+I\+Editor Interface Reference}
+\label{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_editor}\index{Aim.\+Database\+Interface.\+Interfaces.\+I\+Editor@{Aim.\+Database\+Interface.\+Interfaces.\+I\+Editor}}
+
+
+This interface describes a class used as an editor.  
+
+
+Inheritance diagram for Aim.\+Database\+Interface.\+Interfaces.\+I\+Editor\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_editor}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_editor_af807eaca31352ebcef7a868941a1b20f}{flag\+As\+Create\+Mode}} ()
+\begin{DoxyCompactList}\small\item\em This function is used to flag to the editor that it is creating a new piece of data, rather than modifying an existing one. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_editor_a14261f4aef51599f166b1f2ed1e79478}{save\+Changes}} ()
+\begin{DoxyCompactList}\small\item\em This function is used to take the information from the editor, and update/create a new piece of data in a database/table/whatever. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_aim_1_1_database_interface_1_1_interfaces_aafb04e83cb5c64ff04eaca9a548186eb}{Refresh\+Search\+List}} \mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_action_ab23ff488687e962a6806ee8d0f91560c}{on\+Search\+Action}} (Object selected\+Item)
+\begin{DoxyCompactList}\small\item\em Performs an action on the selected item. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_editor_a6337e77ced99ce194926db76e0f0c10a}{is\+Data\+Dirty}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em A property which flags whether the editor\textquotesingle{}s data is dirty (has been modified/differs from the one in the database/cached data/whatever). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This interface describes a class used as an editor. 
+
+I\+Editors are used with the \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_windows_1_1_main_interface}{Aim.\+Database\+Interface.\+Windows.\+Main\+Interface}} control to provide functionality for modifying the data provided by an \mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider}{I\+Search\+Provider}}
+
+The way an editor gets it\textquotesingle{}s data is by implementing the I\+Search\+Action.\+on\+Search\+Action(object) function, which is where it\textquotesingle{}s data is provided. 
+
+Definition at line 17 of file I\+Editor.\+cs.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_editor_af807eaca31352ebcef7a868941a1b20f}\label{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_editor_af807eaca31352ebcef7a868941a1b20f}} 
+\index{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Editor@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Editor}!flag\+As\+Create\+Mode@{flag\+As\+Create\+Mode}}
+\index{flag\+As\+Create\+Mode@{flag\+As\+Create\+Mode}!Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Editor@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Editor}}
+\subsubsection{\texorpdfstring{flag\+As\+Create\+Mode()}{flagAsCreateMode()}}
+{\footnotesize\ttfamily void Aim.\+Database\+Interface.\+Interfaces.\+I\+Editor.\+flag\+As\+Create\+Mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function is used to flag to the editor that it is creating a new piece of data, rather than modifying an existing one. 
+
+\mbox{\Hypertarget{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_action_ab23ff488687e962a6806ee8d0f91560c}\label{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_action_ab23ff488687e962a6806ee8d0f91560c}} 
+\index{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Editor@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Editor}!on\+Search\+Action@{on\+Search\+Action}}
+\index{on\+Search\+Action@{on\+Search\+Action}!Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Editor@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Editor}}
+\subsubsection{\texorpdfstring{on\+Search\+Action()}{onSearchAction()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_aim_1_1_database_interface_1_1_interfaces_aafb04e83cb5c64ff04eaca9a548186eb}{Refresh\+Search\+List}} Aim.\+Database\+Interface.\+Interfaces.\+I\+Search\+Action.\+on\+Search\+Action (\begin{DoxyParamCaption}\item[{Object}]{selected\+Item }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Performs an action on the selected item. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em selected\+Item} & The item that was selected, the actual type of this item depends on what item type the \mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider}{I\+Search\+Provider}} populated the \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_controls_1_1_search_control}{Aim.\+Database\+Interface.\+Controls.\+Search\+Control}} with.\\
+\hline
+\end{DoxyParams}
+In general, this function should throw an System.\+Argument\+Exception if {\itshape selected\+Item}  is of a type that isn\textquotesingle{}t supported.
+
+System.\+Argument\+Null\+Exception should be thrown if {\itshape selected\+Item}  is null. 
+
+\begin{DoxyReturn}{Returns}
+Whether the \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_controls_1_1_search_control}{Aim.\+Database\+Interface.\+Controls.\+Search\+Control}} should refresh it\textquotesingle{}s data.
+\end{DoxyReturn}
+
+
+Referenced by Aim.\+Database\+Interface.\+Windows.\+Delete\+Box.\+Show().
+
+\mbox{\Hypertarget{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_editor_a14261f4aef51599f166b1f2ed1e79478}\label{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_editor_a14261f4aef51599f166b1f2ed1e79478}} 
+\index{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Editor@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Editor}!save\+Changes@{save\+Changes}}
+\index{save\+Changes@{save\+Changes}!Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Editor@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Editor}}
+\subsubsection{\texorpdfstring{save\+Changes()}{saveChanges()}}
+{\footnotesize\ttfamily void Aim.\+Database\+Interface.\+Interfaces.\+I\+Editor.\+save\+Changes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function is used to take the information from the editor, and update/create a new piece of data in a database/table/whatever. 
+
+\begin{DoxySeeAlso}{See also}
+I\+Editor\+Helper.\+ask\+To\+Save(\+I\+Editor)
+
+
+\end{DoxySeeAlso}
+
+
+\subsection{Property Documentation}
+\mbox{\Hypertarget{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_editor_a6337e77ced99ce194926db76e0f0c10a}\label{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_editor_a6337e77ced99ce194926db76e0f0c10a}} 
+\index{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Editor@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Editor}!is\+Data\+Dirty@{is\+Data\+Dirty}}
+\index{is\+Data\+Dirty@{is\+Data\+Dirty}!Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Editor@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Editor}}
+\subsubsection{\texorpdfstring{is\+Data\+Dirty}{isDataDirty}}
+{\footnotesize\ttfamily bool Aim.\+Database\+Interface.\+Interfaces.\+I\+Editor.\+is\+Data\+Dirty\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+A property which flags whether the editor\textquotesingle{}s data is dirty (has been modified/differs from the one in the database/cached data/whatever). 
+
+This is used in several places, namely whether the I\+Editor\+Helper.\+ask\+To\+Save(\+I\+Editor) function should display a save dialog before overriding the editor\textquotesingle{}s data.
+
+It is a valid option to always return true, but may be annoying for users since the save dialog will always appear. 
+
+Definition at line 40 of file I\+Editor.\+cs.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+I\+Editor.\+cs\end{DoxyCompactItemize}

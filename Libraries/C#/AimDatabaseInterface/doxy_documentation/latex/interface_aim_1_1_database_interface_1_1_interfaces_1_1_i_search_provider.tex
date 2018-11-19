@@ -1,0 +1,115 @@
+\hypertarget{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider}{}\section{Aim.\+Database\+Interface.\+Interfaces.\+I\+Search\+Provider Interface Reference}
+\label{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider}\index{Aim.\+Database\+Interface.\+Interfaces.\+I\+Search\+Provider@{Aim.\+Database\+Interface.\+Interfaces.\+I\+Search\+Provider}}
+
+
+An interface used by classes that provide information about a specific type of database object.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider_a5f8c9967784a7d938d79d7ffd2ce6628}{populate\+Data\+Grid}} (Data\+Grid grid)
+\begin{DoxyCompactList}\small\item\em Called whenever the \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_controls_1_1_search_control}{Aim.\+Database\+Interface.\+Controls.\+Search\+Control}} needs to update it\textquotesingle{}s data grid to reflect the data this provider provides information on. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider_a553f73f7ca4bdb9c72d1ba047500efe5}{delete\+Item}} (Object item)
+\begin{DoxyCompactList}\small\item\em Instructs the provider to delete the specified {\itshape item}  from it\textquotesingle{}s data/database/table/whatever. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider_aebe4e5ec46e04e7aa3babfe8fcea5269}{get\+Display\+String\+For\+Item}} (Object item)
+\begin{DoxyCompactList}\small\item\em In some cases an object will need to be represented as a string outside of the data grid, so this function exists to provide a \textquotesingle{}display name\textquotesingle{} for the object. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider_a608a2be47f59cbd951c8003111b18df3}{are\+Same\+Items}} (Object item1, Object item2)
+\begin{DoxyCompactList}\small\item\em When working with databases, there will be times where you may have two different objects referencing the same data in a database (e.\+g. a cached version which has been modified, and a fresh version straight from the database). Performing a simple comparison in this case wouldn\textquotesingle{}t work as desired, so this function exists to provide the functionality to compare two different objects and test them for equality. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+An interface used by classes that provide information about a specific type of database object. 
+
+This class is the lifeblood of the \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_controls_1_1_search_control}{Aim.\+Database\+Interface.\+Controls.\+Search\+Control}} as without this interface, it wouldn\textquotesingle{}t have any ability to display data. 
+
+Definition at line 12 of file I\+Search\+Provider.\+cs.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider_a608a2be47f59cbd951c8003111b18df3}\label{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider_a608a2be47f59cbd951c8003111b18df3}} 
+\index{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Provider@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Provider}!are\+Same\+Items@{are\+Same\+Items}}
+\index{are\+Same\+Items@{are\+Same\+Items}!Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Provider@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Provider}}
+\subsubsection{\texorpdfstring{are\+Same\+Items()}{areSameItems()}}
+{\footnotesize\ttfamily bool Aim.\+Database\+Interface.\+Interfaces.\+I\+Search\+Provider.\+are\+Same\+Items (\begin{DoxyParamCaption}\item[{Object}]{item1,  }\item[{Object}]{item2 }\end{DoxyParamCaption})}
+
+
+
+When working with databases, there will be times where you may have two different objects referencing the same data in a database (e.\+g. a cached version which has been modified, and a fresh version straight from the database). Performing a simple comparison in this case wouldn\textquotesingle{}t work as desired, so this function exists to provide the functionality to compare two different objects and test them for equality. 
+
+In most cases, this will be as simple as comparing the primary keys of the two objects. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em item1} & The first item to compare\\
+\hline
+{\em item2} & The second item to compare\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether the items reference the same data or not
+\end{DoxyReturn}
+\mbox{\Hypertarget{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider_a553f73f7ca4bdb9c72d1ba047500efe5}\label{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider_a553f73f7ca4bdb9c72d1ba047500efe5}} 
+\index{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Provider@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Provider}!delete\+Item@{delete\+Item}}
+\index{delete\+Item@{delete\+Item}!Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Provider@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Provider}}
+\subsubsection{\texorpdfstring{delete\+Item()}{deleteItem()}}
+{\footnotesize\ttfamily void Aim.\+Database\+Interface.\+Interfaces.\+I\+Search\+Provider.\+delete\+Item (\begin{DoxyParamCaption}\item[{Object}]{item }\end{DoxyParamCaption})}
+
+
+
+Instructs the provider to delete the specified {\itshape item}  from it\textquotesingle{}s data/database/table/whatever. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em item} & The item to delete.\\
+\hline
+\end{DoxyParams}
+This item will be one of the same items added to the data grid via the \mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider_a5f8c9967784a7d938d79d7ffd2ce6628}{populate\+Data\+Grid(\+Data\+Grid)}} function. \mbox{\Hypertarget{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider_aebe4e5ec46e04e7aa3babfe8fcea5269}\label{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider_aebe4e5ec46e04e7aa3babfe8fcea5269}} 
+\index{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Provider@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Provider}!get\+Display\+String\+For\+Item@{get\+Display\+String\+For\+Item}}
+\index{get\+Display\+String\+For\+Item@{get\+Display\+String\+For\+Item}!Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Provider@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Provider}}
+\subsubsection{\texorpdfstring{get\+Display\+String\+For\+Item()}{getDisplayStringForItem()}}
+{\footnotesize\ttfamily string Aim.\+Database\+Interface.\+Interfaces.\+I\+Search\+Provider.\+get\+Display\+String\+For\+Item (\begin{DoxyParamCaption}\item[{Object}]{item }\end{DoxyParamCaption})}
+
+
+
+In some cases an object will need to be represented as a string outside of the data grid, so this function exists to provide a \textquotesingle{}display name\textquotesingle{} for the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em item} & The item to get the display name for.\\
+\hline
+\end{DoxyParams}
+This item will be one of the same items added to the data grid via the \mbox{\hyperlink{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider_a5f8c9967784a7d938d79d7ffd2ce6628}{populate\+Data\+Grid(\+Data\+Grid)}} function. 
+
+\begin{DoxyReturn}{Returns}
+The display name for {\itshape item} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider_a5f8c9967784a7d938d79d7ffd2ce6628}\label{interface_aim_1_1_database_interface_1_1_interfaces_1_1_i_search_provider_a5f8c9967784a7d938d79d7ffd2ce6628}} 
+\index{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Provider@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Provider}!populate\+Data\+Grid@{populate\+Data\+Grid}}
+\index{populate\+Data\+Grid@{populate\+Data\+Grid}!Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Provider@{Aim\+::\+Database\+Interface\+::\+Interfaces\+::\+I\+Search\+Provider}}
+\subsubsection{\texorpdfstring{populate\+Data\+Grid()}{populateDataGrid()}}
+{\footnotesize\ttfamily void Aim.\+Database\+Interface.\+Interfaces.\+I\+Search\+Provider.\+populate\+Data\+Grid (\begin{DoxyParamCaption}\item[{Data\+Grid}]{grid }\end{DoxyParamCaption})}
+
+
+
+Called whenever the \mbox{\hyperlink{class_aim_1_1_database_interface_1_1_controls_1_1_search_control}{Aim.\+Database\+Interface.\+Controls.\+Search\+Control}} needs to update it\textquotesingle{}s data grid to reflect the data this provider provides information on. 
+
+In most cases, this is simply going over all the data in a table from the database and adding them into the {\itshape grid} .
+
+The {\itshape grid}  will be emptied before this function is called.
+
+The first thing that should be done is to modify System.\+Windows.\+Controls.\+Data\+Grid.\+Columns to create the columns+headers for the grid, as well as the setup data bindings if needed. After that, populate System.\+Windows.\+Controls.\+Data\+Grid.\+Items with all of the data needed.
+
+P\+L\+E\+A\+SE N\+O\+TE, the items added into this grid should be a database object (e.\+g. from an EF model). This is required for most functionality to work. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grid} & The Data\+Grid to populate\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+I\+Search\+Provider.\+cs\end{DoxyCompactItemize}
