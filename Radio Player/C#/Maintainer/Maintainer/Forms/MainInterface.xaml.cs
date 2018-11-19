@@ -55,6 +55,7 @@ namespace Maintainer.Forms
             this.searchControl.provider = provider;
             this.searchControl.action = editor as IEditor;
             this.editorContent.Content = editor;
+            this.selectorContent.Visibility = Visibility.Hidden;
         }
 
         public void openSelector(ISearchProvider provider, Action<Object> onSelect)
@@ -62,6 +63,25 @@ namespace Maintainer.Forms
             this.selectorContent.Visibility = Visibility.Visible;
             this.selectorControl.provider = provider;
             this.selectorControl.action = new SelectorSearchAction(this, onSelect);
+        }
+
+        public void protectedExecute(Action func)
+        {
+            if(func == null)
+                throw new ArgumentNullException("func");
+
+#if DEBUG
+            func();
+#else
+            try
+            {
+                func();
+            }
+            catch(Exception ex)
+            {
+                this.labelStatus.Content = $"AN ERROR HAS OCCURED: {ex.Message}";
+            }
+#endif
         }
 
         // Apply
@@ -72,7 +92,7 @@ namespace Maintainer.Forms
             
             if(this.editorControl.isDataDirty)
             {
-                this.editorControl.saveChanges();
+                this.protectedExecute(() => this.editorControl.saveChanges());
                 this.searchControl.provider = this.searchControl.provider; // This refreshes the data.
             }
         }
@@ -99,7 +119,7 @@ namespace Maintainer.Forms
             if(result == MessageBoxResult.No)
                 return;
 
-            this.searchControl.provider.deleteItem(this.searchControl.dataGrid.SelectedItem);
+            this.protectedExecute(() => this.searchControl.provider.deleteItem(this.searchControl.dataGrid.SelectedItem));
             this.searchControl.provider = this.searchControl.provider; // This refreshes the data.
         }
     }

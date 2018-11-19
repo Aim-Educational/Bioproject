@@ -40,7 +40,8 @@ namespace Maintainer.Controls
 
         public RefreshSearchList onSearchAction(object selectedItem)
         {
-            var saveResult = this.askToSave();
+            var saveResult = MessageBoxResult.No;
+            this._mainInterface.protectedExecute(() => saveResult = this.askToSave());
             if (saveResult == MessageBoxResult.Cancel)
                 return RefreshSearchList.no;
 
