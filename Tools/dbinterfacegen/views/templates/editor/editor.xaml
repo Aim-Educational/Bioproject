@@ -1,0 +1,39 @@
+$PLACEHOLDERS
+    $EDITOR_NAMESPACE
+    $EDITOR_NAME
+    $ROW_DEFS
+    $LABELS
+    $CONTROLS
+$END
+$FINISH_CONFIG
+<UserControl x:Class="$EDITOR_NAMESPACE.$EDITOR_NAME"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EDITOR_NAMESPACE"
+             xmlns:aim="clr-namespace:Aim.DatabaseInterface.Controls;assembly=AimDatabaseInterface"
+             mc:Ignorable="d">
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            $ROW_DEFS
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        $LABELS
+        $CONTROLS
+
+        <!--
+        <TextBox x:Name="txtID" Grid.Column="1"             Grid.Row="0" VerticalAlignment="Center" IsReadOnly="True"/>
+        <aim:ListboxEditorControl x:Name="listArtists"      Grid.Column="1" Grid.Row="3"/>
+        <CheckBox x:Name="checkboxPAL"                      Grid.Column="1" Grid.Row="6" VerticalAlignment="Center"/>
+        <aim:SelectorEditorControl x:Name="selectorFormat"  Grid.Column="1" Grid.Row="12"/>
+        <DatePicker x:Name="dateReleased"                   Grid.Column="1" Grid.Row="15" VerticalAlignment="Center"/>
+        <aim:ListboxSelectorEditorControl x:Name="listMoods" Grid.Column="1" Grid.Row="20"/>
+        !-->
+    </Grid>
+</UserControl>

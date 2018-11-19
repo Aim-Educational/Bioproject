@@ -1,0 +1,11 @@
+{
+	"fileVersion": 1,
+	"versions": {
+		"efparser": {"path":"../../Libraries/D/efparser"},
+		"libinputvisitor": "1.2.2",
+		"sdlang-d": "0.10.4",
+		"taggedalgebraic": "0.10.12",
+		"templater": {"path":"../../Libraries/D/templater"},
+		"unit-threaded": "0.7.52"
+	}
+}

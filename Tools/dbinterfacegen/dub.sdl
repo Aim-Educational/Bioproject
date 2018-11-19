@@ -1,0 +1,11 @@
+name "dbinterfacegen"
+description "A minimal D application."
+authors "Bradley Chatha"
+copyright "Copyright © 2018, Bradley Chatha"
+license "proprietary"
+
+dependency "efparser" path="../../Libraries/D/efparser"
+dependency "templater" path="../../Libraries/D/templater"
+dependency "sdlang-d" version=">=0.10.4"
+
+targetPath "bin"

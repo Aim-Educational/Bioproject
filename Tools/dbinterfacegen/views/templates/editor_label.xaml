@@ -1,0 +1,6 @@
+$PLACEHOLDERS
+    $CONTENT
+    $GRID_ROW
+$END
+$FINISH_CONFIG
+<Label Content="$CONTENT:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="$GRID_ROW"/>

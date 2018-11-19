@@ -60,8 +60,8 @@ class DatabaseContext
      + Returns:
      +  The table found for `type`.
      + ++/
-    @safe @nogc
-    inout(DbSet) getTableForType(string type) inout nothrow
+    @safe
+    inout(DbSet) getTableForType(string type) inout
     {
         foreach(tab; this.tables)
         {
@@ -156,6 +156,18 @@ class TableObject
 
         throw new Exception(format("Could not find field with name '%s' in object '%s'. Additional Info: %s", notFoundErrorMsg));
     }
+
+    /// Returns: Whether this object has a field called `name`.
+    bool hasField(string name)
+    {
+        try
+        {
+            this.getFieldByName(name);
+            return true;
+        }
+        catch(Exception ex)
+            return false;
+    }
 }
 
 /// Contains information about a 'TableObject' that's dependent on another type.
@@ -166,6 +178,9 @@ struct Dependant
 
     /// The field that acts as the foreign key for the dependency.
     Field dependantFK;
+
+    /// The field that acts as the foreign getter for the dependency.
+    Field dependantGetter;
 }
 
 /// Contains information about the entire model.
@@ -205,6 +220,18 @@ class Model
         }
 
         throw new Exception(format("Could not find the TableObject of type '%s'", type));
+    }
+
+    /// Returns: Whether `type` is a type of `TableObject`.
+    bool isObjectType(string type) const
+    {
+        try
+        {
+            this.getObjectByType(type);
+            return true;
+        }
+        catch(Exception ex)
+            return false;
     }
 
     /++
@@ -299,6 +326,7 @@ private void finaliseModel(Model model)
             {
                 Dependant info;
                 info.dependant = model.getObjectByType(match[1]);
+                info.dependantGetter = field;
                 
                 // Figure out the FK's variable name.
                 if(info.dependant == object) // Special case: The object has an FK of another object with the same type (device for example)

@@ -1,0 +1,47 @@
+<UserControl x:Class="DataUserInterface.Editors.Editorbbc_rss_barometric_change"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EDITOR_NAMESPACE"
+             xmlns:aim="clr-namespace:Aim.DatabaseInterface.Controls;assembly=AimDatabaseInterface"
+             mc:Ignorable="d">
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+<RowDefinition Height="30"/>
+<RowDefinition Height="30"/>
+<RowDefinition Height="30"/>
+<RowDefinition Height="30"/>
+<RowDefinition Height="30"/>
+
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Content="bbc_rss_barometric_change_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
+<Label Content="description:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
+<Label Content="version:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
+<Label Content="timestamp:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
+<Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
+
+        <TextBox x:Name="bbc_rss_barometric_change_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
+<TextBox x:Name="description" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>
+<TextBox x:Name="version" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" IsReadOnly="false"/>
+<TextBox x:Name="comment" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" IsReadOnly="false"/>
+
+
+        <!--
+        <TextBox x:Name="txtID" Grid.Column="1"             Grid.Row="0" VerticalAlignment="Center" IsReadOnly="True"/>
+        <aim:ListboxEditorControl x:Name="listArtists"      Grid.Column="1" Grid.Row="3"/>
+        <CheckBox x:Name="checkboxPAL"                      Grid.Column="1" Grid.Row="6" VerticalAlignment="Center"/>
+        <aim:SelectorEditorControl x:Name="selectorFormat"  Grid.Column="1" Grid.Row="12"/>
+        <DatePicker x:Name="dateReleased"                   Grid.Column="1" Grid.Row="15" VerticalAlignment="Center"/>
+        <aim:ListboxSelectorEditorControl x:Name="listMoods" Grid.Column="1" Grid.Row="20"/>
+        !-->
+    </Grid>
+</UserControl>
