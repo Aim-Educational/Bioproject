@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maintainer", "Maintainer\Ma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFLayer", "..\EFLayer\EFLayer\EFLayer.csproj", "{0219D0DB-7ED2-409E-ABFA-E544C26C5016}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AimDatabaseInterface", "..\..\..\Libraries\AimDatabaseInterface\AimDatabaseInterface\AimDatabaseInterface.csproj", "{0EDF0969-DC7D-4940-9F71-0F54C19DE99E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AimDatabaseInterface", "..\..\..\Libraries\C#\AimDatabaseInterface\AimDatabaseInterface\AimDatabaseInterface.csproj", "{0EDF0969-DC7D-4940-9F71-0F54C19DE99E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

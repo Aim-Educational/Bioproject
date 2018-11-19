@@ -153,7 +153,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Libraries\AimDatabaseInterface\AimDatabaseInterface\AimDatabaseInterface.csproj">
+    <ProjectReference Include="..\..\..\..\Libraries\C#\AimDatabaseInterface\AimDatabaseInterface\AimDatabaseInterface.csproj">
       <Project>{0edf0969-dc7d-4940-9f71-0f54c19de99e}</Project>
       <Name>AimDatabaseInterface</Name>
     </ProjectReference>
