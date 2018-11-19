@@ -19,6 +19,9 @@
 *.lastbuildstate
 *.idb
 
+# Documentation
+Libraries/C#/Documentation/
+
 # Build results
 #[Dd]ebug/
 #[Dd]ebugPublic/
