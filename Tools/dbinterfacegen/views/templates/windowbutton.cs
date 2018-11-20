@@ -1,0 +1,7 @@
+$PLACEHOLDERS
+    $DISPLAY_NAME
+    $PROVIDER_NAME
+    $EDITOR_NAME
+$END
+$FINISH_CONFIG
+this.addEditorButton("$DISPLAY_NAME",  new $PROVIDER_NAME(), new $EDITOR_NAME(this._mainInterface));

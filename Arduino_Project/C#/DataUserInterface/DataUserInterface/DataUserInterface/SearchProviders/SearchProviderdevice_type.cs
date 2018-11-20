@@ -78,7 +78,6 @@ foreach(var val1 in val0.device_value){
 foreach(var val1 in val0.rss_configuration){
 }
 }
-}
 
                 }
             }

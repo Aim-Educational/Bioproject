@@ -68,7 +68,6 @@ foreach(var val1 in val0.contact_telephone){
 foreach(var val1 in val0.group_member){
 }
 }
-}
 
                 }
             }

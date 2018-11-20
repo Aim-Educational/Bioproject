@@ -6,18 +6,45 @@ private
     import aim.efparser, aim.templater;
     import config;
 
-    const TEMPLATE_SEARCH_PROVIDER      = import("templates/searchProvider.txt");
-    const TEMPLATE_COLUMN_DEFINITION    = import("templates/column.txt");
+    const TEMPLATE_SEARCH_PROVIDER      = import("templates/searchProvider.cs");
+    const TEMPLATE_COLUMN_DEFINITION    = import("templates/column.cs");
     const TEMPLATE_LABEL_XAML           = import("templates/editor_label.xaml");
     const TEMPLATE_EDITOR_XAML          = import("templates/editor/editor.xaml");
+    const TEMPLATE_EDITOR_CODE          = import("templates/editor/editor.xaml.cs");
     const TEMPLATE_CSPROJ_XAML          = import("templates/csproj_entry_xaml.xml");
     const TEMPLATE_CSPROJ_CODE          = import("templates/csproj_entry_code.xml");
+    const TEMPLATE_WINDOW_XAML          = import("templates/window.xaml");
+    const TEMPLATE_WINDOW_CODE          = import("templates/window.xaml.cs");
+    const TEMPLATE_WINDOW_BUTTON        = import("templates/windowbutton.cs");
     
-    const TEMPLATE_TEXTBOX_XAML = import("templates/textbox/textbox.xaml");
+    const TEMPLATE_TEXTBOX_XAML         = import("templates/textbox/textbox.xaml");
+    const TEMPLATE_TEXTBOX_CREATE       = import("templates/textbox/create.cs");
+    const TEMPLATE_TEXTBOX_LOAD         = import("templates/textbox/load.cs");
+    const TEMPLATE_TEXTBOX_SAVE         = import("templates/textbox/save.cs");
+
+    const TEMPLATE_CHECKBOX_XAML        = import("templates/checkbox/checkbox.xaml");
+    const TEMPLATE_CHECKBOX_CREATE      = import("templates/checkbox/create.cs");
+    const TEMPLATE_CHECKBOX_LOAD        = import("templates/checkbox/load.cs");
+    const TEMPLATE_CHECKBOX_SAVE        = import("templates/checkbox/save.cs");
+
+    const TEMPLATE_DATEPICKER_XAML      = import("templates/datepicker/datepicker.xaml");
+    const TEMPLATE_DATEPICKER_CREATE    = import("templates/datepicker/create.cs");
+    const TEMPLATE_DATEPICKER_LOAD      = import("templates/datepicker/load.cs");
+    const TEMPLATE_DATEPICKER_SAVE      = import("templates/datepicker/save.cs");
+
+    const TEMPLATE_SELECTOR_XAML        = import("templates/selector/selector.xaml");
+    const TEMPLATE_SELECTOR_CTOR        = import("templates/selector/ctor.cs");
+    const TEMPLATE_SELECTOR_CREATE      = import("templates/selector/create.cs");
+    const TEMPLATE_SELECTOR_LOAD        = import("templates/selector/load.cs");
+    const TEMPLATE_SELECTOR_SAVE        = import("templates/selector/save.cs");
 
     struct ControlInfo
     {
         string xaml;
+        string onCtor;
+        string onCreate;
+        string onLoad;
+        string onSave;
     }
 }
 
@@ -27,6 +54,103 @@ void generateFiles(Config config)
 
     generateProviders(model, config);
     generateEditorsXAML(model, config);
+    generateEditorsCode(model, config);
+    generateWindow(model, config);
+}
+
+private void generateWindow(Model model, Config config)
+{
+    auto namespace = getFinalNamespace(config, config.interfaceWindowNamespace);
+    auto outPath = namespaceToPath(namespace);
+    if(!outPath.exists)
+        mkdirRecurse(outPath);
+
+    write(buildNormalizedPath(outPath, "InterfaceWindow.xaml"), Templater.resolveTemplate(["$WINDOW_NAMESPACE": namespace], TEMPLATE_WINDOW_XAML));
+    string buttons;
+    foreach(object; model.objects)
+    {
+        buttons ~= Templater.resolveTemplate(
+            [
+                "$DISPLAY_NAME": object.className,
+                "$PROVIDER_NAME": getProviderName(object),
+                "$EDITOR_NAME": getEditorName(object)
+            ], 
+            TEMPLATE_WINDOW_BUTTON
+        );
+    }
+
+    auto placeholders = 
+    [
+        "$WINDOW_NAMESPACE":    namespace,
+        "$CONTROL_NAMESPACE":   getFinalNamespace(config, config.editorNamespace),
+        "$PROVIDER_NAMESPACE":  getFinalNamespace(config, config.searchProviderNamespace),
+        "$BUTTONS":             buttons
+    ];
+
+    write(buildNormalizedPath(outPath, "InterfaceWindow.xaml.cs"), Templater.resolveTemplate(placeholders, TEMPLATE_WINDOW_CODE));
+
+    // Modify the .csproj file
+    import std.path;
+    auto csproj = readText(config.csproj);
+    csproj.length -= "</Project>".length;
+    
+    csproj ~= "<ItemGroup>\n";
+    auto file = buildNormalizedPath(outPath, "InterfaceWindow.xaml");
+    import std.algorithm : canFind;
+    auto code = Templater.resolveTemplate(["$XAMLFILE":file.baseName, "$XAMLFOLDER":file.dirName], TEMPLATE_CSPROJ_XAML);
+
+    if(!csproj.canFind(code))
+        csproj ~= code;
+    csproj ~= "</ItemGroup>\n</Project>";
+
+    write(config.csproj, csproj);
+}
+
+private void generateEditorsCode(Model model, Config config)
+{
+    auto editorNamespace = getFinalNamespace(config, config.editorNamespace);
+    auto outPath = namespaceToPath(editorNamespace);
+    if(!outPath.exists)
+        mkdirRecurse(outPath);
+
+    foreach(object; model.objects)
+    {
+        string onCtor;
+        string onCreate;
+        string onLoad;
+        string onSave;
+
+        int row = 0;
+        foreach(field; object.fields)
+        {
+            if(shouldIgnoreField(model, object, field))
+                continue;
+
+            auto info = getControlInfo(config, model, object, field, row++);
+            onCtor   ~= info.onCtor;
+            onCreate ~= info.onCreate;
+            onLoad   ~= info.onLoad;
+            onSave   ~= info.onSave;
+        }
+
+        auto placeholders = 
+        [
+            "$MODEL_NAMESPACE":     model.namespace,
+            "$PROVIDER_NAMESPACE":  getFinalNamespace(config, config.searchProviderNamespace),
+            "$EDITOR_NAMESPACE":    getFinalNamespace(config, config.editorNamespace),
+            "$EDITOR_NAME":         getEditorName(object),
+            "$PK_NAME":             object.keyName,
+            "$OBJECT_TYPE":         object.className,
+            "$CONTEXT_NAME":        model.context.className,
+            "$TABLE_NAME":          model.context.getTableForType(object.className).variableName,
+            "$CTOR_CODE":           onCtor,
+            "$CREATE_CODE":         onCreate,
+            "$LOAD_CODE":           onLoad,
+            "$SAVE_CODE":           onSave
+        ];
+
+        write(buildNormalizedPath(outPath, getEditorName(object)~".xaml.cs"), Templater.resolveTemplate(placeholders, TEMPLATE_EDITOR_CODE));
+    }
 }
 
 private void generateEditorsXAML(Model model, Config config)
@@ -62,7 +186,7 @@ private void generateEditorsXAML(Model model, Config config)
             );
 
             rowDefs ~= getRowDef(model, field);
-            controls ~= getControlInfo(model, object, field, row++).xaml;
+            controls ~= getControlInfo(config, model, object, field, row++).xaml;
         }
 
         // Resolve the template.
@@ -149,7 +273,8 @@ private void generateProviders(Model model, Config config)
         placeholders["$MODEL_NAMESPACE"]    = model.namespace;
         placeholders["$PROVIDER_NAMESPACE"] = providerNamespace;
         placeholders["$PROVIDER_NAME"]      = getProviderName(object);
-        placeholders["$TABLE_NAME"]         = object.className;
+        placeholders["$OBJECT_TYPE"]        = object.className;
+        placeholders["$TABLE_NAME"]         = model.context.getTableForType(object.className).variableName;
         placeholders["$PRIMARY_KEY"]        = object.keyName;
         placeholders["$TABLE_DISPLAY_NAME"] = displayName;
         placeholders["$COLUMN_DEFINITIONS"] = definitions;
@@ -190,17 +315,13 @@ private string cacheObject(Model model, TableObject object, ref string code, int
         code ~= format("%s.%s.ToString();\n", valName, field.variableName);
     }
 
-    if(object.dependants.length > 0)
+    foreach(dep; object.dependants)
     {
-        foreach(dep; object.dependants)
-        {
-            code ~= format("foreach(var val%s in %s.%s){\n", loopDepth, valName, dep.dependantGetter.variableName);
+        code ~= format("foreach(var val%s in %s.%s){\n", loopDepth, valName, dep.dependantGetter.variableName);
 
-            if(isFirst)
-                cacheObject(model, dep.dependant, code, loopDepth+1, format("val%s", loopDepth), false);
-            else
-                code ~= "}\n";
-        }
+        if(isFirst)
+            cacheObject(model, dep.dependant, code, loopDepth+1, format("val%s", loopDepth), false);
+
         code ~= "}\n";
     }
 
@@ -217,7 +338,7 @@ private string getRowDef(Model model, Field field)
         return "<RowDefinition Height=\"30\"/>\n";
 }
 
-private ControlInfo getControlInfo(Model model, TableObject object, Field field, int row)
+private ControlInfo getControlInfo(Config config, Model model, TableObject object, Field field, int row)
 {
     import std.algorithm : filter;
     import std.conv      : to;
@@ -225,38 +346,68 @@ private ControlInfo getControlInfo(Model model, TableObject object, Field field,
     ControlInfo info;
     string readOnly = (field.variableName == object.keyName) ? "true" : "false";
 
+    // Default XAML
+    info.xaml = Templater.resolveTemplate(["$CONTENT": "[NOT SUPPORTED]", "$GRID_ROW": row.to!string], TEMPLATE_LABEL_XAML);
+
+    auto placeholders = 
+    [
+        // Some default ones
+        "$NAME":          field.variableName,
+        "$GRID_ROW":      row.to!string,
+        "$READ_ONLY":     readOnly,
+        "$PROVIDER_NAME": getProviderName(object),
+        "$OBJECT_TYPE":   field.typeName
+    ];
+
     // Statically known types.
     switch(field.typeName)
     {
         case "string":
-            info.xaml = Templater.resolveTemplate(
-                [
-                    "$NAME": field.variableName,
-                    "$GRID_ROW": row.to!string,
-                    "$READ_ONLY": readOnly
-                ],
-                TEMPLATE_TEXTBOX_XAML
-            );
+            placeholders["$CONVERT"] = "";
+            info.xaml       = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_XAML);
+            info.onCreate   = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_CREATE);
+            info.onLoad     = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_LOAD);
+            info.onSave     = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_SAVE);
+            break;
+
+        case "bool":
+            info.xaml       = Templater.resolveTemplate(placeholders, TEMPLATE_CHECKBOX_XAML);
+            info.onCreate   = Templater.resolveTemplate(placeholders, TEMPLATE_CHECKBOX_CREATE);
+            info.onLoad     = Templater.resolveTemplate(placeholders, TEMPLATE_CHECKBOX_LOAD);
+            info.onSave     = Templater.resolveTemplate(placeholders, TEMPLATE_CHECKBOX_SAVE);
+            break;
+
+        case "DateTime":
+        case "DateTime?":
+            info.xaml       = Templater.resolveTemplate(placeholders, TEMPLATE_DATEPICKER_XAML);
+            info.onCreate   = Templater.resolveTemplate(placeholders, TEMPLATE_DATEPICKER_CREATE);
+            info.onLoad     = Templater.resolveTemplate(placeholders, TEMPLATE_DATEPICKER_LOAD);
+            info.onSave     = Templater.resolveTemplate(placeholders, TEMPLATE_DATEPICKER_SAVE);
             break;
 
         case "int":
         case "long":
         case "float":
         case "double":
-            info.xaml = Templater.resolveTemplate(
-                [
-                    "$NAME": field.variableName,
-                    "$GRID_ROW": row.to!string,
-                    "$READ_ONLY": readOnly
-                ],
-                TEMPLATE_TEXTBOX_XAML
-            );
+            placeholders["$CONVERT"] = "Convert.ToInt32";
+            info.xaml       = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_XAML);
+            info.onCreate   = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_CREATE);
+            info.onLoad     = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_LOAD);
+            info.onSave     = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_SAVE);
             break;
 
         default: break;
     }
 
     // 'dynamic'ally known types (e.g. not built in).
+    if(model.isObjectType(field.typeName))
+    {
+        info.xaml       = Templater.resolveTemplate(placeholders, TEMPLATE_SELECTOR_XAML);
+        info.onCtor     = Templater.resolveTemplate(placeholders, TEMPLATE_SELECTOR_CTOR);
+        info.onCreate   = Templater.resolveTemplate(placeholders, TEMPLATE_SELECTOR_CREATE);
+        info.onLoad     = Templater.resolveTemplate(placeholders, TEMPLATE_SELECTOR_LOAD);
+        info.onSave     = Templater.resolveTemplate(placeholders, TEMPLATE_SELECTOR_SAVE);
+    }
 
     return info;
 }

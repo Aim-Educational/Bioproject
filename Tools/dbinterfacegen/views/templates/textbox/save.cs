@@ -1,0 +1,6 @@
+$PLACEHOLDERS
+    $NAME
+    $CONVERT
+$END
+$FINISH_CONFIG
+data.$NAME = $CONVERT(this.$NAME.Text);

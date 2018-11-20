@@ -1,0 +1,6 @@
+$PLACEHOLDERS
+    $NAME
+    $GRID_ROW
+$END
+$FINISH_CONFIG
+<CheckBox x:Name="$NAME" Grid.Column="1" Grid.Row="$GRID_ROW" VerticalAlignment="Center"/>

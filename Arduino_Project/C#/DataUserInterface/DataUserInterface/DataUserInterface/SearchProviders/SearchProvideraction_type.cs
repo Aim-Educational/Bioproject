@@ -58,6 +58,7 @@ namespace DataUserInterface.SearchProviders
                     foreach(var val0 in data.action_level){
 val0.action_type.ToString();
 val0.device.ToString();
+}
 foreach(var val0 in data.group_action){
 val0.action_type.ToString();
 val0.group_type.ToString();

@@ -65,12 +65,15 @@ foreach(var val0 in data.alarms){
 val0.alarm_type.ToString();
 val0.device.ToString();
 val0.group_type.ToString();
+}
 foreach(var val0 in data.group_action){
 val0.action_type.ToString();
 val0.group_type.ToString();
+}
 foreach(var val0 in data.group_member){
 val0.contact.ToString();
 val0.group_type.ToString();
+}
 foreach(var val0 in data.group_type1){
 val0.group_type2.ToString();
 foreach(var val1 in val0.alarms){
@@ -80,7 +83,6 @@ foreach(var val1 in val0.group_action){
 foreach(var val1 in val0.group_member){
 }
 foreach(var val1 in val0.group_type1){
-}
 }
 }
 

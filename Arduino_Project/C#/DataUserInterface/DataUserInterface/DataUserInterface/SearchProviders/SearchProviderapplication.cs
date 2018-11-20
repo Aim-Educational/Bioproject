@@ -24,7 +24,7 @@ namespace DataUserInterface.SearchProviders
 
             using (var db = new PlanningContext())
             {
-                db.application.Remove(db.application.Where(d => d.application_id == data.application_id).First());
+                db.applications.Remove(db.applications.Where(d => d.application_id == data.application_id).First());
                 db.SaveChanges();
             }
         }
@@ -55,7 +55,7 @@ namespace DataUserInterface.SearchProviders
                 });
                 
 
-                foreach (var data in db.application)
+                foreach (var data in db.applications)
                 {
                     grid.Items.Add(data);
 

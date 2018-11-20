@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:EDITOR_NAMESPACE"
+             xmlns:local="clr-namespace:DataUserInterface.Editors"
              xmlns:aim="clr-namespace:Aim.DatabaseInterface.Controls;assembly=AimDatabaseInterface"
              mc:Ignorable="d">
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -32,13 +32,9 @@
         <TextBox x:Name="bbc_rss_barometric_change_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
 <TextBox x:Name="description" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>
 <TextBox x:Name="version" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" IsReadOnly="false"/>
+<Label Content="[NOT SUPPORTED]:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
 <TextBox x:Name="comment" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" IsReadOnly="false"/>
+<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center"/>
 
-
-        <!--
-        <CheckBox x:Name="checkboxPAL"                      Grid.Column="1" Grid.Row="6" VerticalAlignment="Center"/>
-        <aim:SelectorEditorControl x:Name="selectorFormat"  Grid.Column="1" Grid.Row="12"/>
-        <DatePicker x:Name="dateReleased"                   Grid.Column="1" Grid.Row="15" VerticalAlignment="Center"/>
-        !-->
     </Grid>
 </UserControl>

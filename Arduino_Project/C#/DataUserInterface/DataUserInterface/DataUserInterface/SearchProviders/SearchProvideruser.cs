@@ -24,7 +24,7 @@ namespace DataUserInterface.SearchProviders
 
             using (var db = new PlanningContext())
             {
-                db.user.Remove(db.user.Where(d => d.user_id == data.user_id).First());
+                db.users.Remove(db.users.Where(d => d.user_id == data.user_id).First());
                 db.SaveChanges();
             }
         }
@@ -45,7 +45,7 @@ namespace DataUserInterface.SearchProviders
                 });
                 
 
-                foreach (var data in db.user)
+                foreach (var data in db.users)
                 {
                     grid.Items.Add(data);
 
@@ -61,7 +61,6 @@ foreach(var val1 in val0.contact_history){
 foreach(var val1 in val0.contact_telephone){
 }
 foreach(var val1 in val0.group_member){
-}
 }
 }
 

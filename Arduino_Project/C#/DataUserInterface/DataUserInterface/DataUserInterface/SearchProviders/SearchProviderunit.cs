@@ -24,7 +24,7 @@ namespace DataUserInterface.SearchProviders
 
             using (var db = new PlanningContext())
             {
-                db.unit.Remove(db.unit.Where(d => d.unit_id == data.unit_id).First());
+                db.units.Remove(db.units.Where(d => d.unit_id == data.unit_id).First());
                 db.SaveChanges();
             }
         }
@@ -50,7 +50,7 @@ namespace DataUserInterface.SearchProviders
                 });
                 
 
-                foreach (var data in db.unit)
+                foreach (var data in db.units)
                 {
                     grid.Items.Add(data);
 
@@ -58,7 +58,6 @@ namespace DataUserInterface.SearchProviders
                     foreach(var val0 in data.device_type){
 val0.unit.ToString();
 foreach(var val1 in val0.devices){
-}
 }
 }
 

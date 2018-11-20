@@ -24,7 +24,7 @@ namespace DataUserInterface.SearchProviders
 
             using (var db = new PlanningContext())
             {
-                db.supplier.Remove(db.supplier.Where(d => d.supplier_id == data.supplier_id).First());
+                db.suppliers.Remove(db.suppliers.Where(d => d.supplier_id == data.supplier_id).First());
                 db.SaveChanges();
             }
         }
@@ -50,7 +50,7 @@ namespace DataUserInterface.SearchProviders
                 });
                 
 
-                foreach (var data in db.supplier)
+                foreach (var data in db.suppliers)
                 {
                     grid.Items.Add(data);
 

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:EDITOR_NAMESPACE"
+             xmlns:local="clr-namespace:DataUserInterface.Editors"
              xmlns:aim="clr-namespace:Aim.DatabaseInterface.Controls;assembly=AimDatabaseInterface"
              mc:Ignorable="d">
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -34,14 +34,13 @@
 <Label Content="history_event:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7"/>
 
         <TextBox x:Name="contact_history_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
+<DatePicker x:Name="date_and_time" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
+<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
 <TextBox x:Name="version" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" IsReadOnly="false"/>
+<Label Content="[NOT SUPPORTED]:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
 <TextBox x:Name="comment" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" IsReadOnly="false"/>
+<aim:SelectorEditorControl x:Name="contact" Grid.Column="1" Grid.Row="6"/>
+<aim:SelectorEditorControl x:Name="history_event" Grid.Column="1" Grid.Row="7"/>
 
-
-        <!--
-        <CheckBox x:Name="checkboxPAL"                      Grid.Column="1" Grid.Row="6" VerticalAlignment="Center"/>
-        <aim:SelectorEditorControl x:Name="selectorFormat"  Grid.Column="1" Grid.Row="12"/>
-        <DatePicker x:Name="dateReleased"                   Grid.Column="1" Grid.Row="15" VerticalAlignment="Center"/>
-        !-->
     </Grid>
 </UserControl>

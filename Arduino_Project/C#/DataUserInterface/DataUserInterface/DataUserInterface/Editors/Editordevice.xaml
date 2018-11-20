@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:EDITOR_NAMESPACE"
+             xmlns:local="clr-namespace:DataUserInterface.Editors"
              xmlns:aim="clr-namespace:Aim.DatabaseInterface.Controls;assembly=AimDatabaseInterface"
              mc:Ignorable="d">
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -61,16 +61,16 @@
 <TextBox x:Name="max_value" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" IsReadOnly="false"/>
 <TextBox x:Name="accuracy" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" IsReadOnly="false"/>
 <TextBox x:Name="serial_number" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center" IsReadOnly="false"/>
+<Label Content="[NOT SUPPORTED]:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="8"/>
 <TextBox x:Name="reliability" Grid.Column="1" Grid.Row="9" VerticalAlignment="Center" IsReadOnly="false"/>
 <TextBox x:Name="strikes" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center" IsReadOnly="false"/>
+<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="11" VerticalAlignment="Center"/>
 <TextBox x:Name="version" Grid.Column="1" Grid.Row="12" VerticalAlignment="Center" IsReadOnly="false"/>
+<Label Content="[NOT SUPPORTED]:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="13"/>
 <TextBox x:Name="comment" Grid.Column="1" Grid.Row="14" VerticalAlignment="Center" IsReadOnly="false"/>
+<CheckBox x:Name="is_allowed_for_use" Grid.Column="1" Grid.Row="15" VerticalAlignment="Center"/>
+<aim:SelectorEditorControl x:Name="device2" Grid.Column="1" Grid.Row="16"/>
+<aim:SelectorEditorControl x:Name="device_type" Grid.Column="1" Grid.Row="17"/>
 
-
-        <!--
-        <CheckBox x:Name="checkboxPAL"                      Grid.Column="1" Grid.Row="6" VerticalAlignment="Center"/>
-        <aim:SelectorEditorControl x:Name="selectorFormat"  Grid.Column="1" Grid.Row="12"/>
-        <DatePicker x:Name="dateReleased"                   Grid.Column="1" Grid.Row="15" VerticalAlignment="Center"/>
-        !-->
     </Grid>
 </UserControl>

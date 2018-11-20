@@ -24,7 +24,7 @@ namespace DataUserInterface.SearchProviders
 
             using (var db = new PlanningContext())
             {
-                db.contact.Remove(db.contact.Where(d => d.contact_id == data.contact_id).First());
+                db.contacts.Remove(db.contacts.Where(d => d.contact_id == data.contact_id).First());
                 db.SaveChanges();
             }
         }
@@ -45,7 +45,7 @@ namespace DataUserInterface.SearchProviders
                 });
                 
 
-                foreach (var data in db.contact)
+                foreach (var data in db.contacts)
                 {
                     grid.Items.Add(data);
 
@@ -55,11 +55,14 @@ data.supplier.ToString();
 data.user.ToString();
 foreach(var val0 in data.contact_email){
 val0.contact.ToString();
+}
 foreach(var val0 in data.contact_history){
 val0.contact.ToString();
 val0.history_event.ToString();
+}
 foreach(var val0 in data.contact_telephone){
 val0.contact.ToString();
+}
 foreach(var val0 in data.group_member){
 val0.contact.ToString();
 val0.group_type.ToString();

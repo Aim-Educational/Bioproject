@@ -24,7 +24,7 @@ namespace DataUserInterface.SearchProviders
 
             using (var db = new PlanningContext())
             {
-                db.device.Remove(db.device.Where(d => d.device_id == data.device_id).First());
+                db.devices.Remove(db.devices.Where(d => d.device_id == data.device_id).First());
                 db.SaveChanges();
             }
         }
@@ -55,7 +55,7 @@ namespace DataUserInterface.SearchProviders
                 });
                 
 
-                foreach (var data in db.device)
+                foreach (var data in db.devices)
                 {
                     grid.Items.Add(data);
 
@@ -65,13 +65,16 @@ data.device_type.ToString();
 foreach(var val0 in data.action_level){
 val0.action_type.ToString();
 val0.device.ToString();
+}
 foreach(var val0 in data.alarms){
 val0.alarm_type.ToString();
 val0.device.ToString();
 val0.group_type.ToString();
+}
 foreach(var val0 in data.device_address){
 val0.device.ToString();
 val0.device_address_type.ToString();
+}
 foreach(var val0 in data.device1){
 val0.device2.ToString();
 val0.device_type.ToString();
@@ -103,10 +106,13 @@ foreach(var val0 in data.device_history){
 val0.device.ToString();
 val0.device_history_action.ToString();
 val0.supplier.ToString();
+}
 foreach(var val0 in data.device_url){
 val0.device.ToString();
+}
 foreach(var val0 in data.device_value){
 val0.device.ToString();
+}
 foreach(var val0 in data.rss_configuration){
 val0.device.ToString();
 val0.update_period.ToString();

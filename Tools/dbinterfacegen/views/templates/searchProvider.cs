@@ -3,6 +3,7 @@ $PLACEHOLDERS
     $PROVIDER_NAMESPACE     The namespace of the provider.
     $PROVIDER_NAME          The name of the provider.
     $TABLE_NAME             The name of the TableObject.
+    $OBJECT_TYPE
     $PRIMARY_KEY            The name of the primary key for the TableObject.
     $TABLE_DISPLAY_NAME     The variable to use as the display name.
     $COLUMN_DEFINITIONS     Column definitions for the data grid.
@@ -22,7 +23,7 @@ namespace $PROVIDER_NAMESPACE
     {
         public bool areSameItems(object item1, object item2)
         {
-            return (item1 as $TABLE_NAME).$PRIMARY_KEY == (item2 as $TABLE_NAME).$PRIMARY_KEY;
+            return (item1 as $OBJECT_TYPE).$PRIMARY_KEY == (item2 as $OBJECT_TYPE).$PRIMARY_KEY;
         }
 
         public void deleteItem(object item)
@@ -30,7 +31,7 @@ namespace $PROVIDER_NAMESPACE
             if(item == null)
                 return;
 
-            $TABLE_NAME data = item as $TABLE_NAME;
+            $OBJECT_TYPE data = item as $OBJECT_TYPE;
             if(data == null)
                 return;
 
@@ -43,7 +44,7 @@ namespace $PROVIDER_NAMESPACE
 
         public string getDisplayStringForItem(object item)
         {
-            return $"{(item as $TABLE_NAME).$TABLE_DISPLAY_NAME}";
+            return $"{(item as $OBJECT_TYPE).$TABLE_DISPLAY_NAME}";
         }
 
         public void populateDataGrid(DataGrid grid)
@@ -53,7 +54,7 @@ namespace $PROVIDER_NAMESPACE
                 grid.Columns.Add(new DataGridTextColumn()
                 {
                     Header = "ID",
-                    Binding = new Binding(nameof($TABLE_NAME.$PRIMARY_KEY))
+                    Binding = new Binding(nameof($OBJECT_TYPE.$PRIMARY_KEY))
                 });
                 $COLUMN_DEFINITIONS
 

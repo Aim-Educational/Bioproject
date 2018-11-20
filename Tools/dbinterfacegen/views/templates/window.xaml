@@ -1,0 +1,21 @@
+$PLACEHOLDERS
+    $WINDOW_NAMESPACE
+$END
+$FINISH_CONFIG
+<Window x:Class="$WINDOW_NAMESPACE.InterfaceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:$WINDOW_NAMESPACE"
+        mc:Ignorable="d"
+        Title="Maintainer" Height="700" Width="700">
+    <Grid x:Name="grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ToolBar x:Name="toolbar" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <ContentControl x:Name="content" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+    </Grid>
+</Window>

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:EDITOR_NAMESPACE"
+             xmlns:local="clr-namespace:DataUserInterface.Editors"
              xmlns:aim="clr-namespace:Aim.DatabaseInterface.Controls;assembly=AimDatabaseInterface"
              mc:Ignorable="d">
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -36,15 +36,14 @@
 <Label Content="device_address_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="8"/>
 
         <TextBox x:Name="device_address_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
+<Label Content="[NOT SUPPORTED]:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
 <TextBox x:Name="ip_address" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" IsReadOnly="false"/>
 <TextBox x:Name="comment" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" IsReadOnly="false"/>
+<Label Content="[NOT SUPPORTED]:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center"/>
 <TextBox x:Name="version" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" IsReadOnly="false"/>
+<aim:SelectorEditorControl x:Name="device" Grid.Column="1" Grid.Row="7"/>
+<aim:SelectorEditorControl x:Name="device_address_type" Grid.Column="1" Grid.Row="8"/>
 
-
-        <!--
-        <CheckBox x:Name="checkboxPAL"                      Grid.Column="1" Grid.Row="6" VerticalAlignment="Center"/>
-        <aim:SelectorEditorControl x:Name="selectorFormat"  Grid.Column="1" Grid.Row="12"/>
-        <DatePicker x:Name="dateReleased"                   Grid.Column="1" Grid.Row="15" VerticalAlignment="Center"/>
-        !-->
     </Grid>
 </UserControl>
