@@ -430,7 +430,7 @@ private string getLabelText(Config config, TableObject object, Field field)
     }
 
     return field.variableName.splitter('_')
-                             .map!(str => capitalize(str))
+                             .map!capitalize
                              .joiner(" ")
                              .array // dstring
                              .to!string;
