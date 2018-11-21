@@ -2,6 +2,7 @@ $PLACEHOLDERS
     $NAME
     $GRID_ROW
     $READ_ONLY
+    $GRID_COLUMN
 $END
 $FINISH_CONFIG
-<TextBox x:Name="$NAME" Grid.Column="1" Grid.Row="$GRID_ROW" VerticalAlignment="Center" IsReadOnly="$READ_ONLY"/>
+<TextBox x:Name="$NAME" Grid.Column="$GRID_COLUMN" Grid.Row="$GRID_ROW" VerticalAlignment="Center" IsReadOnly="$READ_ONLY"/>

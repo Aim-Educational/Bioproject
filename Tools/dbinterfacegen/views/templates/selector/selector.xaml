@@ -1,6 +1,7 @@
 $PLACEHOLDERS
     $NAME
     $GRID_ROW
+    $GRID_COLUMN
 $END
 $FINISH_CONFIG
-<aim:SelectorEditorControl x:Name="$NAME" Grid.Column="1" Grid.Row="$GRID_ROW"/>
+<aim:SelectorEditorControl x:Name="$NAME" Grid.Column="$GRID_COLUMN" Grid.Row="$GRID_ROW"/>

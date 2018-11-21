@@ -17,12 +17,15 @@ $FINISH_CONFIG
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             $ROW_DEFS
             <RowDefinition/>
         </Grid.RowDefinitions>
+
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="9999"/>
 
         $LABELS
         $CONTROLS

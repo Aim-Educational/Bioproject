@@ -302,14 +302,12 @@ private ControlInfo getControlInfo(Config config, Model model, TableObject objec
     ControlInfo info;
     string readOnly = (field.variableName == object.keyName) ? "true" : "false";
 
-    // Default XAML
-    info.xaml = Templater.resolveTemplate(["$CONTENT": "[NOT SUPPORTED]", "$GRID_ROW": row.to!string], TEMPLATE_LABEL_XAML);
-
     auto placeholders = 
     [
         // Some default ones
         "$NAME":          field.variableName,
         "$GRID_ROW":      row.to!string,
+        "$GRID_COLUMN":   "2",
         "$READ_ONLY":     readOnly,
         "$OBJECT_TYPE":   field.typeName
     ];
@@ -344,6 +342,7 @@ private ControlInfo getControlInfo(Config config, Model model, TableObject objec
         case "long":
         case "float":
         case "double":
+        case "decimal":
             auto converters =
             [
                 "int":    "Convert.ToInt32",

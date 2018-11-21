@@ -9,6 +9,7 @@
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -22,6 +23,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="9999"/>
+
         <Label Content="application_log_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
 <Label Content="message:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
 <Label Content="datetime:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
@@ -29,12 +32,12 @@
 <Label Content="application:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
 <Label Content="message_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
 
-        <TextBox x:Name="application_log_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
-<TextBox x:Name="message" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>
-<DatePicker x:Name="datetime" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
-<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"/>
-<aim:SelectorEditorControl x:Name="application" Grid.Column="1" Grid.Row="4"/>
-<aim:SelectorEditorControl x:Name="message_type" Grid.Column="1" Grid.Row="5"/>
+        <TextBox x:Name="application_log_id" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
+<TextBox x:Name="message" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>
+<DatePicker x:Name="datetime" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center"/>
+<CheckBox x:Name="is_active" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center"/>
+<aim:SelectorEditorControl x:Name="application" Grid.Column="2" Grid.Row="4"/>
+<aim:SelectorEditorControl x:Name="message_type" Grid.Column="2" Grid.Row="5"/>
 
     </Grid>
 </UserControl>

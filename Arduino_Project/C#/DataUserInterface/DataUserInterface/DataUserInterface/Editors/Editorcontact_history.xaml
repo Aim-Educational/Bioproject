@@ -9,6 +9,7 @@
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -22,6 +23,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="9999"/>
+
         <Label Content="contact_history_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
 <Label Content="date_and_time:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
 <Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
@@ -29,12 +32,12 @@
 <Label Content="contact:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
 <Label Content="history_event:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
 
-        <TextBox x:Name="contact_history_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
-<DatePicker x:Name="date_and_time" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
-<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
-<TextBox x:Name="comment" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" IsReadOnly="false"/>
-<aim:SelectorEditorControl x:Name="contact" Grid.Column="1" Grid.Row="4"/>
-<aim:SelectorEditorControl x:Name="history_event" Grid.Column="1" Grid.Row="5"/>
+        <TextBox x:Name="contact_history_id" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
+<DatePicker x:Name="date_and_time" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center"/>
+<CheckBox x:Name="is_active" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center"/>
+<TextBox x:Name="comment" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" IsReadOnly="false"/>
+<aim:SelectorEditorControl x:Name="contact" Grid.Column="2" Grid.Row="4"/>
+<aim:SelectorEditorControl x:Name="history_event" Grid.Column="2" Grid.Row="5"/>
 
     </Grid>
 </UserControl>

@@ -9,6 +9,7 @@
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -32,6 +33,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="9999"/>
+
         <Label Content="device_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
 <Label Content="name:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
 <Label Content="description:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
@@ -49,22 +52,21 @@
 <Label Content="Parent Device:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="14"/>
 <Label Content="device_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="15"/>
 
-        <TextBox x:Name="device_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
-<TextBox x:Name="name" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>
-<TextBox x:Name="description" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" IsReadOnly="false"/>
-<TextBox x:Name="location" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" IsReadOnly="false"/>
-<TextBox x:Name="min_value" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" IsReadOnly="false"/>
-<TextBox x:Name="max_value" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" IsReadOnly="false"/>
-<TextBox x:Name="accuracy" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" IsReadOnly="false"/>
-<TextBox x:Name="serial_number" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center" IsReadOnly="false"/>
-<Label Content="[NOT SUPPORTED]:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="8"/>
-<TextBox x:Name="reliability" Grid.Column="1" Grid.Row="9" VerticalAlignment="Center" IsReadOnly="false"/>
-<TextBox x:Name="strikes" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center" IsReadOnly="false"/>
-<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="11" VerticalAlignment="Center"/>
-<TextBox x:Name="comment" Grid.Column="1" Grid.Row="12" VerticalAlignment="Center" IsReadOnly="false"/>
-<CheckBox x:Name="is_allowed_for_use" Grid.Column="1" Grid.Row="13" VerticalAlignment="Center"/>
-<aim:SelectorEditorControl x:Name="device2" Grid.Column="1" Grid.Row="14"/>
-<aim:SelectorEditorControl x:Name="device_type" Grid.Column="1" Grid.Row="15"/>
+        <TextBox x:Name="device_id" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
+<TextBox x:Name="name" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>
+<TextBox x:Name="description" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" IsReadOnly="false"/>
+<TextBox x:Name="location" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" IsReadOnly="false"/>
+<TextBox x:Name="min_value" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" IsReadOnly="false"/>
+<TextBox x:Name="max_value" Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" IsReadOnly="false"/>
+<TextBox x:Name="accuracy" Grid.Column="2" Grid.Row="6" VerticalAlignment="Center" IsReadOnly="false"/>
+<TextBox x:Name="serial_number" Grid.Column="2" Grid.Row="7" VerticalAlignment="Center" IsReadOnly="false"/>
+<TextBox x:Name="reliability" Grid.Column="2" Grid.Row="9" VerticalAlignment="Center" IsReadOnly="false"/>
+<TextBox x:Name="strikes" Grid.Column="2" Grid.Row="10" VerticalAlignment="Center" IsReadOnly="false"/>
+<CheckBox x:Name="is_active" Grid.Column="2" Grid.Row="11" VerticalAlignment="Center"/>
+<TextBox x:Name="comment" Grid.Column="2" Grid.Row="12" VerticalAlignment="Center" IsReadOnly="false"/>
+<CheckBox x:Name="is_allowed_for_use" Grid.Column="2" Grid.Row="13" VerticalAlignment="Center"/>
+<aim:SelectorEditorControl x:Name="device2" Grid.Column="2" Grid.Row="14"/>
+<aim:SelectorEditorControl x:Name="device_type" Grid.Column="2" Grid.Row="15"/>
 
     </Grid>
 </UserControl>

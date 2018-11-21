@@ -9,6 +9,7 @@
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -22,6 +23,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="9999"/>
+
         <Label Content="contact_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
 <Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
 <Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
@@ -29,12 +32,12 @@
 <Label Content="supplier:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
 <Label Content="user:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
 
-        <TextBox x:Name="contact_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
-<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
-<TextBox x:Name="comment" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" IsReadOnly="false"/>
-<aim:SelectorEditorControl x:Name="contact_type" Grid.Column="1" Grid.Row="3"/>
-<aim:SelectorEditorControl x:Name="supplier" Grid.Column="1" Grid.Row="4"/>
-<aim:SelectorEditorControl x:Name="user" Grid.Column="1" Grid.Row="5"/>
+        <TextBox x:Name="contact_id" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
+<CheckBox x:Name="is_active" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center"/>
+<TextBox x:Name="comment" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" IsReadOnly="false"/>
+<aim:SelectorEditorControl x:Name="contact_type" Grid.Column="2" Grid.Row="3"/>
+<aim:SelectorEditorControl x:Name="supplier" Grid.Column="2" Grid.Row="4"/>
+<aim:SelectorEditorControl x:Name="user" Grid.Column="2" Grid.Row="5"/>
 
     </Grid>
 </UserControl>

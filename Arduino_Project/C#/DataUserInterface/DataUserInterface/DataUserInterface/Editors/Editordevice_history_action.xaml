@@ -9,6 +9,7 @@
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -21,17 +22,19 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="9999"/>
+
         <Label Content="device_history_action1:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
 <Label Content="description:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
 <Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
 <Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
 <Label Content="device:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
 
-        <TextBox x:Name="device_history_action1" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
-<TextBox x:Name="description" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>
-<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
-<TextBox x:Name="comment" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" IsReadOnly="false"/>
-<aim:SelectorEditorControl x:Name="device" Grid.Column="1" Grid.Row="4"/>
+        <TextBox x:Name="device_history_action1" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
+<TextBox x:Name="description" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>
+<CheckBox x:Name="is_active" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center"/>
+<TextBox x:Name="comment" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" IsReadOnly="false"/>
+<aim:SelectorEditorControl x:Name="device" Grid.Column="2" Grid.Row="4"/>
 
     </Grid>
 </UserControl>
