@@ -444,14 +444,15 @@ private void writeXAMLEntry(Config config, string outPath, string file)
     import std.algorithm : canFind;
 
     auto csproj = readText(config.csproj);
-    csproj.length -= "</Project>".length;
-    csproj ~= "<ItemGroup>\n";
-
-    auto code = Templater.resolveTemplate(["$XAMLFILE":file.baseName, "$XAMLFOLDER":file.dirName], TEMPLATE_CSPROJ_XAML);
+    auto code   = Templater.resolveTemplate(["$XAMLFILE":file.baseName, "$XAMLFOLDER":file.dirName], TEMPLATE_CSPROJ_XAML);
 
     if(!csproj.detab.canFind(code.detab))
+    {
+        csproj.length -= "</Project>".length;
+        csproj ~= "<ItemGroup>\n";
         csproj ~= code;
-    csproj ~= "</ItemGroup>\n</Project>";
+        csproj ~= "</ItemGroup>\n</Project>";
+    }
 
     write(config.csproj, csproj);
 }
@@ -460,19 +461,27 @@ private void writeCodeEntries(Config config, string outPath, string[] files)
 {
     import std.string : detab;
 
+    bool shouldWriteTags = true;
+
     auto csproj = readText(config.csproj);
-    csproj.length -= "</Project>".length;
-    
-    csproj ~= "<ItemGroup>\n";
     foreach(file; files)
     {
         import std.algorithm : canFind;
         auto code = Templater.resolveTemplate(["$FILE": file], TEMPLATE_CSPROJ_CODE);
 
         if(!csproj.detab.canFind(code.detab))
+        {
+            if(shouldWriteTags)
+            {
+                csproj.length -= "</Project>".length;
+                csproj ~= "<ItemGroup>\n";
+                shouldWriteTags = false;
+            }
             csproj ~= code;
+        }
     }
-    csproj ~= "</ItemGroup>\n</Project>";
+    if(!shouldWriteTags) // If this is false, then that means the starter tags *have* been written, so these ends ones must also be written.
+        csproj ~= "</ItemGroup>\n</Project>";
 
     write(config.csproj, csproj);
 }
