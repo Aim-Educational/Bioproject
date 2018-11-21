@@ -25,12 +25,12 @@
 
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="9999"/>
 
-        <Label Content="Contact_history_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
-<Label Content="Date_and_time:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
-<Label Content="Is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
+        <Label Content="Contact History Id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
+<Label Content="Date And Time:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
+<Label Content="Is Active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
 <Label Content="Comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
 <Label Content="Contact:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
-<Label Content="History_event:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
+<Label Content="History Event:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
 
         <TextBox x:Name="contact_history_id" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
 <DatePicker x:Name="date_and_time" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center"/>

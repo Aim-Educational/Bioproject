@@ -24,11 +24,11 @@
 
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="9999"/>
 
-        <Label Content="Group_member_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
-<Label Content="Is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
+        <Label Content="Group Member Id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
+<Label Content="Is Active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
 <Label Content="Comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
 <Label Content="Contact:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<Label Content="Group_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+<Label Content="Group Type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
 
         <TextBox x:Name="group_member_id" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
 <CheckBox x:Name="is_active" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center"/>

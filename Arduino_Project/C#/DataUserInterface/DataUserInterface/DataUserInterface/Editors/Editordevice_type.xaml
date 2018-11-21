@@ -24,9 +24,9 @@
 
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="9999"/>
 
-        <Label Content="Device_type_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
+        <Label Content="Device Type Id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
 <Label Content="Description:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
-<Label Content="Is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
+<Label Content="Is Active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
 <Label Content="Comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
 <Label Content="Unit:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
 

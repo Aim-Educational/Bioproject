@@ -25,11 +25,11 @@
 
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="9999"/>
 
-        <Label Content="Action_level_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
+        <Label Content="Action Level Id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
 <Label Content="Value:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
-<Label Content="Is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
+<Label Content="Is Active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
 <Label Content="Comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<Label Content="Action_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+<Label Content="Action Type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
 <Label Content="Device:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
 
         <TextBox x:Name="action_level_id" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>

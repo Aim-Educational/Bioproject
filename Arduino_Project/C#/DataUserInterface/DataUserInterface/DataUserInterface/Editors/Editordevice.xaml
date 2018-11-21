@@ -35,20 +35,20 @@
 
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="9999"/>
 
-        <Label Content="Device_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
+        <Label Content="Device Id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
 <Label Content="Name:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
 <Label Content="Description:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
 <Label Content="Location:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<Label Content="Min_value:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
-<Label Content="Max_value:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
+<Label Content="Min Value:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+<Label Content="Max Value:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
 <Label Content="Accuracy:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
-<Label Content="Serial_number:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7"/>
+<Label Content="Serial Number:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7"/>
 <Label Content="Cost:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="8"/>
 <Label Content="Reliability:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="9"/>
 <Label Content="Strikes:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="10"/>
-<Label Content="Is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="11"/>
+<Label Content="Is Active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="11"/>
 <Label Content="Comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="12"/>
-<Label Content="Is_allowed_for_use:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="13"/>
+<Label Content="Is Allowed For Use:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="13"/>
 <Label Content="Parent Device:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="14"/>
 <Label Content="Type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="15"/>
 
