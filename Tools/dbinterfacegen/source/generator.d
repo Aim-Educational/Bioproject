@@ -345,10 +345,11 @@ private ControlInfo getControlInfo(Config config, Model model, TableObject objec
         case "decimal":
             auto converters =
             [
-                "int":    "Convert.ToInt32",
-                "long":   "Convert.ToInt64",
-                "float":  "Convert.ToSingle",
-                "double": "Convert.ToDouble"
+                "int":     "Convert.ToInt32",
+                "long":    "Convert.ToInt64",
+                "float":   "Convert.ToSingle",
+                "double":  "Convert.ToDouble",
+                "decimal": "Convert.ToDecimal"
             ];
 
             placeholders["$CONVERT"] = converters[field.typeName];
