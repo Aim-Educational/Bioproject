@@ -88,7 +88,7 @@ private void generateWindow(Model model, Config config)
     ];
 
     write(buildNormalizedPath(outPath, "InterfaceWindow.xaml.cs"), Templater.resolveTemplate(placeholders, TEMPLATE_WINDOW_CODE));
-
+    writeXAMLEntry(config, outPath, buildNormalizedPath(outPath, "InterfaceWindow.xaml"));
 }
 
 private void generateEditorsCode(Model model, Config config)

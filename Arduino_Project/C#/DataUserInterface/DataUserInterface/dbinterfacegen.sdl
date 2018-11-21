@@ -52,6 +52,7 @@ ignoreVariables {
 // As a side note, the "[object_type]" part is a glob pattern string, so a single override
 // can be written for multiple different classes.
 labelTextOverrides {
-    "device:device2" "Parent Device"
-    "*:device_type"  "Type"
+    "device:device2"            "Parent Device"
+    "*:device_type"             "Type"
+    "group_type:group_type2"    "Parent Group"
 }
