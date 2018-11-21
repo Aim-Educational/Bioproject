@@ -53,4 +53,5 @@ ignoreVariables {
 // can be written for multiple different classes.
 labelTextOverrides {
     "device:device2" "Parent Device"
+    "*:device_type"  "Type"
 }
