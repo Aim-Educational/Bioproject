@@ -462,7 +462,6 @@ private void writeCodeEntries(Config config, string outPath, string[] files)
     import std.string : detab;
 
     bool shouldWriteTags = true;
-
     auto csproj = readText(config.csproj);
     foreach(file; files)
     {
