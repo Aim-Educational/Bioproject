@@ -366,6 +366,8 @@ private ControlInfo getControlInfo(Config config, Model model, TableObject objec
     if(model.isObjectType(field.typeName))
     {
         placeholders["$PROVIDER_NAME"] = getProviderName(model.getObjectByType(field.typeName)),
+        placeholders["$OBJECT_TABLE"]  = model.context.getTableForType(field.typeName).variableName;
+        placeholders["$OBJECT_PK"]     = model.getObjectByType(field.typeName).keyName;
         info.xaml       = Templater.resolveTemplate(placeholders, TEMPLATE_SELECTOR_XAML);
         info.onCtor     = Templater.resolveTemplate(placeholders, TEMPLATE_SELECTOR_CTOR);
         info.onCreate   = Templater.resolveTemplate(placeholders, TEMPLATE_SELECTOR_CREATE);

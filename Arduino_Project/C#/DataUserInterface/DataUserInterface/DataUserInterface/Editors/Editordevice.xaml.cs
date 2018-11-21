@@ -122,8 +122,8 @@ data.strikes = Convert.ToInt32(this.strikes.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 data.comment = (this.comment.Text);
 data.is_allowed_for_use = (bool)this.is_allowed_for_use.IsChecked;
-data.device2 = this.device2.item as device;
-data.device_type = this.device_type.item as device_type;
+data.device2 = new Func<device>(() => { foreach(var v in db.devices){ if(v.device_id == (this.device2.item as device).device_id) return v; } return null; })();
+data.device_type = new Func<device_type>(() => { foreach(var v in db.device_type){ if(v.device_type_id == (this.device_type.item as device_type).device_type_id) return v; } return null; })();
 
 
                 if (this._isCreateMode)

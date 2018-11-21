@@ -93,9 +93,9 @@ this.user.item = data.user;
                 data.contact_id = Convert.ToInt32(this.contact_id.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 data.comment = (this.comment.Text);
-data.contact_type = this.contact_type.item as contact_type;
-data.supplier = this.supplier.item as supplier;
-data.user = this.user.item as user;
+data.contact_type = new Func<contact_type>(() => { foreach(var v in db.contact_type){ if(v.contact_type_id == (this.contact_type.item as contact_type).contact_type_id) return v; } return null; })();
+data.supplier = new Func<supplier>(() => { foreach(var v in db.suppliers){ if(v.supplier_id == (this.supplier.item as supplier).supplier_id) return v; } return null; })();
+data.user = new Func<user>(() => { foreach(var v in db.users){ if(v.user_id == (this.user.item as user).user_id) return v; } return null; })();
 
 
                 if (this._isCreateMode)

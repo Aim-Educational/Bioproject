@@ -97,7 +97,7 @@ data.response_recieved = (bool)this.response_recieved.IsChecked;
 data.is_active = (bool)this.is_active.IsChecked;
 data.comment = (this.comment.Text);
 data.extra_data = (this.extra_data.Text);
-data.device = this.device.item as device;
+data.device = new Func<device>(() => { foreach(var v in db.devices){ if(v.device_id == (this.device.item as device).device_id) return v; } return null; })();
 
 
                 if (this._isCreateMode)

@@ -92,8 +92,8 @@ this.device_address_type.item = data.device_address_type;
 data.ip_address = (this.ip_address.Text);
 data.comment = (this.comment.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.device = this.device.item as device;
-data.device_address_type = this.device_address_type.item as device_address_type;
+data.device = new Func<device>(() => { foreach(var v in db.devices){ if(v.device_id == (this.device.item as device).device_id) return v; } return null; })();
+data.device_address_type = new Func<device_address_type>(() => { foreach(var v in db.device_address_type){ if(v.device_address_type_id == (this.device_address_type.item as device_address_type).device_address_type_id) return v; } return null; })();
 
 
                 if (this._isCreateMode)

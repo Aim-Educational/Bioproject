@@ -89,8 +89,8 @@ this.group_type.item = data.group_type;
                 data.group_action_id = Convert.ToInt32(this.group_action_id.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 data.comment = (this.comment.Text);
-data.action_type = this.action_type.item as action_type;
-data.group_type = this.group_type.item as group_type;
+data.action_type = new Func<action_type>(() => { foreach(var v in db.action_type){ if(v.action_type_id == (this.action_type.item as action_type).action_type_id) return v; } return null; })();
+data.group_type = new Func<group_type>(() => { foreach(var v in db.group_type){ if(v.group_type_id == (this.group_type.item as group_type).group_type_id) return v; } return null; })();
 
 
                 if (this._isCreateMode)

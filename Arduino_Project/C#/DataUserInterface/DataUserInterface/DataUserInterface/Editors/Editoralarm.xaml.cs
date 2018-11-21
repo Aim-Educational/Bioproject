@@ -96,9 +96,9 @@ this.group_type.item = data.group_type;
 data.value = Convert.ToDouble(this.value.Text);
 data.comment = (this.comment.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.alarm_type = this.alarm_type.item as alarm_type;
-data.device = this.device.item as device;
-data.group_type = this.group_type.item as group_type;
+data.alarm_type = new Func<alarm_type>(() => { foreach(var v in db.alarm_type){ if(v.alarm_type_id == (this.alarm_type.item as alarm_type).alarm_type_id) return v; } return null; })();
+data.device = new Func<device>(() => { foreach(var v in db.devices){ if(v.device_id == (this.device.item as device).device_id) return v; } return null; })();
+data.group_type = new Func<group_type>(() => { foreach(var v in db.group_type){ if(v.group_type_id == (this.group_type.item as group_type).group_type_id) return v; } return null; })();
 
 
                 if (this._isCreateMode)

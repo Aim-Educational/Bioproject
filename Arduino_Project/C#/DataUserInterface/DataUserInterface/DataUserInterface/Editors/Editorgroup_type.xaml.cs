@@ -91,7 +91,7 @@ data.name = (this.name.Text);
 data.description = (this.description.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 data.comment = (this.comment.Text);
-data.group_type2 = this.group_type2.item as group_type;
+data.group_type2 = new Func<group_type>(() => { foreach(var v in db.group_type){ if(v.group_type_id == (this.group_type2.item as group_type).group_type_id) return v; } return null; })();
 
 
                 if (this._isCreateMode)

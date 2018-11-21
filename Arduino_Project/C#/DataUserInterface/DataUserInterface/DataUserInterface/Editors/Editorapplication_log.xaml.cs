@@ -92,8 +92,8 @@ this.message_type.item = data.message_type;
 data.message = (this.message.Text);
 data.datetime = (DateTime)this.datetime.SelectedDate;
 data.is_active = (bool)this.is_active.IsChecked;
-data.application = this.application.item as application;
-data.message_type = this.message_type.item as message_type;
+data.application = new Func<application>(() => { foreach(var v in db.applications){ if(v.application_id == (this.application.item as application).application_id) return v; } return null; })();
+data.message_type = new Func<message_type>(() => { foreach(var v in db.message_type){ if(v.message_type_id == (this.message_type.item as message_type).message_type_id) return v; } return null; })();
 
 
                 if (this._isCreateMode)

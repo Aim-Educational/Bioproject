@@ -92,8 +92,8 @@ this.history_event.item = data.history_event;
 data.date_and_time = (DateTime)this.date_and_time.SelectedDate;
 data.is_active = (bool)this.is_active.IsChecked;
 data.comment = (this.comment.Text);
-data.contact = this.contact.item as contact;
-data.history_event = this.history_event.item as history_event;
+data.contact = new Func<contact>(() => { foreach(var v in db.contacts){ if(v.contact_id == (this.contact.item as contact).contact_id) return v; } return null; })();
+data.history_event = new Func<history_event>(() => { foreach(var v in db.history_event){ if(v.history_event_id == (this.history_event.item as history_event).history_event_id) return v; } return null; })();
 
 
                 if (this._isCreateMode)

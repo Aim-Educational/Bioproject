@@ -88,7 +88,7 @@ this.unit.item = data.unit;
 data.description = (this.description.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 data.comment = (this.comment.Text);
-data.unit = this.unit.item as unit;
+data.unit = new Func<unit>(() => { foreach(var v in db.units){ if(v.unit_id == (this.unit.item as unit).unit_id) return v; } return null; })();
 
 
                 if (this._isCreateMode)

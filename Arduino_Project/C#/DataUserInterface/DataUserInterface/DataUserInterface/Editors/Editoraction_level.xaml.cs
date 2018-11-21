@@ -92,8 +92,8 @@ this.device.item = data.device;
 data.value = Convert.ToDouble(this.value.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 data.comment = (this.comment.Text);
-data.action_type = this.action_type.item as action_type;
-data.device = this.device.item as device;
+data.action_type = new Func<action_type>(() => { foreach(var v in db.action_type){ if(v.action_type_id == (this.action_type.item as action_type).action_type_id) return v; } return null; })();
+data.device = new Func<device>(() => { foreach(var v in db.devices){ if(v.device_id == (this.device.item as device).device_id) return v; } return null; })();
 
 
                 if (this._isCreateMode)
