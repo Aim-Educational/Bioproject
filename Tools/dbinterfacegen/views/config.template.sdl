@@ -32,6 +32,8 @@ displayNames {
 columnVariables {
 }
 
-// A list of variable names to not generate interface components for.
+// A list of glob patterns. Any variable name that matches any of these patterns will be
+// completely ignored. Do note that the primary key is an exception and is *always* handled.
 ignoreVariables {
+    "*id" // Example: Foreign keys end in 'id'.
 }

@@ -32,6 +32,7 @@ columnVariables {
 
 // A list of variable names to not generate interface components for.
 ignoreVariables {
+    "*id" // Foreign keys end in 'id'
     "timestamp"
     "version"
 }

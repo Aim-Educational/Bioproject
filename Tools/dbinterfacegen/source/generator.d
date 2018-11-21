@@ -378,11 +378,13 @@ private ControlInfo getControlInfo(Config config, Model model, TableObject objec
 
 private bool shouldIgnoreField(Config config, Model model, TableObject object, Field field)
 {
-    import std.algorithm : endsWith, startsWith, canFind;
+    import std.algorithm : endsWith, startsWith, canFind, any;
+    import std.path      : globMatch;
 
-    return (field.variableName.endsWith("id") && field.variableName != object.keyName)
-        || (field.typeName.startsWith("ICollection<"))
-        || (config.ignoreVariables.canFind(field.variableName));
+    return (    config.ignoreVariables.any!(i => field.variableName.globMatch(i)) 
+             && field.variableName != object.keyName
+           )
+        || (field.typeName.startsWith("ICollection<"));
 }
 
 private string getFinalNamespace(Config config, string namespace)
