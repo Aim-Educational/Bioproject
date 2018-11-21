@@ -425,7 +425,8 @@ private string getLabelText(Config config, TableObject object, Field field)
         auto objName   = splitRange[0];
         auto fieldName = splitRange[1];
 
-        if(object.className.globMatch(objName) && field.variableName == fieldName)
+        if(object.className.globMatch(objName) 
+        && field.variableName == fieldName)
             return v;
     }
 
