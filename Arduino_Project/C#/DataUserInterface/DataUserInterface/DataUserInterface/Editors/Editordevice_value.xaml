@@ -27,14 +27,14 @@
 
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="9999"/>
 
-        <Label Content="device_value_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
-<Label Content="value:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
-<Label Content="datetime:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
-<Label Content="response_recieved:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
-<Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
-<Label Content="extra_data:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
-<Label Content="device:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7"/>
+        <Label Content="Device_value_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
+<Label Content="Value:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
+<Label Content="Datetime:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
+<Label Content="Response_recieved:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
+<Label Content="Is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+<Label Content="Comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
+<Label Content="Extra_data:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
+<Label Content="Device:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7"/>
 
         <TextBox x:Name="device_value_id" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
 <TextBox x:Name="value" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>

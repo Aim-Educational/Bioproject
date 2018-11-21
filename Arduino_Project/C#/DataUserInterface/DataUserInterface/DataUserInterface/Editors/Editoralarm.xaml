@@ -26,13 +26,13 @@
 
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="9999"/>
 
-        <Label Content="alarm_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
-<Label Content="value:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
-<Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
-<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<Label Content="alarm_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
-<Label Content="device:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
-<Label Content="group_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
+        <Label Content="Alarm_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
+<Label Content="Value:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
+<Label Content="Comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
+<Label Content="Is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
+<Label Content="Alarm_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+<Label Content="Device:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
+<Label Content="Group_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
 
         <TextBox x:Name="alarm_id" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
 <TextBox x:Name="value" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>

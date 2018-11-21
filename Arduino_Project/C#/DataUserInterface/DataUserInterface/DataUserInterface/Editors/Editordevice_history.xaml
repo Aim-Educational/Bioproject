@@ -26,13 +26,13 @@
 
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="9999"/>
 
-        <Label Content="device_history_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
-<Label Content="datetime:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
-<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
-<Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<Label Content="device:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
-<Label Content="device_history_action:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
-<Label Content="supplier:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
+        <Label Content="Device_history_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
+<Label Content="Datetime:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
+<Label Content="Is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
+<Label Content="Comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
+<Label Content="Device:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+<Label Content="Device_history_action:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
+<Label Content="Supplier:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
 
         <TextBox x:Name="device_history_id" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
 <DatePicker x:Name="datetime" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center"/>

@@ -25,12 +25,12 @@
 
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="9999"/>
 
-        <Label Content="contact_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
-<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
-<Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
-<Label Content="contact_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<Label Content="supplier:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
-<Label Content="user:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
+        <Label Content="Contact_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
+<Label Content="Is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
+<Label Content="Comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
+<Label Content="Contact_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
+<Label Content="Supplier:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+<Label Content="User:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
 
         <TextBox x:Name="contact_id" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
 <CheckBox x:Name="is_active" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center"/>

@@ -411,8 +411,9 @@ private string getEditorName(TableObject obj)
 
 private string getLabelText(Config config, TableObject object, Field field)
 {
-    import std.range : split;
-    import std.path  : globMatch;
+    import std.string : capitalize;
+    import std.range  : split;
+    import std.path   : globMatch;
 
     foreach(k, v; config.labelTextOverrides)
     {
@@ -426,7 +427,7 @@ private string getLabelText(Config config, TableObject object, Field field)
             return v;
     }
 
-    return field.variableName;
+    return field.variableName.capitalize;
 }
 
 private void writeXAMLEntry(Config config, string outPath, string file)

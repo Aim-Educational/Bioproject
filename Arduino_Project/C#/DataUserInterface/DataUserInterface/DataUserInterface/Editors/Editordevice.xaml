@@ -35,22 +35,22 @@
 
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="9999"/>
 
-        <Label Content="device_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
-<Label Content="name:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
-<Label Content="description:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
-<Label Content="location:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<Label Content="min_value:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
-<Label Content="max_value:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
-<Label Content="accuracy:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
-<Label Content="serial_number:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7"/>
-<Label Content="cost:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="8"/>
-<Label Content="reliability:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="9"/>
-<Label Content="strikes:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="10"/>
-<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="11"/>
-<Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="12"/>
-<Label Content="is_allowed_for_use:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="13"/>
+        <Label Content="Device_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
+<Label Content="Name:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
+<Label Content="Description:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
+<Label Content="Location:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
+<Label Content="Min_value:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+<Label Content="Max_value:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
+<Label Content="Accuracy:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
+<Label Content="Serial_number:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7"/>
+<Label Content="Cost:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="8"/>
+<Label Content="Reliability:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="9"/>
+<Label Content="Strikes:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="10"/>
+<Label Content="Is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="11"/>
+<Label Content="Comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="12"/>
+<Label Content="Is_allowed_for_use:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="13"/>
 <Label Content="Parent Device:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="14"/>
-<Label Content="device_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="15"/>
+<Label Content="Device_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="15"/>
 
         <TextBox x:Name="device_id" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
 <TextBox x:Name="name" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>
@@ -60,6 +60,7 @@
 <TextBox x:Name="max_value" Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" IsReadOnly="false"/>
 <TextBox x:Name="accuracy" Grid.Column="2" Grid.Row="6" VerticalAlignment="Center" IsReadOnly="false"/>
 <TextBox x:Name="serial_number" Grid.Column="2" Grid.Row="7" VerticalAlignment="Center" IsReadOnly="false"/>
+<TextBox x:Name="cost" Grid.Column="2" Grid.Row="8" VerticalAlignment="Center" IsReadOnly="false"/>
 <TextBox x:Name="reliability" Grid.Column="2" Grid.Row="9" VerticalAlignment="Center" IsReadOnly="false"/>
 <TextBox x:Name="strikes" Grid.Column="2" Grid.Row="10" VerticalAlignment="Center" IsReadOnly="false"/>
 <CheckBox x:Name="is_active" Grid.Column="2" Grid.Row="11" VerticalAlignment="Center"/>
