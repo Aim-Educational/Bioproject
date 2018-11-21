@@ -36,7 +36,6 @@ namespace DataUserInterface.Editors
             this.action_type_id.Text = "";
 this.description.Text = "";
 this.is_active.IsChecked = false;
-this.version.Text = "";
 this.comment.Text = "";
 
         }
@@ -56,7 +55,6 @@ this.comment.Text = "";
             this.action_type_id.Text = $"{data.action_type_id}";
 this.description.Text = $"{data.description}";
 this.is_active.IsChecked = data.is_active;
-this.version.Text = $"{data.version}";
 this.comment.Text = $"{data.comment}";
 
 
@@ -85,7 +83,6 @@ this.comment.Text = $"{data.comment}";
                 data.action_type_id = Convert.ToInt32(this.action_type_id.Text);
 data.description = (this.description.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.version = Convert.ToInt32(this.version.Text);
 data.comment = (this.comment.Text);
 
 

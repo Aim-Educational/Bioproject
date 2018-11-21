@@ -36,7 +36,6 @@ namespace DataUserInterface.Editors
             this.history_event_id.Text = "";
 this.description.Text = "";
 this.is_active.IsChecked = false;
-this.version.Text = "";
 
         }
 
@@ -55,7 +54,6 @@ this.version.Text = "";
             this.history_event_id.Text = $"{data.history_event_id}";
 this.description.Text = $"{data.description}";
 this.is_active.IsChecked = data.is_active;
-this.version.Text = $"{data.version}";
 
 
             return (saveResult == MessageBoxResult.Yes) ? RefreshSearchList.yes : RefreshSearchList.no;
@@ -83,7 +81,6 @@ this.version.Text = $"{data.version}";
                 data.history_event_id = Convert.ToInt32(this.history_event_id.Text);
 data.description = (this.description.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.version = Convert.ToInt32(this.version.Text);
 
 
                 if (this._isCreateMode)

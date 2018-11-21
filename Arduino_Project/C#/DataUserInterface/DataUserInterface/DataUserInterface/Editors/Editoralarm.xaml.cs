@@ -25,11 +25,11 @@ namespace DataUserInterface.Editors
             InitializeComponent();
             this._mainInterface = mi;
 
-            this.alarm_type.provider = new SearchProvideralarm();
+            this.alarm_type.provider = new SearchProvideralarm_type();
 this.alarm_type.mainInterface = mi;
-this.device.provider = new SearchProvideralarm();
+this.device.provider = new SearchProviderdevice();
 this.device.mainInterface = mi;
-this.group_type.provider = new SearchProvideralarm();
+this.group_type.provider = new SearchProvidergroup_type();
 this.group_type.mainInterface = mi;
 
         }
@@ -41,7 +41,6 @@ this.group_type.mainInterface = mi;
             this.alarm_id.Text = "(CREATE NEW)";
             this.alarm_id.Text = "";
 this.value.Text = "";
-this.version.Text = "";
 this.comment.Text = "";
 this.is_active.IsChecked = false;
 this.alarm_type.item = null;
@@ -64,7 +63,6 @@ this.group_type.item = null;
 
             this.alarm_id.Text = $"{data.alarm_id}";
 this.value.Text = $"{data.value}";
-this.version.Text = $"{data.version}";
 this.comment.Text = $"{data.comment}";
 this.is_active.IsChecked = data.is_active;
 this.alarm_type.item = data.alarm_type;
@@ -95,8 +93,7 @@ this.group_type.item = data.group_type;
                     data = new alarm();
 
                 data.alarm_id = Convert.ToInt32(this.alarm_id.Text);
-data.value = Convert.ToInt32(this.value.Text);
-data.version = Convert.ToInt32(this.version.Text);
+data.value = Convert.ToDouble(this.value.Text);
 data.comment = (this.comment.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 data.alarm_type = this.alarm_type.item as alarm_type;

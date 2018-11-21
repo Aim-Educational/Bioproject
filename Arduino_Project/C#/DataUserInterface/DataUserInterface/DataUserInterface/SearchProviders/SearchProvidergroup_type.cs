@@ -60,22 +60,22 @@ namespace DataUserInterface.SearchProviders
                     grid.Items.Add(data);
 
                     // Cache some of the data we need
-                    data.group_type2.ToString();
+                    if(data.group_type2 != null) data.group_type2.ToString();
 foreach(var val0 in data.alarms){
-val0.alarm_type.ToString();
-val0.device.ToString();
-val0.group_type.ToString();
+if(val0.alarm_type != null) val0.alarm_type.ToString();
+if(val0.device != null) val0.device.ToString();
+if(val0.group_type != null) val0.group_type.ToString();
 }
 foreach(var val0 in data.group_action){
-val0.action_type.ToString();
-val0.group_type.ToString();
+if(val0.action_type != null) val0.action_type.ToString();
+if(val0.group_type != null) val0.group_type.ToString();
 }
 foreach(var val0 in data.group_member){
-val0.contact.ToString();
-val0.group_type.ToString();
+if(val0.contact != null) val0.contact.ToString();
+if(val0.group_type != null) val0.group_type.ToString();
 }
 foreach(var val0 in data.group_type1){
-val0.group_type2.ToString();
+if(val0.group_type2 != null) val0.group_type2.ToString();
 foreach(var val1 in val0.alarms){
 }
 foreach(var val1 in val0.group_action){

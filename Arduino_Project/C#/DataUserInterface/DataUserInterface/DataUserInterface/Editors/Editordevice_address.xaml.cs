@@ -25,9 +25,9 @@ namespace DataUserInterface.Editors
             InitializeComponent();
             this._mainInterface = mi;
 
-            this.device.provider = new SearchProviderdevice_address();
+            this.device.provider = new SearchProviderdevice();
 this.device.mainInterface = mi;
-this.device_address_type.provider = new SearchProviderdevice_address();
+this.device_address_type.provider = new SearchProviderdevice_address_type();
 this.device_address_type.mainInterface = mi;
 
         }
@@ -41,7 +41,6 @@ this.device_address_type.mainInterface = mi;
 this.ip_address.Text = "";
 this.comment.Text = "";
 this.is_active.IsChecked = false;
-this.version.Text = "";
 this.device.item = null;
 this.device_address_type.item = null;
 
@@ -63,7 +62,6 @@ this.device_address_type.item = null;
 this.ip_address.Text = $"{data.ip_address}";
 this.comment.Text = $"{data.comment}";
 this.is_active.IsChecked = data.is_active;
-this.version.Text = $"{data.version}";
 this.device.item = data.device;
 this.device_address_type.item = data.device_address_type;
 
@@ -94,7 +92,6 @@ this.device_address_type.item = data.device_address_type;
 data.ip_address = (this.ip_address.Text);
 data.comment = (this.comment.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.version = Convert.ToInt32(this.version.Text);
 data.device = this.device.item as device;
 data.device_address_type = this.device_address_type.item as device_address_type;
 

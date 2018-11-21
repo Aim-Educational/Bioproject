@@ -56,9 +56,9 @@ namespace DataUserInterface.SearchProviders
 
                     // Cache some of the data we need
                     foreach(var val0 in data.alarms){
-val0.alarm_type.ToString();
-val0.device.ToString();
-val0.group_type.ToString();
+if(val0.alarm_type != null) val0.alarm_type.ToString();
+if(val0.device != null) val0.device.ToString();
+if(val0.group_type != null) val0.group_type.ToString();
 }
 
                 }

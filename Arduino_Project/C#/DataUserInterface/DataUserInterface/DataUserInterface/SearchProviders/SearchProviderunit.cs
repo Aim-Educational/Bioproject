@@ -56,7 +56,7 @@ namespace DataUserInterface.SearchProviders
 
                     // Cache some of the data we need
                     foreach(var val0 in data.device_type){
-val0.unit.ToString();
+if(val0.unit != null) val0.unit.ToString();
 foreach(var val1 in val0.devices){
 }
 }

@@ -39,7 +39,6 @@ this.surname.Text = "";
 this.username.Text = "";
 this.password.Text = "";
 this.is_active.IsChecked = false;
-this.version.Text = "";
 this.comment.Text = "";
 
         }
@@ -62,7 +61,6 @@ this.surname.Text = $"{data.surname}";
 this.username.Text = $"{data.username}";
 this.password.Text = $"{data.password}";
 this.is_active.IsChecked = data.is_active;
-this.version.Text = $"{data.version}";
 this.comment.Text = $"{data.comment}";
 
 
@@ -94,7 +92,6 @@ data.surname = (this.surname.Text);
 data.username = (this.username.Text);
 data.password = (this.password.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.version = Convert.ToInt32(this.version.Text);
 data.comment = (this.comment.Text);
 
 

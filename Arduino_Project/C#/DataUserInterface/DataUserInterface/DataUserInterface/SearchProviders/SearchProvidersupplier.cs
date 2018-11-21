@@ -56,9 +56,9 @@ namespace DataUserInterface.SearchProviders
 
                     // Cache some of the data we need
                     foreach(var val0 in data.contacts){
-val0.contact_type.ToString();
-val0.supplier.ToString();
-val0.user.ToString();
+if(val0.contact_type != null) val0.contact_type.ToString();
+if(val0.supplier != null) val0.supplier.ToString();
+if(val0.user != null) val0.user.ToString();
 foreach(var val1 in val0.contact_email){
 }
 foreach(var val1 in val0.contact_history){
@@ -69,9 +69,9 @@ foreach(var val1 in val0.group_member){
 }
 }
 foreach(var val0 in data.device_history){
-val0.device.ToString();
-val0.device_history_action.ToString();
-val0.supplier.ToString();
+if(val0.device != null) val0.device.ToString();
+if(val0.device_history_action != null) val0.device_history_action.ToString();
+if(val0.supplier != null) val0.supplier.ToString();
 }
 
                 }

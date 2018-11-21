@@ -22,6 +22,7 @@ struct Config
     string      interfaceWindowNamespace;
     int[string] displayNames;
     string[]    columnVariables;
+    string[]    ignoreVariables;
 }
 
 ConfigGenerated generateConfig()
@@ -54,6 +55,7 @@ Config readConfig()
     config.interfaceWindowNamespace = sdl.expectTagValue!string("interfaceWindowNamespace");
     config.displayNames             = sdl.asAssocArray!(string, int)("displayNames");
     config.columnVariables          = sdl.asArray!string("columnVariables");
+    config.ignoreVariables          = sdl.asArray!string("ignoreVariables");
 
     enforce(config.modelFolder.exists, "The modelFolder at "~config.modelFolder~" doesn't exist.");
 

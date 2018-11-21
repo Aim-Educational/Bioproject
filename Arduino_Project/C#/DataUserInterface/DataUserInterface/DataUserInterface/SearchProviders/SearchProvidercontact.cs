@@ -50,22 +50,22 @@ namespace DataUserInterface.SearchProviders
                     grid.Items.Add(data);
 
                     // Cache some of the data we need
-                    data.contact_type.ToString();
-data.supplier.ToString();
-data.user.ToString();
+                    if(data.contact_type != null) data.contact_type.ToString();
+if(data.supplier != null) data.supplier.ToString();
+if(data.user != null) data.user.ToString();
 foreach(var val0 in data.contact_email){
-val0.contact.ToString();
+if(val0.contact != null) val0.contact.ToString();
 }
 foreach(var val0 in data.contact_history){
-val0.contact.ToString();
-val0.history_event.ToString();
+if(val0.contact != null) val0.contact.ToString();
+if(val0.history_event != null) val0.history_event.ToString();
 }
 foreach(var val0 in data.contact_telephone){
-val0.contact.ToString();
+if(val0.contact != null) val0.contact.ToString();
 }
 foreach(var val0 in data.group_member){
-val0.contact.ToString();
-val0.group_type.ToString();
+if(val0.contact != null) val0.contact.ToString();
+if(val0.group_type != null) val0.group_type.ToString();
 }
 
                 }

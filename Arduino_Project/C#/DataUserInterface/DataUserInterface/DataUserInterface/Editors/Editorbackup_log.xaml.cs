@@ -38,7 +38,6 @@ this.filename.Text = "";
 this.datetime.SelectedDate = null;
 this.comment.Text = "";
 this.is_active.IsChecked = false;
-this.version.Text = "";
 
         }
 
@@ -59,7 +58,6 @@ this.filename.Text = $"{data.filename}";
 this.datetime.SelectedDate = data.datetime;
 this.comment.Text = $"{data.comment}";
 this.is_active.IsChecked = data.is_active;
-this.version.Text = $"{data.version}";
 
 
             return (saveResult == MessageBoxResult.Yes) ? RefreshSearchList.yes : RefreshSearchList.no;
@@ -89,7 +87,6 @@ data.filename = (this.filename.Text);
 data.datetime = (DateTime)this.datetime.SelectedDate;
 data.comment = (this.comment.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.version = Convert.ToInt32(this.version.Text);
 
 
                 if (this._isCreateMode)

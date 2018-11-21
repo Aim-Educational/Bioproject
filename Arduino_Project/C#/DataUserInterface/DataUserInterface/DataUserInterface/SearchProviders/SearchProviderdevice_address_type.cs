@@ -56,8 +56,8 @@ namespace DataUserInterface.SearchProviders
 
                     // Cache some of the data we need
                     foreach(var val0 in data.device_address){
-val0.device.ToString();
-val0.device_address_type.ToString();
+if(val0.device != null) val0.device.ToString();
+if(val0.device_address_type != null) val0.device_address_type.ToString();
 }
 
                 }

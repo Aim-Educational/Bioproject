@@ -55,11 +55,11 @@ namespace DataUserInterface.SearchProviders
                     grid.Items.Add(data);
 
                     // Cache some of the data we need
-                    data.device.ToString();
+                    if(data.device != null) data.device.ToString();
 foreach(var val0 in data.device_history){
-val0.device.ToString();
-val0.device_history_action.ToString();
-val0.supplier.ToString();
+if(val0.device != null) val0.device.ToString();
+if(val0.device_history_action != null) val0.device_history_action.ToString();
+if(val0.supplier != null) val0.supplier.ToString();
 }
 
                 }

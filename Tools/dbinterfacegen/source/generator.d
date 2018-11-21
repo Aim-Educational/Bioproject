@@ -89,21 +89,6 @@ private void generateWindow(Model model, Config config)
 
     write(buildNormalizedPath(outPath, "InterfaceWindow.xaml.cs"), Templater.resolveTemplate(placeholders, TEMPLATE_WINDOW_CODE));
 
-    // Modify the .csproj file
-    import std.path;
-    auto csproj = readText(config.csproj);
-    csproj.length -= "</Project>".length;
-    
-    csproj ~= "<ItemGroup>\n";
-    auto file = buildNormalizedPath(outPath, "InterfaceWindow.xaml");
-    import std.algorithm : canFind;
-    auto code = Templater.resolveTemplate(["$XAMLFILE":file.baseName, "$XAMLFOLDER":file.dirName], TEMPLATE_CSPROJ_XAML);
-
-    if(!csproj.canFind(code))
-        csproj ~= code;
-    csproj ~= "</ItemGroup>\n</Project>";
-
-    write(config.csproj, csproj);
 }
 
 private void generateEditorsCode(Model model, Config config)
@@ -123,7 +108,7 @@ private void generateEditorsCode(Model model, Config config)
         int row = 0;
         foreach(field; object.fields)
         {
-            if(shouldIgnoreField(model, object, field))
+            if(shouldIgnoreField(config, model, object, field))
                 continue;
 
             auto info = getControlInfo(config, model, object, field, row++);
@@ -150,6 +135,7 @@ private void generateEditorsCode(Model model, Config config)
         ];
 
         write(buildNormalizedPath(outPath, getEditorName(object)~".xaml.cs"), Templater.resolveTemplate(placeholders, TEMPLATE_EDITOR_CODE));
+        writeXAMLEntry(config, outPath, buildNormalizedPath(outPath, getEditorName(object)~".xaml"));
     }
 }
 
@@ -174,7 +160,7 @@ private void generateEditorsXAML(Model model, Config config)
         int row = 0;
         foreach(i, field; object.fields)
         {
-            if(shouldIgnoreField(model, object, field))
+            if(shouldIgnoreField(config, model, object, field))
                 continue;
 
             labels ~= Templater.resolveTemplate(
@@ -202,23 +188,8 @@ private void generateEditorsXAML(Model model, Config config)
         write(file, Templater.resolveTemplate(placeholders, TEMPLATE_EDITOR_XAML));
     }
 
-    // Modify the .csproj file
-    import std.path;
-    auto csproj = readText(config.csproj);
-    csproj.length -= "</Project>".length;
-    
-    csproj ~= "<ItemGroup>\n";
     foreach(file; xamlFiles)
-    {
-        import std.algorithm : canFind;
-        auto code = Templater.resolveTemplate(["$XAMLFILE":file.baseName, "$XAMLFOLDER":file.dirName], TEMPLATE_CSPROJ_XAML);
-
-        if(!csproj.canFind(code))
-            csproj ~= code;
-    }
-    csproj ~= "</ItemGroup>\n</Project>";
-
-    write(config.csproj, csproj);
+        writeXAMLEntry(config, outPath, file);
 }
 
 private void generateProviders(Model model, Config config)
@@ -285,22 +256,7 @@ private void generateProviders(Model model, Config config)
         write(files[$-1], Templater.resolveTemplate(placeholders, TEMPLATE_SEARCH_PROVIDER));
     }
 
-    // Modify the .csproj file
-    auto csproj = readText(config.csproj);
-    csproj.length -= "</Project>".length;
-    
-    csproj ~= "<ItemGroup>\n";
-    foreach(file; files)
-    {
-        import std.algorithm : canFind;
-        auto code = Templater.resolveTemplate(["$FILE": file], TEMPLATE_CSPROJ_CODE);
-
-        if(!csproj.canFind(code))
-            csproj ~= code;
-    }
-    csproj ~= "</ItemGroup>\n</Project>";
-
-    write(config.csproj, csproj);
+    writeCodeEntries(config, outPath, files);
 }
 
 private string cacheObject(Model model, TableObject object, ref string code, int loopDepth = 0, string valName = "data", bool isFirst = true)
@@ -312,7 +268,7 @@ private string cacheObject(Model model, TableObject object, ref string code, int
         if(!model.isObjectType(field.typeName))
             continue;
 
-        code ~= format("%s.%s.ToString();\n", valName, field.variableName);
+        code ~= format("if(%s.%s != null) %s.%s.ToString();\n", valName, field.variableName, valName, field.variableName);
     }
 
     foreach(dep; object.dependants)
@@ -355,7 +311,6 @@ private ControlInfo getControlInfo(Config config, Model model, TableObject objec
         "$NAME":          field.variableName,
         "$GRID_ROW":      row.to!string,
         "$READ_ONLY":     readOnly,
-        "$PROVIDER_NAME": getProviderName(object),
         "$OBJECT_TYPE":   field.typeName
     ];
 
@@ -389,7 +344,15 @@ private ControlInfo getControlInfo(Config config, Model model, TableObject objec
         case "long":
         case "float":
         case "double":
-            placeholders["$CONVERT"] = "Convert.ToInt32";
+            auto converters =
+            [
+                "int":    "Convert.ToInt32",
+                "long":   "Convert.ToInt64",
+                "float":  "Convert.ToSingle",
+                "double": "Convert.ToDouble"
+            ];
+
+            placeholders["$CONVERT"] = converters[field.typeName];
             info.xaml       = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_XAML);
             info.onCreate   = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_CREATE);
             info.onLoad     = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_LOAD);
@@ -402,6 +365,7 @@ private ControlInfo getControlInfo(Config config, Model model, TableObject objec
     // 'dynamic'ally known types (e.g. not built in).
     if(model.isObjectType(field.typeName))
     {
+        placeholders["$PROVIDER_NAME"] = getProviderName(model.getObjectByType(field.typeName)),
         info.xaml       = Templater.resolveTemplate(placeholders, TEMPLATE_SELECTOR_XAML);
         info.onCtor     = Templater.resolveTemplate(placeholders, TEMPLATE_SELECTOR_CTOR);
         info.onCreate   = Templater.resolveTemplate(placeholders, TEMPLATE_SELECTOR_CREATE);
@@ -412,12 +376,13 @@ private ControlInfo getControlInfo(Config config, Model model, TableObject objec
     return info;
 }
 
-private bool shouldIgnoreField(Model model, TableObject object, Field field)
+private bool shouldIgnoreField(Config config, Model model, TableObject object, Field field)
 {
-    import std.algorithm : endsWith, startsWith;
+    import std.algorithm : endsWith, startsWith, canFind;
 
     return (field.variableName.endsWith("id") && field.variableName != object.keyName)
-        || (field.typeName.startsWith("ICollection<"));
+        || (field.typeName.startsWith("ICollection<"))
+        || (config.ignoreVariables.canFind(field.variableName));
 }
 
 private string getFinalNamespace(Config config, string namespace)
@@ -440,4 +405,44 @@ private string getProviderName(TableObject obj)
 private string getEditorName(TableObject obj)
 {
     return "Editor"~obj.className;
+}
+
+private void writeXAMLEntry(Config config, string outPath, string file)
+{
+    import std.string : detab;
+    import std.path;
+    import std.algorithm : canFind;
+
+    auto csproj = readText(config.csproj);
+    csproj.length -= "</Project>".length;
+    csproj ~= "<ItemGroup>\n";
+
+    auto code = Templater.resolveTemplate(["$XAMLFILE":file.baseName, "$XAMLFOLDER":file.dirName], TEMPLATE_CSPROJ_XAML);
+
+    if(!csproj.detab.canFind(code.detab))
+        csproj ~= code;
+    csproj ~= "</ItemGroup>\n</Project>";
+
+    write(config.csproj, csproj);
+}
+
+private void writeCodeEntries(Config config, string outPath, string[] files)
+{
+    import std.string : detab;
+    // Modify the .csproj file
+    auto csproj = readText(config.csproj);
+    csproj.length -= "</Project>".length;
+    
+    csproj ~= "<ItemGroup>\n";
+    foreach(file; files)
+    {
+        import std.algorithm : canFind;
+        auto code = Templater.resolveTemplate(["$FILE": file], TEMPLATE_CSPROJ_CODE);
+
+        if(!csproj.detab.canFind(code.detab))
+            csproj ~= code;
+    }
+    csproj ~= "</ItemGroup>\n</Project>";
+
+    write(config.csproj, csproj);
 }

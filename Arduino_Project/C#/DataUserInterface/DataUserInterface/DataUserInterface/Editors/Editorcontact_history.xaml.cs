@@ -25,9 +25,9 @@ namespace DataUserInterface.Editors
             InitializeComponent();
             this._mainInterface = mi;
 
-            this.contact.provider = new SearchProvidercontact_history();
+            this.contact.provider = new SearchProvidercontact();
 this.contact.mainInterface = mi;
-this.history_event.provider = new SearchProvidercontact_history();
+this.history_event.provider = new SearchProviderhistory_event();
 this.history_event.mainInterface = mi;
 
         }
@@ -40,7 +40,6 @@ this.history_event.mainInterface = mi;
             this.contact_history_id.Text = "";
 this.date_and_time.SelectedDate = null;
 this.is_active.IsChecked = false;
-this.version.Text = "";
 this.comment.Text = "";
 this.contact.item = null;
 this.history_event.item = null;
@@ -62,7 +61,6 @@ this.history_event.item = null;
             this.contact_history_id.Text = $"{data.contact_history_id}";
 this.date_and_time.SelectedDate = data.date_and_time;
 this.is_active.IsChecked = data.is_active;
-this.version.Text = $"{data.version}";
 this.comment.Text = $"{data.comment}";
 this.contact.item = data.contact;
 this.history_event.item = data.history_event;
@@ -93,7 +91,6 @@ this.history_event.item = data.history_event;
                 data.contact_history_id = Convert.ToInt32(this.contact_history_id.Text);
 data.date_and_time = (DateTime)this.date_and_time.SelectedDate;
 data.is_active = (bool)this.is_active.IsChecked;
-data.version = Convert.ToInt32(this.version.Text);
 data.comment = (this.comment.Text);
 data.contact = this.contact.item as contact;
 data.history_event = this.history_event.item as history_event;

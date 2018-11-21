@@ -25,9 +25,9 @@ namespace DataUserInterface.Editors
             InitializeComponent();
             this._mainInterface = mi;
 
-            this.action_type.provider = new SearchProvidergroup_action();
+            this.action_type.provider = new SearchProvideraction_type();
 this.action_type.mainInterface = mi;
-this.group_type.provider = new SearchProvidergroup_action();
+this.group_type.provider = new SearchProvidergroup_type();
 this.group_type.mainInterface = mi;
 
         }
@@ -39,7 +39,6 @@ this.group_type.mainInterface = mi;
             this.group_action_id.Text = "(CREATE NEW)";
             this.group_action_id.Text = "";
 this.is_active.IsChecked = false;
-this.version.Text = "";
 this.comment.Text = "";
 this.action_type.item = null;
 this.group_type.item = null;
@@ -60,7 +59,6 @@ this.group_type.item = null;
 
             this.group_action_id.Text = $"{data.group_action_id}";
 this.is_active.IsChecked = data.is_active;
-this.version.Text = $"{data.version}";
 this.comment.Text = $"{data.comment}";
 this.action_type.item = data.action_type;
 this.group_type.item = data.group_type;
@@ -90,7 +88,6 @@ this.group_type.item = data.group_type;
 
                 data.group_action_id = Convert.ToInt32(this.group_action_id.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.version = Convert.ToInt32(this.version.Text);
 data.comment = (this.comment.Text);
 data.action_type = this.action_type.item as action_type;
 data.group_type = this.group_type.item as group_type;

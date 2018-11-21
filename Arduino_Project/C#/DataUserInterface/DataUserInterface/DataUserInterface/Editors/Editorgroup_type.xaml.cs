@@ -39,7 +39,6 @@ this.group_type2.mainInterface = mi;
 this.name.Text = "";
 this.description.Text = "";
 this.is_active.IsChecked = false;
-this.version.Text = "";
 this.comment.Text = "";
 this.group_type2.item = null;
 
@@ -61,7 +60,6 @@ this.group_type2.item = null;
 this.name.Text = $"{data.name}";
 this.description.Text = $"{data.description}";
 this.is_active.IsChecked = data.is_active;
-this.version.Text = $"{data.version}";
 this.comment.Text = $"{data.comment}";
 this.group_type2.item = data.group_type2;
 
@@ -92,7 +90,6 @@ this.group_type2.item = data.group_type2;
 data.name = (this.name.Text);
 data.description = (this.description.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.version = Convert.ToInt32(this.version.Text);
 data.comment = (this.comment.Text);
 data.group_type2 = this.group_type2.item as group_type;
 

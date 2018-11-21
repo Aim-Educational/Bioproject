@@ -15,23 +15,17 @@
             <RowDefinition Height="30"/>
 <RowDefinition Height="30"/>
 <RowDefinition Height="30"/>
-<RowDefinition Height="30"/>
-<RowDefinition Height="30"/>
 
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Label Content="database_config_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
 <Label Content="database_backup_directory:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
-<Label Content="version:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
-<Label Content="timestamp:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
 
         <TextBox x:Name="database_config_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
 <TextBox x:Name="database_backup_directory" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>
-<TextBox x:Name="version" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" IsReadOnly="false"/>
-<Label Content="[NOT SUPPORTED]:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"/>
+<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
 
     </Grid>
 </UserControl>

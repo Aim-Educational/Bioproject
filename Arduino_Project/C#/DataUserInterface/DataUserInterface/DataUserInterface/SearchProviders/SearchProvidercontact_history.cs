@@ -50,8 +50,8 @@ namespace DataUserInterface.SearchProviders
                     grid.Items.Add(data);
 
                     // Cache some of the data we need
-                    data.contact.ToString();
-data.history_event.ToString();
+                    if(data.contact != null) data.contact.ToString();
+if(data.history_event != null) data.history_event.ToString();
 
                 }
             }

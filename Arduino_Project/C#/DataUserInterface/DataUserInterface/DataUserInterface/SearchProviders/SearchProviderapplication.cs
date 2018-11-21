@@ -61,8 +61,8 @@ namespace DataUserInterface.SearchProviders
 
                     // Cache some of the data we need
                     foreach(var val0 in data.application_log){
-val0.application.ToString();
-val0.message_type.ToString();
+if(val0.application != null) val0.application.ToString();
+if(val0.message_type != null) val0.message_type.ToString();
 }
 
                 }

@@ -25,11 +25,11 @@ namespace DataUserInterface.Editors
             InitializeComponent();
             this._mainInterface = mi;
 
-            this.contact_type.provider = new SearchProvidercontact();
+            this.contact_type.provider = new SearchProvidercontact_type();
 this.contact_type.mainInterface = mi;
-this.supplier.provider = new SearchProvidercontact();
+this.supplier.provider = new SearchProvidersupplier();
 this.supplier.mainInterface = mi;
-this.user.provider = new SearchProvidercontact();
+this.user.provider = new SearchProvideruser();
 this.user.mainInterface = mi;
 
         }
@@ -41,7 +41,6 @@ this.user.mainInterface = mi;
             this.contact_id.Text = "(CREATE NEW)";
             this.contact_id.Text = "";
 this.is_active.IsChecked = false;
-this.version.Text = "";
 this.comment.Text = "";
 this.contact_type.item = null;
 this.supplier.item = null;
@@ -63,7 +62,6 @@ this.user.item = null;
 
             this.contact_id.Text = $"{data.contact_id}";
 this.is_active.IsChecked = data.is_active;
-this.version.Text = $"{data.version}";
 this.comment.Text = $"{data.comment}";
 this.contact_type.item = data.contact_type;
 this.supplier.item = data.supplier;
@@ -94,7 +92,6 @@ this.user.item = data.user;
 
                 data.contact_id = Convert.ToInt32(this.contact_id.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.version = Convert.ToInt32(this.version.Text);
 data.comment = (this.comment.Text);
 data.contact_type = this.contact_type.item as contact_type;
 data.supplier = this.supplier.item as supplier;

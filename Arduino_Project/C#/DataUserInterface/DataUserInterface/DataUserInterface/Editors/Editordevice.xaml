@@ -28,8 +28,6 @@
 <RowDefinition Height="30"/>
 <RowDefinition Height="30"/>
 <RowDefinition Height="30"/>
-<RowDefinition Height="30"/>
-<RowDefinition Height="30"/>
 
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -46,12 +44,10 @@
 <Label Content="reliability:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="9"/>
 <Label Content="strikes:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="10"/>
 <Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="11"/>
-<Label Content="version:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="12"/>
-<Label Content="timestamp:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="13"/>
-<Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="14"/>
-<Label Content="is_allowed_for_use:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="15"/>
-<Label Content="device2:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="16"/>
-<Label Content="device_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="17"/>
+<Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="12"/>
+<Label Content="is_allowed_for_use:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="13"/>
+<Label Content="device2:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="14"/>
+<Label Content="device_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="15"/>
 
         <TextBox x:Name="device_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
 <TextBox x:Name="name" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>
@@ -65,12 +61,10 @@
 <TextBox x:Name="reliability" Grid.Column="1" Grid.Row="9" VerticalAlignment="Center" IsReadOnly="false"/>
 <TextBox x:Name="strikes" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center" IsReadOnly="false"/>
 <CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="11" VerticalAlignment="Center"/>
-<TextBox x:Name="version" Grid.Column="1" Grid.Row="12" VerticalAlignment="Center" IsReadOnly="false"/>
-<Label Content="[NOT SUPPORTED]:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="13"/>
-<TextBox x:Name="comment" Grid.Column="1" Grid.Row="14" VerticalAlignment="Center" IsReadOnly="false"/>
-<CheckBox x:Name="is_allowed_for_use" Grid.Column="1" Grid.Row="15" VerticalAlignment="Center"/>
-<aim:SelectorEditorControl x:Name="device2" Grid.Column="1" Grid.Row="16"/>
-<aim:SelectorEditorControl x:Name="device_type" Grid.Column="1" Grid.Row="17"/>
+<TextBox x:Name="comment" Grid.Column="1" Grid.Row="12" VerticalAlignment="Center" IsReadOnly="false"/>
+<CheckBox x:Name="is_allowed_for_use" Grid.Column="1" Grid.Row="13" VerticalAlignment="Center"/>
+<aim:SelectorEditorControl x:Name="device2" Grid.Column="1" Grid.Row="14"/>
+<aim:SelectorEditorControl x:Name="device_type" Grid.Column="1" Grid.Row="15"/>
 
     </Grid>
 </UserControl>

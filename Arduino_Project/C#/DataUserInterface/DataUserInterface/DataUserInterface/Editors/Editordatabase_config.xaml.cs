@@ -35,7 +35,6 @@ namespace DataUserInterface.Editors
             this.database_config_id.Text = "(CREATE NEW)";
             this.database_config_id.Text = "";
 this.database_backup_directory.Text = "";
-this.version.Text = "";
 this.is_active.IsChecked = false;
 
         }
@@ -54,7 +53,6 @@ this.is_active.IsChecked = false;
 
             this.database_config_id.Text = $"{data.database_config_id}";
 this.database_backup_directory.Text = $"{data.database_backup_directory}";
-this.version.Text = $"{data.version}";
 this.is_active.IsChecked = data.is_active;
 
 
@@ -82,7 +80,6 @@ this.is_active.IsChecked = data.is_active;
 
                 data.database_config_id = Convert.ToInt32(this.database_config_id.Text);
 data.database_backup_directory = (this.database_backup_directory.Text);
-data.version = Convert.ToInt32(this.version.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 
 

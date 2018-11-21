@@ -50,9 +50,9 @@ namespace DataUserInterface.SearchProviders
                     grid.Items.Add(data);
 
                     // Cache some of the data we need
-                    data.device.ToString();
-data.device_history_action.ToString();
-data.supplier.ToString();
+                    if(data.device != null) data.device.ToString();
+if(data.device_history_action != null) data.device_history_action.ToString();
+if(data.supplier != null) data.supplier.ToString();
 
                 }
             }

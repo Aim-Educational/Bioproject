@@ -25,11 +25,11 @@ namespace DataUserInterface.Editors
             InitializeComponent();
             this._mainInterface = mi;
 
-            this.device.provider = new SearchProviderdevice_history();
+            this.device.provider = new SearchProviderdevice();
 this.device.mainInterface = mi;
-this.device_history_action.provider = new SearchProviderdevice_history();
+this.device_history_action.provider = new SearchProviderdevice_history_action();
 this.device_history_action.mainInterface = mi;
-this.supplier.provider = new SearchProviderdevice_history();
+this.supplier.provider = new SearchProvidersupplier();
 this.supplier.mainInterface = mi;
 
         }
@@ -42,7 +42,6 @@ this.supplier.mainInterface = mi;
             this.device_history_id.Text = "";
 this.datetime.SelectedDate = null;
 this.is_active.IsChecked = false;
-this.version.Text = "";
 this.comment.Text = "";
 this.device.item = null;
 this.device_history_action.item = null;
@@ -65,7 +64,6 @@ this.supplier.item = null;
             this.device_history_id.Text = $"{data.device_history_id}";
 this.datetime.SelectedDate = data.datetime;
 this.is_active.IsChecked = data.is_active;
-this.version.Text = $"{data.version}";
 this.comment.Text = $"{data.comment}";
 this.device.item = data.device;
 this.device_history_action.item = data.device_history_action;
@@ -97,7 +95,6 @@ this.supplier.item = data.supplier;
                 data.device_history_id = Convert.ToInt32(this.device_history_id.Text);
 data.datetime = (DateTime)this.datetime.SelectedDate;
 data.is_active = (bool)this.is_active.IsChecked;
-data.version = Convert.ToInt32(this.version.Text);
 data.comment = (this.comment.Text);
 data.device = this.device.item as device;
 data.device_history_action = this.device_history_action.item as device_history_action;

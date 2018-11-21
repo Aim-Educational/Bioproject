@@ -20,33 +20,27 @@
 <RowDefinition Height="30"/>
 <RowDefinition Height="30"/>
 <RowDefinition Height="30"/>
-<RowDefinition Height="30"/>
-<RowDefinition Height="30"/>
 
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Label Content="rss_configuration_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
 <Label Content="description:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
-<Label Content="version:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
-<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<Label Content="timestamp:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
-<Label Content="last_update:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
-<Label Content="update_frequency:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
-<Label Content="rss_url:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7"/>
-<Label Content="device:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="8"/>
-<Label Content="update_period:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="9"/>
+<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
+<Label Content="last_update:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
+<Label Content="update_frequency:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+<Label Content="rss_url:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
+<Label Content="device:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
+<Label Content="update_period:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7"/>
 
         <TextBox x:Name="rss_configuration_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
 <TextBox x:Name="description" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>
-<TextBox x:Name="version" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" IsReadOnly="false"/>
-<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"/>
-<Label Content="[NOT SUPPORTED]:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
-<DatePicker x:Name="last_update" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center"/>
-<TextBox x:Name="update_frequency" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" IsReadOnly="false"/>
-<TextBox x:Name="rss_url" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center" IsReadOnly="false"/>
-<aim:SelectorEditorControl x:Name="device" Grid.Column="1" Grid.Row="8"/>
-<aim:SelectorEditorControl x:Name="update_period" Grid.Column="1" Grid.Row="9"/>
+<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
+<DatePicker x:Name="last_update" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"/>
+<TextBox x:Name="update_frequency" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" IsReadOnly="false"/>
+<TextBox x:Name="rss_url" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" IsReadOnly="false"/>
+<aim:SelectorEditorControl x:Name="device" Grid.Column="1" Grid.Row="6"/>
+<aim:SelectorEditorControl x:Name="update_period" Grid.Column="1" Grid.Row="7"/>
 
     </Grid>
 </UserControl>

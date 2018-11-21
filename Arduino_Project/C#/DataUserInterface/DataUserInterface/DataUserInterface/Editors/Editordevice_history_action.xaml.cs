@@ -25,7 +25,7 @@ namespace DataUserInterface.Editors
             InitializeComponent();
             this._mainInterface = mi;
 
-            this.device.provider = new SearchProviderdevice_history_action();
+            this.device.provider = new SearchProviderdevice();
 this.device.mainInterface = mi;
 
         }
@@ -38,7 +38,6 @@ this.device.mainInterface = mi;
             this.device_history_action1.Text = "";
 this.description.Text = "";
 this.is_active.IsChecked = false;
-this.version.Text = "";
 this.comment.Text = "";
 this.device.item = null;
 
@@ -59,7 +58,6 @@ this.device.item = null;
             this.device_history_action1.Text = $"{data.device_history_action1}";
 this.description.Text = $"{data.description}";
 this.is_active.IsChecked = data.is_active;
-this.version.Text = $"{data.version}";
 this.comment.Text = $"{data.comment}";
 this.device.item = data.device;
 
@@ -89,7 +87,6 @@ this.device.item = data.device;
                 data.device_history_action1 = Convert.ToInt32(this.device_history_action1.Text);
 data.description = (this.description.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.version = Convert.ToInt32(this.version.Text);
 data.comment = (this.comment.Text);
 data.device = this.device.item as device;
 

@@ -56,8 +56,8 @@ namespace DataUserInterface.SearchProviders
 
                     // Cache some of the data we need
                     foreach(var val0 in data.rss_configuration){
-val0.device.ToString();
-val0.update_period.ToString();
+if(val0.device != null) val0.device.ToString();
+if(val0.update_period != null) val0.update_period.ToString();
 }
 
                 }

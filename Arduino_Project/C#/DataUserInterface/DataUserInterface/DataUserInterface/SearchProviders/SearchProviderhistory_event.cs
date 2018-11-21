@@ -56,8 +56,8 @@ namespace DataUserInterface.SearchProviders
 
                     // Cache some of the data we need
                     foreach(var val0 in data.contact_history){
-val0.contact.ToString();
-val0.history_event.ToString();
+if(val0.contact != null) val0.contact.ToString();
+if(val0.history_event != null) val0.history_event.ToString();
 }
 
                 }

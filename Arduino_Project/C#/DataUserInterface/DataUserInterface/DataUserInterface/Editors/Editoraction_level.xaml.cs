@@ -25,9 +25,9 @@ namespace DataUserInterface.Editors
             InitializeComponent();
             this._mainInterface = mi;
 
-            this.action_type.provider = new SearchProvideraction_level();
+            this.action_type.provider = new SearchProvideraction_type();
 this.action_type.mainInterface = mi;
-this.device.provider = new SearchProvideraction_level();
+this.device.provider = new SearchProviderdevice();
 this.device.mainInterface = mi;
 
         }
@@ -40,7 +40,6 @@ this.device.mainInterface = mi;
             this.action_level_id.Text = "";
 this.value.Text = "";
 this.is_active.IsChecked = false;
-this.version.Text = "";
 this.comment.Text = "";
 this.action_type.item = null;
 this.device.item = null;
@@ -62,7 +61,6 @@ this.device.item = null;
             this.action_level_id.Text = $"{data.action_level_id}";
 this.value.Text = $"{data.value}";
 this.is_active.IsChecked = data.is_active;
-this.version.Text = $"{data.version}";
 this.comment.Text = $"{data.comment}";
 this.action_type.item = data.action_type;
 this.device.item = data.device;
@@ -91,9 +89,8 @@ this.device.item = data.device;
                     data = new action_level();
 
                 data.action_level_id = Convert.ToInt32(this.action_level_id.Text);
-data.value = Convert.ToInt32(this.value.Text);
+data.value = Convert.ToDouble(this.value.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.version = Convert.ToInt32(this.version.Text);
 data.comment = (this.comment.Text);
 data.action_type = this.action_type.item as action_type;
 data.device = this.device.item as device;

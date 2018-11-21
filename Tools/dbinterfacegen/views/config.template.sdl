@@ -31,3 +31,7 @@ displayNames {
 // The primary key is always on there.
 columnVariables {
 }
+
+// A list of variable names to not generate interface components for.
+ignoreVariables {
+}

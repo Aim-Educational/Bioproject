@@ -50,8 +50,8 @@ namespace DataUserInterface.SearchProviders
                     grid.Items.Add(data);
 
                     // Cache some of the data we need
-                    data.application.ToString();
-data.message_type.ToString();
+                    if(data.application != null) data.application.ToString();
+if(data.message_type != null) data.message_type.ToString();
 
                 }
             }

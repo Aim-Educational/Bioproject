@@ -17,27 +17,21 @@
 <RowDefinition Height="30"/>
 <RowDefinition Height="30"/>
 <RowDefinition Height="30"/>
-<RowDefinition Height="30"/>
-<RowDefinition Height="30"/>
 
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Label Content="group_action_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
 <Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
-<Label Content="version:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
-<Label Content="timestamp:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
-<Label Content="action_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
-<Label Content="group_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
+<Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
+<Label Content="action_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
+<Label Content="group_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
 
         <TextBox x:Name="group_action_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
 <CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
-<TextBox x:Name="version" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" IsReadOnly="false"/>
-<Label Content="[NOT SUPPORTED]:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<TextBox x:Name="comment" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" IsReadOnly="false"/>
-<aim:SelectorEditorControl x:Name="action_type" Grid.Column="1" Grid.Row="5"/>
-<aim:SelectorEditorControl x:Name="group_type" Grid.Column="1" Grid.Row="6"/>
+<TextBox x:Name="comment" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" IsReadOnly="false"/>
+<aim:SelectorEditorControl x:Name="action_type" Grid.Column="1" Grid.Row="3"/>
+<aim:SelectorEditorControl x:Name="group_type" Grid.Column="1" Grid.Row="4"/>
 
     </Grid>
 </UserControl>

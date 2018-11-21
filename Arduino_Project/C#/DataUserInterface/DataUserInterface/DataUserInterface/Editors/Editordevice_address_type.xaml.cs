@@ -37,7 +37,6 @@ namespace DataUserInterface.Editors
 this.description.Text = "";
 this.comment.Text = "";
 this.is_active.IsChecked = false;
-this.version.Text = "";
 
         }
 
@@ -57,7 +56,6 @@ this.version.Text = "";
 this.description.Text = $"{data.description}";
 this.comment.Text = $"{data.comment}";
 this.is_active.IsChecked = data.is_active;
-this.version.Text = $"{data.version}";
 
 
             return (saveResult == MessageBoxResult.Yes) ? RefreshSearchList.yes : RefreshSearchList.no;
@@ -86,7 +84,6 @@ this.version.Text = $"{data.version}";
 data.description = (this.description.Text);
 data.comment = (this.comment.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.version = Convert.ToInt32(this.version.Text);
 
 
                 if (this._isCreateMode)

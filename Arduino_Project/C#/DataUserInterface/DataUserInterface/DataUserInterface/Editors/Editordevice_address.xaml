@@ -19,8 +19,6 @@
 <RowDefinition Height="30"/>
 <RowDefinition Height="30"/>
 <RowDefinition Height="30"/>
-<RowDefinition Height="30"/>
-<RowDefinition Height="30"/>
 
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -29,21 +27,17 @@
 <Label Content="pin_number:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
 <Label Content="ip_address:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
 <Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<Label Content="timestamp:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
-<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
-<Label Content="version:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
-<Label Content="device:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7"/>
-<Label Content="device_address_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="8"/>
+<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+<Label Content="device:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
+<Label Content="device_address_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
 
         <TextBox x:Name="device_address_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
 <Label Content="[NOT SUPPORTED]:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
 <TextBox x:Name="ip_address" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" IsReadOnly="false"/>
 <TextBox x:Name="comment" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" IsReadOnly="false"/>
-<Label Content="[NOT SUPPORTED]:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
-<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center"/>
-<TextBox x:Name="version" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" IsReadOnly="false"/>
-<aim:SelectorEditorControl x:Name="device" Grid.Column="1" Grid.Row="7"/>
-<aim:SelectorEditorControl x:Name="device_address_type" Grid.Column="1" Grid.Row="8"/>
+<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"/>
+<aim:SelectorEditorControl x:Name="device" Grid.Column="1" Grid.Row="5"/>
+<aim:SelectorEditorControl x:Name="device_address_type" Grid.Column="1" Grid.Row="6"/>
 
     </Grid>
 </UserControl>

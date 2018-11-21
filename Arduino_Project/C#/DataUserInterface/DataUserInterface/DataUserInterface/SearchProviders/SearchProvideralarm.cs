@@ -50,9 +50,9 @@ namespace DataUserInterface.SearchProviders
                     grid.Items.Add(data);
 
                     // Cache some of the data we need
-                    data.alarm_type.ToString();
-data.device.ToString();
-data.group_type.ToString();
+                    if(data.alarm_type != null) data.alarm_type.ToString();
+if(data.device != null) data.device.ToString();
+if(data.group_type != null) data.group_type.ToString();
 
                 }
             }

@@ -37,7 +37,6 @@ namespace DataUserInterface.Editors
 this.name.Text = "";
 this.description.Text = "";
 this.application_version.Text = "";
-this.version.Text = "";
 this.is_active.IsChecked = false;
 
         }
@@ -58,7 +57,6 @@ this.is_active.IsChecked = false;
 this.name.Text = $"{data.name}";
 this.description.Text = $"{data.description}";
 this.application_version.Text = $"{data.application_version}";
-this.version.Text = $"{data.version}";
 this.is_active.IsChecked = data.is_active;
 
 
@@ -88,7 +86,6 @@ this.is_active.IsChecked = data.is_active;
 data.name = (this.name.Text);
 data.description = (this.description.Text);
 data.application_version = Convert.ToInt32(this.application_version.Text);
-data.version = Convert.ToInt32(this.version.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 
 

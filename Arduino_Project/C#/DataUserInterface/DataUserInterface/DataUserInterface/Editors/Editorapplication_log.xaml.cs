@@ -25,9 +25,9 @@ namespace DataUserInterface.Editors
             InitializeComponent();
             this._mainInterface = mi;
 
-            this.application.provider = new SearchProviderapplication_log();
+            this.application.provider = new SearchProviderapplication();
 this.application.mainInterface = mi;
-this.message_type.provider = new SearchProviderapplication_log();
+this.message_type.provider = new SearchProvidermessage_type();
 this.message_type.mainInterface = mi;
 
         }
@@ -40,7 +40,6 @@ this.message_type.mainInterface = mi;
             this.application_log_id.Text = "";
 this.message.Text = "";
 this.datetime.SelectedDate = null;
-this.version.Text = "";
 this.is_active.IsChecked = false;
 this.application.item = null;
 this.message_type.item = null;
@@ -62,7 +61,6 @@ this.message_type.item = null;
             this.application_log_id.Text = $"{data.application_log_id}";
 this.message.Text = $"{data.message}";
 this.datetime.SelectedDate = data.datetime;
-this.version.Text = $"{data.version}";
 this.is_active.IsChecked = data.is_active;
 this.application.item = data.application;
 this.message_type.item = data.message_type;
@@ -93,7 +91,6 @@ this.message_type.item = data.message_type;
                 data.application_log_id = Convert.ToInt32(this.application_log_id.Text);
 data.message = (this.message.Text);
 data.datetime = (DateTime)this.datetime.SelectedDate;
-data.version = Convert.ToInt32(this.version.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 data.application = this.application.item as application;
 data.message_type = this.message_type.item as message_type;

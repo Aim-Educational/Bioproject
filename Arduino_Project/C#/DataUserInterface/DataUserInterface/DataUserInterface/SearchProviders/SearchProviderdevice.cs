@@ -60,24 +60,24 @@ namespace DataUserInterface.SearchProviders
                     grid.Items.Add(data);
 
                     // Cache some of the data we need
-                    data.device2.ToString();
-data.device_type.ToString();
+                    if(data.device2 != null) data.device2.ToString();
+if(data.device_type != null) data.device_type.ToString();
 foreach(var val0 in data.action_level){
-val0.action_type.ToString();
-val0.device.ToString();
+if(val0.action_type != null) val0.action_type.ToString();
+if(val0.device != null) val0.device.ToString();
 }
 foreach(var val0 in data.alarms){
-val0.alarm_type.ToString();
-val0.device.ToString();
-val0.group_type.ToString();
+if(val0.alarm_type != null) val0.alarm_type.ToString();
+if(val0.device != null) val0.device.ToString();
+if(val0.group_type != null) val0.group_type.ToString();
 }
 foreach(var val0 in data.device_address){
-val0.device.ToString();
-val0.device_address_type.ToString();
+if(val0.device != null) val0.device.ToString();
+if(val0.device_address_type != null) val0.device_address_type.ToString();
 }
 foreach(var val0 in data.device1){
-val0.device2.ToString();
-val0.device_type.ToString();
+if(val0.device2 != null) val0.device2.ToString();
+if(val0.device_type != null) val0.device_type.ToString();
 foreach(var val1 in val0.action_level){
 }
 foreach(var val1 in val0.alarms){
@@ -98,24 +98,24 @@ foreach(var val1 in val0.rss_configuration){
 }
 }
 foreach(var val0 in data.device_history_action){
-val0.device.ToString();
+if(val0.device != null) val0.device.ToString();
 foreach(var val1 in val0.device_history){
 }
 }
 foreach(var val0 in data.device_history){
-val0.device.ToString();
-val0.device_history_action.ToString();
-val0.supplier.ToString();
+if(val0.device != null) val0.device.ToString();
+if(val0.device_history_action != null) val0.device_history_action.ToString();
+if(val0.supplier != null) val0.supplier.ToString();
 }
 foreach(var val0 in data.device_url){
-val0.device.ToString();
+if(val0.device != null) val0.device.ToString();
 }
 foreach(var val0 in data.device_value){
-val0.device.ToString();
+if(val0.device != null) val0.device.ToString();
 }
 foreach(var val0 in data.rss_configuration){
-val0.device.ToString();
-val0.update_period.ToString();
+if(val0.device != null) val0.device.ToString();
+if(val0.update_period != null) val0.update_period.ToString();
 }
 
                 }

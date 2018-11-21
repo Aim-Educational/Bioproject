@@ -27,7 +27,7 @@ namespace DataUserInterface.Editors
 
             this.device2.provider = new SearchProviderdevice();
 this.device2.mainInterface = mi;
-this.device_type.provider = new SearchProviderdevice();
+this.device_type.provider = new SearchProviderdevice_type();
 this.device_type.mainInterface = mi;
 
         }
@@ -48,7 +48,6 @@ this.serial_number.Text = "";
 this.reliability.Text = "";
 this.strikes.Text = "";
 this.is_active.IsChecked = false;
-this.version.Text = "";
 this.comment.Text = "";
 this.is_allowed_for_use.IsChecked = false;
 this.device2.item = null;
@@ -79,7 +78,6 @@ this.serial_number.Text = $"{data.serial_number}";
 this.reliability.Text = $"{data.reliability}";
 this.strikes.Text = $"{data.strikes}";
 this.is_active.IsChecked = data.is_active;
-this.version.Text = $"{data.version}";
 this.comment.Text = $"{data.comment}";
 this.is_allowed_for_use.IsChecked = data.is_allowed_for_use;
 this.device2.item = data.device2;
@@ -112,14 +110,13 @@ this.device_type.item = data.device_type;
 data.name = (this.name.Text);
 data.description = (this.description.Text);
 data.location = (this.location.Text);
-data.min_value = Convert.ToInt32(this.min_value.Text);
-data.max_value = Convert.ToInt32(this.max_value.Text);
-data.accuracy = Convert.ToInt32(this.accuracy.Text);
+data.min_value = Convert.ToDouble(this.min_value.Text);
+data.max_value = Convert.ToDouble(this.max_value.Text);
+data.accuracy = Convert.ToDouble(this.accuracy.Text);
 data.serial_number = (this.serial_number.Text);
 data.reliability = Convert.ToInt32(this.reliability.Text);
 data.strikes = Convert.ToInt32(this.strikes.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.version = Convert.ToInt32(this.version.Text);
 data.comment = (this.comment.Text);
 data.is_allowed_for_use = (bool)this.is_allowed_for_use.IsChecked;
 data.device2 = this.device2.item as device;

@@ -55,10 +55,10 @@ namespace DataUserInterface.SearchProviders
                     grid.Items.Add(data);
 
                     // Cache some of the data we need
-                    data.unit.ToString();
+                    if(data.unit != null) data.unit.ToString();
 foreach(var val0 in data.devices){
-val0.device2.ToString();
-val0.device_type.ToString();
+if(val0.device2 != null) val0.device2.ToString();
+if(val0.device_type != null) val0.device_type.ToString();
 foreach(var val1 in val0.action_level){
 }
 foreach(var val1 in val0.alarms){

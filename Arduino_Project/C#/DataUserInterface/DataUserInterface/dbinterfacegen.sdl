@@ -29,3 +29,9 @@ columnVariables {
     "name"
     "description"
 }
+
+// A list of variable names to not generate interface components for.
+ignoreVariables {
+    "timestamp"
+    "version"
+}

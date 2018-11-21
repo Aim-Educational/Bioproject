@@ -25,9 +25,9 @@ namespace DataUserInterface.Editors
             InitializeComponent();
             this._mainInterface = mi;
 
-            this.device.provider = new SearchProviderrss_configuration();
+            this.device.provider = new SearchProviderdevice();
 this.device.mainInterface = mi;
-this.update_period.provider = new SearchProviderrss_configuration();
+this.update_period.provider = new SearchProviderupdate_period();
 this.update_period.mainInterface = mi;
 
         }
@@ -39,7 +39,6 @@ this.update_period.mainInterface = mi;
             this.rss_configuration_id.Text = "(CREATE NEW)";
             this.rss_configuration_id.Text = "";
 this.description.Text = "";
-this.version.Text = "";
 this.is_active.IsChecked = false;
 this.last_update.SelectedDate = null;
 this.update_frequency.Text = "";
@@ -63,7 +62,6 @@ this.update_period.item = null;
 
             this.rss_configuration_id.Text = $"{data.rss_configuration_id}";
 this.description.Text = $"{data.description}";
-this.version.Text = $"{data.version}";
 this.is_active.IsChecked = data.is_active;
 this.last_update.SelectedDate = data.last_update;
 this.update_frequency.Text = $"{data.update_frequency}";
@@ -96,10 +94,9 @@ this.update_period.item = data.update_period;
 
                 data.rss_configuration_id = Convert.ToInt32(this.rss_configuration_id.Text);
 data.description = (this.description.Text);
-data.version = Convert.ToInt32(this.version.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 data.last_update = (DateTime)this.last_update.SelectedDate;
-data.update_frequency = Convert.ToInt32(this.update_frequency.Text);
+data.update_frequency = Convert.ToDouble(this.update_frequency.Text);
 data.rss_url = (this.rss_url.Text);
 data.device = this.device.item as device;
 data.update_period = this.update_period.item as update_period;

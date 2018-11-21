@@ -16,8 +16,6 @@
 <RowDefinition Height="30"/>
 <RowDefinition Height="30"/>
 <RowDefinition Height="30"/>
-<RowDefinition Height="30"/>
-<RowDefinition Height="30"/>
 
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -25,16 +23,12 @@
         <Label Content="device_address_type_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
 <Label Content="description:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
 <Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
-<Label Content="timestamp:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
-<Label Content="version:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
+<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
 
         <TextBox x:Name="device_address_type_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
 <TextBox x:Name="description" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>
 <TextBox x:Name="comment" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" IsReadOnly="false"/>
-<Label Content="[NOT SUPPORTED]:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"/>
-<TextBox x:Name="version" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" IsReadOnly="false"/>
+<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"/>
 
     </Grid>
 </UserControl>

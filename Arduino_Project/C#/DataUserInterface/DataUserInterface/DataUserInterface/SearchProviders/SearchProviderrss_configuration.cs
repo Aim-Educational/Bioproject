@@ -55,8 +55,8 @@ namespace DataUserInterface.SearchProviders
                     grid.Items.Add(data);
 
                     // Cache some of the data we need
-                    data.device.ToString();
-data.update_period.ToString();
+                    if(data.device != null) data.device.ToString();
+if(data.update_period != null) data.update_period.ToString();
 
                 }
             }

@@ -17,8 +17,6 @@
 <RowDefinition Height="30"/>
 <RowDefinition Height="30"/>
 <RowDefinition Height="30"/>
-<RowDefinition Height="30"/>
-<RowDefinition Height="30"/>
 
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -27,17 +25,13 @@
 <Label Content="name:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
 <Label Content="description:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
 <Label Content="application_version:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<Label Content="version:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
-<Label Content="timestamp:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
-<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
+<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
 
         <TextBox x:Name="application_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
 <TextBox x:Name="name" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>
 <TextBox x:Name="description" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" IsReadOnly="false"/>
 <TextBox x:Name="application_version" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" IsReadOnly="false"/>
-<TextBox x:Name="version" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" IsReadOnly="false"/>
-<Label Content="[NOT SUPPORTED]:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
-<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center"/>
+<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"/>
 
     </Grid>
 </UserControl>

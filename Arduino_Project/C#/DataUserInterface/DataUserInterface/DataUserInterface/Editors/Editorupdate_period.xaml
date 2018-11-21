@@ -15,23 +15,17 @@
             <RowDefinition Height="30"/>
 <RowDefinition Height="30"/>
 <RowDefinition Height="30"/>
-<RowDefinition Height="30"/>
-<RowDefinition Height="30"/>
 
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Label Content="update_period_id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
 <Label Content="description:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
-<Label Content="timestamp:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
-<Label Content="version:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
-<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+<Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
 
         <TextBox x:Name="update_period_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
 <TextBox x:Name="description" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>
-<Label Content="[NOT SUPPORTED]:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
-<TextBox x:Name="version" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" IsReadOnly="false"/>
-<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"/>
+<CheckBox x:Name="is_active" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
 
     </Grid>
 </UserControl>
