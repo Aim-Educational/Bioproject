@@ -14,15 +14,16 @@ alias ConfigGenerated = Flag!"confGenerated";
 
 struct Config
 {
-    string      csproj;
-    string      modelFolder;
-    string      defaultNamespace;
-    string      searchProviderNamespace;
-    string      editorNamespace;
-    string      interfaceWindowNamespace;
-    int[string] displayNames;
-    string[]    columnVariables;
-    string[]    ignoreVariables;
+    string          csproj;
+    string          modelFolder;
+    string          defaultNamespace;
+    string          searchProviderNamespace;
+    string          editorNamespace;
+    string          interfaceWindowNamespace;
+    int[string]     displayNames;
+    string[]        columnVariables;
+    string[]        ignoreVariables;
+    string[string]  labelTextOverrides;
 }
 
 ConfigGenerated generateConfig()
@@ -38,7 +39,8 @@ ConfigGenerated generateConfig()
 
 Config readConfig()
 {
-    import std.file : exists;
+    import std.algorithm : canFind, all;
+    import std.file      : exists;
 
     enforce(CONFIG_NAME.exists, "No config file could be found.");
     
@@ -56,8 +58,12 @@ Config readConfig()
     config.displayNames             = sdl.asAssocArray!(string, int)("displayNames");
     config.columnVariables          = sdl.asArray!string("columnVariables");
     config.ignoreVariables          = sdl.asArray!string("ignoreVariables");
+    config.labelTextOverrides       = sdl.asAssocArray!(string, string)("labelTextOverrides");
 
     enforce(config.modelFolder.exists, "The modelFolder at "~config.modelFolder~" doesn't exist.");
+    enforce(config.labelTextOverrides.length == 0
+         || config.labelTextOverrides.byKey.all!(k => k.canFind(":")), 
+            "TODO");
 
     return config;
 }

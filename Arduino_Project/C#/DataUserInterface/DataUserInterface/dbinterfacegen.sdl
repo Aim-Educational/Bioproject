@@ -36,3 +36,21 @@ ignoreVariables {
     "timestamp"
     "version"
 }
+
+// Each editor control generated for a variable has a label attached to it.
+// The text in this label is simply the name of the variable the control is for.
+// There are likely cases however, where instead of the label saying "is_active:"
+// you'd rather have it say "Active?:", "Is Active?:", etc.
+//
+// There are two values per override, in this format (sans square brackets):
+//      "[object_type]:[variable_name]" "[new text for label]"
+//
+// For example, imagine EF generated a class called 'tbl_device', and it had a variable
+// called 'device2', but we'd want that to be displayed as "Parent Device":
+//      "tbl_device:device2" "Parent Device"
+//
+// As a side note, the "[object_type]" part is a glob pattern string, so a single override
+// can be written for multiple different classes.
+labelTextOverrides {
+    "device:device2" "Parent Device"
+}

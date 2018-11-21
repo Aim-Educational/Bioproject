@@ -46,7 +46,7 @@
 <Label Content="is_active:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="11"/>
 <Label Content="comment:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="12"/>
 <Label Content="is_allowed_for_use:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="13"/>
-<Label Content="device2:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="14"/>
+<Label Content="Parent Device:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="14"/>
 <Label Content="device_type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="15"/>
 
         <TextBox x:Name="device_id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>

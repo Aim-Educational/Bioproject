@@ -2,7 +2,7 @@ module generator;
 
 private
 {
-    import std.file, std.path;
+    import std.file, std.path, std.exception;
     import aim.efparser, aim.templater;
     import config;
 
@@ -166,7 +166,7 @@ private void generateEditorsXAML(Model model, Config config)
             labels ~= Templater.resolveTemplate(
                 [
                     "$GRID_ROW": row.to!string,
-                    "$CONTENT": field.variableName
+                    "$CONTENT": getLabelText(config, object, field)
                 ], 
                 TEMPLATE_LABEL_XAML
             );
@@ -409,6 +409,26 @@ private string getEditorName(TableObject obj)
     return "Editor"~obj.className;
 }
 
+private string getLabelText(Config config, TableObject object, Field field)
+{
+    import std.range : split;
+    import std.path  : globMatch;
+
+    foreach(k, v; config.labelTextOverrides)
+    {
+        auto splitRange = k.split(":");
+        enforce(splitRange.length == 2);
+
+        auto objName   = splitRange[0];
+        auto fieldName = splitRange[1];
+
+        if(object.className.globMatch(objName) && field.variableName == fieldName)
+            return v;
+    }
+
+    return field.variableName;
+}
+
 private void writeXAMLEntry(Config config, string outPath, string file)
 {
     import std.string : detab;
@@ -431,7 +451,7 @@ private void writeXAMLEntry(Config config, string outPath, string file)
 private void writeCodeEntries(Config config, string outPath, string[] files)
 {
     import std.string : detab;
-    // Modify the .csproj file
+
     auto csproj = readText(config.csproj);
     csproj.length -= "</Project>".length;
     
