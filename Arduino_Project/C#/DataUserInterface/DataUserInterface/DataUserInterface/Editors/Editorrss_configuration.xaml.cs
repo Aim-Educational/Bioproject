@@ -93,11 +93,11 @@ this.update_period.item = data.update_period;
                     data = new rss_configuration();
 
                 data.rss_configuration_id = Convert.ToInt32(this.rss_configuration_id.Text);
-data.description = (this.description.Text);
+data.description = /**/(this.description.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 data.last_update = (DateTime)this.last_update.SelectedDate;
 data.update_frequency = Convert.ToDouble(this.update_frequency.Text);
-data.rss_url = (this.rss_url.Text);
+data.rss_url = /**/(this.rss_url.Text);
 data.device = new Func<device>(() => { foreach(var v in db.devices){ if(v.device_id == (this.device.item as device).device_id) return v; } return null; })();
 data.update_period = new Func<update_period>(() => { foreach(var v in db.update_period){ if(v.update_period_id == (this.update_period.item as update_period).update_period_id) return v; } return null; })();
 

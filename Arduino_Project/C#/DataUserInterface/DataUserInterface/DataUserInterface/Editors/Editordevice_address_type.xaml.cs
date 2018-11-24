@@ -81,8 +81,8 @@ this.is_active.IsChecked = data.is_active;
                     data = new device_address_type();
 
                 data.device_address_type_id = Convert.ToInt32(this.device_address_type_id.Text);
-data.description = (this.description.Text);
-data.comment = (this.comment.Text);
+data.description = /**/(this.description.Text);
+data.comment = /**/(this.comment.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 
 

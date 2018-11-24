@@ -95,7 +95,7 @@ this.supplier.item = data.supplier;
                 data.device_history_id = Convert.ToInt32(this.device_history_id.Text);
 data.datetime = (DateTime)this.datetime.SelectedDate;
 data.is_active = (bool)this.is_active.IsChecked;
-data.comment = (this.comment.Text);
+data.comment = /**/(this.comment.Text);
 data.device = new Func<device>(() => { foreach(var v in db.devices){ if(v.device_id == (this.device.item as device).device_id) return v; } return null; })();
 data.device_history_action = new Func<device_history_action>(() => { foreach(var v in db.device_history_action){ if(v.device_history_action1 == (this.device_history_action.item as device_history_action).device_history_action1) return v; } return null; })();
 data.supplier = new Func<supplier>(() => { foreach(var v in db.suppliers){ if(v.supplier_id == (this.supplier.item as supplier).supplier_id) return v; } return null; })();

@@ -85,9 +85,9 @@ this.contact.item = data.contact;
                     data = new contact_telephone();
 
                 data.contact_telephone_id = Convert.ToInt32(this.contact_telephone_id.Text);
-data.telephone_number = (this.telephone_number.Text);
+data.telephone_number = /**/(this.telephone_number.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.comment = (this.comment.Text);
+data.comment = /**/(this.comment.Text);
 data.contact = new Func<contact>(() => { foreach(var v in db.contacts){ if(v.contact_id == (this.contact.item as contact).contact_id) return v; } return null; })();
 
 

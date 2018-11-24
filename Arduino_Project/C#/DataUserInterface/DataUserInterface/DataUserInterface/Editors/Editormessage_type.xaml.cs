@@ -79,7 +79,7 @@ this.is_active.IsChecked = data.is_active;
                     data = new message_type();
 
                 data.message_type_id = Convert.ToInt32(this.message_type_id.Text);
-data.description = (this.description.Text);
+data.description = /**/(this.description.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 
 

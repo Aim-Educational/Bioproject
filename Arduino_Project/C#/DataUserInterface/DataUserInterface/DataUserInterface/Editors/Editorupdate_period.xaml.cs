@@ -79,7 +79,7 @@ this.is_active.IsChecked = data.is_active;
                     data = new update_period();
 
                 data.update_period_id = Convert.ToInt32(this.update_period_id.Text);
-data.description = (this.description.Text);
+data.description = /**/(this.description.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 
 

@@ -38,6 +38,7 @@ this.device_address_type.mainInterface = mi;
 
             this.device_address_id.Text = "(CREATE NEW)";
             this.device_address_id.Text = "";
+this.pin_number.Text = "";
 this.ip_address.Text = "";
 this.comment.Text = "";
 this.is_active.IsChecked = false;
@@ -59,6 +60,7 @@ this.device_address_type.item = null;
                 throw new ArgumentException("Invalid type. Expected a device_address.", "selectedItem");
 
             this.device_address_id.Text = $"{data.device_address_id}";
+this.pin_number.Text = $"{data.pin_number}";
 this.ip_address.Text = $"{data.ip_address}";
 this.comment.Text = $"{data.comment}";
 this.is_active.IsChecked = data.is_active;
@@ -89,8 +91,9 @@ this.device_address_type.item = data.device_address_type;
                     data = new device_address();
 
                 data.device_address_id = Convert.ToInt32(this.device_address_id.Text);
-data.ip_address = (this.ip_address.Text);
-data.comment = (this.comment.Text);
+data.pin_number = Convert.ToInt32(this.pin_number.Text);
+data.ip_address = /**/(this.ip_address.Text);
+data.comment = /**/(this.comment.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 data.device = new Func<device>(() => { foreach(var v in db.devices){ if(v.device_id == (this.device.item as device).device_id) return v; } return null; })();
 data.device_address_type = new Func<device_address_type>(() => { foreach(var v in db.device_address_type){ if(v.device_address_type_id == (this.device_address_type.item as device_address_type).device_address_type_id) return v; } return null; })();

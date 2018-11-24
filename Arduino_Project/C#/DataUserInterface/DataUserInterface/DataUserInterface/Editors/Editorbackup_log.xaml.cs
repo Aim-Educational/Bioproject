@@ -83,9 +83,9 @@ this.is_active.IsChecked = data.is_active;
                     data = new backup_log();
 
                 data.backup_log_id = Convert.ToInt32(this.backup_log_id.Text);
-data.filename = (this.filename.Text);
+data.filename = /**/(this.filename.Text);
 data.datetime = (DateTime)this.datetime.SelectedDate;
-data.comment = (this.comment.Text);
+data.comment = /**/(this.comment.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 
 

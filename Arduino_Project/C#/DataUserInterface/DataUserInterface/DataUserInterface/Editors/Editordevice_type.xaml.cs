@@ -85,9 +85,9 @@ this.unit.item = data.unit;
                     data = new device_type();
 
                 data.device_type_id = Convert.ToInt32(this.device_type_id.Text);
-data.description = (this.description.Text);
+data.description = /**/(this.description.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.comment = (this.comment.Text);
+data.comment = /**/(this.comment.Text);
 data.unit = new Func<unit>(() => { foreach(var v in db.units){ if(v.unit_id == (this.unit.item as unit).unit_id) return v; } return null; })();
 
 

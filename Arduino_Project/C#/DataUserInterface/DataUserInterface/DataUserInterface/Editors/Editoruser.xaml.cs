@@ -87,12 +87,12 @@ this.comment.Text = $"{data.comment}";
                     data = new user();
 
                 data.user_id = Convert.ToInt32(this.user_id.Text);
-data.forename = (this.forename.Text);
-data.surname = (this.surname.Text);
-data.username = (this.username.Text);
-data.password = (this.password.Text);
+data.forename = /**/(this.forename.Text);
+data.surname = /**/(this.surname.Text);
+data.username = /**/(this.username.Text);
+data.password = /**/(this.password.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.comment = (this.comment.Text);
+data.comment = /**/(this.comment.Text);
 
 
                 if (this._isCreateMode)

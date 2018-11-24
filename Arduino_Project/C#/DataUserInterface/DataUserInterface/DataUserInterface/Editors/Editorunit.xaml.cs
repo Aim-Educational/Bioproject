@@ -83,10 +83,10 @@ this.comment.Text = $"{data.comment}";
                     data = new unit();
 
                 data.unit_id = Convert.ToInt32(this.unit_id.Text);
-data.description = (this.description.Text);
-data.abbreviation = (this.abbreviation.Text);
+data.description = /**/(this.description.Text);
+data.abbreviation = /**/(this.abbreviation.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.comment = (this.comment.Text);
+data.comment = /**/(this.comment.Text);
 
 
                 if (this._isCreateMode)

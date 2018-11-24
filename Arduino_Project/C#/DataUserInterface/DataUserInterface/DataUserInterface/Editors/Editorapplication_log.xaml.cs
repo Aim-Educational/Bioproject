@@ -89,7 +89,7 @@ this.message_type.item = data.message_type;
                     data = new application_log();
 
                 data.application_log_id = Convert.ToInt32(this.application_log_id.Text);
-data.message = (this.message.Text);
+data.message = /**/(this.message.Text);
 data.datetime = (DateTime)this.datetime.SelectedDate;
 data.is_active = (bool)this.is_active.IsChecked;
 data.application = new Func<application>(() => { foreach(var v in db.applications){ if(v.application_id == (this.application.item as application).application_id) return v; } return null; })();

@@ -85,12 +85,16 @@ class Field
     /// The attributes applied to the field.
     string[] attributes;
 
+    /// The field allows null values.
+    bool allowsNull;
+
     override string toString() const
     {
         import std.format;
         import std.algorithm;
 
-        return format("%s\n%s %s;",
+        return format("<AllowsNull:%s>\n%s\n%s %s;",
+                      this.allowsNull,
                       this.attributes.map!(a => format("[%s]", a)).joiner("\n"),
                       this.typeName,
                       this.variableName);
@@ -468,6 +472,16 @@ private void parseObjectFile(Model model, string content, string className, stri
 
             // Then reset the attribute list.
             attributes = null;
+
+            // Figure out if the field allows nulls.
+            if(field.typeName[$-1] == '?')
+            {
+                field.allowsNull = true;
+                field.typeName = field.typeName[0..$-1];
+            }
+
+            if(field.typeName == "string" && !field.attributes.any!(a => a == "Required"))
+                field.allowsNull = true;
             continue;
         }
     }

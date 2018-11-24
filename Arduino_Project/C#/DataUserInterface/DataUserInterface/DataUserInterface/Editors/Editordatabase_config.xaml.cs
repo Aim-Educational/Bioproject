@@ -79,7 +79,7 @@ this.is_active.IsChecked = data.is_active;
                     data = new database_config();
 
                 data.database_config_id = Convert.ToInt32(this.database_config_id.Text);
-data.database_backup_directory = (this.database_backup_directory.Text);
+data.database_backup_directory = /**/(this.database_backup_directory.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 
 

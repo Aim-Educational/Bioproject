@@ -81,9 +81,9 @@ this.comment.Text = $"{data.comment}";
                     data = new supplier();
 
                 data.supplier_id = Convert.ToInt32(this.supplier_id.Text);
-data.name = (this.name.Text);
+data.name = /**/(this.name.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.comment = (this.comment.Text);
+data.comment = /**/(this.comment.Text);
 
 
                 if (this._isCreateMode)

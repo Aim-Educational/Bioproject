@@ -48,9 +48,14 @@ private
     }
 }
 
-void generateFiles(Config config)
+void generateFiles(Config config, bool shouldPrint)
 {
     auto model = Model.parseDirectory(config.modelFolder);
+    if(shouldPrint)
+    {
+        import std.stdio;
+        writeln(model);
+    }
 
     generateProviders(model, config);
     generateEditorsXAML(model, config);
@@ -316,7 +321,7 @@ private ControlInfo getControlInfo(Config config, Model model, TableObject objec
     switch(field.typeName)
     {
         case "string":
-            placeholders["$CONVERT"] = "";
+            placeholders["$DATA_TYPE"] = field.typeName;
             info.xaml       = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_XAML);
             info.onCreate   = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_CREATE);
             info.onLoad     = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_LOAD);
@@ -331,7 +336,6 @@ private ControlInfo getControlInfo(Config config, Model model, TableObject objec
             break;
 
         case "DateTime":
-        case "DateTime?":
             info.xaml       = Templater.resolveTemplate(placeholders, TEMPLATE_DATEPICKER_XAML);
             info.onCreate   = Templater.resolveTemplate(placeholders, TEMPLATE_DATEPICKER_CREATE);
             info.onLoad     = Templater.resolveTemplate(placeholders, TEMPLATE_DATEPICKER_LOAD);
@@ -343,16 +347,7 @@ private ControlInfo getControlInfo(Config config, Model model, TableObject objec
         case "float":
         case "double":
         case "decimal":
-            auto converters =
-            [
-                "int":     "Convert.ToInt32",
-                "long":    "Convert.ToInt64",
-                "float":   "Convert.ToSingle",
-                "double":  "Convert.ToDouble",
-                "decimal": "Convert.ToDecimal"
-            ];
-
-            placeholders["$CONVERT"] = converters[field.typeName];
+            placeholders["$DATA_TYPE"] = field.typeName;
             info.xaml       = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_XAML);
             info.onCreate   = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_CREATE);
             info.onLoad     = Templater.resolveTemplate(placeholders, TEMPLATE_TEXTBOX_LOAD);

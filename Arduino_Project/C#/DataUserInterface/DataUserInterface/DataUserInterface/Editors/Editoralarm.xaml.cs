@@ -94,7 +94,7 @@ this.group_type.item = data.group_type;
 
                 data.alarm_id = Convert.ToInt32(this.alarm_id.Text);
 data.value = Convert.ToDouble(this.value.Text);
-data.comment = (this.comment.Text);
+data.comment = /**/(this.comment.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 data.alarm_type = new Func<alarm_type>(() => { foreach(var v in db.alarm_type){ if(v.alarm_type_id == (this.alarm_type.item as alarm_type).alarm_type_id) return v; } return null; })();
 data.device = new Func<device>(() => { foreach(var v in db.devices){ if(v.device_id == (this.device.item as device).device_id) return v; } return null; })();

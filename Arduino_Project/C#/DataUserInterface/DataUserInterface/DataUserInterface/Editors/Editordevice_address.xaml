@@ -35,6 +35,7 @@
 <Label Content="Device Address Type:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6"/>
 
         <TextBox x:Name="device_address_id" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" IsReadOnly="true"/>
+<TextBox x:Name="pin_number" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="false"/>
 <TextBox x:Name="ip_address" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" IsReadOnly="false"/>
 <TextBox x:Name="comment" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" IsReadOnly="false"/>
 <CheckBox x:Name="is_active" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center"/>

@@ -85,9 +85,9 @@ this.device.item = data.device;
                     data = new device_history_action();
 
                 data.device_history_action1 = Convert.ToInt32(this.device_history_action1.Text);
-data.description = (this.description.Text);
+data.description = /**/(this.description.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.comment = (this.comment.Text);
+data.comment = /**/(this.comment.Text);
 data.device = new Func<device>(() => { foreach(var v in db.devices){ if(v.device_id == (this.device.item as device).device_id) return v; } return null; })();
 
 

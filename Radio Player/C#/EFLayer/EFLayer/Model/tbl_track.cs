@@ -37,7 +37,7 @@ namespace EFLayer.Model
         [StringLength(50)]
         public string publisher { get; set; }
 
-        public bool parental_advisory { get; set; }
+        public bool? parental_advisory { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -68,7 +68,6 @@ namespace EFLayer.Model
 
         public int dislikes { get; set; }
 
-        [Required]
         [StringLength(256)]
         public string keywords { get; set; }
 

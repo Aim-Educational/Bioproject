@@ -88,7 +88,7 @@ this.group_type.item = data.group_type;
 
                 data.group_member_id = Convert.ToInt32(this.group_member_id.Text);
 data.is_active = (bool)this.is_active.IsChecked;
-data.comment = (this.comment.Text);
+data.comment = /**/(this.comment.Text);
 data.contact = new Func<contact>(() => { foreach(var v in db.contacts){ if(v.contact_id == (this.contact.item as contact).contact_id) return v; } return null; })();
 data.group_type = new Func<group_type>(() => { foreach(var v in db.group_type){ if(v.group_type_id == (this.group_type.item as group_type).group_type_id) return v; } return null; })();
 

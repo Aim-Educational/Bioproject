@@ -79,7 +79,7 @@ this.is_active.IsChecked = data.is_active;
                     data = new history_event();
 
                 data.history_event_id = Convert.ToInt32(this.history_event_id.Text);
-data.description = (this.description.Text);
+data.description = /**/(this.description.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 
 

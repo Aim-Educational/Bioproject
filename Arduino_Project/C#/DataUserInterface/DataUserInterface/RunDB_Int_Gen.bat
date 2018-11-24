@@ -1,2 +1,2 @@
-..\..\..\..\Tools\dbinterfacegen\bin\dbinterfacegen.exe
+..\..\..\..\Tools\dbinterfacegen\bin\dbinterfacegen.exe -p
 pause

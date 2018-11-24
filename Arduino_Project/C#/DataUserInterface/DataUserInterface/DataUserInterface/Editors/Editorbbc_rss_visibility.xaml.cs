@@ -81,8 +81,8 @@ this.is_active.IsChecked = data.is_active;
                     data = new bbc_rss_visibility();
 
                 data.bbc_rss_visibility_id = Convert.ToInt32(this.bbc_rss_visibility_id.Text);
-data.description = (this.description.Text);
-data.comment = (this.comment.Text);
+data.description = /**/(this.description.Text);
+data.comment = /**/(this.comment.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 
 

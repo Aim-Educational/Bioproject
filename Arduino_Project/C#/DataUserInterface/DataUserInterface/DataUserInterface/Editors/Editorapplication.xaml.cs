@@ -83,8 +83,8 @@ this.is_active.IsChecked = data.is_active;
                     data = new application();
 
                 data.application_id = Convert.ToInt32(this.application_id.Text);
-data.name = (this.name.Text);
-data.description = (this.description.Text);
+data.name = /**/(this.name.Text);
+data.description = /**/(this.description.Text);
 data.application_version = Convert.ToInt32(this.application_version.Text);
 data.is_active = (bool)this.is_active.IsChecked;
 
