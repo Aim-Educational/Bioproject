@@ -69,6 +69,9 @@ static class Templater
      +
      +  The values `SOME VALUE TO TEST` and `SOME VALUE TO GIVE IT` have whitspace stripped from the start and end.
      +
+     +  Conditional placeholders are processed before normal placeholders, meaning normal placeholders can be used
+     +  within the value for `$PLACEHOLDER_TO_MAKE` without issue.
+     +
      + Params:
      +  placeholders = The values for all of the placeholders.
      +  data         = The template's data.
