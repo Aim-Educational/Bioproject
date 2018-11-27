@@ -16,18 +16,17 @@ using StandardUtils;
 
 namespace RSSUserInterface
 {
-    class RSSFeed
-    {
-        public string description;
-        public DateTime lastUpdateTime;
-        public DateTime nextUpdateTime;
-        public float frequency;
-        public UpdatePeriod.Period updatePeriod;
-        public string rssURL;
-    }
-
     public partial class Form1 : Form
     {
+        const int ForecastKey     = 1;
+        const int ObvservationKey = 2;
+
+        class RSSFeed
+        {
+            public rss_configuration configuration;
+            public DateTime nextUpdateTime;
+        }
+
         List<RSSFeed> feeds;
 
         public Form1()
@@ -49,16 +48,13 @@ namespace RSSUserInterface
 
                 foreach(var configuration in query)
                 {
-                    var feed = new RSSFeed
+                    feeds.Add(new RSSFeed()
                     {
-                        description = configuration.description,
-                        lastUpdateTime = configuration.last_update,
-                        frequency = (float)configuration.update_frequency,
-                        updatePeriod = RSSHelper.getUpdatePeriodEnumByID(configuration.update_period_id),
-                        rssURL = configuration.rss_url
-                    };
-                    feed.nextUpdateTime = RSSHelper.getNextUpdateTime(feed.lastUpdateTime, feed.frequency, feed.updatePeriod);
-                    feeds.Add(feed);
+                        configuration = configuration,
+                        nextUpdateTime = RSSHelper.getNextUpdateTime(configuration.last_update, 
+                                                                    (float)configuration.update_frequency, 
+                                                                    configuration.update_period)
+                    });
                 }
             }
         }
@@ -95,30 +91,50 @@ namespace RSSUserInterface
                 // TODO: Get URL from database? (Or are we just using the one from the textbox)
                 // Get the current RSS data.
                 BBCWeatherData rssData = null;
+#if DEBUG
+                if(feed.configuration.rss_configuration_type_id == ObvservationKey)
+                    rssData = BBCHourlyObservation.Get(feed.configuration.rss_url);
+                else if(feed.configuration.rss_configuration_type_id == ForecastKey)
+                    rssData = BBCThreeDayForecast.Get(feed.configuration.rss_url);
+#else
                 try
                 {
-                    rssData = BBCHourlyObservation.Get(feed.rssURL);
+                    if(feed.configuration.rss_configuration_type_id == ObvservationKey)
+                        rssData = BBCHourlyObservation.Get(feed.configuration.rss_url);
+                    else if(feed.configuration.rss_configuration_type_id == ForecastKey)
+                        rssData = BBCThreeDayForecast.Get(feed.configuration.rss_url);
                 }
                 catch (Exception ex)
                 {
                     // TODO: Log to file/Windows error reporter
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-                // If rssData is still null, then an exception has been thrown.
-                // Regardless of whether the data was retrieved or not, the code at the bottom needs to be ran.
-                // Hence this if statement.
-                if (rssData != null)
-                {
-                    // TODO: Process
-                    MessageBox.Show($"Feed Description: {feed.description} | Wind Direction: {rssData.windDirection} | Wind Speed: {rssData.windSpeed} | Visibility: {rssData.visibility.description}", "Debug");
-                } // What next?
+#endif
 
                 // Update the times
-                feed.lastUpdateTime = feed.nextUpdateTime;
-                feed.nextUpdateTime = RSSHelper.getNextUpdateTime(feed.lastUpdateTime, feed.frequency, feed.updatePeriod);
+                feed.configuration.last_update = feed.nextUpdateTime;
+                feed.nextUpdateTime = RSSHelper.getNextUpdateTime(feed.configuration.last_update,
+                                                                  (float)feed.configuration.update_frequency,
+                                                                  feed.configuration.update_period);
+
+                // If rssData is still null, then an exception has been thrown.
+                if (rssData == null)
+                    return;
+
+                rssData.data.source_id              = feed.configuration.rss_configuration_id;
+                rssData.data.cloud_coverage_id      = rssData.cloudCoverage.bbc_rss_cloud_coverage_id;
+                rssData.data.forecast_pollution_id  = (rssData.pollution == null) ? -1 
+                                                                                  : rssData.pollution.bbc_rss_pollution_id;
+                rssData.data.pressure_change_id     = rssData.pressureChange.bbc_rss_barometric_change_id;
+                rssData.data.visibility_id          = rssData.visibility.bbc_rss_visibility_id;
+                rssData.data.wind_direction_id      = rssData.windDirection.bbc_rss_wind_direction_id;
+
+                using (var db = new PlanningContext())
+                {
+                    db.rss_feed_result.Add(rssData.data);
+                    db.SaveChanges();
+                }
             }
-            // TODO: May have to think about asynchronous processing.
         }
     }
 }

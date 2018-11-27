@@ -61,13 +61,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="DataUserInterface\Windows\InterfaceWindow2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataUserInterface\Windows\InterfaceWindow2.xaml.cs">
+      <DependentUpon>InterfaceWindow2.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -112,42 +118,8 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Compile Include="DataUserInterface\SearchProviders\SearchProvideraction_level.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProvideraction_type.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProvideralarm.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProvideralarm_type.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderapplication.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderapplication_log.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderbackup_log.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderbbc_rss_barometric_change.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderbbc_rss_general.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderbbc_rss_visibility.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProvidercontact.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProvidercontact_email.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProvidercontact_history.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProvidercontact_telephone.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProvidercontact_type.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderdatabase_config.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_address.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_address_type.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_history.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_history_action.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_type.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_url.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_value.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProvidergroup_action.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProvidergroup_member.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProvidergroup_type.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderhistory_event.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProvidermessage_type.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderrss_configuration.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProvidersupplier.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderunit.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProviderupdate_period.cs" />
-    <Compile Include="DataUserInterface\SearchProviders\SearchProvideruser.cs" />
-  </ItemGroup>
+<ItemGroup>
+<Compile Include="DataUserInterface\SearchProviders\SearchProvideraction_level.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvideraction_type.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvideralarm.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvideralarm_type.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderapplication.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderapplication_log.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderbackup_log.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderbbc_rss_barometric_change.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderbbc_rss_general.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderbbc_rss_visibility.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidercontact.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidercontact_email.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidercontact_history.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidercontact_telephone.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidercontact_type.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdatabase_config.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_address.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_address_type.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_history.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_history_action.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_type.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_url.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderdevice_value.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidergroup_action.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidergroup_member.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidergroup_type.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderhistory_event.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidermenu.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidermessage_type.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderrss_configuration.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvidersupplier.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderunit.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProviderupdate_period.cs" /><Compile Include="DataUserInterface\SearchProviders\SearchProvideruser.cs" /></ItemGroup>
 <ItemGroup>
 <Compile Include="DataUserInterface\Editors\Editoraction_level.xaml.cs">
     <DependentUpon>Editoraction_level.xaml</DependentUpon>
@@ -396,6 +368,15 @@
     <DependentUpon>Editorhistory_event.xaml</DependentUpon>
 </Compile>
 <Page Include="DataUserInterface\Editors\Editorhistory_event.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+</Page>
+</ItemGroup>
+<ItemGroup>
+<Compile Include="DataUserInterface\Editors\Editormenu.xaml.cs">
+    <DependentUpon>Editormenu.xaml</DependentUpon>
+</Compile>
+<Page Include="DataUserInterface\Editors\Editormenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
 </Page>

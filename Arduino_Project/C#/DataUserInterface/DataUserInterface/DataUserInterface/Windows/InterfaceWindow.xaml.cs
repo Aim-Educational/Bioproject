@@ -49,6 +49,7 @@ this.addEditorButton("group_action",  new SearchProvidergroup_action(), new Edit
 this.addEditorButton("group_member",  new SearchProvidergroup_member(), new Editorgroup_member(this._mainInterface));
 this.addEditorButton("group_type",  new SearchProvidergroup_type(), new Editorgroup_type(this._mainInterface));
 this.addEditorButton("history_event",  new SearchProviderhistory_event(), new Editorhistory_event(this._mainInterface));
+this.addEditorButton("menu",  new SearchProvidermenu(), new Editormenu(this._mainInterface));
 this.addEditorButton("message_type",  new SearchProvidermessage_type(), new Editormessage_type(this._mainInterface));
 this.addEditorButton("rss_configuration",  new SearchProviderrss_configuration(), new Editorrss_configuration(this._mainInterface));
 this.addEditorButton("supplier",  new SearchProvidersupplier(), new Editorsupplier(this._mainInterface));

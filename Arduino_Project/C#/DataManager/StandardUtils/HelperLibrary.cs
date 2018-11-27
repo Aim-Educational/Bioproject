@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Configuration;
 using System.Net;
+using System.Linq;
 
 using DataManager;
+using DataManager.Model;
 
 namespace StandardUtils
 {
@@ -33,45 +35,56 @@ namespace StandardUtils
             }
         }
 
-        public static UpdatePeriod.Period getUpdatePeriodEnumByID(int id)
+        public static DateTime getNextUpdateTime(DateTime lastUpdate, float frequency, update_period updatePeriod)
         {
-            var idAsEnum = (UpdatePeriod.Period)id;
-
-            if (!Enum.IsDefined(typeof(UpdatePeriod.Period), idAsEnum))
-                throw new ArgumentOutOfRangeException("id");
-
-            return idAsEnum;
-        }
-
-        public static DateTime getNextUpdateTime(DateTime lastUpdate, float frequency, UpdatePeriod.Period updatePeriod)
-        {
-            switch(updatePeriod)
+            switch(updatePeriod.description)
             {
-                case UpdatePeriod.Period.Second:
+                case "Second":
                     return lastUpdate.AddSeconds(frequency);
 
-                case UpdatePeriod.Period.Minute:
+                case "Minute":
                     return lastUpdate.AddMinutes(frequency);
 
-                case UpdatePeriod.Period.Hour:
+                case "Hour":
                     return lastUpdate.AddHours(frequency);
 
-                case UpdatePeriod.Period.Day:
+                case "Day":
                     return lastUpdate.AddDays(frequency);
 
-                case UpdatePeriod.Period.Week:
+                case "Week":
                     return lastUpdate.AddDays(7 * frequency);
 
-                case UpdatePeriod.Period.Month:
+                case "Month":
                     var months = (int)Math.Round(frequency);
                     return lastUpdate.AddMonths(months);
 
-                case UpdatePeriod.Period.Year:
+                case "Year":
                     var years = (int)Math.Round(frequency);
                     return lastUpdate.AddYears(years);
 
                 default:
                     throw new Exception($"You got here via black magic. Value = {updatePeriod}");
+            }
+        }
+
+        public static void createRSSError(string rawXML, string message)
+        {
+            using (var db = new PlanningContext())
+            {
+                var result = db.rss_error.FirstOrDefault(e => e.data == rawXML && e.message == message);
+                if (result != null)
+                    return;
+
+                var error = new rss_error();
+                error.date_and_time = DateTime.Now;
+                error.data = rawXML;
+                error.message = message;
+                error.comment = "N/A";
+                error.version = 1;
+                error.is_active = true;
+
+                db.rss_error.Add(error);
+                db.SaveChanges();
             }
         }
     }

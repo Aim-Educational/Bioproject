@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BBCHourlyObvs.cs" />
+    <Compile Include="BBCFeedObjects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RSSFeedLibrary.cs" />
   </ItemGroup>
@@ -64,6 +64,10 @@
     <ProjectReference Include="..\DataManager\DataManager.csproj">
       <Project>{a5caca5c-b79b-477e-b9ca-630923ef565c}</Project>
       <Name>DataManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StandardUtils\StandardUtils.csproj">
+      <Project>{b825049f-750b-41c5-a3e4-11026ef10190}</Project>
+      <Name>StandardUtils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
