@@ -39,7 +39,7 @@
             // timerDoProcess
             // 
             this.timerDoProcess.Enabled = true;
-            this.timerDoProcess.Interval = 10000;
+            this.timerDoProcess.Interval = 600000;
             this.timerDoProcess.Tick += new System.EventHandler(this.timerDoProcess_Tick);
             // 
             // labelURL

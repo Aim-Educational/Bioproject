@@ -94,8 +94,8 @@ namespace RSSUserInterface
 #if DEBUG
                 if(feed.configuration.rss_configuration_type_id == ObvservationKey)
                     rssData = BBCHourlyObservation.Get(feed.configuration.rss_url);
-                else if(feed.configuration.rss_configuration_type_id == ForecastKey)
-                    rssData = BBCThreeDayForecast.Get(feed.configuration.rss_url);
+                //else if(feed.configuration.rss_configuration_type_id == ForecastKey)
+                //    rssData = BBCThreeDayForecast.Get(feed.configuration.rss_url);
 #else
                 try
                 {
@@ -131,8 +131,11 @@ namespace RSSUserInterface
 
                 using (var db = new PlanningContext())
                 {
-                    db.rss_feed_result.Add(rssData.data);
-                    db.SaveChanges();
+                    if(db.rss_feed_result.FirstOrDefault(f => f.date_and_time_data == rssData.data.date_and_time_data) == null)
+                    {
+                        db.rss_feed_result.Add(rssData.data);
+                        db.SaveChanges();
+                    }
                 }
             }
         }

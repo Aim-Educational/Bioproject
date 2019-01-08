@@ -40,10 +40,6 @@ namespace EFLayer.Model
         public bool parental_advisory { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string server_name { get; set; }
-
-        [Required]
         [StringLength(256)]
         public string folder_path { get; set; }
 
@@ -68,7 +64,6 @@ namespace EFLayer.Model
 
         public int dislikes { get; set; }
 
-        [Required]
         [StringLength(256)]
         public string keywords { get; set; }
 

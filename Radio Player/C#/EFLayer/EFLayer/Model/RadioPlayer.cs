@@ -14,6 +14,7 @@ namespace EFLayer.Model
 
         public virtual DbSet<tbl_collection> tbl_collection { get; set; }
         public virtual DbSet<tbl_collectionmap> tbl_collectionmap { get; set; }
+        public virtual DbSet<tbl_device_config> tbl_device_config { get; set; }
         public virtual DbSet<tbl_format> tbl_format { get; set; }
         public virtual DbSet<tbl_genre> tbl_genre { get; set; }
         public virtual DbSet<tbl_genremap> tbl_genremap { get; set; }

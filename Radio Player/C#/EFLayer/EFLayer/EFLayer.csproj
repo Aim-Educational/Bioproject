@@ -52,6 +52,7 @@
     <Compile Include="Model\RadioPlayer.cs" />
     <Compile Include="Model\tbl_collection.cs" />
     <Compile Include="Model\tbl_collectionmap.cs" />
+    <Compile Include="Model\tbl_device_config.cs" />
     <Compile Include="Model\tbl_format.cs" />
     <Compile Include="Model\tbl_genre.cs" />
     <Compile Include="Model\tbl_genremap.cs" />

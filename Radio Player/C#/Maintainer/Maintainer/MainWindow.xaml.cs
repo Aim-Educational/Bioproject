@@ -4,6 +4,8 @@ using Aim.DatabaseInterface.Interfaces;
 using Aim.DatabaseInterface.Windows;
 using Maintainer.Controls;
 using Maintainer.SearchProviders;
+using Maintainer.Util;
+using System;
 
 namespace Maintainer
 {
@@ -27,6 +29,9 @@ namespace Maintainer
             this.addEditorButton("Mood",        new SearchProviderMood(),       new EditorMood(this._mainInterface));
             this.addEditorButton("Playlist",    new SearchProviderPlaylist(),   new EditorPlaylist(this._mainInterface));
             this.addEditorButton("Track",       new SearchProviderTrack(),      new EditorTrack(this._mainInterface));
+            this.addEditorButton("TrackParser", new SearchProviderTrack(),      new EditorTrackPicker(this._mainInterface));
+
+            MessageBox.Show(Environment.UserDomainName);
 
             var button = new Button();
             button.Content = "[New Window]";

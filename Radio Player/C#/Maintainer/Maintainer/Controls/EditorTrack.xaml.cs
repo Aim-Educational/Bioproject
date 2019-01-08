@@ -8,6 +8,7 @@ using Aim.DatabaseInterface.Interfaces;
 using Aim.DatabaseInterface.Windows;
 using EFLayer.Model;
 using Maintainer.SearchProviders;
+using System.IO;
 
 namespace Maintainer.Controls
 {
@@ -79,7 +80,6 @@ namespace Maintainer.Controls
             this.txtBitrate.Text            = $"{track.bitrate}";
             this.txtPublisher.Text          = track.publisher;
             this.checkboxPAL.IsChecked      = track.parental_advisory;
-            this.txtServerName.Text         = track.server_name;
             this.txtFolder.Text             = track.folder_path;
             this.txtFileName.Text           = track.file_name;
             this.txtDuration.Text           = $"{track.duration}";
@@ -122,7 +122,6 @@ namespace Maintainer.Controls
                 track.bitrate           = this.txtBitrate.Text;
                 track.publisher         = this.txtPublisher.Text;
                 track.parental_advisory = (bool)this.checkboxPAL.IsChecked;
-                track.server_name       = this.txtServerName.Text;
                 track.folder_path       = this.txtFolder.Text;
                 track.file_name         = this.txtFileName.Text;
                 track.duration          = Convert.ToInt32(this.txtDuration.Text);

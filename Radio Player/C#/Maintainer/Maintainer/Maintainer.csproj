@@ -43,8 +43,15 @@
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
     </Reference>
+    <Reference Include="NAudio, Version=1.8.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.8.5\lib\net35\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="policy.2.0.taglib-sharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
+      <HintPath>..\packages\taglib.2.1.0.0\lib\policy.2.0.taglib-sharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,6 +61,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="taglib-sharp, Version=2.1.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
+      <HintPath>..\packages\taglib.2.1.0.0\lib\taglib-sharp.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -66,6 +76,9 @@
     </ApplicationDefinition>
     <Compile Include="Controls\EditorCollection.xaml.cs">
       <DependentUpon>EditorCollection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EditorTrackPicker.xaml.cs">
+      <DependentUpon>EditorTrackPicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EditorGenre.xaml.cs">
       <DependentUpon>EditorGenre.xaml</DependentUpon>
@@ -88,9 +101,14 @@
     <Compile Include="SearchProviders\SearchProviderTrack.cs" />
     <Compile Include="SearchProviders\SearchProviderMood.cs" />
     <Compile Include="SearchProviders\SearchProviderGenre.cs" />
+    <Compile Include="Util\Config.cs" />
     <Page Include="Controls\EditorCollection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\EditorTrackPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\EditorGenre.xaml">
       <SubType>Designer</SubType>

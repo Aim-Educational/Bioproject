@@ -24,6 +24,9 @@ namespace Maintainer.SearchProviders
 
             using (var db = new RadioPlayer())
             {
+                foreach(var map in db.tbl_collectionmap.Where(m => m.track_id == track.track_id))
+                    db.tbl_collectionmap.Remove(map);
+
                 db.tbl_track.Remove(db.tbl_track.Where(t => t.track_id == track.track_id).First());
                 db.SaveChanges();
             }

@@ -1,0 +1,58 @@
+Maintanence
+{
+	Device
+	{
+		device
+		device_address
+		device_address_type
+		device_history
+		device_history_action
+		device_type
+		device_url
+		device_value
+	}
+	supplier
+	Contact
+	{
+		contact
+		contact_email
+		contact_history
+		contact_telephone
+		contact_type
+	}
+	user
+}
+
+Group
+{
+	group_action
+	group_member
+	group_type
+}
+
+Configuration
+{
+	action_level
+	action_type
+	alarm
+	alarm_type
+	application
+	database_config
+	message_type
+	unit
+	update_period
+	RSS
+	{
+		rss_configuration
+		bbc_rss_barometric_change
+		bbc_rss_general
+		bbc_rss_visibility
+	}
+}
+
+Historical
+{
+	application_log
+	backup_log
+	history_event
+}
